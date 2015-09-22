@@ -34,3 +34,5 @@ Route::group(array('prefix'=>'user'), function(){
 	//C端用户注册
 	Route::post('c_register','UserController@cSiteRegister');
 });
+
+Route::group(array('prefix'))
