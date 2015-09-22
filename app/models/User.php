@@ -39,10 +39,7 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User implements UserInterface
 		'updated_at'
 	];
 
-	protected static function get_unique_id(){
-
-        return str_replace('.', '', uniqid( self::$id_prefix, true ) );
-    }
+	protected static $id_prefix = 'yhxx';
 
 	/*
 	 * 获取费用表
@@ -170,5 +167,18 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User implements UserInterface
 	public function getReminderEmail()
 	{
 		return $this->email;
+	}
+
+	/**
+	 * 监听创建事件
+	 */
+	public static function boot(){
+
+		parent::boot();
+
+		self::creating(function( $user ){
+			$user->user_id = BaseModel::get_unique_id( self::$id_prefix );
+			return true;
+		});
 	}
 }	

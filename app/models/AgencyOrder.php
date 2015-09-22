@@ -28,12 +28,9 @@ class AgencyOrder extends BaseModel{
     ];
 
     /*
-     * 获得生成主键时所用的前缀
+     * 生成主键时所用的前缀
      */
-    protected static function get_id_prefix(){
-
-        return 'dbdd';
-    }
+    protected static $id_prefix = 'dbdd';
 
     /*
      * 获得所属用户
@@ -57,5 +54,18 @@ class AgencyOrder extends BaseModel{
     public function refund_record(){
 
         return $this->hasOne( 'RefundRecord', 'order_id', 'order_id' );
+    }
+
+    /**
+     * 监听创建事件
+     */
+    public static function boot(){
+
+        parent::boot();
+
+        self::creating(function( $order ){
+            $order->order_id = self::get_unique_id( self::$id_prefix );
+            return true;
+        });
     }
 }

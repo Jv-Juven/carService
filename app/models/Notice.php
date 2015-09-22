@@ -13,12 +13,9 @@ class Notice extends BaseModel{
     ];
 
     /*
-     * 获得生成主键时所用的前缀
+     * 生成主键时所用的前缀
      */
-    protected static function get_id_prefix(){
-
-        return 'tzzx';
-    }
+    protected static $id_prefix = 'tzzx';
 
     /* 
      * 获取读过该通知的用户
@@ -34,5 +31,18 @@ class Notice extends BaseModel{
     public function users_read_id(){
 
         return $this->hasMany( 'UserReadNotice', 'notice_id', 'notice_id' );
+    }
+
+    /**
+     * 监听创建事件
+     */
+    public static function boot(){
+
+        parent::boot();
+
+        self::creating(function( $notice ){
+            $notice->notice_id = self::get_unique_id( self::$id_prefix );
+            return true;
+        });
     }
 }

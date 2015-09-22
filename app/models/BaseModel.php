@@ -5,13 +5,15 @@
  */
 class BaseModel extends Eloquent{
 
-    /*
-     * 子类中调用该方法前，需实现
-     *      [public|private|protected] static function get_id_prefix();
-     *      返回字符串
+    /**
+     * 获得唯一id
+     * 
+     * @param   $prefix id前缀
+     * 
+     * @return  string
      */
-    protected static function get_unique_id(){
+    protected static function get_unique_id( $prefix ){
 
-        return str_replace('.', '', uniqid( self::get_id_prefix(), true ) );
+        return str_replace('.', '', uniqid( $prefix, true ) );
     }
 }

@@ -23,12 +23,9 @@ class TrafficViolationInfo extends BaseModel{
     ];
 
     /*
-     * 获得生成主键时所用的前缀
+     * 生成主键时所用的前缀
      */
-    protected static function get_id_prefix(){
-        
-        return 'wzxx';
-    }
+    protected static $id_prefix = 'wzxx';
 
     /*
      * 获得所属订单
@@ -36,5 +33,18 @@ class TrafficViolationInfo extends BaseModel{
     public function order(){
 
         return $this->belongsTo( 'AgencyOrder', 'order_id', 'order_id' );
+    }
+
+    /**
+     * 监听创建事件
+     */
+    public static function boot(){
+
+        parent::boot();
+
+        self::creating(function( $traffic_violation_info ){
+            $traffic_violation_info->traffic_id = self::get_unique_id( self::$id_prefix );
+            return true;
+        });
     }
 }
