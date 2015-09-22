@@ -13,5 +13,5 @@
 
 Route::get('/', function()
 {
-	return View::make('pages.login');
+	return View::make('layouts.submaster');
 });

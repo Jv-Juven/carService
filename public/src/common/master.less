@@ -1,0 +1,119 @@
+
+@import "./common.less";
+
+@font-color: rgb(191, 191, 191);
+@header-height: 45px;
+@blue: rgb(44, 124 ,223);
+
+#wrapper{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	min-width: 1000px;
+	overflow: hidden;
+}
+
+.header{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: @header-height;
+	background: rgb(255, 255, 255);
+	// background: rgb(41, 36, 23);
+	.logo{
+		width: auto;
+		height: 100%;
+		float: left;
+		margin-left: 10px;
+		.logo-wrapper{
+			height: @header-height;
+			li{
+				height: auto;
+				float: left;
+				font-size: 16px;
+				font-weight: bolder;
+				display: inline-block;
+				line-height: 45px;
+				span{
+					padding: 0px 15px;
+					color: @font-color;
+				}
+				img{
+					width: 66px;
+					height: 28px;
+					margin-top: 10px;
+				}
+			}
+			.header-logo-title{
+				span{
+					// display: inline-block;
+					width: 100%;
+					// height: auto;
+					border-left: 1px solid @font-color;
+				}
+			}
+		}
+	}
+	.header-menu{
+		float: left;
+		margin-left: 0px;
+		.header-menu-item{
+			float: left;
+			margin: 10px 5px;
+			overflow: auto;
+			a{
+				display: block;
+				.a-color();
+				padding: 10px 15px;
+			}
+		}
+		.active{
+			color: white;
+			background: @blue;
+			a{
+				.a-color(rgb(255, 255, 255));
+			}
+		}
+	}
+	.header-btns-wrapper{
+		height: @header-height;
+		float: right;
+		margin-right: 30px;
+		li{
+			line-height: @header-height;
+			height: @header-height;
+			float: left;
+			img{
+				width: 110px;
+				height: 24px;
+				margin-top: 12px;
+			}
+			a{
+				padding: 0px 10px;
+				.a-color(@font-color);
+				font-weight: bolder;
+			}
+		}
+		.header-btns{
+			a{
+				display: inline-block;
+				height: 16px;
+				line-height: 16px;
+				&:hover{
+					text-decoration: underline;
+				}
+			}
+		}
+		.btns-last{
+			a{
+				border-left: 1px solid @font-color;
+			}
+		}
+	}
+}
+.body-content{
+	width: 100%;
+	height: 100%;
+	padding-top: @header-height;
+}
