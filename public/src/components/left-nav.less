@@ -1,0 +1,80 @@
+@import "./../common/common.less";
+
+.left-nav{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: @nav-width;
+	min-height: 100%;
+	background: @nav-bg;
+	overflow: hidden;
+	.nav{
+		width: 100%;
+		.nav-first{
+			width: 100px;
+			height: auto;
+			margin: 0px auto;
+			&>.li{
+				color: white;
+				border-bottom:1px solid rgb(82, 159, 253); 
+				&>a{
+					padding: 20px 10px 18px 0px;
+					width: 100%;
+					margin-left: 4px;
+					.a-color(rgb(255, 255, 255));
+				}
+				.nav-sec{
+					padding-bottom: 16px;
+					margin-left: -10px;
+					width: @nav-width;
+					li{
+						position: relative;
+						width: 100%;
+						overflow: hidden;
+						a{
+							font-size: 12px;
+							padding: 8px 0px 8px 26px;
+							width: 100%;
+							.a-color(rgb(255, 255, 255));
+							.nav-icon{
+								height: 100%;
+								img{
+									width: 15px;
+								}
+							}
+						}
+						.nav-arrow{
+							position: absolute;
+							right: 0px;
+							top: 0px;
+							height: 100%;
+							display: none;
+							img{
+								margin-top: 9px;
+								width: 6px;
+							}
+						}
+					}
+					.active{
+						.nav-arrow{
+							display: block;
+						}
+						a{
+							background: rgb(0, 99, 174);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	a{
+		display: inline-block;
+	}
+
+	i{
+		font-style: normal;
+		display: inline-block;
+		vertical-align: middle;
+	}
+}

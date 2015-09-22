@@ -13,5 +13,5 @@
 
 Route::get('/', function()
 {
-	return View::make('layouts.submaster');
+	return View::make('pages.serve.business.violation');
 });
