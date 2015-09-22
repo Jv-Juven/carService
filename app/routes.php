@@ -13,5 +13,5 @@
 
 Route::get('/', function()
 {
-	return View::make('pages.serve.business.violation');
+	return View::make('pages.serve.business.vio');
 });

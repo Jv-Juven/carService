@@ -13,7 +13,7 @@
 	<div class="right-content">
 	@include("components.left-nav.violation-left-nav")
 		<div class="content-box">
-			<div class="violation-wrapper">
+			<div class="violation-container">
 				<!-- 查询框 START -->
 				<div class="violation-search">
 					<div class="violation-wrapper">
@@ -185,6 +185,124 @@
 						</table>
 						<div class="vio-submit-btn">
 							<a href="javascript:">办理违章</a>
+						</div>
+					</div>
+					<div class="vio-records-table">
+						<table>
+							<tr class="tb-head">
+								<th>
+									<label for="vio_select_all">
+										<input type="checkbox" id="vio_select_all"/>
+										全选
+									</label>
+								</th>
+								<th>违章时间</th>
+								<th>[违章城市]违章地点</th>
+								<th>违章行为</th>
+								<th>扣分分值</th>
+								<th>本金</th>
+								<th>滞纳金</th>
+								<th>服务费</th>
+							</tr>
+							<tr class="tb-tr">
+								<td>
+									<input type="checkbox" />
+								</td>
+								<td>
+									<span class="date">2015-09-12</span>
+									<span class="time">12:00</span>
+								</td>
+								<td>
+									<span class="city">[广东省 广州市]</span>
+									<span class="block">天河区五山街</span>
+									<span class="status">[电子眼未处理-未交款]</span>
+								</td>
+								<td>
+									<span class="describe">
+										机动车违反规定停放、临时停车，妨碍其他车辆、行人通行的
+									</span>
+									<span class="num">[1006]</span>
+								</td>
+								<td>
+									<span class="scores">2</span>
+								</td>
+								<td>
+									<span class="principal">200</span>
+								</td>
+								<td>
+									<span class="overdul-fine">0</span>
+								</td>
+								<td>
+									<span class="serve-money">10</span>
+								</td>
+							</tr>
+							<tr class="tb-tr">
+								<td>
+									<input type="checkbox" />
+								</td>
+								<td>
+									<span class="date">2015-09-12</span>
+									<span class="time">12:00</span>
+								</td>
+								<td>
+									<span class="city">[广东省 广州市]</span>
+									<span class="block">天河区五山街</span>
+									<span class="status">[电子眼未处理-未交款]</span>
+								</td>
+								<td>
+									<span class="describe">
+										机动车违反规定停放、临时停车，妨碍其他车辆、行人通行的
+									</span>
+									<span class="num">[1006]</span>
+								</td>
+								<td>
+									<span class="scores">1</span>
+								</td>
+								<td>
+									<span class="principal">200</span>
+								</td>
+								<td>
+									<span class="overdul-fine">0</span>
+								</td>
+								<td>
+									<span class="serve-money">10</span>
+								</td>
+							</tr>
+							<tr class="tb-tr">
+								<td>
+									<input type="checkbox" />
+								</td>
+								<td>
+									<span class="date">2015-09-12</span>
+									<span class="time">12:00</span>
+								</td>
+								<td>
+									<span class="city">[广东省 广州市]</span>
+									<span class="block">天河区五山街</span>
+									<span class="status">[电子眼未处理-未交款]</span>
+								</td>
+								<td>
+									<span class="describe">
+										机动车违反规定停放、临时停车，妨碍其他车辆、行人通行的
+									</span>
+									<span class="num">[1006]</span>
+								</td>
+								<td>
+									<span class="scores">3</span>
+								</td>
+								<td>
+									<span class="principal">200</span>
+								</td>
+								<td>
+									<span class="overdul-fine">0</span>
+								</td>
+								<td>
+									<span class="serve-money">10</span>
+								</td>
+							</tr>
+						</table>
+						<div class="vio-submit-btn">
+							<a href="javascript:">联系客服</a>
 						</div>
 					</div>
 				</div>

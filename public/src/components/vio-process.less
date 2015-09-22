@@ -1,0 +1,57 @@
+@import "./../common/common.less";
+
+@border-col: rgb(220, 220, 220);
+@radius: 12px;
+@height: 28px;
+
+.vio-process-wrapper{
+	position: relative;
+	width: 100%;
+	height: @height;
+	margin: 0px auto 30px;
+}
+.vio-process{
+	position: absolute;
+	top: 0px;
+	left: 50%;
+	margin: 0px -320px;
+	display: block;
+	width: 640px;
+	height: @height;
+	.vio-proc-item{
+		float: left;
+		width: 110px;
+		height: @height;
+		border: 1px solid @border-col;
+		overflow: hidden;
+		display: inline-block;
+		&>a{
+			width: 100%;
+			text-align: center;
+			height: 100%;
+			padding: 7px 0px;
+			line-height: 14px;
+			display: inline-block;
+			.a-color(rgb(180, 180, 180));
+		}
+	}
+	.first{
+		border-radius: @radius 0px 0px @radius;
+	}
+	.last{
+		border-radius: 0px @radius @radius 0px;
+	}
+	.active{
+		background: @blue;
+		border-color: @blue;
+		&>a{
+			.a-color(rgb(255, 255, 255));
+		}
+	}
+	.vio-arrow{
+		float: left;
+		margin: 4px 20px;
+		width: 22px;
+		display: inline-block;
+	}
+}
