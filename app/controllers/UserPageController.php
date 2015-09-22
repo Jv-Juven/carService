@@ -41,4 +41,10 @@ class UserPageController extends BaseController{
 		return '成功';
 		// return View::make('')->with(array('user_id',$user->user_id));
 	}
+
+	//打款码填写静态页面
+	public function remarkCode()
+	{
+		return View::make('');
+	}
 }

@@ -27,6 +27,10 @@ Route::group(array('prefix'=>'user'), function(){
 	Route::get('b_active','UserPageController@emailActivePage');
 	//发到B端用户邮箱后，点击链接验证，通过后去到信息登记页
 	Route::get('b_site_active','UserPageController@isEmailActive');
+	//打款验证码静态页面
+	Route::get('remark_code','UserPageController@remarkCode');
+	//登录
+	Route::post('login','UserController@login');
 	//C端用户注册
 	Route::post('c_register','UserController@cSiteRegister');
 });
