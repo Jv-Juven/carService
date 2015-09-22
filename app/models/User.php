@@ -39,11 +39,10 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User implements UserInterface
 		'updated_at'
 	];
 
-	public static $id_prefix = 'yhxx';
+	protected static function get_unique_id(){
 
-	protected static function get_id_prefix(){
-		return 'yhxx';
-	}
+        return str_replace('.', '', uniqid( self::$id_prefix, true ) );
+    }
 
 	/*
 	 * 获取费用表
