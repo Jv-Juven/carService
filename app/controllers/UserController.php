@@ -110,7 +110,7 @@ class UserController extends BaseController{
 		}
 	}
 
-	//信息登记
+	//信息登记<<<<<<未测试>>>>>>
 	public function informationRegister()
 	{
 		//手机验证码逻辑没写
@@ -206,7 +206,7 @@ class UserController extends BaseController{
             'password'		=> $password,
 	        ];
         try
-        {
+        {	
             $user = Sentry::authenticate($cred,false);
             if($user)
             {
