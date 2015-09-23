@@ -17,5 +17,5 @@
 @stop
 
 @section('right-content')
-    @include('pages.message-center.message-base')
+    @include('pages.message-center.message.base')
 @stop

@@ -1,5 +1,6 @@
 
 @import '../../../common/common.less';
+@import '../../../common/list/list.less';
 
 @color-blue: #1287eb;
 @color-grey: #f5f5f2;
@@ -24,39 +25,21 @@
     background: @color-blue;
 }
 
-.msg-section{
+.data-wrap{
     width: 760px;
     margin-top: 18px;
-    background: #fff;
-
-    .msg-top{
-        color: #fff;
-        font-size: 13px;
-        line-height: 32px;
-        background: #999a92;
-        .item-rt{
-            margin-right: 50px;
-        }
-    }
 }
 
-.msg-list{
-    .odd-item{
-        background-color: #fff;
-    }
-    .even-item{
-        background-color: #f5f5f5;
-    }
+.data-list{
     .read{
         color: @color-msg-read;
     }
 }
 
-.msg-item{
-    width: 100%;
-    font-size: 12px;
-    line-height: 40px;
-    color: rgb(128,127,125);
+.data-head{
+    .item-rt{
+        margin-right: 50px;
+    }
 }
 
 .item-lf{
@@ -67,60 +50,4 @@
 .item-rt{
     float: right;
     margin-right: 5px;
-}
-
-@paginate-font-size: 11px;
-@paginate-line-height: 25px;
-.paginate-wrap{
-    margin: 14px auto;
-    max-width: 320px;
-
-    font-size: @paginate-font-size;
-    line-height: @paginate-line-height;
-    text-align: center;
-}
-
-.page-list{
-    .page-item{
-        width: 30px;
-        float: left;
-        cursor: pointer;
-        margin-left: 1px;
-        border-radius: 3px;
-        background: @color-grey;
-        color: @color-msg-read;
-    }
-    .active{
-        color: #fff;
-        background-color: #96978f;
-    }
-}
-
-.clk-rd-wrap{
-    float: left;
-}
-
-.ipt-rd-wrap{
-    float: left;
-    input{
-        width: 30px;
-        float: left;
-        display: block;
-        border-radius: 5px;
-        font-size: @paginate-font-size;
-        line-height: @paginate-line-height;
-    }
-    .ipt-page{
-        margin-left: 20px;
-        border: solid @color-grey 1px;
-        &:focus{
-            outline: none;
-        }
-    }
-    .ipt-sbm{
-        border: none;
-        cursor: pointer;
-        background: @color-grey;
-        margin-left: 5px;
-    }
 }
