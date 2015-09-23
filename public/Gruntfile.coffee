@@ -69,10 +69,14 @@ module.exports = (grunt)->
                     'dist/css/pages/serve-center/business/pay.css': ['src/pages/serve-center/business/pay.less']
                     'dist/css/pages/serve-center/business/success.css': ['src/pages/serve-center/business/success.less']
 
-                    # message-center
+                    # message center
                     'dist/css/pages/message-center/feedback/index.css': ['src/pages/message-center/feedback/index.less']
                     'dist/css/pages/message-center/feedback/success.css': ['src/pages/message-center/feedback/success.less']
                     'dist/css/pages/message-center/message/base.css': ['src/pages/message-center/message/base.less']
+
+                    # finance center
+                    'dist/css/pages/finance-center/cost-manage/cost-detail.css':['src/pages/finance-center/cost-manage/cost-detail.less']
+                    'dist/css/pages/finance-center/cost-manage/refund-record.css':['src/pages/finance-center/cost-manage/refund-record.less']
 
         cssmin:
             mobile:
