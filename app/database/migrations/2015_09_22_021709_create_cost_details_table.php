@@ -46,8 +46,7 @@ class CreateCostDetailsTable extends Migration {
 
 			/*
 			 * 因费用类型不同而含义不同
-			 *		[消费]次数，每次＋1
-			 *		[普通充值]充值金额
+			 *		充值金额
 			 */
 			$table->float('number');
 
@@ -56,7 +55,6 @@ class CreateCostDetailsTable extends Migration {
 			 * created_at: 
 			 * 		创建时间
 			 *	 		因费用类型不同而作用不同
-			 *			[消费]判断时精确到年月日
 			 *			[普通充值]判断时精确到时分秒
 			 * updated_at: 修改时间
 			 */
