@@ -13,7 +13,7 @@
 
 Route::get('/', function()
 {
-	return View::make('layouts.submaster');
+	return View::make('pages.serve.business.vio');
 });
 
 Route::group(array('prefix'=>'user'), function(){

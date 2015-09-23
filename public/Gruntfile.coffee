@@ -62,6 +62,8 @@ module.exports = (grunt)->
             pages:
                 files:
                     'dist/css/pages/login.css': ['src/pages/login/login.less']
+                    'dist/css/pages/serve/business/violation.css': ['src/pages/serve/business/violation.less']
+                    'dist/css/pages/serve/serve.css': ['src/pages/serve/serve.less']
 
         cssmin:
             mobile:

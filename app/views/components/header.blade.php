@@ -7,27 +7,31 @@
 						<img src="/images/common/logo.png">
 					</span>
 				</li>
-				<li class="header-logo-title">
+				<!-- <li class="header-logo-title">
 					<span>
 						广州车尚信息科技有限公司
 					</span>
-				</li>
+				</li> -->
 			</ul>
 		</a>
 	</div>
 
 	<ul class="header-menu clearfix">
-		<li class="header-menu-item active">
-			<a href="/">服务中心</a>
-		</li>
 		<li class="header-menu-item">
+			<a href="/">服务中心</a>
+			<div class="item-underline"></div>
+		</li>
+		<li class="header-menu-item active">
 			<a href="/">商务中心</a>
+			<div class="item-underline"></div>
 		</li>
 		<li class="header-menu-item">
 			<a href="/">消息中心</a>
+			<div class="item-underline"></div>
 		</li>
 		<li class="header-menu-item">
 			<a href="/">账户设置</a>
+			<div class="item-underline"></div>
 		</li>
 	</ul>
 

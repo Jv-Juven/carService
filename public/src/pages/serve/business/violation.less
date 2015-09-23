@@ -1,0 +1,190 @@
+@import "./../../../common/common.less";
+.body-content{
+	height: auto;
+}
+.right-content{
+	height: auto;
+	min-height: 600px;
+	padding: 40px 0px;
+	.content-box{
+		.violation-container{
+			@border-col: rgb(220, 220, 220);
+			@search-h: 210px;
+			width: 760px;
+			margin: 50px auto;
+			&>div{
+				display: inline-block;
+			}
+			
+			.violation-search{
+				border: 1px solid @border-col;
+				border-radius: 6px;
+				width: 400px;
+				height: @search-h;
+				.violation-wrapper{
+					@wrapper-width: 340px;
+					width: @wrapper-width;
+					margin: 0px auto;
+					height: auto;
+					padding-top: 5px;
+					.input-wrapper{
+						width: 100%;
+						height: 30px;
+						line-height: 30px;
+						margin-top: 15px;
+						.input-title{
+							display: inline-block;
+							width: 100px;
+							height: 100%;
+							text-align: right;
+						}
+						.inputs{
+							float: right;
+							display: inline-block;
+							height: 100%;
+							width: @wrapper-width - 100px;
+							vertical-align: text-bottom;
+							line-height: 30px;
+							&>select{
+								display: inline-block;
+								width: auto;
+								font-size: 60px;
+								margin-top: 6px;								
+							}
+							.input{
+								float: left;
+								height: 30px;
+							}
+							.plate-num{
+								text-align: center;
+								width: 100px;
+								border: 1px solid @border-col;
+								margin: 0px 16px;
+							}
+							.select-color{
+							}
+							.fullwidth{
+								text-align: left;
+								width: 95%;
+								padding-left: 2%;
+							}
+						}
+					}
+					.input-btn{
+						margin-top: 20px;
+						border-radius: 6px;
+						background: @blue;
+						line-height: 30px;
+						cursor: pointer;
+						text-align: center;
+						color: white;
+						padding: 3px 0px;
+					}
+				}
+			}
+			.violation-info{
+				float: right;
+				background: rgb(248, 247, 246);
+				width: 270px;
+				height: @search-h;
+				.info-tr{
+					width: 100%;
+					height: 30px;
+					float: left;
+					margin-top: 40px;
+					&>div{
+						line-height: 30px;
+					}
+					.info-title{
+						height: 100%;
+						width: 120px;
+						display: inline-block;
+						text-align: right;
+						letter-spacing: 1px;
+						font-size: 16px;
+					}
+					.info-num{
+						letter-spacing: 2px;
+						height: 100%;
+						width: 130px;
+						display: inline-block;
+						float: right;
+						text-align: left;
+						font-size: 28px;
+						color: @blue;
+					}
+				}
+			}
+			.violation-records{
+				width: 100%;
+				height: auto;
+				margin-top: 50px;
+				.vio-records-title{
+					width: 100%;
+					color: rgb(76, 76, 76);
+					font-weight: bolder;
+					font-size: 16px;
+					letter-spacing: 1px;
+					text-align: center;
+					.records-total{
+						color: rgb(255, 174, 0);
+					}
+				}
+				.vio-records-table{
+					width: 100%;
+					height: auto;
+					margin-top: 30px;
+					table{
+						display: table;
+						width: 100%;
+						border-collapse: collapse;
+						tr{
+							border-bottom: 1px solid rgb(244, 244, 244);
+							display: table-row;
+							th{
+								font-size: 12px;
+								color: rgb(255, 255, 255);
+								line-height: 12px;
+								padding: 8px 0px;
+								background: rgb(153, 152, 147);
+							}
+							td{
+								min-width: 40px;
+								max-width: 160px;
+								text-align: center;
+								padding: 16px 4px;
+								span{
+									display: inline-block;
+									width: 100%;
+									text-align: center;
+									padding: 4px 0px;
+									line-height: 18px;
+								}
+								input{
+									cursor: pointer;
+								}
+							}
+						}
+					}
+					.vio-submit-btn{
+						width: 320px;
+						height: auto;
+						border-radius: 6px;
+						overflow: hidden;
+						background: @blue;
+						margin: 30px auto;
+						a{
+							display: inline-block;
+							width: 100%;
+							.a-color(rgb(255, 255, 255));
+							padding: 10px 0px;
+							text-align: center;
+							letter-spacing: 2px;
+							font-weight: bolder;
+						}
+					}
+				}
+			}
+		}
+	}
+}
