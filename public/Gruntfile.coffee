@@ -68,7 +68,8 @@ module.exports = (grunt)->
                     'dist/css/pages/serve-center/business/agency.css': ['src/pages/serve-center/business/agency.less']
                     'dist/css/pages/serve-center/business/pay.css': ['src/pages/serve-center/business/pay.less']
                     'dist/css/pages/serve-center/business/success.css': ['src/pages/serve-center/business/success.less']
-                    'dist/css/pages/b-register/baseinfo.css': ['src/pages/b-register/baseinfo.less']
+                    'dist/css/pages/register-b/baseinfo.css': ['src/pages/register-b/baseinfo.less']
+                    'dist/css/pages/register-b/email-active.css': ['src/pages/register-b/email-active.less']
 
                     # message-center
                     'dist/css/pages/message-center/feedback/index.css': ['src/pages/message-center/feedback/index.less']

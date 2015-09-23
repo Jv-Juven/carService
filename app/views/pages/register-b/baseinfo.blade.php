@@ -6,7 +6,7 @@
 
 @section("css")
 @parent
-<link rel="stylesheet" type="text/css" href="/dist/css/pages/b-register/baseinfo.css">
+<link rel="stylesheet" type="text/css" href="/dist/css/pages/register-b/baseinfo.css">
 @stop
 
 @section("body")
