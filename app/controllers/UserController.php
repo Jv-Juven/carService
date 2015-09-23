@@ -29,6 +29,7 @@ class UserController extends BaseController{
 		$captcha = Input::get('captcha');
 		if( $captcha != $_SESSION['phrase'])
 			return Response::json(array('errCode'=>8, 'message'=> '验证码不正确'));
+		
 		$data = array(
 			'login_account' => Input::get('login_account'),//邮箱
 			'password'      => Input::get('password'),
@@ -40,6 +41,7 @@ class UserController extends BaseController{
 			'password'      =>'required|alpha_num|between:6,16',
 			're_password' 	=>'required|same:password'
 		);
+
 		$messages = array(
 			'login_account.required'    => 1,
 			'password.required' 	    => 1,
@@ -81,6 +83,7 @@ class UserController extends BaseController{
 
 			}
 		}else{
+			
 			$token = rand(111111,999999);
 			//发送邮件
 			Mail::send('emails/token',array('token' => $token),function($message) use ($data)
@@ -102,10 +105,14 @@ class UserController extends BaseController{
 			{
 				return Response::json(array('errCode'=>7,'message'=>'该用户已存在'));
 			}
+			
 			//储存数据
+			$user = User::where('login_account',$user->login_account)->first();
+			Sentry::login($user,false);
 			Cache::put('token',$token,5);
 			Cache::put('user_id',$user->user_id,5);
-
+			var_dump($user->user_id);
+			
 			return Response::json(array('errCode'=>0, 'message'=>'验证码发送成功!'));
 		}
 	}
@@ -240,6 +247,11 @@ class UserController extends BaseController{
 	public function sendTokenToEmail()
 	{
 		$login_account = Input::get('login_account');
+		$user = User::where('login_account',$login_account)->first();
+
+		if(!isset($user))
+			return Response::json(array('errCode'=>1,'message'=>'该用户没注册'));
+
 		$token = rand(111111,999999);
 		//发送邮件
 		Mail::send('emails/token',array('token' => $token),function($message) use ($data)
@@ -253,6 +265,6 @@ class UserController extends BaseController{
 
 		return Response::json(array('errCode'=>0, 'message'=>'验证码发送成功!'));
 	}
-
+	
 
 }

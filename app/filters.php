@@ -56,16 +56,32 @@ Route::filter('auth.user.isIn',function()
 	// Sentry::logout();
 	if(!Sentry::check())
 	{
-		if(Request::wantsJson())
-		{
-			return Response::json(array('errCode' => 10,'message' => '请登陆！'));
-		}
 		if (Request::ajax())
 		{
 			return Response::json(array('errCode' => 10,'message' => '请登陆！'));
 		}
 		else{
 			return Redirect::guest('pc.login');
+		}
+	}
+	if(Sentry::getUser()->status != 20)
+	{
+		switch (Sentry::getUser()->status) {
+			case 10:
+				return View::make('未激活邮箱');
+				break;
+			case 11:
+				return View::make('未登记信息');
+				break;
+			case 20:
+				return View::make('信息审核中');
+				break;
+			case 21:
+				return View::make('等待用户校验激活');
+				break;
+			default:
+				return View::make('账号锁定');
+				break;
 		}
 	}
 });

@@ -36,7 +36,17 @@ Route::group(array('prefix'=>'user'), function(){
 });
 
 
-Route::group(array('prefix'=>'data'),function(){
+Route::group(array('prefix'=>'data','before'=>'auth.user.isIn'),function(){
 	//违章查询
-	Route::get('inquire','violationController@inquire');
+	Route::post('inquire','violationController@inquire');
+});
+
+Route::get('test',function(){
+	Sentry::login(User::find('yhxx560214c236150446972440'), false);
+	$user = User::find('yhxx560214c236150446972440');
+	//储存数据
+	// Cache::put('token',$token,5);
+	Cache::put('user_id',$user->user_id,5);
+	var_dump($user->user_id);
+	// return uniqid('hyxx',true);
 });
