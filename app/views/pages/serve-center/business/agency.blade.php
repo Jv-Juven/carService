@@ -21,7 +21,18 @@
 			<!-- 办理进程 END	 -->
 
 			<div class="agency-details"></div>
-			<div class="agency-form"></div>
+			<div class="agency-form">
+
+				<table class="form-table">
+					<tr class="agency-table-head">以下信息很重要</tr>
+				</table>
+
+			</div>
+			<!-- 提交按钮 START -->
+			<div class="submit-btn">
+				<a href="javascript:">提交订单</a>
+			</div>
+			<!-- 提交按钮 END -->
 		</div>
 	</div>
 @stop
