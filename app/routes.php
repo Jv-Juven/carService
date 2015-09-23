@@ -11,8 +11,11 @@
 |
 */
 
-// include 'test_routes.php';
-
+try{
+	include 'test_routes.php';	
+}catch( Exception $e ){
+	
+}
 
 Route::group(array('prefix'=>'user'), function(){
 	//获取验证码
