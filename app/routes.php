@@ -11,7 +11,7 @@
 |
 */
 
-include 'test_routes.php';
+// include 'test_routes.php';
 
 
 Route::group(array('prefix'=>'user'), function(){
