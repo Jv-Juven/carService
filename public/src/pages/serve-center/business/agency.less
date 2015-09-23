@@ -1,7 +1,6 @@
 @import "./../../../common/common.less";
 
 
-
 .content-container{
 	@border-col: rgb(220, 220, 220);
 	@search-h: 210px;
@@ -10,7 +9,39 @@
 	.agency-details{
 		width: 100%;
 		height: 280px;
+		letter-spacing: 1px;
 		background: @table-bg;
+		margin-top: 40px;
+		.details-table{
+			width: 100%;
+			height: 100%;
+			.details-head{
+				text-align: center;
+				font-size: 18px;
+				height: 40px;
+			}
+			.details-tr{
+				height: 24px;
+				.details-title{
+					width: 200px;
+					text-align: right;
+				}
+				.details-content{
+					padding-left: 10px;
+					color: @tips-color;
+					.plate-col{
+						display: inline-block;
+						padding: 0px 5px;
+					}
+					&>label{
+						cursor: pointer;
+					}
+				}
+			}
+			.details-blank{
+				height: 10px;
+			}
+		}
 	}
 	.agency-form{
 		margin-top: 15px;
@@ -23,12 +54,39 @@
 			height: 100%;
 			.agency-table-head{
 				width: 100%;
-				padding: 13px 0px;
+				height: 40px;
 				text-align: center;
 				color: white;
 				font-weight: bolder;
 				line-height: 14px;
 				background: @table-head-bg;
+			}
+			.table-blank{
+				height: 12px;
+			}
+			.table-content{
+				height: 50px;
+				.content-title{
+					width: 200px;
+					text-align: right;
+				}
+				.content-input{
+					input{
+						margin-left: 10px;
+						height: 40px;
+						line-height: 40px;
+						padding-left: 8px;
+						width: 330px;
+						border: 1px solid @table-head-bg;
+					}
+				}
+			}
+			.agency-form-tips{
+				height: 60px;
+				text-align: center;
+				.tips-title{
+					color: @tips-color;
+				}
 			}
 		}
 	}
