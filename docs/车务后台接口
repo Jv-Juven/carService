@@ -1,0 +1,72 @@
+1.用户模块
+
+	1.获取验证码
+	 请求方式: GET
+	 请求url: /user/captcha
+
+	 请求参数:
+
+	 返回参数:	 证码图片
+
+	2.B端用户注册静态页面
+	 请求方式: GET
+	 请求url: /user/b_register
+
+	 请求参数:
+
+	 返回参数:	 视图
+
+	3.B端用户注册
+	 请求方式: POST
+	 请求url: /user/b_register
+
+	 请求参数:
+	 			login_account,			邮箱
+	 			password,				密码	
+	 			captcha					验证码
+
+	 返回参数:	 
+	 		{
+	 			errCode,				0为正确返回
+	 			message,				错误信息
+	 		}
+
+	4.邮箱激活静态页面
+	 请求方式: GET
+	 请求url: /user/b_active
+
+	 请求参数:
+
+	 返回参数:	
+	 			视图
+
+
+	5.B端用户邮箱内点击验证
+	 请求方式:POST
+	 请求url: /user/b_active
+
+	 请求参数：
+	 			token, 					激活码隐藏在页面中
+	 
+	 返回参数:
+	 			视图，					验证通过跳到信息登记页
+	 									验证失败跳到邮箱注册页
+
+	6.打款备注码静态页面
+	 请求方式: GET
+	 请求url: /user/remark_code
+
+	 请求参数:
+
+	 返回参数:	证码图片
+
+
+
+
+2.B端用户注册
+	 请求方式: POST
+	 请求url: /user/captcha
+
+	 请求参数:
+
+	 返回参数:	证码图片

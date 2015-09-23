@@ -27,16 +27,14 @@ class MigrationCartalystSentryInstallUsers extends Migration {
 	 *
 	 * @return void
 	 */
-	public function up()
-	{
-		Schema::create('users', function($table)
-		{
+	public function up(){
+
+		Schema::create('users', function($table){
+
 			/*
 		     * 用户id
 		     *		作为主键
-		     *		生成：
-		     * 			'yhxx' + uniqid()
-		     * 			共 4 + 13 = 17位
+		     *		uniqid('yhxx', true)去标点共26位
 			 */ 
 			$table->string('user_id');
 			$table->primary('user_id');
@@ -64,14 +62,14 @@ class MigrationCartalystSentryInstallUsers extends Migration {
 		     * 		22 : 激活
 		     * 		30 : 账号锁定
 			 */
-			$table->string('status')->default('0');
+			$table->char('status', 2)->default('10');
 
 			/*
 			 * 用户类型
 			 * 		0  : 个人用户
 			 * 		1  : 企业用户
 			 */
-			$table->integer('user_type')->default('10');
+			$table->char('user_type', 2)->default('0');
 
 			/*
 			 * 打款备注码
@@ -109,9 +107,8 @@ class MigrationCartalystSentryInstallUsers extends Migration {
 	 *
 	 * @return void
 	 */
-	public function down()
-	{
+	public function down(){
+
 		Schema::dropIfExists('users');
 	}
-
 }
