@@ -71,10 +71,9 @@ module.exports = (grunt)->
                     'dist/css/pages/b-register/baseinfo.css': ['src/pages/b-register/baseinfo.less']
 
                     # message-center
-                    'dist/css/pages/message-center/feedback.css': ['src/pages/message-center/feedback.less']
-                    'dist/css/pages/message-center/message-all.css': ['src/pages/message-center/message-all.less']
-                    'dist/css/pages/message-center/message-read.css': ['src/pages/message-center/message-read.less']
-                    'dist/css/pages/message-center/message-unread.css': ['src/pages/message-center/message-unread.less']
+                    'dist/css/pages/message-center/feedback/index.css': ['src/pages/message-center/feedback/index.less']
+                    'dist/css/pages/message-center/feedback/success.css': ['src/pages/message-center/feedback/success.less']
+                    'dist/css/pages/message-center/message/base.css': ['src/pages/message-center/message/base.less']
 
         cssmin:
             mobile:
