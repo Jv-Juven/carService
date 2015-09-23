@@ -11,7 +11,7 @@ class CreateFeeTypesTables extends Migration {
 	 * @return void
 	 */
 	public function up(){
-
+					//费用类型表
 		Schema::create( 'fee_types', function( $table ){
 
 			/*

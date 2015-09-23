@@ -11,7 +11,7 @@ class CreateUserFeeTable extends Migration {
 	 * @return void
 	 */
 	public function up(){
-		
+						//用户费用表
 		Schema::create( 'user_fee', function( $table ){
 
 			/*

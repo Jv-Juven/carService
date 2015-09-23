@@ -11,7 +11,7 @@ class CreateAgencyOrdersTable extends Migration {
 	 * @return void
 	 */
 	public function up(){
-		
+						//违章代办订单表
 		Schema::create( 'agency_orders', function( $table ){
 
 			/*
