@@ -5,9 +5,8 @@
 @append
 
 @section("body")
-<div class="body-content">
+	@yield("left-nav")
 	@yield("right-content")
-</div>
 @append
 
 @section("js")
