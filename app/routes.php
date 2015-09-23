@@ -35,4 +35,8 @@ Route::group(array('prefix'=>'user'), function(){
 	Route::post('c_register','UserController@cSiteRegister');
 });
 
-Route::group(array('prefix'))
+
+Route::group(array('prefix'=>'data'),function(){
+	//违章查询
+	Route::get('inquire','violationController@inquire');
+});
