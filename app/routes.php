@@ -11,7 +11,7 @@
 |
 */
 
-require 'test_routes.php';
+include 'test_routes.php';
 
 Route::get('/', function()
 {
