@@ -14,12 +14,9 @@ class CostDetail extends BaseModel{
     ];
 
     /*
-     * 获得生成主键时所用的前缀
+     * 生成主键时所用的前缀
      */
-    protected static function get_id_prefix(){
-
-        return 'fyxx';
-    }
+    protected static $id_prefix = 'fyxx';
 
     /*
      * 获取所属用户
@@ -35,5 +32,18 @@ class CostDetail extends BaseModel{
     public function item(){
 
         return $this->belongsTo( 'FeeType', 'item_id', 'item_id' );
+    }
+
+    /**
+     * 监听创建事件
+     */
+    public static function boot(){
+
+        parent::boot();
+
+        self::creating(function( $cost ){
+            $cost->cost_id = self::get_unique_id( self::$id_prefix );
+            return true;
+        });
     }
 }

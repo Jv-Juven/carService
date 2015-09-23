@@ -16,12 +16,9 @@ class FeeType extends BaseModel{
     ];
 
     /*
-     * 获得生成主键时所用的前缀
+     * 生成主键时所用的前缀
      */
-    protected static function get_id_prefix(){
-
-        return 'fylx';
-    }
+    protected static $id_prefix = 'fylx';
 
     /*
      * 获取用户费用
@@ -29,5 +26,18 @@ class FeeType extends BaseModel{
     public function user_fee(){
 
         return $this->hasOne( 'UserFee', 'item_id', 'item_id' );
+    }
+
+    /**
+     * 监听创建事件
+     */
+    public static function boot(){
+
+        parent::boot();
+
+        self::creating(function( $item ){
+            $item->item_id = self::get_unique_id( self::$id_prefix );
+            return true;
+        });
     }
 }

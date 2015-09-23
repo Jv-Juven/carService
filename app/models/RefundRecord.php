@@ -16,12 +16,9 @@ class RefundRecord extends BaseModel{
     ];
 
     /*
-     * 获得生成主键时所用的前缀
+     * 生成主键时所用的前缀
      */
-    protected static function get_id_prefix(){
-
-        return 'tkjl';
-    }
+    protected static $id_prefix = 'tkjl';
 
     /*
      * 获得所属订单
@@ -37,5 +34,18 @@ class RefundRecord extends BaseModel{
     public function user(){
 
         return $this->belongsTo( 'User', 'user_id', 'user_id' );
+    }
+
+    /**
+     * 监听创建事件
+     */
+    public static function boot(){
+
+        parent::boot();
+
+        self::creating(function( $refund_record ){
+            $refund_record->refund_id = self::get_unique_id( self::$id_prefix );
+            return true;
+        });
     }
 }
