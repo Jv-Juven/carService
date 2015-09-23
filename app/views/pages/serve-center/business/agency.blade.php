@@ -21,6 +21,8 @@
 				@include("components.vio-process", array("num" => "1"))
 				<!-- 办理进程 END	 -->
 
+				<div class="agency-details"></div>
+				<div class="agency-form"></div>
 			</div>
 		</div>
 	</div>
