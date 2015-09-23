@@ -11,7 +11,7 @@ class CreateUserReadNoticeTable extends Migration {
 	 * @return void
 	 */
 	public function up(){
-
+						//已读通知用户表
 		Schema::create( 'user_read_notice', function( $table ){
 
 			/*

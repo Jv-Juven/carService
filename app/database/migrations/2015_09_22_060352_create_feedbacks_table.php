@@ -11,7 +11,7 @@ class CreateFeedbacksTable extends Migration {
 	 * @return void
 	 */
 	public function up(){
-
+						//反馈信息
 		Schema::create( 'feedbacks', function( $table ){
 
 			/*
