@@ -11,6 +11,8 @@
 |
 */
 
+require 'test_routes.php';
+
 Route::get('/', function()
 {
 	return View::make('pages.serve-center.business.vio');

@@ -6,6 +6,7 @@ public/node_modules
 /app/config/database.php
 /app/config/app.php
 /app/config/qiniu.php
+/app/test_routes.php
 /public/dist/
 composer.phar
 composer.lock
