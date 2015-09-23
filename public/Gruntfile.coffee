@@ -61,10 +61,12 @@ module.exports = (grunt)->
                     # 'dist/pc/css/components.css': ['src/pc/components/**/*.less']
             pages:
                 files:
+                    #serve-center
                     'dist/css/pages/login.css': ['src/pages/login/login.less']
                     'dist/css/pages/serve-center/business/violation.css': ['src/pages/serve-center/business/violation.less']
                     'dist/css/pages/serve-center/serve.css': ['src/pages/serve-center/serve.less']
                     'dist/css/pages/serve-center/business/agency.css': ['src/pages/serve-center/business/agency.less']
+                    'dist/css/pages/serve-center/business/pay.css': ['src/pages/serve-center/business/pay.less']
 
                     # message-center
                     'dist/css/pages/message-center/feedback.css': ['src/pages/message-center/feedback.less']

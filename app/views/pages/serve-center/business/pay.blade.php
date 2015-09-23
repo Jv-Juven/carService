@@ -6,7 +6,7 @@
 
 @section("css")
 	@parent
-	<link rel="stylesheet" type="text/css" href="/dist/css/pages/serve-center/business/agency.css">
+	<link rel="stylesheet" type="text/css" href="/dist/css/pages/serve-center/business/pay.css">
 @stop
 
 @section("left-nav")
@@ -17,138 +17,94 @@
 	<div class="content-box">
 		<div class="content-container">
 			<!-- 办理进程 START  -->
-			@include("components.vio-process", array("num" => "2"))
+			@include("components.vio-process", array("num" => "3"))
 			<!-- 办理进程 END	 -->
 
-			<div class="agency-details">
-				<table class="details-table" border="0" cellpadding="0" cellspacing="0">
-					<tr class="details-head">
-						<th colspan="2" class="">
-							违章代办缴纳
+			<div class="pay-tips">
+				<span>订单提交成功，请您尽快付款！订单号： 10062142155</span>
+				<span>请您在提交订单后24小时之内完成支付，否则订单会自动取消。</span>
+			</div>
+
+			<div class="pay-table-wrapper">
+				<table class="pay-table" border="0" cellpadding="0" cellspacing="0">
+					<tr class="pay-table-head">
+						<th colspan="2">
+							订单信息
 						</th>
 					</tr>
-					<tr class="details-tr">
-						<td class="details-title">
-							代办机构：
-						</td>
-						<td class="details-content">
-							[公司名]联系人姓名
-						</td>
-					</tr>
-					<tr class="details-tr">
-						<td class="details-title">
-							车牌号码：
-						</td>
-						<td class="details-content">
-							粤X1234 <span class="plate-col">蓝牌</span>
+					<tr class="table-blank"></tr>
+					<tr class="pay-table-tr">
+						<td class="tr-title">车牌号码：</td>
+						<td class="tr-content">
+							粤X12345 <span class="plate-col">蓝牌</span>
 						</td>
 					</tr>
-					<tr class="details-tr">
-						<td class="details-title">
-							代理笔数：
-						</td>
-						<td class="details-content">
-							2笔
+					<tr class="pay-table-tr">
+						<td class="tr-title">收件人姓名：</td>
+						<td class="tr-content">
+							张三
 						</td>
 					</tr>
-					<tr class="details-tr">
-						<td class="details-title">
-							交通违章本金：
+					<tr class="pay-table-tr">
+						<td class="tr-title">收件人手机号码：</td>
+						<td class="tr-content">
+							13411111111
 						</td>
-						<td class="details-content">
+					</tr>
+					<tr class="pay-table-tr">
+						<td class="tr-title">收件人地址：</td>
+						<td class="tr-content">
+							大学城小谷围派出所
+						</td>
+					</tr>
+					<tr class="pay-table-tr">
+						<td class="tr-title">费用总计：</td>
+						<td class="tr-content">
 							￥ 400.0 元
 						</td>
 					</tr>
-					<tr class="details-tr">
-						<td class="details-title">
-							服务费：
-						</td>
-						<td class="details-content">
-							￥ 20.0 元
-						</td>
-					</tr>
-					<tr class="details-tr">
-						<td class="details-title">
-							是否需要违章票证：
-						</td>
-						<td class="details-content">
-							<label for="noneed">
-							<input type="radio" id="noneed" name="need" />
-								不需要
-							</label>
-							<label for="express">
-							<input type="radio" id="express" name="need" />
-								快递回单
-							</label>
-						</td>
-					</tr>
-					<tr class="details-tr">
-						<td class="details-title">
-							票证快递费：
-						</td>
-						<td class="details-content">
-							￥ 0 元
-						</td>
-					</tr>
-					<tr class="details-tr">
-						<td class="details-title">
-							费用总计：
-						</td>
-						<td class="details-content">
-							￥ 420.0 元
-						</td>
-					</tr>
-					<tr class="details-blank"></tr>
-
-				</table>
-			</div>
-			<div class="agency-form">
-
-				<table class="form-table" border="0" cellspacing="0" cellpadding="0">
-					<tr class="agency-table-head">
-						<td colspan="2">
-							以下信息很重要,请准确填写
+					<tr class="pay-table-tr">
+						<td class="tr-title">费用明细：</td>
+						<td class="tr-content">
+							<table class="pay-details">
+								<tr>
+									<td>办理笔数</td>
+									<td>违章罚款本金</td>
+									<td>违章滞纳金</td>
+									<td>代办服务费用</td>
+									<td>票证邮寄费用</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>400</td>
+									<td>0</td>
+									<td>20</td>
+									<td>0</td>
+								</tr>
+							</table>
 						</td>
 					</tr>
 					<tr class="table-blank"></tr>
-					<tr class="table-content">
-						<td class="content-title">收件人姓名：</td>
-						<td class="content-input">
-							<input type="text" placeholder="请输入接受违章办理票证的收件人姓名"/>
-						</td>
-					</tr>
-
-					<tr class="table-content">
-						<td class="content-title">收件人姓名：</td>
-						<td class="content-input">
-							<input type="text" placeholder="请输入接受违章办理票证的收件人姓名"/>
-						</td>
-					</tr>
-					<tr class="table-content">
-						<td class="content-title">收件人姓名：</td>
-						<td class="content-input">
-							<input type="text" placeholder="请输入接受违章办理票证的收件人姓名"/>
-						</td>
-					</tr>
-					<tr class="table-content">
-						<td class="content-title">收件人姓名：</td>
-						<td class="content-input">
-							<input type="text" placeholder="请输入接受违章办理票证的收件人姓名"/>
-						</td>
-					</tr>
-					<tr class="agency-form-tips">
-						<td colspan="2">
-							<span class="tips-title">温馨提示：</span>为确保您能及时收到违章代办后的相关凭证，请务必留下手机号码及收取凭证的详细地址。
-						</td>
-					</tr>
 				</table>
-
 			</div>
-			<!-- 提交按钮 START -->
-			<div class="submit-btn">
-				<a href="javascript:">提交订单</a>
+			<div class="pay-btns">
+				<div class="btn">
+					<a href="/">
+						<img src="/images/serve/wechat.png">
+						<span class="btn-name">
+							微信支付
+						</span>
+					</a>
+				</div>
+				<div class="btn" style="margin-left: 30px;">
+					<a href="/">
+						<img src="/images/serve/zhifubao.png">
+						<span class="btn-name">
+							支付宝支付
+						</span>
+					</a>
+				</div>
 			</div>
-			<!-- 提交按钮 END -->
 		</div>
 	</div>
 @stop
