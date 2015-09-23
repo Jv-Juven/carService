@@ -1,7 +1,7 @@
 @extends("layouts.submaster")
 
 @section("title")
-违章办理
+支付
 @stop
 
 @section("css")
