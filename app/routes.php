@@ -39,6 +39,17 @@ Route::group(array('prefix'=>'data','before'=>'auth.user.isIn'),function(){
 	Route::post('inquire','violationController@inquire');
 });
 
+Route::group(array('prefix'=>'notice','before'=> 'auth.user.isIn'), function(){
+	//通知静态页－全部消息
+	Route::get('/', 'NoticePageController@all');
+	//通知静态页－未读消息
+	Route::get('unread','NoticePageController@unread');
+	//通知静态页－已读消息
+	Route::get('read','NoticePageController@read');
+	//获取通知详细内容
+	Route::post('/','NoticeController@notice');
+});
+
 Route::get('test',function(){
 	Sentry::login(User::find('yhxx560214c236150446972440'), false);
 	$user = User::find('yhxx560214c236150446972440');
