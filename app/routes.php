@@ -13,10 +13,6 @@
 
 include 'test_routes.php';
 
-Route::get('/', function()
-{
-	return View::make('pages.serve-center.business.vio');
-});
 
 Route::group(array('prefix'=>'user'), function(){
 	//获取验证码

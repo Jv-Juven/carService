@@ -14,16 +14,14 @@
 @stop
 
 @section("right-content")
-	<div class="right-content">
-		<div class="content-box">
-			<div class="content-container">
-				<!-- 办理进程 START  -->
-				@include("components.vio-process", array("num" => "1"))
-				<!-- 办理进程 END	 -->
+	<div class="content-box">
+		<div class="content-container">
+			<!-- 办理进程 START  -->
+			@include("components.vio-process", array("num" => "1"))
+			<!-- 办理进程 END	 -->
 
-				<div class="agency-details"></div>
-				<div class="agency-form"></div>
-			</div>
+			<div class="agency-details"></div>
+			<div class="agency-form"></div>
 		</div>
 	</div>
 @stop
