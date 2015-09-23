@@ -13,7 +13,7 @@
 
 Route::get('/', function()
 {
-	return View::make('pages.serve.business.vio');
+	return View::make('pages.serve-center.business.vio');
 });
 
 Route::group(array('prefix'=>'user'), function(){
