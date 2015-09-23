@@ -6,16 +6,15 @@
 
 @section("css")
 	@parent
-	<link rel="stylesheet" type="text/css" href="/dist/css/pages/serve/serve.css">
+	<link rel="stylesheet" type="text/css" href="/dist/css/pages/serve-center/serve.css">
 @stop
 
 @section("left-nav")
-@include("components.left-nav.violation-left-nav")
+@include("components.left-nav.serve-left-nav")
 @stop
 
 @section("right-content")
 	<div class="right-content">
-		@include("components.left-nav.violation-left-nav")
 		<div class="content-box">
 			<a href="/">
 				<dl>

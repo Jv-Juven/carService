@@ -6,7 +6,7 @@
 
 @section("css")
 	@parent
-	<link rel="stylesheet" type="text/css" href="/dist/css/pages/serve-center/business/violation.css">
+	<link rel="stylesheet" type="text/css" href="/dist/css/pages/serve-center/business/agency.css">
 @stop
 
 @section("left-nav")
@@ -16,7 +16,12 @@
 @section("right-content")
 	<div class="right-content">
 		<div class="content-box">
-			
+			<div class="content-container">
+				<!-- 办理进程 START  -->
+				@include("components.vio-process", array("num" => "1"))
+				<!-- 办理进程 END	 -->
+
+			</div>
 		</div>
 	</div>
 @stop
