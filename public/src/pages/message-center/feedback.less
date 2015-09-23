@@ -2,38 +2,52 @@
 @import '../../common/common.less';
 
 @border-color: #aaa;
+@border-width: 1px;
 @color-blue: #1287eb;
 @label-width: 60px;
-@rg-wrap-left: 20px;
+@rt-wrap-left: 20px;
+@btn-height: 30px;
 
 .fb-wrap{
     width: 825px;
     margin-left: 44px;
     margin-top: 32px;
     background: #fff;
+    overflow: auto;
 }
 
 .fb-form{
-    margin-top: 54px;
-    margin-left: 140px;
+    margin: 54px 140px;
     width: 500px;
 
     input{
-        height: 28px;
+        height: @btn-height;
         background: none;
         display: inline-block;
-        border: solid @border-color 1px;
+        border: solid @border-color @border-width;
+    }
+
+    .fb-input{
+        @padding: 3px;
+        width: 400px;
+        height: @btn-height - @padding * 2;
+        padding: @padding;
+        &:focus{
+            outline: none;
+        }
     }
 
     .fb-btns{
         .btns-wrap{
-            margin-left: @label-width + @rg-wrap-left + 7px;   
+            margin-left: @label-width + @rt-wrap-left + 7px;   
         }
         input{
             width: 111px;
             border: none;
+            color: #fff;
             cursor: pointer;
             margin-left: 50px;
+            border-radius: 5px;
             background-color: @color-blue;
         }
     }
@@ -46,19 +60,21 @@
         float: left;
         text-align: right;
     }
-    .rg-wrap{
+    .rt-wrap{
         float: left;
-        margin-left: @rg-wrap-left;
+        margin-left: @rt-wrap-left;
     }
 }
 
 .fb-types{
+    @btn-width: 126px;
 
     .types-wrap{
         margin-left: -15px;
     }
 
-    .fb-type{
+    input{
+        color: #717171;
         width: 126px;
         float: left;
         margin-left: 15px;
@@ -66,20 +82,12 @@
     }
 
     .fb-type-act{
-        height: 30px;
+        width: @btn-width + 2 * @border-width;
         border: none;
+        color: #fff;
         background: @color-blue;
     }
 }
-
-.fb-input{
-    width: 406px;
-    &:focus{
-        outline: none;
-    }
-}
-
-
 
 .fb-content{
     .fb-input{
