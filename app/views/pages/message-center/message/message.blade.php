@@ -6,8 +6,7 @@
 
 @section('css')
 @parent
-<link rel="stylesheet" type="text/css" href="/dist/css/pages/message-center/message.css">
-<link rel="stylesheet" type="text/css" href="/dist/css/pages/message-center/feedback.css">
+<link rel="stylesheet" type="text/css" href="/dist/css/pages/message-center/message/base.css">
 @stop
 
 @section('js')
