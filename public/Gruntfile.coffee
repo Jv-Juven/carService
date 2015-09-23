@@ -66,6 +66,12 @@ module.exports = (grunt)->
                     'dist/css/pages/serve-center/serve.css': ['src/pages/serve-center/serve.less']
                     'dist/css/pages/serve-center/business/agency.css': ['src/pages/serve-center/business/agency.less']
 
+                    # message-center
+                    'dist/css/pages/message-center/feedback.css': ['src/pages/message-center/feedback.less']
+                    'dist/css/pages/message-center/message-all.css': ['src/pages/message-center/message-all.less']
+                    'dist/css/pages/message-center/message-read.css': ['src/pages/message-center/message-read.less']
+                    'dist/css/pages/message-center/message-unread.css': ['src/pages/message-center/message-unread.less']
+
         cssmin:
             mobile:
                 files:[
