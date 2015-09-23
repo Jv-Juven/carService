@@ -34,7 +34,6 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User implements UserInterface
 		'status',
 		'user_type',
 		'remark_code',
-		'remark_code',
 		'created_at',
 		'updated_at'
 	];

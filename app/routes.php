@@ -11,8 +11,11 @@
 |
 */
 
-// include 'test_routes.php';
-
+try{
+	include 'test_routes.php';	
+}catch( Exception $e ){
+	
+}
 
 Route::group(array('prefix'=>'user'), function(){
 	//获取验证码
@@ -37,6 +40,17 @@ Route::group(array('prefix'=>'user'), function(){
 Route::group(array('prefix'=>'data','before'=>'auth.user.isIn'),function(){
 	//违章查询
 	Route::post('inquire','violationController@inquire');
+});
+
+Route::group(array('prefix'=>'notice','before'=> 'auth.user.isIn'), function(){
+	//通知静态页－全部消息
+	Route::get('/', 'NoticePageController@all');
+	//通知静态页－未读消息
+	Route::get('unread','NoticePageController@unread');
+	//通知静态页－已读消息
+	Route::get('read','NoticePageController@read');
+	//获取通知详细内容
+	Route::post('/','NoticeController@notice');
 });
 
 Route::get('test',function(){

@@ -51,8 +51,8 @@ Route::filter('auth', function()
 Route::filter('auth.user.isIn',function()
 {
 	Session_start();
-	// $user = Sentry::findUserById(1);
-	// Sentry::login($user,false);
+	$user = User::find('yhxx560218325bc86201544229');
+	Sentry::login($user,false);
 	// Sentry::logout();
 	if(!Sentry::check())
 	{
@@ -61,10 +61,10 @@ Route::filter('auth.user.isIn',function()
 			return Response::json(array('errCode' => 10,'message' => '请登陆！'));
 		}
 		else{
-			return Redirect::guest('pc.login');
+			return Redirect::guest('user.login');
 		}
 	}
-	if(Sentry::getUser()->status != 20)
+	if(Sentry::getUser()->status != 22)
 	{
 		switch (Sentry::getUser()->status) {
 			case 10:
