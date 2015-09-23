@@ -24,7 +24,11 @@
 			<div class="agency-form">
 
 				<table class="form-table">
-					<tr class="agency-table-head">以下信息很重要</tr>
+					<tr class="agency-table-head">
+						<td>
+							以下信息很重要
+						</td>
+					</tr>
 				</table>
 
 			</div>
