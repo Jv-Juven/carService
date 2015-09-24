@@ -53,12 +53,13 @@ module.exports = (grunt)->
         less:
             common:
                 files:
-                    'dist/css/common.css': ['src/common/*.less']
+                    'dist/css/common.css': ['src/common/common.less', 'src/common/master.less','src/common/public.less']
+                    'dist/css/common/pay/success.css': ['src/common/pay/success.less']
+                    'dist/css/common/pay/fail.css': ['src/common/pay/fail.less']
 
             components:
                 files:
                     'dist/css/components.css': ['src/components/**/*.less']
-                    # 'dist/pc/css/components.css': ['src/pc/components/**/*.less']
             pages:
                 files:
                     #serve-center
