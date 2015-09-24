@@ -56,8 +56,8 @@ module.exports = (grunt)->
                     'dist/css/common.css': ['src/common/common.less', 'src/common/master.less','src/common/public.less']
                     'dist/css/common/pay/success.css': ['src/common/pay/success.less']
                     'dist/css/common/pay/fail.css': ['src/common/pay/fail.less']
-                    'dist/css/common/mask/mask.css': ['src/common/mask/mask.less']
                     'dist/css/common/pay/wechat.css': ['src/common/pay/wechat.less']
+                    'dist/css/common/mask/mask.css': ['src/common/mask/mask.less']
 
             components:
                 files:
