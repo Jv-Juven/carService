@@ -1,7 +1,7 @@
 @extends('layouts.submaster')
 
 @section('title')
-    费用管理 -- 费用明细
+    费用管理 -- 退款记录
 @stop
 
 @section('css')

@@ -57,6 +57,7 @@ module.exports = (grunt)->
                     'dist/css/common/pay/success.css': ['src/common/pay/success.less']
                     'dist/css/common/pay/fail.css': ['src/common/pay/fail.less']
                     'dist/css/common/mask/mask.css': ['src/common/mask/mask.less']
+                    'dist/css/common/pay/wechat.css': ['src/common/pay/wechat.less']
 
             components:
                 files:
@@ -86,8 +87,10 @@ module.exports = (grunt)->
                     'dist/css/pages/message-center/message/base.css': ['src/pages/message-center/message/base.less']
 
                     # finance center
+                    'dist/css/pages/finance-center/cost-manage/overview.css':['src/pages/finance-center/cost-manage/overview.less']
                     'dist/css/pages/finance-center/cost-manage/cost-detail.css':['src/pages/finance-center/cost-manage/cost-detail.less']
                     'dist/css/pages/finance-center/cost-manage/refund-record.css':['src/pages/finance-center/cost-manage/refund-record.less']
+                    'dist/css/pages/finance-center/recharge/index.css': ['src/pages/finance-center/recharge/index.less']
 
         cssmin:
             mobile:
