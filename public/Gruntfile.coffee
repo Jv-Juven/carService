@@ -56,6 +56,7 @@ module.exports = (grunt)->
                     'dist/css/common.css': ['src/common/common.less', 'src/common/master.less','src/common/public.less']
                     'dist/css/common/pay/success.css': ['src/common/pay/success.less']
                     'dist/css/common/pay/fail.css': ['src/common/pay/fail.less']
+                    'dist/css/common/mask/mask.css': ['src/common/mask/mask.less']
 
             components:
                 files:
@@ -74,6 +75,10 @@ module.exports = (grunt)->
                     'dist/css/pages/register-b/baseinfo.css': ['src/pages/register-b/baseinfo.less']
                     'dist/css/pages/register-b/email-active.css': ['src/pages/register-b/email-active.less']
                     'dist/css/pages/register-b/reg-info.css': ['src/pages/register-b/reg-info.less']
+
+                    #accountc-center
+                    'dist/css/pages/account-center/developer-info.css': ['src/pages/account-center/developer-info.less']
+                    'dist/css/pages/account-center/account-info.css': ['src/pages/account-center/account-info.less']
 
                     # message center
                     'dist/css/pages/message-center/feedback/index.css': ['src/pages/message-center/feedback/index.less']
