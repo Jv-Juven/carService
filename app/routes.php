@@ -24,22 +24,31 @@ Route::group(array('prefix'=>'user'), function(){
 	Route::get('b_register','UserPageController@bSiteRegisterPage');
 	//B端用户注册
 	Route::post('b_register','UserController@bSiteRegister');
-	//B端用户邮箱注册验证通过后跳转到邮箱激活页面
-	Route::get('b_active','UserPageController@emailActivePage');
 	//发到B端用户邮箱后，点击链接验证，通过后去到信息登记页
 	Route::get('b_site_active','UserPageController@isEmailActive');
-	//打款验证码静态页面
-	Route::get('remark_code','UserPageController@remarkCode');
 	//登录
 	Route::post('login','UserController@login');
 	//C端用户注册
 	Route::post('c_register','UserController@cSiteRegister');
+	
+	Route::group(array('before'=>'auth.user.isIn'),function(){
+		//B端用户邮箱注册验证通过后跳转到邮箱激活页面
+		Route::get('b_active','UserPageController@emailActivePage');
+		//打款验证码静态页面
+		Route::get('remark_code','UserPageController@remarkCode');
+		//获取appkey和secretkey
+		Route::get('app', 'UserController@app');
+		//获取token
+		Route::post('token', 'UserController@token');
+	});
 });
 
-
-Route::group(array('prefix'=>'data','before'=>'auth.user.isIn'),function(){
+//业务逻辑
+Route::group(array('prefix'=>'business','before'=>'auth.user.isIn'),function(){
+	//充值
+	Route::post('recharge','BusinessController@recharge');
 	//违章查询
-	Route::post('inquire','violationController@inquire');
+	Route::post('violation','BusinessController@violation');
 });
 
 Route::group(array('prefix'=>'notice','before'=> 'auth.user.isIn'), function(){
@@ -50,7 +59,7 @@ Route::group(array('prefix'=>'notice','before'=> 'auth.user.isIn'), function(){
 	//通知静态页－已读消息
 	Route::get('read','NoticePageController@read');
 	//获取通知详细内容
-	Route::post('/','NoticeController@notice');
+	Route::post('/','NoticeController@detail');
 });
 
 Route::get('test',function(){
