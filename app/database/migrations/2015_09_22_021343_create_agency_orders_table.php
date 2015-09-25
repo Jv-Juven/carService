@@ -132,6 +132,11 @@ class CreateAgencyOrdersTable extends Migration {
 			$table->char('car_engine_no', 4)->nullable();
 
 			/*
+			 * 号牌种类名称，只存数字编号，
+			 */
+			$table->char('car_type_no',2);
+
+			/*
 			 * Laravel自动维护
 			 * created_at: 创建时间 即订单提交时间
 			 * updated_at: 修改时间

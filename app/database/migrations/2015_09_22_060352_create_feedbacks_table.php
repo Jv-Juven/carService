@@ -33,7 +33,7 @@ class CreateFeedbacksTable extends Migration {
 				  ->onUpdate('cascade');
 
 			/*
-			 * 反馈类型
+			 * 反馈类型	1＝咨询，2=建议，3=投诉
 			 */
 			$table->char('type', 16);
 

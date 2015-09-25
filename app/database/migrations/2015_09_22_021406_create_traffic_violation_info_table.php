@@ -46,6 +46,11 @@ class CreateTrafficViolationInfoTable extends Migration {
 			$table->char('req_car_engine_no', 6);
 			
 			/*
+			 * 号牌种类名称，只存数字编号，
+			 */
+			$table->char('car_type_no',18);
+			
+			/*
 			 * 请求参数
 			 * 	 	车架号码后6位
 			 */

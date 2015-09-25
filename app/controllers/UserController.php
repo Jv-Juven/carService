@@ -19,7 +19,7 @@ class UserController extends BaseController{
 	//C端用户注册
 	public function cSiteRegister()
 	{
-
+		
 	}
 
 	//B端用户注册
@@ -134,8 +134,8 @@ class UserController extends BaseController{
 			'operational_name'				=> Input::get('operational_name'),
 			'operational_card_no'			=> Input::get('operational_card_no'),
 			'operational_phone'				=> Input::get('operational_phone'),
-			''				=> Input::get(''),
-			''				=> Input::get(''),
+			'id_card_front_scan_path'		=> Input::get('id_card_front_scan_path'),
+			'id_card_back_scan_path'		=> Input::get('id_card_back_scan_path'),
 		);
 		$rules = array(
 			'user_id'						=> 	'required',
@@ -148,8 +148,8 @@ class UserController extends BaseController{
 			'operational_name'				=>  'required',
 			'operational_card_no'			=>  'required',
 			'operational_phone'				=>  'required',
-			''				=>  'required',
-			''				=>  'required',
+			'id_card_front_scan_path'		=>  'required',
+			'id_card_back_scan_path'		=>  'required',
 		);
 		$validation = Validator::make($data, $rules);
 
@@ -180,9 +180,9 @@ class UserController extends BaseController{
 			 //运营人员身份证号码
 			 $business_user->operational_phone			= $data['operational_phone'];
 			 //身份证正面扫描件
-			 // $business_user->			= $data[''];
+			 $business_user->id_card_front_scan_path	= $data['id_card_front_scan_path'];
 			 //身份证反面扫描件
-			 // $business_user->			= $data[''];
+			 $business_user->id_card_back_scan_path		= $data['id_card_back_scan_path'];
 			 $business_user->save();
 			 
 			 $user = User::find($data['user_id']);
@@ -266,5 +266,45 @@ class UserController extends BaseController{
 		return Response::json(array('errCode'=>0, 'message'=>'验证码发送成功!'));
 	}
 	
+	//获取每个user_id 对应的 appkey和secretkey
+	public function app()
+	{
+		// $user_id = Sentry::getUser()->user_id;
+		//构建获取appkey的链接
+		$url = Config::get('domain.server').'/app?uid=32';
+		$data = json_decode( CurlController::get($url),true );
+		// dd($data);
+		
+		if($data['errCode'] != 0 )
+		{	
+			Log::info($data);
+			return $this->errMessage($data['errCode']);
+		}
+
+		//向用户表中存入appkey
+		$business_user = BusinessUser::find(Sentry::getUser()->user_id);
+		$business_user->app_key = $data['app']['appkey'];
+		$business_user->app_secret = $data['app']['secretkey'];
+		if(!$business_user->save())
+			return Response::json(array('errCode'=>11, 'message'=>'获取appkey失败，请重新获取'));
+		
+		return Response::json(array('errCode'=>0, 'message'=>'appkey获取成功'));	
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
