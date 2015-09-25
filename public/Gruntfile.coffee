@@ -56,8 +56,8 @@ module.exports = (grunt)->
                     'dist/css/common.css': ['src/common/common.less', 'src/common/master.less','src/common/public.less']
                     'dist/css/common/pay/success.css': ['src/common/pay/success.less']
                     'dist/css/common/pay/fail.css': ['src/common/pay/fail.less']
-                    'dist/css/common/mask/mask.css': ['src/common/mask/mask.less']
                     'dist/css/common/pay/wechat.css': ['src/common/pay/wechat.less']
+                    'dist/css/common/mask/mask.css': ['src/common/mask/mask.less']
 
             components:
                 files:
@@ -85,7 +85,9 @@ module.exports = (grunt)->
                     # message center
                     'dist/css/pages/message-center/feedback/index.css': ['src/pages/message-center/feedback/index.less']
                     'dist/css/pages/message-center/feedback/success.css': ['src/pages/message-center/feedback/success.less']
+                    'dist/css/pages/message-center/message/home.css': ['src/pages/message-center/message/home.less']
                     'dist/css/pages/message-center/message/base.css': ['src/pages/message-center/message/base.less']
+                    'dist/css/pages/message-center/message/detail.css': ['src/pages/message-center/message/detail.less']
 
                     # finance center
                     'dist/css/pages/finance-center/cost-manage/overview.css':['src/pages/finance-center/cost-manage/overview.less']
