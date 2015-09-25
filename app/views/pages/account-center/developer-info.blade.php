@@ -11,7 +11,7 @@
 @stop
 
 @section("left-nav")
-	@include("components.left-nav.serve-left-nav")
+	@include("components.left-nav.account-center-left-nav")
 @stop
 
 @section("right-content")
