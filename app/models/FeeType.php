@@ -1,9 +1,9 @@
 <?php 
 
-class FeeType extends BaseModel{
+class FeeType extends Eloquent{
     
     protected $table        = 'fee_types';
-    protected $primaryKey   = 'item_id';
+    protected $primaryKey   = 'id';
 
     protected $hidden       = [];
     protected $fillable     = [

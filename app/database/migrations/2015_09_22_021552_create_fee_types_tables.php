@@ -16,10 +16,14 @@ class CreateFeeTypesTables extends Migration {
 
 			/*
 			 * 主键
-			 * 		uniqid('fylx',true)去标点，共26位
+			 * 		自增int，从1开始
 			 */
-			$table->string('item_id');
-			$table->primary('item_id');
+			$table->increments('id');
+
+			/*
+			 * Todo: 请出id以及对于说明
+			 */
+			$table->char('item_id', 16);
 
 			/*
 			 * 分类名称，目前主要有两类：
