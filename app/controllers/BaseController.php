@@ -16,7 +16,7 @@ class BaseController extends Controller {
 	}
 
 	//获取token
-	public function token()
+	public static function token()
 	{	
 		if( Cache::get('app_token') != null )
 			return Cache::get('app_token');
@@ -41,7 +41,7 @@ class BaseController extends Controller {
 		return $token['token'];
 	}
 
-	public function errMessage($number)
+	public static function errMessage($number)
 	{
 		switch ( $number ) {
 			case 1:

@@ -22,6 +22,9 @@ class CreateFeeTypesTables extends Migration {
 
 			/*
 			 * Todo: 请出id以及对于说明
+			 *		1=普通充值，
+			 *		2=个人违章代办凭证快递费,15; 3=个人代办服务费,25;
+			 *		2=企业违章代办凭证快递费,15; 3＝企业违章代办服务费,10
 			 */
 			$table->char('item_id', 16);
 

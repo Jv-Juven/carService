@@ -137,7 +137,7 @@ class BusinessController extends BaseController{
 			}
 		}
 		
-		$token = $this->token();
+		$token = parent::token();
 		$url = Config::get('domain.server').'/api/violation?token='.$token.
 				'&licensePlate='.$data['req_car_plate_no'].'&engineCode='.
 				$data['req_car_engine_no'].'&licenseType='.$data['car_type_no'];
@@ -182,7 +182,7 @@ class BusinessController extends BaseController{
 		if($validation->fails())
 			return Response::json(array('errCode'=>21, 'message'=>'请填写完整的信息'));
 
-		 $token = $this->token();
+		 $token = parent::token();
 		 $url = Config::get('domain.server').'/api/license?token='.$token.'&identityID='.
 		 					$data['identityID'].'&recordID='.$data['recordID'];
 		 $license = json_decode( CurlController::get($url),true );
@@ -251,8 +251,8 @@ class BusinessController extends BaseController{
 					break;
 			}
 		}
-
-		$token = $this->token();
+		
+		$token = parent::token();
 		$url = Config::get('domain.server').'/api/car?token='.$token.'&engineCode='.
 		 					$data['engineCode'].'&licensePlate='.$data['licensePlate'].
 		 					'&licenseType='.$data['licenseType'];
@@ -274,7 +274,7 @@ class BusinessController extends BaseController{
 		return Response::json(array('errCode'=>0, 'message'=>'车辆信息','car'=>$car['body']));
 	}
 
-	//订单信息
+	//提交订单
 	public static function trafficViolationInfo()
 	{
 		$data = array(
@@ -326,7 +326,7 @@ class BusinessController extends BaseController{
 
 		try
 		{
-			DB::transaction(function() {
+			DB::transaction(function() use($data,$data_two) {
 
 				$order = new AgencyOrder;
 				$order->user_id = Sentry::getUser()->user_id;
@@ -341,6 +341,7 @@ class BusinessController extends BaseController{
 				$order->car_engine_no 		= $data_two['car_engine_no'];
 				$order->save();
 
+				//违章信息存储
 				$violations = Session::get('violation');
 				foreach( $violations as $violation )
 				{
@@ -357,8 +358,8 @@ class BusinessController extends BaseController{
 					
 					//服务费获取
 					$user = Sentry::getUser();
-					$user_type = UserFee::where('user_id',$user->user_id)->where('item_id',item_id)->first();
-					$fee_type = FeeType::where('user_type',$user->user_type)->where('item_id',item_id)->first();
+					$user_type = UserFee::where('user_id',$user->user_id)->where('item_id',3)->first();
+					$fee_type = FeeType::where('user_type',$user->user_type)->where('item_id',3)->first();
 					if(isset( $user_type ) )
 					{
 						$violation_info->rep_service_charge = $user_type->fee_no;
@@ -366,14 +367,13 @@ class BusinessController extends BaseController{
 						$violation_info->rep_service_charge = $fee_type->number;
 					}
 					$violation_info->save();
-
-
 				}
 			});
 		}catch(\Exception $e)
 		{
-			return Response::json(array('errCode'=>25,'message'=>'操作失败' ));
+			return Response::json(array('errCode'=>25,'message'=>'操作失败'.$e->getMessage() ));
 		}
 
+		return Response::json(array('errCode'=>0,'message'=>'返回订单信息','order'=>$order));
 	}
 }

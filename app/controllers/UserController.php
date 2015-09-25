@@ -268,16 +268,16 @@ class UserController extends BaseController{
 	//获取每个user_id 对应的 appkey和secretkey
 	public function app()
 	{
-		// $user_id = Sentry::getUser()->user_id;
+		$user_id = Sentry::getUser()->user_id;
 		//构建获取appkey的链接
-		$url = Config::get('domain.server').'/app?uid=32';
+		$url = Config::get('domain.server').'/app?uid='.$user_id;
 		$data = json_decode( CurlController::get($url),true );
 		// dd($data);
 		
 		if($data['errCode'] != 0 )
 		{	
 			Log::info($data);
-			return $this->errMessage($data['errCode']);
+			return parent::errMessage($data['errCode']);
 		}
 
 		//向用户表中存入appkey

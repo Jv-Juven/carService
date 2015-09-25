@@ -95,11 +95,6 @@ class CreateBusinessUsersTable extends Migration {
 			/*
 			 * 运营人员身份证背面扫描件存放位置
 			 */
-			$table->stirng('id_card_back_scan_path')->nullable();
-
-			/*
-			 * 运营人员手持身份证拍照存放位置
-			 */
 			$table->string('id_card_back_scan_path')->nullable();
 
 			$table->timestamps();

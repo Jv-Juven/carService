@@ -61,6 +61,8 @@ Route::group(array('prefix'=>'business','before'=>'auth.user.isIn'),function(){
 	Route::get('api/license', 'BusinessController@license');
 	//查询车辆信息
 	Route::get('api/car', 'BusinessController@car');
+	//提交订单
+	Route::post('violation_info','BusinessController@trafficViolationInfo');
 });
 
 // 消息中心
