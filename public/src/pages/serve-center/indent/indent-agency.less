@@ -1,0 +1,214 @@
+@import "./../../../common/common.less";
+@import "./../../../common/mask/mask.less";
+
+.content-container{
+	@width: 740px;
+	margin: 40px auto;
+	font-weight: bolder;
+	width: @width;
+	.indent-inputs-wrapper{
+		width: @width;
+		height: 180px;
+	}
+	.input-table{
+		width: @width;
+		height: 100%;
+		.indent-table-title{
+			width: 90px;
+			font-weight: bolder;
+			text-align: left;
+		}
+		.indent-table-content{
+			padding-left: 0px;
+			#indent-number{
+				width: 240px;
+				height: 26px;
+				padding-left: 10px;
+			}
+			&>select{
+				display: inline-block;
+				width: auto;
+				font-size: 16px;
+				margin-top: 6px;								
+			}
+			&>.input{
+				// float: left;
+				height: 26px;
+			}
+			.plate-num{
+				text-align: center;
+				width: 100px;
+				border: 1px solid @border-col;
+				margin: 0px 16px;
+			}
+			.plate-status{
+				margin: 0px 20px 0px 0px;
+			}
+		}
+		.indent-date{
+			letter-spacing: 2px;
+			.input{
+				margin: 0px;
+				width: 170px;
+			}
+		}
+	}
+	.indent-btn{
+		@btn-height: 40px;
+		width: @width;
+		height: @btn-height;
+		margin: 10px auto;
+		.inline-btn{
+			.inline-btn(280px, @btn-height);
+			border-radius: 8px;
+			font-size: 16px;
+			letter-spacing: 2px;
+			float: left;
+		}
+		.indent-btn-tips{
+			display: inline-block;
+			width: auto;
+			float: left;
+			padding-left: 20px;
+			height: @btn-height;
+			line-height: @btn-height;
+			color: rgb(150, 150, 150);
+		}
+	}
+	.indent-tables-wrapper{
+		width: @width;
+		height: auto;
+		margin-top: 20px;
+		.indent-list-table{
+			width: 100%;
+			height: auto;
+			letter-spacing: 1px;
+			font-weight: bolder;
+			.table-head{
+				height: 40px;
+				color: rgb(255, 255, 255);
+				background: @table-head-bg;
+			}
+
+			.table-blank{
+				height: 10px;
+			}
+
+			.table-line{
+				height: 0px;
+				color: rgb(130, 130, 130);
+				.last-td{
+					border: 1px solid @border-col;
+					text-align: center;
+				}
+			}
+
+			.info-head{
+				height: 30px;
+				border: 1px solid @border-col;
+				background: @border-col;
+				color: rgb(130, 130, 130);
+				span{
+					display: inline-block;
+					color: @tips-color;
+				}
+				.plate{
+					margin: 0px 60px 0px 30px;
+				}
+				.date{
+					margin-right: 30px;
+				}
+			}
+			.indent-tr-content{
+				border: 1px solid @border-col;
+				border-top: 0px;
+				color: rgb(130, 130, 130);
+				span{
+					display: block;
+					width: 100%;
+					height: auto;
+					padding: 0px;
+				}
+				td{
+					text-align: center;
+					padding: 14px 10px;
+					line-height: 20px;
+				}
+				.vio-behaviour{
+					max-width: 140px;
+				}
+				.money{
+					min-width: 100px;
+					span{
+						text-align: left;
+					}
+				}
+			}
+			.indent-deal{
+				border: 1px solid @border-col;
+				height: 56px;
+				color: rgb(130, 130, 130);
+				.title{
+					padding-left: 30px;
+				}
+				.money{
+					color: @tips-color;
+				}
+				.express-fee{
+					font-size: 12px;
+					margin-left: 10px;
+				}
+				.indent-deal-opration{
+					text-align: right;
+					.deal-btn{
+						.inline-btn(76px, 30px);
+						border-radius: 10px;
+						margin-right: 10px;
+					}
+					.wait-pay{
+						.a-color(@tips-color);
+						background: rgb(255, 255, 255);
+					}
+					.cancel-deal{
+						background: rgb(114, 183, 241);
+					}
+					.atonce-pay{
+						background: @blue;
+					}
+				}
+			}
+			.table-foot-blank{
+				height: 20px;
+			}
+		}
+	}
+
+}
+
+// 浮层框的基本设置
+.warn-box{
+	.warn-box(360px, 160px);
+	.warn-content{
+		.warn-content(126px);
+		.warn-msg{
+			.warn-msg();
+			text-align: left;
+			margin-top: 30px;
+			.content{
+				display: block;
+				width: 100%;
+				padding: 2px 0px;
+				text-align: center;
+			}
+			.btns{
+				width: 100%;
+				margin-top: 26px;
+				text-align: center;
+				.btn{
+					.inline-btn(74px, 31px);
+					margin: 0px 20px;
+				}
+			}
+		}
+	}
+}
