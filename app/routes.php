@@ -40,6 +40,8 @@ Route::group(array('prefix'=>'user'), function(){
 		Route::get('app', 'UserController@app');
 		//获取token
 		Route::post('token', 'UserController@token');
+		//反馈
+		Route::post('feedback','FeedbackController@feedback');
 	});
 });
 
@@ -47,8 +49,18 @@ Route::group(array('prefix'=>'user'), function(){
 Route::group(array('prefix'=>'business','before'=>'auth.user.isIn'),function(){
 	//充值
 	Route::post('recharge','BusinessController@recharge');
+	//获取账户信息
+	Route::get('account','BusinessController@accountInfo');
+	//获取访问次数信息
+	Route::get('account/count', 'BusinessController@count');
+	//修改业务单价
+	Route::post('account/univalence', 'BusinessController@univalence');
 	//违章查询
-	Route::post('violation','BusinessController@violation');
+	Route::post('api/violation','BusinessController@violation');
+	//查询驾驶证扣分信息
+	Route::get('api/license', 'BusinessController@license');
+	//查询车辆信息
+	Route::get('api/car', 'BusinessController@car');
 });
 
 Route::group(array('prefix'=>'notice','before'=> 'auth.user.isIn'), function(){
@@ -61,6 +73,7 @@ Route::group(array('prefix'=>'notice','before'=> 'auth.user.isIn'), function(){
 	//获取通知详细内容
 	Route::post('/','NoticeController@detail');
 });
+
 
 Route::get('test',function(){
 	Sentry::login(User::find('yhxx560214c236150446972440'), false);

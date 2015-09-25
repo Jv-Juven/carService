@@ -19,7 +19,7 @@ class UserController extends BaseController{
 	//C端用户注册
 	public function cSiteRegister()
 	{
-
+		
 	}
 
 	//B端用户注册
@@ -269,32 +269,32 @@ class UserController extends BaseController{
 	//获取每个user_id 对应的 appkey和secretkey
 	public function app()
 	{
-		$user_id = Sentry::getUser()->user_id;
+		// $user_id = Sentry::getUser()->user_id;
 		//构建获取appkey的链接
-		$url = Config::get('domain.server').'/app?uid='.$user_id;
+		$url = Config::get('domain.server').'/app?uid=32';
 		$data = json_decode( CurlController::get($url),true );
 		// dd($data);
 		
 		if($data['errCode'] != 0 )
 		{	
 			Log::info($data);
-			return Response::json(array('errCode'=>1,'message'=>'appkey获取失败'));
+			return $this->errMessage($data['errCode']);
 		}
-		
+
 		//向用户表中存入appkey
 		$business_user = BusinessUser::find(Sentry::getUser()->user_id);
 		$business_user->app_key = $data['app']['appkey'];
 		$business_user->app_secret = $data['app']['secretkey'];
 		if(!$business_user->save())
-			return Response::json(array('errCode'=>2, 'message'=>'获取appkey失败，请重新获取'));
+			return Response::json(array('errCode'=>11, 'message'=>'获取appkey失败，请重新获取'));
 		
 		return Response::json(array('errCode'=>0, 'message'=>'appkey获取成功'));	
 
 	}
 
-	
 
-	
+
+
 
 
 

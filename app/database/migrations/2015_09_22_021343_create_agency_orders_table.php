@@ -134,7 +134,7 @@ class CreateAgencyOrdersTable extends Migration {
 			/*
 			 * 号牌种类名称，只存数字编号，
 			 */
-			$table->char('car_type_no',18);
+			$table->char('car_type_no',2);
 
 			/*
 			 * Laravel自动维护

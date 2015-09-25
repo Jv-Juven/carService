@@ -4,7 +4,14 @@ class NoticePageController extends BaseController{
 	//全部通知消息
 	public function all()
 	{
-		$notices = Notice::with('notice_user_id')->get();
+		$notices = Notice::with([
+								'notice_user_id'=>function($query)
+								{
+									$query->where('user_id',Sentry::getUser()->user_id);
+								}
+								])
+							->get();
+
 		$info = array();
 		foreach( $notices as $notice)
 		{
