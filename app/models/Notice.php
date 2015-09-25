@@ -40,16 +40,4 @@ class Notice extends BaseModel{
 
         return $this->belongsTo( 'UserReadNotice', 'notice_id', 'notice_id' );
     }
-    /**
-     * 监听创建事件
-     */
-    public static function boot(){
-
-        parent::boot();
-
-        self::creating(function( $notice ){
-            $notice->notice_id = self::get_unique_id( self::$id_prefix );
-            return true;
-        });
-    }
 }

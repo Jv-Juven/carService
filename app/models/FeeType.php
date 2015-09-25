@@ -27,17 +27,4 @@ class FeeType extends BaseModel{
 
         return $this->hasOne( 'UserFee', 'item_id', 'item_id' );
     }
-
-    /**
-     * 监听创建事件
-     */
-    public static function boot(){
-
-        parent::boot();
-
-        self::creating(function( $item ){
-            $item->item_id = self::get_unique_id( self::$id_prefix );
-            return true;
-        });
-    }
 }

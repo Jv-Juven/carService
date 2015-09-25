@@ -176,7 +176,11 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User implements UserInterface
 		parent::boot();
 
 		self::creating(function( $user ){
-			$user->user_id = BaseModel::get_unique_id( self::$id_prefix );
+			
+			if ( !isset( $user[ $this->primaryKey ] ) ){
+				$user[ $this->primaryKey ] = BaseModel::get_unique_id( self::$id_prefix );
+			}
+			
 			return true;
 		});
 	}

@@ -33,17 +33,4 @@ class CostDetail extends BaseModel{
 
         return $this->belongsTo( 'FeeType', 'item_id', 'item_id' );
     }
-
-    /**
-     * 监听创建事件
-     */
-    public static function boot(){
-
-        parent::boot();
-
-        self::creating(function( $cost ){
-            $cost->cost_id = self::get_unique_id( self::$id_prefix );
-            return true;
-        });
-    }
 }

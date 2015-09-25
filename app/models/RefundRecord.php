@@ -35,17 +35,4 @@ class RefundRecord extends BaseModel{
 
         return $this->belongsTo( 'User', 'user_id', 'user_id' );
     }
-
-    /**
-     * 监听创建事件
-     */
-    public static function boot(){
-
-        parent::boot();
-
-        self::creating(function( $refund_record ){
-            $refund_record->refund_id = self::get_unique_id( self::$id_prefix );
-            return true;
-        });
-    }
 }
