@@ -35,12 +35,12 @@ class CreateBusinessUsersTable extends Migration {
 			/*
 			 * 通过api查询所需key
 			 */ 
-			$table->char('app_key', 32)->nullable();
+			$table->char('app_key', 36)->nullable();
 
 			/*
 			 * 通过api查询 
 			 */
-			$table->char('app_secret', 32)->nullable();
+			$table->char('app_secret', 36)->nullable();
 
 			/*
 			 * 企业名称
@@ -86,6 +86,21 @@ class CreateBusinessUsersTable extends Migration {
 			 * 开户网点
 			 */
 			$table->string('bank_outlets')->nullable();
+
+			/*
+			 * 运营人员身份证正面扫描件存放位置
+			 */
+			$table->string('id_card_front_scan_path')->nullable();
+
+			/*
+			 * 运营人员身份证背面扫描件存放位置
+			 */
+			$table->stirng('id_card_back_scan_path')->nullable();
+
+			/*
+			 * 运营人员手持身份证拍照存放位置
+			 */
+			$table->string('id_card_back_scan_path')->nullable();
 
 			$table->timestamps();
 		});

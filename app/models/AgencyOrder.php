@@ -24,7 +24,8 @@ class AgencyOrder extends BaseModel{
         'recipient_name',
         'recipient_addr',
         'recipient_phone',
-        'car_engine_no'
+        'car_engine_no',
+        'car_type_no'
     ];
 
     /*

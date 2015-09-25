@@ -33,6 +33,13 @@ class Notice extends BaseModel{
         return $this->hasMany( 'UserReadNotice', 'notice_id', 'notice_id' );
     }
 
+    /*
+    *每条通知是否被读过
+    */
+    public function notice_user_id(){
+
+        return $this->belongsTo( 'UserReadNotice', 'notice_id', 'notice_id' );
+    }
     /**
      * 监听创建事件
      */

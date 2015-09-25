@@ -19,7 +19,10 @@ class BusinessUser extends Eloquent{
         'operational_phone',
         'bank_account',
         'deposit_bank',
-        'bank_outlets'
+        'bank_outlets',
+        'id_card_front_scan_path',
+        'id_card_front_scan_path',
+        'id_card_front_scan_path'
     ];
 
     /*
