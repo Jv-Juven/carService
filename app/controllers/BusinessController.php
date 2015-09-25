@@ -3,7 +3,7 @@
 class BusinessController extends BaseController{
 
 	//充值
-	public function recharge()
+	public static function recharge()
 	{
 		$money = Input::get('money');
 		if( !isset($money) )
@@ -27,7 +27,7 @@ class BusinessController extends BaseController{
 	}
 
 	//获取访问次数信息
-	public function count()
+	public static function count()
 	{
 		$appkey = BusinessUser::find(Sentry::getUser()->user_id)->app_key;
 		$url = Config::get('domain.server').'/account/count?appkey='.$appkey;
@@ -46,7 +46,7 @@ class BusinessController extends BaseController{
 	}
 
 	//获取账户信息
-	public function accountInfo()
+	public static function accountInfo()
 	{
 		$appkey = BusinessUser::find(Sentry::getUser()->user_id)->app_key;
 		$url = Config::get('domain.server').'/account?appkey='.$appkey;
@@ -67,7 +67,7 @@ class BusinessController extends BaseController{
 	}
 
 	//修改业务单价<<<<<<管理员接口>>>>>>>
-	public function univalence()
+	public static function univalence()
 	{	
 		$violation 		= Input::get('violation');
 		$license 		= Input::get('license');
@@ -92,7 +92,7 @@ class BusinessController extends BaseController{
 	}
 
 	//违章查询
-	public function violation()
+	public static function violation()
 	{
 		$data = array(
 				//车牌号码
@@ -163,7 +163,7 @@ class BusinessController extends BaseController{
 	}
 
 	//查询驾驶证扣分信息
-	public function license()
+	public static function license()
 	{
 		$identityID = Input::get('identityID');
 		$recordID   = Input::get('recordID');
@@ -208,7 +208,7 @@ class BusinessController extends BaseController{
 
 
 	//查询车辆信息
-	public function car()
+	public static function car()
 	{
 		$data = array(
 			'engineCode'		=> Input::get('engineCode'),//发动机号后六位
@@ -275,7 +275,7 @@ class BusinessController extends BaseController{
 	}
 
 	//订单信息
-	public function trafficViolationInfo()
+	public static function trafficViolationInfo()
 	{
 		$data = array(
 			'car_plate_no' 			=> Input::get('car_plate_no'),//车牌号码
@@ -354,10 +354,20 @@ class BusinessController extends BaseController{
 					$violation_info->rep_violation_behavior = $violation['wfxwzt'];
 					$violation_info->rep_point_no = $violation['wfjfs'];
 					$violation_info->rep_priciple_balance = $violation['fkje'];
+					
+					//服务费获取
 					$user = Sentry::getUser();
-					$user_fee = UserFee::find($user->user_id);
-					$violation_info->rep_service_charge =FeeType::where('user_id',;
+					$user_type = UserFee::where('user_id',$user->user_id)->where('item_id',item_id)->first();
+					$fee_type = FeeType::where('user_type',$user->user_type)->where('item_id',item_id)->first();
+					if(isset( $user_type ) )
+					{
+						$violation_info->rep_service_charge = $user_type->fee_no;
+					}else{
+						$violation_info->rep_service_charge = $fee_type->number;
+					}
 					$violation_info->save();
+
+
 				}
 			});
 		}catch(\Exception $e)
