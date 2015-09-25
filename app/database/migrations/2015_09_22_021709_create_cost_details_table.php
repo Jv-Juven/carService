@@ -36,7 +36,8 @@ class CreateCostDetailsTable extends Migration {
 			 * 费用类型表
 			 * 		作为外键 -- fee_types表主键
 			 */
-			$table->integer('fee_type_id');
+			$table->integer('fee_type_id')
+				  ->unsigned();
 			$table->index('fee_type_id');
 			$table->foreign('fee_type_id')
 				  ->references('id')
