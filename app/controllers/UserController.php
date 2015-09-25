@@ -84,7 +84,7 @@ class UserController extends BaseController{
 			}
 		}else{
 			
-			$token = rand(111111,999999);
+			$token = md5($data['login_account'].time());
 			//发送邮件
 			Mail::send('emails/token',array('token' => $token),function($message) use ($data)
 			{
@@ -109,9 +109,9 @@ class UserController extends BaseController{
 			//储存数据
 			$user = User::where('login_account',$user->login_account)->first();
 			Sentry::login($user,false);
-			Cache::put('token',$token,5);
+			Cache::put($token,$token,5);
 			Cache::put('user_id',$user->user_id,5);
-			var_dump($user->user_id);
+			// var_dump($user->user_id);
 			
 			return Response::json(array('errCode'=>0, 'message'=>'验证码发送成功!'));
 		}
@@ -252,7 +252,7 @@ class UserController extends BaseController{
 		if(!isset($user))
 			return Response::json(array('errCode'=>1,'message'=>'该用户没注册'));
 
-		$token = rand(111111,999999);
+		$token = md5($data['login_account'].time());
 		//发送邮件
 		Mail::send('emails/token',array('token' => $token),function($message) use ($data)
 		{
@@ -260,8 +260,7 @@ class UserController extends BaseController{
 		});
 		$user = User::where('login_account',$login_account)->first();
 		//储存数据
-		Cache::put('token',$token,5);
-		Cache::put('user_id',$user->user_id,5);
+		Cache::put($token,$user->user_id,5);
 
 		return Response::json(array('errCode'=>0, 'message'=>'验证码发送成功!'));
 	}

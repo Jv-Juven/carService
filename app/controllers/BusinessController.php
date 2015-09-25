@@ -7,13 +7,16 @@ class BusinessController extends BaseController{
 	{
 		$money = Input::get('money');
 		if( !isset($money) )
-			return Response::json(array('errCode'=>11, 'message'=>'请填写充值金额'));
+			return Response::json(array('errCode'=>21, 'message'=>'请填写充值金额'));
 
 		$appkey = BusinessUser::find(Sentry::getUser()->user_id)->app_key;
 		$url = Config::get('domain.server').'/account/recharge';
 		$parm = 'appkey='.$appkey.'&money='.$money;
 		$recharge =  json_decode( CurlController::post($url,$parm), true);
-		
+
+		if($recharge == null)
+			return Response::json(array('errCode'=>22, 'message'=>'系统出现故障，请及时向客服反应'));
+
 		if( $recharge['errCode'] != 0)
 		{
 			Log::info( $recharge );
@@ -30,12 +33,15 @@ class BusinessController extends BaseController{
 		$url = Config::get('domain.server').'/account/count?appkey='.$appkey;
 		$count =  json_decode( CurlController::get($url), true);
 		
+		if($count == null)
+			return Response::json(array('errCode'=>21, 'message'=>'系统出现故障，请及时向客服反应'));
+
 		if( $count['errCode'] != 0)
 		{
 			Log::info( $count );
 			return $this->errMessage($count['errCode']);
 		}
-		dd($count['data']);
+		// dd($count['data']);
 		return Response::json(array('errCode'=>0, 'message'=>'获取访问次数信息成功','count'=>$count['data']));
 	}
 
@@ -47,6 +53,9 @@ class BusinessController extends BaseController{
 
 		$account_info = json_decode( CurlController::get($url),true );
 
+		if($account_info == null)
+			return Response::json(array('errCode'=>21, 'message'=>'系统出现故障，请及时向客服反应'));
+
 		if( $account_info['errCode'] != 0)
 		{
 			Log::info( $account_info );
@@ -57,7 +66,7 @@ class BusinessController extends BaseController{
 
 	}
 
-	//修改业务单价
+	//修改业务单价<<<<<<管理员接口>>>>>>>
 	public function univalence()
 	{	
 		$violation 		= Input::get('violation');
@@ -70,6 +79,9 @@ class BusinessController extends BaseController{
 		//修改业务单价
 		$account_info = json_decode( CurlController::post($url,$parm),true );
 
+		if($account_info == null)
+			return Response::json(array('errCode'=>21, 'message'=>'系统出现故障，请及时向客服反应'));
+
 		if( $account_info['errCode'] != 0)
 		{
 			Log::info( $account_info );
@@ -79,7 +91,7 @@ class BusinessController extends BaseController{
 		return Response::json(array('errCode'=>0,'message'=>'修改业务单价', 'account_info'=>$account_info['account'])) ;
 	}
 
-	//违章查询逻辑
+	//违章查询
 	public function violation()
 	{
 		$data = array(
@@ -87,7 +99,7 @@ class BusinessController extends BaseController{
 				'req_car_plate_no' 	=> Input::get('req_car_plate_no'),
 				//发动机号码后6位
 				'req_car_engine_no' => Input::get('req_car_engine_no'),
-				//车架号码后6位
+				//车辆类型
 				'car_type_no' 		=> Input::get('car_type_no')
 			);
 		$rules = array(
@@ -131,7 +143,10 @@ class BusinessController extends BaseController{
 				$data['req_car_engine_no'].'&licenseType='.$data['car_type_no'];
 		$violation = json_decode( CurlController::get($url), true );
 		// $violation =  CurlController::get($url);
-		
+			
+		if($violation == null)
+			return Response::json(array('errCode'=>25, 'message'=>'系统出现故障，请及时向客服反应'));
+
 		if( $violation['errCode'] != 0)
 		{
 			Log::info( $violation );
@@ -140,8 +155,10 @@ class BusinessController extends BaseController{
 
 		$violation = json_decode( $violation['data'],true);
 		if(isset($violation['body'][0]['tips']))
-			return Response::json(array('errCode'=>25, 'message'=>'车牌号码或号牌种类错误'));
+			return Response::json(array('errCode'=>26, 'message'=>'车牌号码或号牌种类错误'));
 
+		//把违章信息存入session中，以便提交订单时生成
+		Session::put('violation',$violation['body']);
 		return Response::json(array('errCode'=>0, 'message'=>'获取车辆违章信息','violations'=>$violation['body']));
 	}
 
@@ -163,13 +180,16 @@ class BusinessController extends BaseController{
 		$validation = Validator::make($data, $rules);
 
 		if($validation->fails())
-			return Response::json(array('errCode'=>1, 'message'=>'请填写完整的信息'));
+			return Response::json(array('errCode'=>21, 'message'=>'请填写完整的信息'));
 
 		 $token = $this->token();
 		 $url = Config::get('domain.server').'/api/license?token='.$token.'&identityID='.
 		 					$data['identityID'].'&recordID='.$data['recordID'];
 		 $license = json_decode( CurlController::get($url),true );
 		
+		if($license == null)
+			return Response::json(array('errCode'=>22, 'message'=>'系统出现故障，请及时向客服反应'));
+
 		 if( $license['errCode'] != 0 )
 		 {
 		 	Log::info( $license );
@@ -179,7 +199,7 @@ class BusinessController extends BaseController{
 		 
 		 if($license['returnCode'] == 0)
 		 {
-		 	return Response::json(array('errCode'=>21,'message'=>'身份证号码，驾驶证号码或档案号码错误'));
+		 	return Response::json(array('errCode'=>23,'message'=>'身份证号码，驾驶证号码或档案号码错误'));
 		 }
 		 $license = json_decode( $license['body'],true);
 
@@ -218,16 +238,16 @@ class BusinessController extends BaseController{
 			$number = $validation->messages()->all();
 			switch ($number[0]) {
 				case 1:
-					return Response::json(array('errCode'=>1,'message'=>'信息填写不完整'));
+					return Response::json(array('errCode'=>21,'message'=>'信息填写不完整'));
 					break;
 				case 2:
-					return Response::json(array('errCode'=>2,'message'=>'发动机后6位格式不正确'));
+					return Response::json(array('errCode'=>22,'message'=>'发动机后6位格式不正确'));
 					break;
 				case 3:
-					return Response::json(array('errCode'=>3,'message'=>'车牌号码格式不正确'));
+					return Response::json(array('errCode'=>23,'message'=>'车牌号码格式不正确'));
 					break;
 				default:
-					return Response::json(array('errCode'=>4,'message'=>'车辆类型格式不正确'));
+					return Response::json(array('errCode'=>24,'message'=>'车辆类型格式不正确'));
 					break;
 			}
 		}
@@ -237,7 +257,10 @@ class BusinessController extends BaseController{
 		 					$data['engineCode'].'&licensePlate='.$data['licensePlate'].
 		 					'&licenseType='.$data['licenseType'];
 		$car = json_decode( CurlController::get($url),true );
-			
+		
+		if($car == null)
+			return Response::json(array('errCode'=>25, 'message'=>'系统出现故障，请及时向客服反应'));
+
 		if( $car['errCode'] != 0 )
 		{
 			Log::info( $car );
@@ -246,8 +269,101 @@ class BusinessController extends BaseController{
 		$car = json_decode( $car['data'],true);
 		// $car = $car['body'];
 		if( $car['returnCode'] == 0)
-			return Response::json(array('errCode'=>3, 'message'=>'没有车辆信息，请查看信息是否填写正确'));
-		
+			return Response::json(array('errCode'=>26, 'message'=>'没有车辆信息，请查看信息是否填写正确'));
+	
 		return Response::json(array('errCode'=>0, 'message'=>'车辆信息','car'=>$car['body']));
+	}
+
+	//订单信息
+	public function trafficViolationInfo()
+	{
+		$data = array(
+			'car_plate_no' 			=> Input::get('car_plate_no'),//车牌号码
+			'agency_no'				=> Input::get('agency_no'),//办理笔数
+			'capital_sum' 			=> Input::get('capital_sum'),//费用总计
+			// 'late_fee_sum' 		=> Input::get('late_fee_sum'),//滞纳金
+			'service_charge_sum' 	=> Input::get('service_charge_sum'),//代办服务费
+		);
+		$rules = array(
+			'car_plate_no' 			=> 'required',
+			'agency_no' 			=> 'required',
+			'capital_sum' 			=> 'required',
+			'service_charge_sum' 	=> 'required'
+		);
+
+		$validation = Validator::make($data,$rules);
+		if($validation->fails())
+			return Response::json(array('errCode'=>21,'message'=>'信息填写不完整'));
+
+		$is_delivered = Input::get('is_delivered');//是否需要快递
+		$data_two = array(
+			'express_fee' 		=> Input::get('express_fee'),//快递费
+			'recipient_name' 	=> Input::get('recipient_name'),//收件人姓名
+			'recipient_addr' 	=> Input::get('recipient_addr'),//收件人地址
+			'recipient_phone' 	=> Input::get('recipient_phone'),//收件人手机
+			'car_engine_no'		=> Input::get('car_engine_no')//发动机后4位
+		);
+		$rules_two = array(
+			'express_fee'		=> 'required',
+			'recipient_name'	=> 'required',
+			'recipient_addr'	=> 'required',
+			'recipient_phone'	=> 'required',
+			'car_engine_no'		=> 'required'
+		);
+		if(isset($data_two['is_delivered']) == true)
+		{
+			$validation_two = Validator::make($data_two,$rules_two);
+			if($validation_two->fails())
+				return Response::json(array('errCode'=>22, 'message'=>'收件人信息填写不完整'));
+		}
+
+		$phone_regex = Config::get('regex.telephone');
+		if(!preg_match($phone_regex, $data_two['recipient_phone']))
+			return Response::json(array('errCode'=>23,'message'=>'收件人信息填写不完整'));
+
+		if(!strlen($data_two['car_engine_no']))
+			return Response::json(array('errCode'=>24,'message'=>'发动机后4位格式不正确，请填写4位'));
+
+		try
+		{
+			DB::transaction(function() {
+
+				$order = new AgencyOrder;
+				$order->user_id = Sentry::getUser()->user_id;
+				$order->car_plate_no 		= $data['car_plate_no'];
+				$order->agency_no 			= $data['agency_no'];
+				$order->capital_sum 		= $data['capital_sum'];
+				$order->service_charge_sum 	= $data['service_charge_sum'];
+				$order->express_fee 		= $data_two['express_fee'];
+				$order->recipient_name 		= $data_two['recipient_name'];
+				$order->recipient_addr 		= $data_two['recipient_addr'];
+				$order->recipient_phone 	= $data_two['recipient_phone'];
+				$order->car_engine_no 		= $data_two['car_engine_no'];
+				$order->save();
+
+				$violations = Session::get('violation');
+				foreach( $violations as $violation )
+				{
+					$violation_info = new TrafficViolationInfo;
+					$violation_info->order_id = $order->order_id;
+					$violation_info->req_car_plate_no = $violation['hphm'];
+					$violation_info->req_car_engine_no = $violation['fdjh'];
+					$violation_info->car_type_no = $violation['hpzl'];
+					$violation_info->rep_event_time = $violation['wfsj'];
+					$violation_info->rep_event_addr = $violation['wfdz'];
+					$violation_info->rep_violation_behavior = $violation['wfxwzt'];
+					$violation_info->rep_point_no = $violation['wfjfs'];
+					$violation_info->rep_priciple_balance = $violation['fkje'];
+					$user = Sentry::getUser();
+					$user_fee = UserFee::find($user->user_id);
+					$violation_info->rep_service_charge =FeeType::where('user_id',;
+					$violation_info->save();
+				}
+			});
+		}catch(\Exception $e)
+		{
+			return Response::json(array('errCode'=>25,'message'=>'操作失败' ));
+		}
+
 	}
 }
