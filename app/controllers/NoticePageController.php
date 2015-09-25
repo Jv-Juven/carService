@@ -1,20 +1,34 @@
 <?php
 
 class NoticePageController extends BaseController{
-	
-	//全部通知消息
-	public function all(){
 
-		// 需要分页
-		$paginator = Notice::select( 'notice_id', 'title' )
+	protected static $default_per_page = 7;
+
+	protected function get_all_notice(){
+
+		$paginator =  Notice::select( 'notice_id', 'title' )
 						    ->with([
 								'notice_user_id' => function( $query ){
 									$query->where( 'user_id', Sentry::getUser()->user_id );
 								}
-						 	])->paginate();
+						 	])->paginate( static::$default_per_page );
 
-		// 获取collection
-		$notices = $paginator->getCollection();
+		return $paginator->getCollection();
+	}
+
+	public function home(){
+
+		// 获取notices
+		$notices = $this->get_all_notice();
+
+		return View::make( 'pages.message-center.message-center.home', $this-> );
+	}
+	
+	//全部通知消息
+	public function all(){
+
+		// 获取notices
+		$notices = $this->get_all_notice();
 
 		$notices->each(function( $notice ){
 
@@ -36,7 +50,7 @@ class NoticePageController extends BaseController{
 
 						 	})
 						 	->where( 'notice.notice_id', '<>', 'user_read_notice.notice_id' )
-						 	->paginate();
+						 	->paginate( static::$default_per_page );
 
 		return View::make( 'pages.message-center.message.message', $paginator->getCollection() );
 	}
@@ -51,8 +65,19 @@ class NoticePageController extends BaseController{
 						 		$join->on( 'notices.notice_id', '=', 'user_read_notice.notice_id' )
 						 			->where( 'user_read_notice.user_id', Sentry::getUser()->user_id );
 
-						 	})->paginate();
+						 	})->paginate( static::$default_per_page );
 
 		return View::make( 'pages.message-center.message.message', $paginator->getCollection() );
+	}
+
+	//通知的详细内容
+	public function detail(){
+
+		$notice = Notice::find( Input::get('notice_id') );
+
+		if ( !isset( $notice ) )
+			return View::make( 'errors.missing' );
+
+		return View::make( 'pages.message-center.message-center.detail', $notice );
 	}
 }

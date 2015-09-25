@@ -84,7 +84,9 @@ module.exports = (grunt)->
                     # message center
                     'dist/css/pages/message-center/feedback/index.css': ['src/pages/message-center/feedback/index.less']
                     'dist/css/pages/message-center/feedback/success.css': ['src/pages/message-center/feedback/success.less']
+                    'dist/css/pages/message-center/message/home.css': ['src/pages/message-center/message/home.less']
                     'dist/css/pages/message-center/message/base.css': ['src/pages/message-center/message/base.less']
+                    'dist/css/pages/message-center/message/detail.css': ['src/pages/message-center/message/detail.less']
 
                     # finance center
                     'dist/css/pages/finance-center/cost-manage/overview.css':['src/pages/finance-center/cost-manage/overview.less']

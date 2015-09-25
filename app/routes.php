@@ -63,17 +63,70 @@ Route::group(array('prefix'=>'business','before'=>'auth.user.isIn'),function(){
 	Route::get('api/car', 'BusinessController@car');
 });
 
-Route::group(array('prefix'=>'notice','before'=> 'auth.user.isIn'), function(){
-	//通知静态页－全部消息
-	Route::get('/', 'NoticePageController@all');
-	//通知静态页－未读消息
-	Route::get('unread','NoticePageController@unread');
-	//通知静态页－已读消息
-	Route::get('read','NoticePageController@read');
-	//获取通知详细内容
-	Route::post('/','NoticeController@detail');
+// 消息中心
+Route::group(array('prefix'=>'message-center'), function(){
+
+	// 消息模块
+	Route::group([ 'prefix' => 'message' ], function(){
+
+		//主页 --- 平台公告
+		Route::get( 'home', 'NoticePageController@home' );
+
+		//获取通知详细内容
+		Route::get( 'detail', 'NoticePageController@detail' );
+
+		Route::group([ 'before' => 'auth.user.isIn' ], function(){
+
+			//通知静态页－全部消息
+			Route::get( 'all', 'NoticePageController@all' );
+
+			//通知静态页－已读消息
+			Route::get( 'read', 'NoticePageController@read' );
+			
+			//通知静态页－未读消息
+			Route::get( 'unread', 'NoticePageController@unread') ;
+
+			// 设置消息为已读
+			Route::post( 'read_notice', 'NoticeContorller@read_notice' );
+		});
+	});
+
+	// 反馈
+	Route::group([ 'prefix' => 'feedback', 'before' => 'auth.user.isIn' ], function(){
+
+		// 反馈页面
+		Route::get( '/', 'FeedbackController@index' );
+
+		// 添加反馈
+		Route::post( '/', 'FeedbackController@add_feedback' );
+
+		// 反馈成功
+		Route::get( 'success', 'FeedbackController@feedback_success' );
+	});
 });
 
+// 财务中心
+Route::group([ 'prefix' => 'finance-center', 'before' => 'auth.user.isIn' ], function(){
+
+	// 费用管理
+	Route::group([ 'prefix' => 'cost-manange' ], function(){
+
+		// 概览
+		Route::get( 'overview', 'CostDetailController@overview');
+
+		// 费用明细
+		Route::get( 'cost-detail', 'CostDetailController@cost_detail' );
+
+		// 退款记录
+		Route::get( 'refund-record', 'CostDetailController@refund_record' );
+	});
+
+	Route::group([ 'prefix' => 'recharge' ], function(){
+
+		// 充值页面
+		Route::get( '/', 'RechargeController@index' );
+	});
+});
 
 Route::get('test',function(){
 	Sentry::login(User::find('yhxx560214c236150446972440'), false);
