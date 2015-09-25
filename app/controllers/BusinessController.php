@@ -20,7 +20,7 @@ class BusinessController extends BaseController{
 		if( $recharge['errCode'] != 0)
 		{
 			Log::info( $recharge );
-			return $this->errMessage($recharge['errCode']);
+			return parent::errMessage($recharge['errCode']);
 		}
 
 		return Response::json(array('errCode'=>0, 'message'=>'充值成功','balance'=>$recharge['balance']));
@@ -39,7 +39,7 @@ class BusinessController extends BaseController{
 		if( $count['errCode'] != 0)
 		{
 			Log::info( $count );
-			return $this->errMessage($count['errCode']);
+			return parent::errMessage($count['errCode']);
 		}
 		// dd($count['data']);
 		return Response::json(array('errCode'=>0, 'message'=>'获取访问次数信息成功','count'=>$count['data']));
@@ -59,7 +59,7 @@ class BusinessController extends BaseController{
 		if( $account_info['errCode'] != 0)
 		{
 			Log::info( $account_info );
-			return $this->errMessage($account_info['errCode']);
+			return parent::errMessage($account_info['errCode']);
 		}
 
 		return Response::json(array('errCode'=>0,'message'=>'返回账户信息','account'=>$account_info['account']));
@@ -85,7 +85,7 @@ class BusinessController extends BaseController{
 		if( $account_info['errCode'] != 0)
 		{
 			Log::info( $account_info );
-			return $this->errMessage($account_info['errCode']);
+			return parent::errMessage($account_info['errCode']);
 		}
 
 		return Response::json(array('errCode'=>0,'message'=>'修改业务单价', 'account_info'=>$account_info['account'])) ;
@@ -150,7 +150,7 @@ class BusinessController extends BaseController{
 		if( $violation['errCode'] != 0)
 		{
 			Log::info( $violation );
-			return $this->errMessage($violation['errCode']);
+			return parent::errMessage($violation['errCode']);
 		}
 
 		$violation = json_decode( $violation['data'],true);
@@ -193,7 +193,7 @@ class BusinessController extends BaseController{
 		 if( $license['errCode'] != 0 )
 		 {
 		 	Log::info( $license );
-			return $this->errMessage($license['errCode']);
+			return parent::errMessage($license['errCode']);
 		 }
 		 $license = json_decode( $license['data'],true);
 		 
@@ -264,7 +264,7 @@ class BusinessController extends BaseController{
 		if( $car['errCode'] != 0 )
 		{
 			Log::info( $car );
-			return $this->errMessage($car['errCode']);
+			return parent::errMessage($car['errCode']);
 		}
 		$car = json_decode( $car['data'],true);
 		// $car = $car['body'];
