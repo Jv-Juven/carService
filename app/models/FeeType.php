@@ -25,6 +25,6 @@ class FeeType extends Eloquent{
      */
     public function user_fee(){
 
-        return $this->hasOne( 'UserFee', 'item_id', 'item_id' );
+        return $this->hasOne( 'UserFee', 'id', 'fee_type_id' );
     }
 }

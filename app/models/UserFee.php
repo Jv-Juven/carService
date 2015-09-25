@@ -8,7 +8,7 @@ class UserFee extends Eloquent{
     protected $hidden       = [];
     protected $fillable     = [
         'user_id',
-        'item_id',
+        'fee_type_id',
         'fee_no'
     ];
 
@@ -25,6 +25,6 @@ class UserFee extends Eloquent{
      */
     public function fee_type(){
 
-        return $this->belongsTo( 'FeeType', 'item_id', 'item_id' );
+        return $this->belongsTo( 'FeeType', 'fee_type_id', 'id' );
     }
 }
