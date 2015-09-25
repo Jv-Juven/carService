@@ -12,7 +12,6 @@
 	width: 100%;
 	height: @header-height;
 	background: rgb(255, 255, 255);
-	// background: rgb(41, 36, 23);
 	.logo{
 		width: auto;
 		height: 100%;
@@ -39,9 +38,7 @@
 			}
 			.header-logo-title{
 				span{
-					// display: inline-block;
 					width: 100%;
-					// height: auto;
 					border-left: 1px solid @font-color;
 				}
 			}
@@ -90,15 +87,30 @@
 			line-height: @header-height;
 			height: @header-height;
 			float: left;
+			.header-user{
+				position: relative;
+				height: 40px;
+				margin-top: 5px;
+			}
 			img{
-				width: 110px;
-				height: 24px;
-				margin-top: 18px;
+				display: block;
+				float: left;
+				width: 30px;
+				height: 30px;
+				margin-top: 14px;
 			}
 			a{
 				padding: 0px 10px;
 				.a-color(@font-color);
 				font-weight: bolder;
+			}
+			.header-name{
+				.inline-block();
+				float: left;
+				height: 100%;
+				margin-left: 8px;
+				text-align: center;
+				color: rgb(120, 120, 120);
 			}
 		}
 		.header-btns{
@@ -107,9 +119,9 @@
 				height: 16px;
 				line-height: 16px;
 				margin-top: 26px;
-				&:hover{
-					text-decoration: underline;
-				}
+				// &:hover{
+				// 	text-decoration: underline;
+				// }
 			}
 		}
 		.btns-last{

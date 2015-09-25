@@ -9,6 +9,7 @@
 @table-bg: rgb(247, 247, 246);
 @table-head-bg: rgb(152, 153, 147);
 @tips-color: rgb(20, 80, 130);
+@border-col: rgb(220, 220, 220);
 
 .a-color(@color: rgb(56, 56, 56)){
 	color: @color;
@@ -20,4 +21,19 @@
 	width: @width;
 	height: auto;
 	margin: 0px auto;
+}
+.inline-block(){
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+}
+.inline-btn(@width: 130px, @height: 30px){
+	width: @width;
+	height: @height;
+	.inline-block();
+	line-height: @height;
+	text-align: center;
+	background: @blue;
+	color: rgb(255, 255, 255);
+	.a-color(rgb(255, 255, 255));
 }

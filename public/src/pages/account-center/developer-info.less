@@ -1,0 +1,89 @@
+@import "./../../common/common.less";
+@import "./../../common/mask/mask.less";
+.content-box{
+	height: 520px;
+}
+.content-container{
+	margin: 40px auto;
+	font-weight: bolder;
+	width: 740px;
+	.title{
+		display: block;
+		font-size: 18px;
+		color: rgb(120, 120, 120);
+		padding-bottom: 10px;
+		border-bottom: 1px solid @border-col;
+		margin-bottom: 20px;
+	}
+	.developer-tr{
+		@tr-height: 44px;
+		width: 100%;
+		height: @tr-height;
+		&>.tr{
+			height: @tr-height;
+			line-height: @tr-height;
+			float: left;
+			// .inline-block();
+		}
+		.tr-title{
+			width: 160px;
+			text-align: right;
+			font-size: 16px;
+		}
+		.tr-content{
+			width: auto;
+			text-align: left;
+			padding-left: 10px;
+
+		}
+	}
+}
+
+// 浮层框的基本设置
+.warn-box{
+	.warn-box(700px, 270px);
+	.warn-content{
+		.warn-content(236px);
+		.warn-msg{
+			.warn-msg(50px);
+		}
+	}
+}
+.msg-line{
+	@line-height:36px;
+	width: 100%;
+	height: @line-height;
+	line-height: @line-height;
+	text-align: center;
+	.msg-title{
+		.inline-block();
+		width: 110px;
+		text-align: right;
+		line-height: @line-height;
+	}
+	.msg-input{
+		width: 300px;
+		height: @line-height;
+		.inline-block();
+		margin: 0px 10px;
+		border: 1px solid @border-col;
+		padding-left: 10px;
+	}
+	.msg-btn{
+		.inline-btn();
+		margin-top: 4px;
+	}
+}
+.msg-submit-btn{
+	margin-top: 50px;
+}
+
+
+
+
+
+
+
+
+
+

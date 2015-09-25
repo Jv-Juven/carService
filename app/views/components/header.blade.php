@@ -7,11 +7,6 @@
 						<img src="/images/common/logo.png">
 					</span>
 				</li>
-				<!-- <li class="header-logo-title">
-					<span>
-						广州车尚信息科技有限公司
-					</span>
-				</li> -->
 			</ul>
 		</a>
 	</div>
@@ -37,8 +32,11 @@
 
 	<ul class="header-btns-wrapper">
 		<li>
-			<a class="bg-block" href="/">
-				<img src="/images/common/logo.png">
+			<a class="bg-block header-user" href="/">
+				<img src="/images/components/avatar.png">
+				<span class="header-name">
+					LOGIN ALEXDENG
+				</span>
 			</a>
 		</li>
 		<li class="header-btns">

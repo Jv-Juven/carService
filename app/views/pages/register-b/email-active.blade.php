@@ -17,7 +17,7 @@
 
 	<div class="content-container">
 		<div class="email-icon">
-			<img src="/images/b-register/success_icon.png">
+			<img src="/images/register-b/email_icon.png">
 			激活服务平台账号
 		</div>
 		<div class="email-tips">

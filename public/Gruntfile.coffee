@@ -53,12 +53,15 @@ module.exports = (grunt)->
         less:
             common:
                 files:
-                    'dist/css/common.css': ['src/common/*.less']
+                    'dist/css/common.css': ['src/common/common.less', 'src/common/master.less','src/common/public.less']
+                    'dist/css/common/pay/success.css': ['src/common/pay/success.less']
+                    'dist/css/common/pay/fail.css': ['src/common/pay/fail.less']
+                    'dist/css/common/mask/mask.css': ['src/common/mask/mask.less']
+                    'dist/css/common/pay/wechat.css': ['src/common/pay/wechat.less']
 
             components:
                 files:
                     'dist/css/components.css': ['src/components/**/*.less']
-                    # 'dist/pc/css/components.css': ['src/pc/components/**/*.less']
             pages:
                 files:
                     #serve-center
@@ -68,8 +71,15 @@ module.exports = (grunt)->
                     'dist/css/pages/serve-center/business/agency.css': ['src/pages/serve-center/business/agency.less']
                     'dist/css/pages/serve-center/business/pay.css': ['src/pages/serve-center/business/pay.less']
                     'dist/css/pages/serve-center/business/success.css': ['src/pages/serve-center/business/success.less']
+
+                    #register-b
                     'dist/css/pages/register-b/baseinfo.css': ['src/pages/register-b/baseinfo.less']
                     'dist/css/pages/register-b/email-active.css': ['src/pages/register-b/email-active.less']
+                    'dist/css/pages/register-b/reg-info.css': ['src/pages/register-b/reg-info.less']
+
+                    #accountc-center
+                    'dist/css/pages/account-center/developer-info.css': ['src/pages/account-center/developer-info.less']
+                    'dist/css/pages/account-center/account-info.css': ['src/pages/account-center/account-info.less']
 
                     # message center
                     'dist/css/pages/message-center/feedback/index.css': ['src/pages/message-center/feedback/index.less']
@@ -77,8 +87,10 @@ module.exports = (grunt)->
                     'dist/css/pages/message-center/message/base.css': ['src/pages/message-center/message/base.less']
 
                     # finance center
+                    'dist/css/pages/finance-center/cost-manage/overview.css':['src/pages/finance-center/cost-manage/overview.less']
                     'dist/css/pages/finance-center/cost-manage/cost-detail.css':['src/pages/finance-center/cost-manage/cost-detail.less']
                     'dist/css/pages/finance-center/cost-manage/refund-record.css':['src/pages/finance-center/cost-manage/refund-record.less']
+                    'dist/css/pages/finance-center/recharge/index.css': ['src/pages/finance-center/recharge/index.less']
 
         cssmin:
             mobile:

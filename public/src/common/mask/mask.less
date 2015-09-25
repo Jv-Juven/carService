@@ -1,0 +1,78 @@
+@box-height: 140px;
+.mask-bg{
+	position: fixed;
+	z-index: 999;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background: rgb(0, 0, 0);
+	opacity: .5;
+	filter: alpha(opacity=50);
+}
+.mask-wrapper{
+	position: fixed;
+	z-index: 999;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	.warn-title{
+		position: relative;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		padding: 10px 0px;
+		line-height: 14px;
+		text-align: center;
+		font-weight: bolder;
+		letter-spacing: 2px;
+		border-bottom: 1px solid rgb(237, 237, 237);
+		.warn-close{
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			display: inline-block;
+			width: 16px;
+			height: 16px;
+			font-size: 16px;
+			cursor: pointer;
+			color: rgb(150, 150, 150);
+			&:hover{
+				color: rgb(30, 30, 30);
+			}
+		}
+	}
+}
+.warn-msg(@margin-top: 40px){
+	width: 100%;
+	display: inline-block;
+	line-height: 14px;
+	text-align: center;
+	margin-top: @margin-top;
+}
+.warn-box(@width: 360px, @height: 140px){
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -@height/2 -@width/2;
+	width: @width;
+	height: @height;
+	background: rgb(255, 255, 255);
+	overflow: hidden;
+	border-radius: 6px;
+	@box-height: @height;
+	
+}
+.warn-content(@height: 106px){
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: @height;
+}
+
+
+
+
+
