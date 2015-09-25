@@ -30,7 +30,8 @@ class CreateUserFeeTable extends Migration {
 			 * 主键之一 & 外键
 			 * 		约束: fee_types表item_id字段
 			 */
-			$table->integer('fee_type_id');
+			$table->integer('fee_type_id')
+			 	  ->unsigned();
 			$table->index('fee_type_id');
 			$table->foreign('fee_type_id')
 				  ->references('id')
