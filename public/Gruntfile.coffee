@@ -72,6 +72,8 @@ module.exports = (grunt)->
                     'dist/css/pages/serve-center/business/pay.css': ['src/pages/serve-center/business/pay.less']
                     'dist/css/pages/serve-center/business/success.css': ['src/pages/serve-center/business/success.less']
                     'dist/css/pages/serve-center/indent/indent-agency.css': ['src/pages/serve-center/indent/indent-agency.less']
+                    'dist/css/pages/serve-center/data/drive.css': ['src/pages/serve-center/data/drive.less']
+                    'dist/css/pages/serve-center/data/cars.css': ['src/pages/serve-center/data/cars.less']
 
                     #register-b
                     'dist/css/pages/register-b/baseinfo.css': ['src/pages/register-b/baseinfo.less']
