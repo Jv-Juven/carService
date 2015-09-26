@@ -3,6 +3,64 @@ use Gregwar\Captcha\CaptchaBuilder;
 
 class UserController extends BaseController{
 
+	//生成固定长度	随机字符串
+	public function randNumber()
+	{
+		$possible_charactors = "abcdefghijklmnopqrstuvwxyz0123456789"; //产生随机数的字符串
+		$salt  =  "";   //验证码
+		while(strlen($salt) < 6)
+		{
+		 	 $salt .= substr($possible_charactors,rand(0,strlen($possible_charactors)-1),1);
+		}
+		return $salt;
+	}
+
+	//发送手机验证码
+	public function messageVerificationCode($phone)
+	{
+		$url = Config::get('domain.phone.url');
+		$username = Config::get('domain.phone.username');
+		$password = Config::get('domain.phone.password');
+		
+		$text = $this->randNumber();
+		$text = '车尚服务注册验证码'.$text;
+		Session::put('phone_code',$text);
+		
+		$parm = 'username='.$username.'&password='.$password.'&to='.$phone.
+		'&text='.$text.'&msgtype=1';
+		$req = CurlController::post($url,$parm);
+		switch ($req) {
+			case 0:
+				return Response::json(array('errCode'=> 0, 'message'=> '正常发送'));
+				break;
+			case -2:
+				return Response::json(array('errCode'=> -2, 'message'=> '发送参数填写不正确'));
+				break;
+			case -3:
+				return Response::json(array('errCode'=> -3, 'message'=> '用户载入延迟'));
+				break;
+			case -6:
+				return Response::json(array('errCode'=> -6, 'message'=> '密码错误'));
+				break;
+			case -7:
+				return Response::json(array('errCode'=> -7, 'message'=> '用户不存在'));
+				break;
+			case -11:
+				return Response::json(array('errCode'=> -11, 'message'=> '发送号码数理大于最大发送数量'));
+				break;
+			case -12:
+				return Response::json(array('errCode'=> -12, 'message'=> '余额不足'));
+				break;
+			case -99:
+				return Response::json(array('errCode'=> -99, 'message'=> '内部处理错误'));
+				break;
+				break;
+			default:
+				return Response::json(array('errCode'=>  21, 'message'=> '未知错误'));
+				break;
+		}
+	}
+
 	//生成验证码(congcong网)
 	public function captcha()
 	{	
@@ -16,11 +74,91 @@ class UserController extends BaseController{
 		exit;
 	}
 
+	//C端用户根据手机获取验证码
+	public function getPhoneCode()
+	{
+		$phone 			= Input::get('phone');
+		$phone_regex 	= Config::get('regex.telephone');
+		if(!preg_match($phone_regex, $phone))
+			return Response::json(array('errCode'=>21,'message'=>'手机号码格式不正确'));
+		//是否注册
+		$user = User::where('login_account',$phone)->first();
+		if(isset($user))
+			return Response::json(array('errCode'=>22, 'message'=>'该用户已注册'));
+		//发送验证码
+		$number = $this->messageVerificationCode($phone);
+		if($number != 0)
+			return Response::json(array('errCode'=>23, 'message'=>'系统内部错误,请与客户联系'));
+
+		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功'));
+	}
+
 	//C端用户注册
 	public function cSiteRegister()
 	{
+		$data = array(
+			'login_account' 	= Input::get('login_account');
+			'password' 			= Input::get('password');
+			're_password' 		= Input::get('re_password');
+			'phone_code'		= Input::get('phone_code');
+		)
+		$session_phone_code = Session::get('phone_code');
+		$rules = array(
+			'login_account' => 'required|size:11|unique:users,login_account',
+			'password'		=> 'required|alpha_num|between:6,16',
+			're_password' 	=> 'required|same:password',
+			'phone_code'	=> 'required|size:6'
+		);
+		$messages = array(
+			'required' 				=> 1,
+			'login_account.size' 	=> 2,
+			'login_account.unique'	=> 3
+			'password.alpha_num' 	=> 4,
+			'password.between' 		=> 5,
+			're_password.same' 		=> 6,
+			'phone_code.size' 		=> 7, 
+		);
 		
-	}
+		$validation = Validator::make($dat,$rules,$messages);
+		if($validation->fails())
+		{
+			$number = $validation->messages()->all();
+			switch ($number[0]) {
+				case 1:
+					return Response::json(array('errCode'=>21,'message'=>'请将信息填写完整'));
+				case 2:
+					return Response::json(array('errCode'=>22,'message'=>'手机号码位数不正确'));
+				case 3:
+					return Response::json(array('errCode'=>23,'message'=>'该用户已注册'));
+				case 4:
+					return Response::json(array('errCode'=>24,'message'=>'密码必须为数字和字母组成'));
+				case 5:
+					return Response::json(array('errCode'=>25,'message'=>'密码必须在6到16位之间'));
+				case 6:
+					return Response::json(array('errCode'=>26,'message'=>'两次输入的密码不一致'));
+				default:
+					return Response::json(array('errCode'=>27,'message'=>'手机验证码位数不对'));
+			}
+		}
+		if($data['phone_code'] != $session_phone_code)
+			return Response::json(array('errCode'=>26,'message'=>'手机验证码不对，请重新输入'));
+		try
+			{
+				$user = Sentry::createUser(array(
+			        'login_account'     => $data['login_account'],
+			        'password'  		=> $data['password'],
+			        // 'user_id'			=> 'yhxx'.uniqid(),
+			        'user_type'			=> 0,
+			        'status'			=> 10,
+			    ));
+			}
+		catch(Cartalyst\Sentry\Users\UserExistsException $e)
+		{
+			return Response::json(array('errCode'=>7,'message'=>'该用户已存在'));
+		}
+
+		return Response::json(array('errCode'=>0, 'message'=>'注册成功'));
+ 	}
 
 	//B端用户注册
 	public function bSiteRegister()

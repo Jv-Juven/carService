@@ -329,6 +329,7 @@ class BusinessController extends BaseController{
 			DB::transaction(function() use($data,$data_two) {
 
 				$order = new AgencyOrder;
+				$order->order_id = 7787979879;
 				$order->user_id = Sentry::getUser()->user_id;
 				$order->car_plate_no 		= $data['car_plate_no'];
 				$order->agency_no 			= $data['agency_no'];
@@ -340,7 +341,7 @@ class BusinessController extends BaseController{
 				$order->recipient_phone 	= $data_two['recipient_phone'];
 				$order->car_engine_no 		= $data_two['car_engine_no'];
 				$order->save();
-
+				echo $order->order_id;
 				//违章信息存储
 				$violations = Session::get('violation');
 				foreach( $violations as $violation )
@@ -355,18 +356,29 @@ class BusinessController extends BaseController{
 					$violation_info->rep_violation_behavior = $violation['wfxwzt'];
 					$violation_info->rep_point_no = $violation['wfjfs'];
 					$violation_info->rep_priciple_balance = $violation['fkje'];
-					
 					//服务费获取
 					$user = Sentry::getUser();
-					$user_type = UserFee::where('user_id',$user->user_id)->where('item_id',3)->first();
-					$fee_type = FeeType::where('user_type',$user->user_type)->where('item_id',3)->first();
+					try
+					{
+						$user_type = UserFee::where('user_id',$user->user_id)->where('item_id',4)->get();
+					}catch(\Exception $e)
+					{
+						$user_type = null;
+					}
+					echo 1;
+					$fee_type = FeeType::where('user_type',$user->user_type)
+										->where('item_id',4)
+										->first();
+					// dd($fee_type->number);
 					if(isset( $user_type ) )
 					{
 						$violation_info->rep_service_charge = $user_type->fee_no;
 					}else{
 						$violation_info->rep_service_charge = $fee_type->number;
 					}
+					echo 2;
 					$violation_info->save();
+					echo 3;
 				}
 			});
 		}catch(\Exception $e)

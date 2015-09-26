@@ -42,7 +42,7 @@ class FeeTypesTableSeeder extends Seeder {
 		]);
 
 		FeeType::create([
-			'item_id' => 1,
+			'item_id' => 4,
 			'category' => '企业服务费',
 			'item' 	=> '企业违章代办凭证快递费',
 			'number' => 15,
@@ -50,7 +50,7 @@ class FeeTypesTableSeeder extends Seeder {
 			'user_type' => 1
 		]);
 		FeeType::create([
-			'item_id' => 1,
+			'item_id' => 5,
 			'category' => '企业服务费',
 			'item' 	=> '3＝企业违章代办服务费',
 			'number' => 30,
