@@ -168,6 +168,11 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User implements UserInterface
 		return $this->email;
 	}
 
+	public function get_primary_key(){
+
+		return $this->primaryKey;
+	}
+
 	/**
 	 * 监听创建事件
 	 */
@@ -176,9 +181,11 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User implements UserInterface
 		parent::boot();
 
 		self::creating(function( $user ){
+
+			$primaryKey = $user->get_primary_key();
 			
-			if ( !isset( $user[ $this->primaryKey ] ) ){
-				$user[ $this->primaryKey ] = BaseModel::get_unique_id( self::$id_prefix );
+			if ( !isset( $user[ $primaryKey ] ) ){
+				$user[ $primaryKey ] = BaseModel::get_unique_id( self::$id_prefix );
 			}
 			
 			return true;
