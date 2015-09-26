@@ -51,7 +51,7 @@ Route::filter('auth', function()
 Route::filter('auth.user.isIn',function()
 {
 	Session_start();
-	$user = User::find('yhxx560218325bc86201544229');
+	$user = User::where('login_account','826308409@qq.com')->first();
 	Sentry::login($user,false);
 	// Sentry::logout();
 	if(!Sentry::check())

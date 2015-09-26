@@ -22,42 +22,33 @@ class UserController extends BaseController{
 		$username = Config::get('domain.phone.username');
 		$password = Config::get('domain.phone.password');
 		
-		$text = $this->randNumber();
-		$text = '车尚服务注册验证码'.$text;
-		Session::put('phone_code',$text);
+		$text_number = $this->randNumber();
+		$text = urlencode( iconv('UTF-8', 'GBK','车尚服务验证码:'.$text_number));
+		// dd($text);
+		Session::put('phone_code',$text_number);
 		
 		$parm = 'username='.$username.'&password='.$password.'&to='.$phone.
 		'&text='.$text.'&msgtype=1';
-		$req = CurlController::post($url,$parm);
+		$req = CurlController::get($url.'?'.$parm);
 		switch ($req) {
-			case 0:
+			case ""://正常时返回空，妈蛋儿！
 				return Response::json(array('errCode'=> 0, 'message'=> '正常发送'));
-				break;
-			case -2:
+			case "-2":
 				return Response::json(array('errCode'=> -2, 'message'=> '发送参数填写不正确'));
-				break;
-			case -3:
+			case "-3":
 				return Response::json(array('errCode'=> -3, 'message'=> '用户载入延迟'));
-				break;
-			case -6:
+			case "-6":
 				return Response::json(array('errCode'=> -6, 'message'=> '密码错误'));
-				break;
-			case -7:
+			case "-7":
 				return Response::json(array('errCode'=> -7, 'message'=> '用户不存在'));
-				break;
-			case -11:
+			case "-11":
 				return Response::json(array('errCode'=> -11, 'message'=> '发送号码数理大于最大发送数量'));
-				break;
-			case -12:
+			case "-12":
 				return Response::json(array('errCode'=> -12, 'message'=> '余额不足'));
-				break;
-			case -99:
+			case "-99":
 				return Response::json(array('errCode'=> -99, 'message'=> '内部处理错误'));
-				break;
-				break;
 			default:
 				return Response::json(array('errCode'=>  21, 'message'=> '未知错误'));
-				break;
 		}
 	}
 
@@ -77,18 +68,20 @@ class UserController extends BaseController{
 	//C端用户根据手机获取验证码
 	public function getPhoneCode()
 	{
-		$phone 			= Input::get('phone');
+		$login_account 			= Input::get('login_account');
 		$phone_regex 	= Config::get('regex.telephone');
-		if(!preg_match($phone_regex, $phone))
+		if(!preg_match($phone_regex, $login_account))
 			return Response::json(array('errCode'=>21,'message'=>'手机号码格式不正确'));
+		
 		//是否注册
-		$user = User::where('login_account',$phone)->first();
+		$user = User::where('login_account',$login_account)->first();
 		if(isset($user))
 			return Response::json(array('errCode'=>22, 'message'=>'该用户已注册'));
+		
 		//发送验证码
-		$number = $this->messageVerificationCode($phone);
-		if($number != 0)
-			return Response::json(array('errCode'=>23, 'message'=>'系统内部错误,请与客户联系'));
+		$number = $this->messageVerificationCode($login_account);
+		if($number->getData()->errCode != "")
+			return Response::json(array('errCode'=>23, 'message'=>'发送太过频繁，请稍候再试，如不能发送，请及时与客户联系'));
 
 		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功'));
 	}
@@ -97,11 +90,11 @@ class UserController extends BaseController{
 	public function cSiteRegister()
 	{
 		$data = array(
-			'login_account' 	= Input::get('login_account');
-			'password' 			= Input::get('password');
-			're_password' 		= Input::get('re_password');
-			'phone_code'		= Input::get('phone_code');
-		)
+			'login_account' 	=> Input::get('login_account'),
+			'password' 			=> Input::get('password'),
+			're_password' 		=> Input::get('re_password'),
+			'phone_code'		=> Input::get('phone_code'),
+		);
 		$session_phone_code = Session::get('phone_code');
 		$rules = array(
 			'login_account' => 'required|size:11|unique:users,login_account',
@@ -110,16 +103,19 @@ class UserController extends BaseController{
 			'phone_code'	=> 'required|size:6'
 		);
 		$messages = array(
-			'required' 				=> 1,
-			'login_account.size' 	=> 2,
-			'login_account.unique'	=> 3
-			'password.alpha_num' 	=> 4,
-			'password.between' 		=> 5,
-			're_password.same' 		=> 6,
-			'phone_code.size' 		=> 7, 
+			'login_account.required' => 1,
+			'password.required' 	 => 1,
+			're_password.required' 	 => 1,
+			'phone_code.required'    => 1,
+			'login_account.size' 	 => 2,
+			'login_account.unique'	 => 3,
+			'password.alpha_num' 	 => 4,
+			'password.between' 		 => 5,
+			're_password.same' 		 => 6,
+			'phone_code.size' 		 => 7, 
 		);
 		
-		$validation = Validator::make($dat,$rules,$messages);
+		$validation = Validator::make($data,$rules,$messages);
 		if($validation->fails())
 		{
 			$number = $validation->messages()->all();
@@ -149,13 +145,16 @@ class UserController extends BaseController{
 			        'password'  		=> $data['password'],
 			        // 'user_id'			=> 'yhxx'.uniqid(),
 			        'user_type'			=> 0,
-			        'status'			=> 10,
+			        'status'			=> 22,
 			    ));
 			}
 		catch(Cartalyst\Sentry\Users\UserExistsException $e)
 		{
 			return Response::json(array('errCode'=>7,'message'=>'该用户已存在'));
 		}
+		
+		// $user = User::where('login_account',$user->login_account)->first();
+		// Sentry::login($user,false);
 
 		return Response::json(array('errCode'=>0, 'message'=>'注册成功'));
  	}
@@ -200,25 +199,18 @@ class UserController extends BaseController{
 			{
 			case 1:
 				return Response::json(array('errCode'=>1, 'message'=>'信息填写不完整！')); 
-				break;
 			case 2:
 				return Response::json(array('errCode'=>2, 'message'=>'邮箱已被注册！'));
-				break;
 			case 3:
 				return Response::json(array('errCode'=>3, 'message'=>'邮箱格式不正确！'));
-				break;
 			case 4:
 				return Response::json(array('errCode'=>4, 'message'=>'密码只能包含字母和数字！'));
-				break;
 			case 5:
 				return Response::json(array('errCode'=>5, 'message'=>'密码必须是6到20位之间！'));
-				break;
 			case 6:
 				return Response::json(array('errCode'=>6, 'message'=>'两次密码输入不一致！'));
-				break;
 			default:
 				return Response::json(array());
-
 			}
 		}else{
 			
@@ -315,7 +307,7 @@ class UserController extends BaseController{
 			 $business_user->operational_name			= $data['operational_name'];
 			 //运营人员身份证号码
 			 $business_user->operational_card_no		= $data['operational_card_no'];
-			 //运营人员身份证号码
+			 //运营人员电话号码
 			 $business_user->operational_phone			= $data['operational_phone'];
 			 //身份证正面扫描件
 			 $business_user->id_card_front_scan_path	= $data['id_card_front_scan_path'];
@@ -358,26 +350,20 @@ class UserController extends BaseController{
             	switch ($user->status) {
             		case 10:
             			return Response::json(array('errCode'=>10,'message'=>'请激活邮箱'));
-            			break;
             		case 11:
             			return Response::json(array('errCode'=>11,'message'=>'请填写登记信息'));
-            			break;
         			case 20:
             			return Response::json(array('errCode'=>20,'message'=>'信息审核中'));
-	        			break;
         			case 21:
             			return Response::json(array('errCode'=>21,'message'=>'请填写备注码'));
-	        			break;
         			case 30:
             			return Response::json(array('errCode'=>30,'message'=>'账户已被锁定'));
-	        			break;
             		default:
             			return Response::json(array('errCode'=>0,'message'=>'登录成功'));
-            			break;
             	}
             }
         }catch (\Exception $e){
-            return Response::json(array('errCode'=>1,'message'=>$e->getMessage()));
+            return Response::json(array('errCode'=>1,'message'=>'账户或密码错误'.$e->getMessage()));
         }
 	}
 
@@ -403,6 +389,173 @@ class UserController extends BaseController{
 		return Response::json(array('errCode'=>0, 'message'=>'验证码发送成功!'));
 	}
 	
+	//c端用户修改密码－发送验证码到手机
+	public function  sendResetCodeToPhone()
+	{
+		$login_account = Sentry::getUser()->login_account;		
+		//发送验证码
+		$number = $this->messageVerificationCode($login_account);
+		if($number->getData()->errCode != "")
+			return Response::json(array('errCode'=>23, 'message'=>'发送太过频繁，请稍候再试，如不能发送，请及时与客户联系'));
+
+		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功'));
+	}
+
+	//c端用户修改密码－重置密码
+	public function resetCustomerSitePassword()
+	{
+		//验证码验证
+		$phone_code 		= Input::get('phone_code');
+		$session_phone_code = Session::get('phone_code');
+		if( $phone_code != $session_phone_code)
+			return Response::json(array('errCode'=>21,'message'=>'验证码不正确'));
+
+		//手机号验证
+		$login_account 	= Input::get('login_account');
+		$user = Sentry::getUser();
+		if($login_account != $user->login_account)
+			return Response::json(array('errCode'=>22,'message'=>'手机号码不正确，请重新输入'));
+		
+		$data = array(
+			'password' 	   => Input::get('password'),
+			're_password'   => Input::get('re_password')
+		);
+		
+		$rules = array(
+			'password'      =>'required|alpha_num|between:6,16',
+			're_password' 	=>'required|same:password'
+		);
+
+		$messages = array(
+			'password.required' 	    => 1,
+			're_password.required' 		=> 1,
+			'password.alpha_num'   		=> 2,
+			'password.between'      	=> 3,
+			're_password.same'     		=> 4
+		);
+
+		$validation = Validator::make($data, $rules,$messages);
+
+		if($validation->fails()) 
+		{	//获得错误信息数组
+			$number = $validation->messages()->all();
+			switch ($number[0])
+			{
+			case 1:
+				return Response::json(array('errCode'=> 21, 'message'=>'信息填写不完整！')); 
+			case 2:
+				return Response::json(array('errCode'=> 22, 'message'=>'密码只能包含字母和数字！'));
+			case 3:
+				return Response::json(array('errCode'=> 23, 'message'=>'密码必须是6到20位之间！'));
+			default:
+				return Response::json(array('errCode'=> 24, 'message'=>'两次密码输入不一致！'));
+			}
+		}
+		//重置密码
+		$user = Sentry::findUserById($user->user_id);
+		$resetCode = $user->getResetPasswordCode();
+		if(!$user->attemptResetPassword($resetCode, $data['password']))
+			return Response::json(array('errCode' => 25,'message' => '重置密码失败!'));
+		
+		return Response::json(array('errCode' => 0,'message' => '重置密码成功!'));
+	}
+
+	//b端用户修改密码－发送验证码到邮箱
+	public function sendResetCodeToEmail()
+	{	
+		$login_account = Input::get('login_account');
+		$user = Sentry::findUserByLogin(Sentry::getUser()->login_account);
+		if($login_account != $user->login_account)
+			return Response::json(array('errCode'=>21, 'message'=> '邮箱不正确'));
+
+		try
+		{	
+		    $user = Sentry::findUserByLogin(Sentry::getUser()->login_account);
+		    $reset_code = $user->getResetPasswordCode();
+
+		    //发送邮件
+			Mail::send('emails/resetcode',array('reset_code' => $reset_code),function($message) use ($user)
+			{
+				$message->to($user->login_account,'')->subject('车尚车务系统!');
+			});
+		}
+		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		{
+			return Response::json(array('errCode'=>22,'message'=>'该用户不存在'));
+		}
+
+		return Response::json(array('errCode'=>0, 'message'=>'重置验证码发送成功'));
+	}
+
+	//b端用户修改密码－重置密码
+	public function resetBusinessSitePassword()
+	{
+		$user = Sentry::getUser();
+		$reset_code = Input::get('reset_code');
+		
+		$data = array(
+			'password' 	   => Input::get('password'),
+			're_password'   => Input::get('re_password')
+		);
+		
+		$rules = array(
+			'password'      =>'required|alpha_num|between:6,16',
+			're_password' 	=>'required|same:password'
+		);
+
+		$messages = array(
+			'password.required' 	    => 1,
+			're_password.required' 		=> 1,
+			'password.alpha_num'   		=> 2,
+			'password.between'      	=> 3,
+			're_password.same'     		=> 4
+		);
+
+		$validation = Validator::make($data, $rules,$messages);
+
+		if($validation->fails()) 
+		{	//获得错误信息数组
+			$number = $validation->messages()->all();
+			switch ($number[0])
+			{
+			case 1:
+				return Response::json(array('errCode'=> 21, 'message'=>'信息填写不完整！')); 
+			case 2:
+				return Response::json(array('errCode'=> 22, 'message'=>'密码只能包含字母和数字！'));
+			case 3:
+				return Response::json(array('errCode'=> 23, 'message'=>'密码必须是6到20位之间！'));
+			default:
+				return Response::json(array('errCode'=> 24, 'message'=>'两次密码输入不一致！'));
+			}
+		}
+		//重置密码
+		try
+		{
+		    $user = Sentry::findUserById($user->user_id);
+
+		    if ($user->checkResetPasswordCode($reset_code))
+		    {
+		        // Attempt to reset the user password
+		        if ($user->attemptResetPassword($reset_code, $data['password']))
+		        {
+		            return Response::json(array('errCode'=>0, 'message'=>'重置密码成功'));
+		        }
+		        else
+		        {
+		            return Response::json(array('errCode'=>25, 'message'=>'重置密码失败'));
+		        }
+		    }
+		    else
+		    {
+	            return Response::json(array('errCode'=>26, 'message'=>'验证码不正确'));
+		    }
+		}
+		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		{
+            return Response::json(array('errCode'=>27, 'message'=>'该用户不存在'));
+		}
+	}
+
 	//获取每个user_id 对应的 appkey和secretkey
 	public function app()
 	{
@@ -428,20 +581,4 @@ class UserController extends BaseController{
 		return Response::json(array('errCode'=>0, 'message'=>'appkey获取成功'));	
 
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

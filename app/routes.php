@@ -28,10 +28,20 @@ Route::group(array('prefix'=>'user'), function(){
 	Route::get('b_site_active','UserPageController@isEmailActive');
 	//登录
 	Route::post('login','UserController@login');
+	//获取手机验证码
+	Route::get('phone_code','UserController@getPhoneCode');
 	//C端用户注册
 	Route::post('c_register','UserController@cSiteRegister');
 	
 	Route::group(array('before'=>'auth.user.isIn'),function(){
+		//c端用户修改密码－发送验证码到手机
+		Route::post('send_code_to_phone','UserController@sendResetCodeToPhone');
+		//c端用户修改密码－重置密码
+		Route::post('reset_csite_pwd','UserController@resetCustomerSitePassword');
+		//b端用户修改密码－发送验证码到邮箱
+		Route::post('send_code_to_email','UserController@sendResetCodeToEmail');
+		//b端用户修改密码－重置密码
+		Route::post('reset_bsite_pwd', 'UserController@resetBusinessSitePassword');
 		//B端用户邮箱注册验证通过后跳转到邮箱激活页面
 		Route::get('b_active','UserPageController@emailActivePage');
 		//打款验证码静态页面
