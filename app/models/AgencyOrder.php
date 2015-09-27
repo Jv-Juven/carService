@@ -56,4 +56,18 @@ class AgencyOrder extends BaseModel{
 
         return $this->hasOne( 'RefundRecord', 'order_id', 'order_id' );
     }
+
+    /**
+     * 监听创建事件
+     */
+    public static function boot(){
+
+        parent::boot();
+
+        self::creating(function( $order ){
+            $order->order_id = self::get_unique_id( self::$id_prefix );
+            return true;
+        });
+    }
+    
 }

@@ -427,7 +427,40 @@
 			            "cllxmc": "小型轿车"					// 车辆类型名称
 			        }
 			    ]
-			}
+			}		
+    4.8 订单提交
+     请求方式：POST
+     请求url：/business/violation_info	
+
+     请求参数：
+     			is_delivered，				true/false
+     			car_plate_no,				车牌号码	
+     			agency_no,					办理笔数
+     			capital_sum，				本金总额
+     			service_charge_sum，			代办服务费
+     			express_fee，				快递费
+     			recipient_name，				收件人姓名
+     			recipient_addr，				收件人地址
+     			recipient_phone，			收件人手机
+     			car_engine_no，				发动机后4位
+
+     返回参数：
+     			{
+					errCode,			
+					message,
+					order:{
+							car_plate_no,				车牌号码	
+			     			agency_no,					办理笔数
+			     			capital_sum，				本金总额
+			     			service_charge_sum，			代办服务费
+			     			express_fee，				快递费
+			     			recipient_name，				收件人姓名
+			     			recipient_addr，				收件人地址
+			     			recipient_phone，			收件人手机
+					}
+
+				}
+
 
 5.反馈模块
 	请求方式: POST
