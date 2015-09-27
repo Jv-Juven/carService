@@ -51,7 +51,8 @@ Route::filter('auth', function()
 Route::filter('auth.user.isIn',function()
 {
 	Session_start();
-	$user = User::where('login_account','826308409@qq.com')->first();
+	$user = User::find('yhxx560218325bc86201544229');
+	// dd($user);
 	Sentry::login($user,false);
 	// Sentry::logout();
 	if(!Sentry::check())
@@ -62,26 +63,6 @@ Route::filter('auth.user.isIn',function()
 		}
 		else{
 			return Redirect::guest('user.login');
-		}
-	}
-	if(Sentry::getUser()->status != 22)
-	{
-		switch (Sentry::getUser()->status) {
-			case 10:
-				return View::make('未激活邮箱');
-				break;
-			case 11:
-				return View::make('未登记信息');
-				break;
-			case 20:
-				return View::make('信息审核中');
-				break;
-			case 21:
-				return View::make('等待用户校验激活');
-				break;
-			default:
-				return View::make('账号锁定');
-				break;
 		}
 	}
 });

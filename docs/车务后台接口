@@ -80,6 +80,19 @@
 	 				message,			错误信息
 	 			}
 
+	1.8 B端用户打款码
+	 请求方式：POST
+	 请求url：/user/money_remark_code
+
+	 请求参数：
+	 			remark_code 			打款码
+	 返回参数：
+	 			{
+	 				errCode,			0返回正常
+	 				message,			错误信息
+	 			}
+
+
 2. C端用户模块
 	1. 注册－获取手机验证码
 	 请求方式: POST

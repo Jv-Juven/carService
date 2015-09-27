@@ -247,12 +247,27 @@ class UserController extends BaseController{
 		}
 	}
 
-	//信息登记<<<<<<未测试>>>>>>
+	//运营人员手机验证码
+	public function operationalPhoneCode()
+	{
+		$login_account 			= Input::get('login_account');
+		$phone_regex 	= Config::get('regex.telephone');
+		if(!preg_match($phone_regex, $login_account))
+			return Response::json(array('errCode'=>21,'message'=>'手机号码格式不正确'));
+		
+		//发送验证码
+		$number = $this->messageVerificationCode($login_account);
+		if($number->getData()->errCode != "")
+			return Response::json(array('errCode'=>23, 'message'=>'发送太过频繁，请稍候再试，如不能发送，请及时与客户联系'));
+
+		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功'));
+	}
+
+	//信息登记
 	public function informationRegister()
 	{
-		//手机验证码逻辑没写
 		$checkcode	= Input::get('checkcode');
-
+		$phone_code = Session::get('phone_code');
 		$data = array(
 			'user_id'						=> Input::get('user_id'),
 			'business_name' 				=> Input::get('business_name'),
@@ -284,7 +299,20 @@ class UserController extends BaseController{
 		$validation = Validator::make($data, $rules);
 
 		if($validation->fails())
-			return Response::json(array('errCode'=>1, 'message'=>'请填写完整信息'));
+			return Response::json(array('errCode'=>21, 'message'=>'请填写完整信息'));
+		
+		if(strlen($data['operational_card_no']) != 15 && strlen($data['operational_card_no']) != 18)
+			return Response::json(array('errCode'=>22,'message'=>'身份证号码填写错误'));
+
+		if(!preg_match(Config::get('regex.telephone'), $data['operational_phone'] ))
+			return Response::json(array('errCode'=>23,'message'=>'手机号码格式不正确'));
+
+		if($checkcode = null)
+			return Response::json(array('errCode'=> 24,'message'=>'手机验证码错误，请重新填写'));
+
+		if($checkcode != $phone_code)
+			return Response::json(array('errCode'=> 25,'message'=>'手机验证码错误，请重新填写'));
+
 		try
 		{
 			DB::transaction(function() use( $data ) {
@@ -314,19 +342,67 @@ class UserController extends BaseController{
 			 //身份证反面扫描件
 			 $business_user->id_card_back_scan_path		= $data['id_card_back_scan_path'];
 			 $business_user->save();
-			 
+
 			 $user = User::find($data['user_id']);
+			 // dd($user->user_id);
 			 $user->status = 20;//信息审核中
 			 $user->save();
 			});
 		}catch(\Exception $e)
 		{
-			return Response::json(array('errCode'=>11,'message'=>'操作失败' ));
+			return Response::json(array('errCode'=>11,'message'=>'操作失败'.$e->getMessage() ));
 		}
 	return Response::json(array('errCode'=>0, 'message'=> '注册成功'));
 	}
 
-	//登录<<<<<<未测试>>>>>>>
+	//打款备注码
+	public function  moneyRemarkCode()
+	{	
+		$user = Sentry::getUser();
+		$remark_code = Input::get('remark_code');
+		if( $remark_code == null )
+			return Response::json( array('errCode'=>21, 'message'=>'请输入打款码'));
+
+		$database_remark_code = Sentry::getUser()->remark_code;
+
+		if($remark_code != $database_remark_code )
+		{	
+			if($user->status == 30 )//先判断其是否已被锁定
+				return Response::json(array('errCode'=>22, 'message'=>'帐号已锁定'));
+
+			//计算输入错误次数
+			if( Session::get('remain_time') != null )
+			{	
+				$remain_time = Session::get('remain_time');
+				if( $remain_time != 0)
+				{
+					Session::put('remain_time',$remain_time-1);
+					if(Session::get('remain_time') == 0)
+					{
+						//连续超过5次，锁定帐号
+						$user->status = 30;
+						if( !$user->save() )
+							return Response::json(array('errCode'=> 23 ,'message'=> '数据库错误，保存失败'));
+					
+					return Response::json(array('errCode'=> 24 ,'message'=> '错误次数超过5次，账号已锁定'));
+					}
+					
+					return Response::json(array('errCode'=> 25 ,'message'=> '打款码不正确，你还有'.Session::get('remain_time').'次机会输入打款码'));
+				}
+			}
+			//首次输入错误
+			Session::put('remain_time',4);
+			return Response::json(array('errCode'=> 26,'message'=> '打款码不正确，你还有'.Session::get('remain_time').'次机会输入打款码'));
+		}
+
+		$user->status = 22;
+		if( !$user->save() )
+			return Response::json(array('errCode'=> 27,'message'=> '数据库错误，保存失败'));
+
+		return Response::json(array('errCode'=>0, 'message'=> '账号已激活'));
+	}
+
+	//登录
 	public function login()
 	{
 		$login_account 	= Input::get('login_account');
@@ -370,13 +446,10 @@ class UserController extends BaseController{
 	//意外退出后发送验证信息<<<<<<未测试>>>>>>>
 	public function sendTokenToEmail()
 	{
-		$login_account = Input::get('login_account');
-		$user = User::where('login_account',$login_account)->first();
+		$user = Sentry::getUser();
+		$login_account = $user->login_account;
 
-		if(!isset($user))
-			return Response::json(array('errCode'=>1,'message'=>'该用户没注册'));
-
-		$token = md5($data['login_account'].time());
+		$token = md5($login_account.time());
 		//发送邮件
 		Mail::send('emails/token',array('token' => $token),function($message) use ($data)
 		{
@@ -583,6 +656,7 @@ class UserController extends BaseController{
 			return Response::json(array('errCode'=>11, 'message'=>'获取appkey失败，请重新获取'));
 		
 		return Response::json(array('errCode'=>0, 'message'=>'appkey获取成功'));	
-
 	}
+
+	
 }

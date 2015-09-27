@@ -22,18 +22,29 @@ Route::group(array('prefix'=>'user'), function(){
 	Route::get('captcha', 'UserController@captcha');
 	//B端用户邮箱注册页
 	Route::get('b_register','UserPageController@bSiteRegisterPage');
-	//B端用户注册
+	//B端用户注册-密码页
 	Route::post('b_register','UserController@bSiteRegister');
-	//发到B端用户邮箱后，点击链接验证，通过后去到信息登记页
+	//B端用户注册－发到B端用户邮箱后，点击链接验证，通过后去到信息登记页
 	Route::get('b_site_active','UserPageController@isEmailActive');
-	//登录
+	//B,C端登录
 	Route::post('login','UserController@login');
-	//获取手机验证码
+	//C端用户注册-获取手机验证码
 	Route::get('phone_code','UserController@getPhoneCode');
-	//C端用户注册
+	//C端用户注册－密码页
 	Route::post('c_register','UserController@cSiteRegister');
 	
 	Route::group(array('before'=>'auth.user.isIn'),function(){
+		//B端用户注册-信息登记
+		Route::post('info_register', 'UserController@informationRegister');
+		//B端用户注册-意外退出后发送验证信息再次发送信息到邮箱
+		Route::get('send_token_to_email','UserController@sendTokenToEmail');
+		//B端用户注册－填写完注册信息后跳转到邮箱激活页面
+		Route::get('email_active','UserPageController@emailActivePage');
+		//B端用户注册－运营人员手机验证码
+		Route::get('operational_phone_code','UserController@operationalPhoneCode');
+		//B端用户打款备注码
+		Route::post('money_remark_code','UserController@moneyRemarkCode');
+
 		//c端用户修改密码－发送验证码到手机
 		Route::post('send_code_to_phone','UserController@sendResetCodeToPhone');
 		//c端用户修改密码－重置密码
