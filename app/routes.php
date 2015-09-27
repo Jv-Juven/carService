@@ -83,7 +83,9 @@ Route::group(array('prefix'=>'business','before'=>'auth.user.isIn'),function(){
 	//查询车辆信息
 	Route::get('api/car', 'BusinessController@car');
 	//提交订单
-	Route::post('violation_info','BusinessController@trafficViolationInfo');
+	Route::post('submit_order', 'BusinessController@submitOrder');
+	//查看违章代办信息
+	Route::get('violation_info','BusinessController@trafficViolationInfo');
 });
 
 // 消息中心

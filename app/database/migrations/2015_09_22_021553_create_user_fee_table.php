@@ -33,18 +33,18 @@ class CreateUserFeeTable extends Migration {
 			$table->integer('fee_type_id')
 			 	  ->unsigned();
 			$table->index('fee_type_id');
-			$table->foreign('fee_type_id')
-				  ->references('id')
-				  ->on('fee_types')
-				  ->onDelete('cascade')
-				  ->onUpdate('cascade');
+			// $table->foreign('fee_type_id')
+			// 	  ->references('id')
+			// 	  ->on('fee_types')
+			// 	  ->onDelete('cascade')
+			// 	  ->onUpdate('cascade');
 
 			/*
 			 * 设置联合主键: (user_id, item_id) 
 			 */
 			$table->primary([
 				'user_id',
-				'fee_type_id'
+				// 'fee_type_id'
 			]);
 
 			/*

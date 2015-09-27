@@ -2,6 +2,56 @@
 
 class BusinessController extends BaseController{
 
+	//算服务费
+	public static function serviceFee()
+	{
+		$user = Sentry::getUser();
+		try
+		{
+			$user_type = UserFee::where('user_id',$user->user_id)->where('item_id',3)->get();
+		}catch(\Exception $e)
+		{	
+			$user_type = null;
+		}
+		$fee_type = FeeType::where('user_type',$user->user_type)
+							->where('item_id',3)
+							->first();
+		// dd($fee_type->number);
+		if(isset( $user_type ) )
+		{
+			$rep_service_charge = $user_type->fee_no;
+		}else{
+			$rep_service_charge = $fee_type->number;
+		}
+		return $rep_service_charge;
+	}
+
+	//算快递费
+	public static function expressFee()
+	{
+		//算快递费
+		$user = Sentry::getUser();
+		try
+		{	
+			$user_type = UserFee::where('user_id',$user->user_id)->where('item_id',2)->get();
+		}catch(\Exception $e)
+		{	
+			$user_type = null;
+		}
+		$fee_type = FeeType::where('user_type',$user->user_type)
+							->where('item_id',2)
+							->first();
+		// dd($fee_type->number);
+		if(isset( $user_type ) )
+		{
+			$express_fee = $user_type->fee_no;
+		}else{
+			$express_fee = $fee_type->number;
+		}
+	}
+
+
+
 	//充值
 	public static function recharge()
 	{
@@ -275,67 +325,63 @@ class BusinessController extends BaseController{
 	}
 
 	//提交订单
-	public static function trafficViolationInfo()
-	{
-		$data = array(
-			'car_plate_no' 			=> Input::get('car_plate_no'),//车牌号码
-			'agency_no'				=> Input::get('agency_no'),//办理笔数
-			'capital_sum' 			=> Input::get('capital_sum'),//本金总额
-			// 'late_fee_sum' 		=> Input::get('late_fee_sum'),//滞纳金总额
-			'service_charge_sum' 	=> Input::get('service_charge_sum'),//代办服务费
-		);
-		$rules = array(
-			'car_plate_no' 			=> 'required',
-			'agency_no' 			=> 'required',
-			'capital_sum' 			=> 'required',
-			'service_charge_sum' 	=> 'required'
-		);
-
-		$validation = Validator::make($data,$rules);
-		if($validation->fails())
-			return Response::json(array('errCode'=>21,'message'=>'信息填写不完整'));
+	public static function submitOrder()
+	{	
+		$violations = json_decode( Input::get('violations'));
+		$violations = Session::get('violation');
+		if($violations == null )
+			return Response::json(array('errCode'=>21, 'message'=>'请传入违章信息'));
 
 		$is_delivered = Input::get('is_delivered');//是否需要快递
 		$data_two = array(
-			'express_fee' 		=> Input::get('express_fee'),//快递费
 			'recipient_name' 	=> Input::get('recipient_name'),//收件人姓名
 			'recipient_addr' 	=> Input::get('recipient_addr'),//收件人地址
 			'recipient_phone' 	=> Input::get('recipient_phone'),//收件人手机
 			'car_engine_no'		=> Input::get('car_engine_no')//发动机后4位
 		);
 		$rules_two = array(
-			'express_fee'		=> 'required',
 			'recipient_name'	=> 'required',
 			'recipient_addr'	=> 'required',
 			'recipient_phone'	=> 'required',
 			'car_engine_no'		=> 'required'
 		);
-		if(isset($data_two['is_delivered']) == true)
+		//判断是否需要快递费
+		if( $is_delivered == true )
 		{
 			$validation_two = Validator::make($data_two,$rules_two);
 			if($validation_two->fails())
 				return Response::json(array('errCode'=>22, 'message'=>'收件人信息填写不完整'));
+			$expressfee = BusinessController::expressFee();
+		}else{
+			$expressfee = 0;
 		}
 
+		$capital_sum = null; //订单本金总额
+		foreach( $violations as $violation)
+		{
+			$capital_sum +=	$violation['fkje'];
+		}
+
+		//验证手机
 		$phone_regex = Config::get('regex.telephone');
 		if(!preg_match($phone_regex, $data_two['recipient_phone']))
-			return Response::json(array('errCode'=>23,'message'=>'收件人信息填写不完整'));
+			return Response::json(array('errCode'=>23,'message'=>'手机号码有误'));
 
 		if(!strlen($data_two['car_engine_no']))
 			return Response::json(array('errCode'=>24,'message'=>'发动机后4位格式不正确，请填写4位'));
 
 		try
 		{
-			DB::transaction(function() use($data,$data_two) {
+			DB::transaction(function() use($violations,$data_two,$capital_sum,$expressfee) {
 
 				$order = new AgencyOrder;
 				$order->order_id 			= str_replace('.', '', uniqid( 'dbdd', true ));
 				$order->user_id 			= Sentry::getUser()->user_id;
-				$order->car_plate_no 		= $data['car_plate_no'];
-				$order->agency_no 			= $data['agency_no'];
-				$order->capital_sum 		= $data['capital_sum'];
-				$order->service_charge_sum 	= $data['service_charge_sum'];
-				$order->express_fee 		= $data_two['express_fee'];
+				$order->car_plate_no 		= $violations[0]['hphm'];//车牌号码
+				$order->agency_no 			= count($violations);//代理数量
+				$order->capital_sum 		= $capital_sum;//本金总额
+				$order->service_charge_sum 	= BusinessController::serviceFee();//服务费
+				$order->express_fee 		= $expressfee;//快递费
 				$order->recipient_name 		= $data_two['recipient_name'];
 				$order->recipient_addr 		= $data_two['recipient_addr'];
 				$order->recipient_phone 	= $data_two['recipient_phone'];
@@ -345,39 +391,20 @@ class BusinessController extends BaseController{
 				$order->save();
 				
 				//违章信息存储
-				$violations = Session::get('violation');
 				foreach( $violations as $violation )
 				{
 					$violation_info = new TrafficViolationInfo;
 					$violation_info->traffic_id 			= str_replace('.', '', uniqid( 'wzxx', true ));
 					$violation_info->order_id 				= $order_id;
-					$violation_info->req_car_plate_no 		= $violation['hphm'];
-					$violation_info->req_car_engine_no 		= $violation['fdjh'];
-					$violation_info->car_type_no 			= $violation['hpzl'];
-					$violation_info->rep_event_time 		= $violation['wfsj'];
-					$violation_info->rep_event_addr 		= $violation['wfdz'];
-					$violation_info->rep_violation_behavior = $violation['wfxwzt'];
-					$violation_info->rep_point_no 			= $violation['wfjfs'];
-					$violation_info->rep_priciple_balance 	= $violation['fkje'];
-					//服务费获取
-					$user = Sentry::getUser();
-					try
-					{
-						$user_type = UserFee::where('user_id',$user->user_id)->where('item_id',4)->get();
-					}catch(\Exception $e)
-					{
-						$user_type = null;
-					}
-					$fee_type = FeeType::where('user_type',$user->user_type)
-										->where('item_id',4)
-										->first();
-					// dd($fee_type->number);
-					if(isset( $user_type ) )
-					{
-						$violation_info->rep_service_charge = $user_type->fee_no;
-					}else{
-						$violation_info->rep_service_charge = $fee_type->number;
-					}
+					$violation_info->req_car_plate_no 		= $violation['hphm'];	//车牌号码
+					$violation_info->req_car_engine_no 		= $violation['fdjh'];	//发动机号后六位
+					$violation_info->car_type_no 			= $violation['hpzl'];	//号牌种类
+					$violation_info->rep_event_time 		= $violation['wfsj'];	//违法时间
+					$violation_info->rep_event_addr 		= $violation['wfdz'];	//违法地址
+					$violation_info->rep_violation_behavior = $violation['wfxwzt'];	//违法行为
+					$violation_info->rep_point_no 			= $violation['wfjfs'];	//违法记分数
+					$violation_info->rep_priciple_balance 	= $violation['fkje'];	//罚款金额
+					$violation_info->rep_service_charge 	= BusinessController::serviceFee();
 					$violation_info->save();
 				}
 			});
@@ -385,11 +412,28 @@ class BusinessController extends BaseController{
 		{
 			return Response::json(array('errCode'=>25,'message'=>'操作失败'.$e->getMessage() ));
 		}
-		$data['express_fee'] 		= $data_two ['express_fee'];
+		$data['express_fee'] 		= $expressfee;
 		$data['recipient_name'] 	= $data_two ['recipient_name'];
 		$data['recipient_addr'] 	= $data_two ['recipient_addr'];
 		$data['recipient_phone'] 	= $data_two ['recipient_phone'];
+		$data['car_plate_no']		= $violations[0]['hphm'];
+		$data['agency_no']			= count($violations);
+		$data['capital_sum']		= $capital_sum;
+		$data['service_charge_sum'] = BusinessController::serviceFee();
+		$data['express_fee']		= $expressfee;
 
 		return Response::json(array('errCode'=>0,'message'=>'返回订单信息','order'=>$data));
+	}
+
+	//查看违章代办信息
+	public function trafficViolationInfo()
+	{
+		$user = Sentry::getUser();
+		$orders = AgencyOrder::where('user_id',$user->user_id)
+								->with('traffic_violation_info')
+								->orderBy('created_at','asc')
+								->get();
+
+		return Response::json(array('errCode'=>0, 'message'=>'违章代办信息', 'orders'=>$orders));
 	}
 }
