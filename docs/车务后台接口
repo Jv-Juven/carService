@@ -1,4 +1,4 @@
-1.用户模块
+1.B端用户模块
 
 	1.1 获取验证码
 	 请求方式: GET
@@ -52,17 +52,97 @@
 	 			视图，					验证通过跳到信息登记页
 	 									验证失败跳到邮箱注册页
 
-	1.6 打款备注码静态页面
-	 请求方式: GET
-	 请求url: /user/remark_code
+	1.6 B端用户修改密码－发送验证码到邮箱
+	 请求方式:POST
+	 请求url: /user/send_code_to_email
+
+	 请求参数：
+	 			login_account 			注册邮箱
+
+	 返回参数:
+	 			{
+	 				errCode,			0返回正常
+	 				message,			错误信息
+	 			}
+
+	1.7 B端用户修改密码-重置密码
+	 请求方式:POST
+	 请求url: /user/reset_bsite_pwd
+
+	 请求参数：
+	 			reset_code,				验证码
+	 			password,				密码
+	 			re_password,			确认密码
+
+	 返回参数:
+	 			{
+	 				errCode,			0返回正常
+	 				message,			错误信息
+	 			}
+
+2. C端用户模块
+	1. 注册－获取手机验证码
+	 请求方式: POST
+	 请求url: /user/phone_code
 
 	 请求参数:
+	 			login_account 			手机号
 
-	 返回参数:	验证码图片
+	 返回参数:	
+	 			{
+	 				errCode,			0返回正常
+	 				message,			错误信息
+	 			}
+
+	2. 注册－填写注册信息
+	 请求方式: POST
+	 请求url: /user/c_register
+
+	 请求参数:	
+	 			login_account			手机号
+	 			password 				密码
+	 			re_password				确认密码
+	 			phone_code				验证码
+
+	 返回参数:	
+	 			{
+	 				errCode,			0返回正常
+	 				message,			错误信息
+	 			}
+
+	3. C端用户修改密码－发送验证码到手机
+	 请求方式: POST
+	 请求url: /user/send_code_to_phone
+
+	 请求参数:
+	 			login_account			邮箱	
+
+	 返回参数:	
+	 			{
+	 				errCode,			0返回正常
+	 				message,			错误信息
+	 			}
+
+	4. C端用户修改密码－重置密码
+	 请求方式: POST
+	 请求url: /user/reset_csite_pwd
+
+	 请求参数:	
+	 			login_account			手机号
+	 			phone_code				手机验证码
+	 			password 				密码
+	 			re_password				重置密码
 
 
-2.通知模块
-	2.1 全部通知
+	 返回参数:	
+	 			{
+	 				errCode,			0返回正常
+	 				message,			错误信息
+	 			}
+
+
+3.通知模块
+	3.1 全部通知
 	请求方式：GET
 	请求url：/notice
 
@@ -78,7 +158,7 @@
 				},
 				.....
 			]
-	2.2 已读通知
+	3.2 已读通知
 	请求方式：GET
 	请求url：/notice/read
 
@@ -94,7 +174,7 @@
 				.....
 			]
 
-	2.3 全部通知
+	3.3 全部通知
 	请求方式：GET
 	请求url：/notice/unread
 
@@ -110,7 +190,7 @@
 				.....
 			]
 
-	2.4 通知详情
+	3.4 通知详情
 	请求方式：POST
 	请求url：/notice
 
@@ -126,8 +206,8 @@
 				.....
 			]
 
-3.业务模块
-	3.1 充值
+4.业务模块
+	4.1 充值
 	请求方式: POST
 	请求url: /business/recharge
 
@@ -150,7 +230,7 @@
 				balance,
 			}
 
-	3.2 获取账户信息
+	4.2 获取账户信息
 	请求方式: GET
 	请求url: /business/account
 
@@ -180,7 +260,7 @@
 
 
 
-	3.3 获取访问次数信息
+	4.3 获取访问次数信息
 	请求方式: GET
 	请求url: /business/account/count
 	请求参数:
@@ -211,7 +291,7 @@
 				]
 			}
 
-	3.4 修改业务单价					《后台管理员接口》
+	4.4 修改业务单价					《后台管理员接口》
 	请求方式: POST
 	请求url: /business/account/univalence
 
@@ -233,7 +313,7 @@
 			    }
 			}
 
-	3.5 违章查询
+	4.5 违章查询
 	请求方式: POST
 	请求url: /business/api/violation
 
@@ -296,7 +376,7 @@
 				]
 		}
 
-	3.6 查询驾驶证扣分信息
+	4.6 查询驾驶证扣分信息
 	请求方式: GET
 	请求url: /business/api/license
 
@@ -311,7 +391,7 @@
 			    "number": "0"					正确时返回number
 			}
 
-	3.7 查询车辆信息
+	4.7 查询车辆信息
 	请求方式: GET
 	请求url: /business/api/car
 
@@ -336,7 +416,7 @@
 			    ]
 			}
 
-4.反馈模块
+5.反馈模块
 	请求方式: POST
 	请求url: /user/feedback
 
@@ -352,13 +432,3 @@
 			}
 
 
-
-
-
-2.B端用户注册
-	 请求方式: POST
-	 请求url: /user/captcha
-
-	 请求参数:
-
-	 返回参数:	证码图片
