@@ -64,10 +64,10 @@ class BusinessController extends BaseController{
 		$parm = 'appkey='.$appkey.'&money='.$money;
 		$recharge =  json_decode( CurlController::post($url,$parm), true);
 
-		if($recharge == null)
+		if( $recharge == null )
 			return Response::json(array('errCode'=>22, 'message'=>'系统出现故障，请及时向客服反应'));
 
-		if( $recharge['errCode'] != 0)
+		if( $recharge['errCode'] != 0 )
 		{
 			Log::info( $recharge );
 			return parent::errMessage($recharge['errCode']);
@@ -386,6 +386,9 @@ class BusinessController extends BaseController{
 				$order->recipient_addr 		= $data_two['recipient_addr'];
 				$order->recipient_phone 	= $data_two['recipient_phone'];
 				$order->car_engine_no 		= $data_two['car_engine_no'];
+				$order->trade_status 		= 0;//交易状态－等待付款
+				$order->process_status 		= 0;//处理状态－未受理
+
 				//在save后不能再取其值
 				$order_id = $order->order_id;
 				$order->save();
