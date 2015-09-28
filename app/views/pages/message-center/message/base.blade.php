@@ -8,34 +8,20 @@
                         <span class="item-lf">标题</span>
                         <span class="item-rt">时间</span>
                     </li>
-                    <li class="data-item odd-item clearfix">
-                        <span class="item-lf">这是标题</span>
-                        <span class="item-rt">2015-09-12 1:16:12</span>
-                    </li>
-                    <li class="data-item even-item clearfix">
-                        <span class="item-lf">这是标题</span>
-                        <span class="item-rt">2015-09-12 1:16:12</span>
-                    </li>
-                    <li class="data-item odd-item clearfix">
-                        <span class="item-lf">这是标题</span>
-                        <span class="item-rt">2015-09-12 1:16:12</span>
-                    </li>
-                    <li class="data-item even-item read clearfix">
-                        <span class="item-lf">这是标题</span>
-                        <span class="item-rt">2015-09-12 1:16:12</span>
-                    </li>
-                    <li class="data-item odd-item read clearfix">
-                        <span class="item-lf">这是标题</span>
-                        <span class="item-rt">2015-09-12 1:16:12</span>
-                    </li>
-                    <li class="data-item even-item read clearfix">
-                        <span class="item-lf">这是标题</span>
-                        <span class="item-rt">2015-09-12 1:16:12</span>
-                    </li>
-                    <li class="data-item odd-item read clearfix">
-                        <span class="item-lf">这是标题</span>
-                        <span class="item-rt">2015-09-12 1:16:12</span>
-                    </li>
+                    @for ( $i = 0; $i < count( $notices ); ++$i )
+                        <li class="data-item
+                        @if ( $i % 2 == 0 )
+                            event-item
+                        @else
+                            odd-item
+                        @if ( !empty( $notice['already_read'] ) )
+                            read
+                        @endif
+                        clearfix">
+                            <span class="item-lf">{{{ $notices->title }}}</span>
+                            <span class="item-rt">{{{ $notices->created_at->format( 'Y-m-d H:i:s' ) }}}</span>
+                        </li>
+                    @endfor
                 </ul>
             </div>
             @include('components.pagination')
