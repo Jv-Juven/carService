@@ -193,7 +193,7 @@ class BusinessController extends BaseController{
 				$data['req_car_engine_no'].'&licenseType='.$data['car_type_no'];
 		$violation = json_decode( CurlController::get($url), true );
 		// $violation =  CurlController::get($url);
-			
+			// dd($violation);
 		if($violation == null)
 			return Response::json(array('errCode'=>25, 'message'=>'系统出现故障，请及时向客服反应'));
 
@@ -218,9 +218,9 @@ class BusinessController extends BaseController{
 		$identityID = Input::get('identityID');
 		$recordID   = Input::get('recordID');
 		$data = array(
-				//车牌号码
+				//身份证号码/驾驶证号码
 				'identityID' 	=> Input::get('identityID'),
-				//发动机号码后6位
+				//档案号码
 				'recordID' 		=> Input::get('recordID'),
 			);
 		$rules = array(
@@ -236,7 +236,7 @@ class BusinessController extends BaseController{
 		 $url = Config::get('domain.server').'/api/license?token='.$token.'&identityID='.
 		 					$data['identityID'].'&recordID='.$data['recordID'];
 		 $license = json_decode( CurlController::get($url),true );
-		
+		// dd($license);
 		if($license == null)
 			return Response::json(array('errCode'=>22, 'message'=>'系统出现故障，请及时向客服反应'));
 

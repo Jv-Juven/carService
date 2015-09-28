@@ -266,8 +266,10 @@ class UserController extends BaseController{
 	//信息登记
 	public function informationRegister()
 	{
-		$checkcode	= Input::get('checkcode');
-		$phone_code = Session::get('phone_code');
+		// $checkcode	= Input::get('checkcode');
+		// $phone_code = Session::get('phone_code');
+		
+
 		$data = array(
 			'user_id'						=> Input::get('user_id'),
 			'business_name' 				=> Input::get('business_name'),
@@ -282,6 +284,16 @@ class UserController extends BaseController{
 			'id_card_front_scan_path'		=> Input::get('id_card_front_scan_path'),
 			'id_card_back_scan_path'		=> Input::get('id_card_back_scan_path'),
 		);
+		
+		//判断是否是修改信息登记
+		$user = Sentry::getUser();
+		if( isset($user) )
+		{
+			$data['user_id'] = $user->user_id;
+		}else{
+			$user = false;
+		}
+		
 		$rules = array(
 			'user_id'						=> 	'required',
 			'business_name' 				=>  'required',
@@ -310,15 +322,21 @@ class UserController extends BaseController{
 		if($checkcode = null)
 			return Response::json(array('errCode'=> 24,'message'=>'手机验证码错误，请重新填写'));
 
-		if($checkcode != $phone_code)
-			return Response::json(array('errCode'=> 25,'message'=>'手机验证码错误，请重新填写'));
+		// if($checkcode != $phone_code)
+		// 	return Response::json(array('errCode'=> 25,'message'=>'手机验证码错误，请重新填写'));
 
 		try
 		{
-			DB::transaction(function() use( $data ) {
-			 $business_user = new businessUser;
-			 //主键
-			 $business_user->user_id 					= $data['user_id'];
+			DB::transaction(function() use( $data,$user ) {
+			 if( $user == null )
+			 {
+			 	$business_user = new businessUser;
+				$business_user->user_id 					= $data['user_id'];
+			 }else{
+			 	$business_user = BusinessUser::find($user->user_id);
+				$business_user->user_id 					= $user->user_id;
+			 }
+			 
 			 //企业名称
 			 $business_user->business_name 				= $data['business_name'];
 			 //营业执照号
@@ -342,11 +360,13 @@ class UserController extends BaseController{
 			 //身份证反面扫描件
 			 $business_user->id_card_back_scan_path		= $data['id_card_back_scan_path'];
 			 $business_user->save();
-
-			 $user = User::find($data['user_id']);
-			 // dd($user->user_id);
-			 $user->status = 20;//信息审核中
-			 $user->save();
+			 if( $user == null )
+			 {
+				 $user = User::find($data['user_id']);
+				 // dd($user->user_id);
+				 $user->status = 20;//信息审核中
+				 $user->save();
+			 }
 			});
 		}catch(\Exception $e)
 		{
