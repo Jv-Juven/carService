@@ -9,7 +9,7 @@ class CostDetail extends BaseModel{
     protected $fillable     = [
         'cost_id',
         'user_id',
-        'item_id',
+        'fee_type_id',
         'number'
     ];
 
@@ -31,6 +31,6 @@ class CostDetail extends BaseModel{
      */
     public function item(){
 
-        return $this->belongsTo( 'FeeType', 'item_id', 'item_id' );
+        return $this->belongsTo( 'FeeType', 'fee_type_id', 'id' );
     }
 }

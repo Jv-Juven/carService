@@ -8,7 +8,7 @@ class UsersTableSeeder extends Seeder {
 	public function run()
 	{
 		Sentry::register([
-			'login_account'	=> '888@qq.com',
+			'login_account'	=> '8888@qq.com',
 			'password' 		=> 666666,
 			'status'		=> 22,
 			'user_type'		=> 1, 

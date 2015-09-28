@@ -33,13 +33,14 @@ class CreateCostDetailsTable extends Migration {
 				  ->onUpdate('cascade');
 
 			/*
-			 * 用户id
-			 * 		作为外键 -- users表主键
+			 * 费用类型表
+			 * 		作为外键 -- fee_types表主键
 			 */
-			$table->string('item_id');
-			$table->index('item_id');
-			$table->foreign('item_id')
-				  ->references('item_id')
+			$table->integer('fee_type_id')
+				  ->unsigned();
+			$table->index('fee_type_id');
+			$table->foreign('fee_type_id')
+				  ->references('id')
 				  ->on('fee_types')
 				  ->onDelete('cascade')
 				  ->onUpdate('cascade');

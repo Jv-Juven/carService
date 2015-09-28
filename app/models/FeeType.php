@@ -1,9 +1,9 @@
 <?php 
 
-class FeeType extends BaseModel{
+class FeeType extends Eloquent{
     
     protected $table        = 'fee_types';
-    protected $primaryKey   = 'item_id';
+    protected $primaryKey   = 'id';
 
     protected $hidden       = [];
     protected $fillable     = [
@@ -25,6 +25,6 @@ class FeeType extends BaseModel{
      */
     public function user_fee(){
 
-        return $this->hasOne( 'UserFee', 'item_id', 'item_id' );
+        return $this->hasOne( 'UserFee', 'id', 'fee_type_id' );
     }
 }

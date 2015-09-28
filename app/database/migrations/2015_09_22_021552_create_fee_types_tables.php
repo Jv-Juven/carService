@@ -11,15 +11,22 @@ class CreateFeeTypesTables extends Migration {
 	 * @return void
 	 */
 	public function up(){
-					//费用类型表
+		//费用类型表
 		Schema::create( 'fee_types', function( $table ){
 
 			/*
 			 * 主键
-			 * 		uniqid('fylx',true)去标点，共26位
+			 * 		自增int，从1开始
 			 */
-			$table->string('item_id');
-			$table->primary('item_id');
+			$table->increments('id');
+
+			/*
+			 * Todo: 请出id以及对于说明
+			 *		1=普通充值，
+			 *		2=个人违章代办凭证快递费,15; 3=个人代办服务费,25;
+			 *		2=企业违章代办凭证快递费,15; 3＝企业违章代办服务费,10
+			 */
+			$table->char('item_id', 16);
 
 			/*
 			 * 分类名称，目前主要有两类：

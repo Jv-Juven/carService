@@ -16,7 +16,7 @@ class BaseController extends Controller {
 	}
 
 	//获取token
-	public function token()
+	public static function token()
 	{	
 		if( Cache::get('app_token') != null )
 			return Cache::get('app_token');
@@ -41,7 +41,7 @@ class BaseController extends Controller {
 		return $token['token'];
 	}
 
-	public function errMessage($number)
+	public static function errMessage($number)
 	{
 		switch ( $number ) {
 			case 1:
@@ -64,6 +64,26 @@ class BaseController extends Controller {
 				return Response::json(array('errCode'=>10, 'message'=>'账户余额不足'));
 			default:
 				return Response::json(array('errCode'=>20, 'message'=>'传入参数不正确'));
+		}
+	}
+
+	//根据状态码重定向
+	public function redirect()
+	{
+		if(Sentry::getUser()->status != 22)
+		{
+			switch (Sentry::getUser()->status) {
+				case 10:
+					return Redirect::to('pages.register-b.email-active');
+				case 11:
+					return View::make('pages.register-b.reg-info');
+				case 20:
+					return Redirect::to('user/money_remark_code');
+				case 21:
+					return View::make('等待用户校验激活');
+				default:
+					return View::make('账号锁定');
+			}
 		}
 	}
 }

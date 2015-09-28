@@ -357,6 +357,7 @@
 					<!-- 单位车辆信息表 已办理 END -->
 				</table>
 			</div>
+			@include('components.pagination')
 		</div>
 	</div>
 	<div class="mask-bg"></div>

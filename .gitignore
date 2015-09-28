@@ -4,6 +4,7 @@ public/node_modules
 /bootstrap/compiled.php
 /vendor/*
 /app/config/database.php
+/app/config/domain.php
 /app/config/app.php
 /app/config/qiniu.php
 /app/test_routes.php
