@@ -20,7 +20,7 @@
 		<img class="vio-arrow" src="/images/serve/vio_arrow.png">
 
 		<div class="vio-proc-item last {{ $num >= 4 ? 'active' : ''; }}">
-			<a>审核</a>
+			<a>审核中</a>
 		</div>
 		
 	</div>
