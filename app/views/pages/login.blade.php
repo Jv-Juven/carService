@@ -39,15 +39,18 @@
 				<img class="slider-img" src="/images/login/slider.png">
 				<div class="login-box">
 					<div class="login-content clearfix">
-						<div class="login-content-title">登录</div>
+						<div class="login-content-title">
+							<a href="javascript:" class="login-menu-btn active">企业用户登录</a>
+							<a href="javascript:" class="login-menu-btn">个人用户登录</a>
+						</div>
 						<div class="input email-input">
 							<input type="text" placeholder="邮箱"/>
 						</div>
 						<div class="input psd-input">
 							<input type="text" placeholder="密码"/>
 						</div>
-						<div class="login-content-tips">
-							<span class="tips01"><a href="/">立即注册</a></span>
+						<div class="login-content-tips clearfix">
+							<!-- <span class="tips01"><a href="/">立即注册</a></span> -->
 							<span class="tips02"><a href="/">忘记密码</a></span>
 						</div>
 						<div class="login-content-btn">
@@ -200,7 +203,7 @@
 			</div>
 			<div class="warn-content">
 				<div class="warn-msg">
-					<div class="msg-line login-msg-tips">
+					<!-- <div class="msg-line login-msg-tips">
 						尊敬的用户，忘记密码请通过邮箱验证码重设：
 					</div>
 					<div class="msg-line">
@@ -209,7 +212,21 @@
 						</span>
 						<input class="msg-input" type="text" placeholder="请前往注册邮箱13********@***.com获取验证码"/>
 						<a href="/" class="msg-btn">获取验证码</a>
+					</div> -->
+
+
+					<div class="msg-line login-msg-tips">
+						尊敬的用户，忘记密码请通过手机验证码重设：
 					</div>
+					<div class="msg-line">
+						<span class="msg-title">
+							手机验证码：
+						</span>
+						<input class="msg-input" type="text" placeholder="请查看注册手机的短信验证码"/>
+						<a href="/" class="msg-btn">获取验证码</a>
+					</div>
+
+
 					<div class="msg-line">
 						<span class="msg-title">
 							新密码：

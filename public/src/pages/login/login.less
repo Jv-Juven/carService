@@ -72,7 +72,7 @@
 			vertical-align: top;
 		}
 		.login-box{
-			@box-height: 290px;
+			@box-height: 300px;
 			@box-width: 360px;
 			position: absolute;
 			top: 50%;
@@ -87,17 +87,35 @@
 				width: @content-width;
 				margin: 30px auto 20px;
 				&>div{
-					float: left;
+					// float: left;
 				}
 				.login-content-title{
-					font-size: 18px;
+					@btn-height: 30px;
+					border: 1px solid @blue;
 					color: rgb(56, 56, 56);
-					padding-bottom: 16px;
-					line-height: 18px;
+					line-height: 30px;
+					width: 270px;
+					height: @btn-height;
+					margin: 0px auto 26px;
+					border-radius: 7px;
+					overflow: hidden;
+					.login-menu-btn{
+						display: inline-block;
+						width: 50%;
+						height: @btn-height;
+						color: rgb(165, 165, 165);
+						line-height: @btn-height;
+						text-align: center;
+						float: left;
+					}
+					.active{
+						background: @blue;
+						color: white;
+					}
 				} 
 				.input{
 					width: @content-width - 2px;
-					height: 50px;
+					height: 46px;
 					border: 1px solid rgb(235, 235, 235);
 					&>input{
 						height: 100%;
@@ -116,18 +134,18 @@
 				}
 				.login-content-tips{
 					width: 100%;
-					padding: 20px 0px;
+					padding: 15px 0px;
 					font-size: 12px;
 					.tips01{
 						float: left;
 						a{
-							.a-color(@login-blue);
+							.a-color();
 						}
 					}
 					.tips02{
 						float: right;
 						a{
-							.a-color();
+							.a-color(@login-blue);
 						}
 					}
 				}
@@ -314,6 +332,12 @@
 }
 
 // 浮层框的基本设置
+.mask-bg{
+	display: none;
+}
+.mask-wrapper{
+	display: none;
+}
 .warn-box{
 	.warn-box(760px, 480px);
 	.warn-title{
@@ -370,7 +394,7 @@
 			margin-top: 80px;
 			.account-btn{
 				.inline-btn(120px, 34px);
-				margin: auto 10px;
+				margin: auto 20px;
 				border-radius: 8px;
 			}
 		}
