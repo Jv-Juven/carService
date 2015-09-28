@@ -1,6 +1,6 @@
 <?php
 
-class CostDetailController extends BaseController{
+class CostManageController extends BaseController{
 
     public static $default_per_page = 12;
 
