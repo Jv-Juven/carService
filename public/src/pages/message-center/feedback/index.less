@@ -7,6 +7,7 @@
 @label-width: 60px;
 @rt-wrap-left: 20px;
 @btn-height: 30px;
+@btn-width: 126px;
 
 .fb-wrap{
     width: 825px;
@@ -68,24 +69,33 @@
 
 .fb-types{
     @btn-width: 126px;
+    .type-checkbox{
+        cursor: pointer;
+        text-align: center;
+        float: left;
+        margin-left: 15px;
+        width: @btn-width;
+
+        input{
+            display: none;
+        }
+        span{
+            width: @btn-width - 2 * @border-width;
+            height: @btn-height - 2 * @border-width;
+            line-height: @btn-height - 2 * @border-width;
+            display: inline-block;
+            border: solid @border-color @border-width;
+        }
+        input:checked + span{
+            height: @btn-height;
+            border: none;
+            color: #fff;
+            background: @color-blue;
+        }
+    }
 
     .types-wrap{
         margin-left: -15px;
-    }
-
-    input{
-        color: #717171;
-        width: 126px;
-        float: left;
-        margin-left: 15px;
-        cursor: pointer;
-    }
-
-    .fb-type-act{
-        width: @btn-width + 2 * @border-width;
-        border: none;
-        color: #fff;
-        background: @color-blue;
     }
 }
 
@@ -99,3 +109,4 @@
 #fb-form-result{
     display: none;
 }
+

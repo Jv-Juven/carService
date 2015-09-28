@@ -21,34 +21,15 @@
     <div class="data-wrap">
         <div class="data-section">
             <table class="data-list">
-                <tr class="data-item data-head">
-                    <th class="item-key">订单编号</th>
-                    <th class="item-key">申请时间</th>
-                    <th class="item-key">审批时间</th>
-                    <th class="item-key">状态</th>
-                    <th class="item-key">备注</th>
-                </tr>
+                @for ( $i = 0; $i < count( $records ); ++$i )
                 <tr class="data-item odd-item">
-                    <td class="item-key">45555521123333</td>
-                    <td class="item-key">2015-09-21 23:44:03</td>
-                    <td class="item-key">2015-09-21 23:44:03</td>
-                    <td class="item-key">审批中</td>
-                    <td class="item-key">订单已办理</td>
+                    <td class="item-key">{{{ $records->refund_id }}}</td>
+                    <td class="item-key">{{{ $records->created_at->formate('Y-m-d H:i:s') }}}</td>
+                    <td class="item-key">{{{ $records->approval_at }}}</td>
+                    <td class="item-key">{{{ RefundRecord::format_audit_status( $records->status ) }}}</td>
+                    <td class="item-key">{{{ $records->comment }}}</td>
                 </tr>
-                <tr class="data-item even-item">
-                    <td class="item-key">45555521123333</td>
-                    <td class="item-key">2015-09-21 23:44:03</td>
-                    <td class="item-key">2015-09-21 23:44:03</td>
-                    <td class="item-key">审批中</td>
-                    <td class="item-key">订单已办理</td>
-                </tr>
-                <tr class="data-item odd-item">
-                    <td class="item-key">45555521123333</td>
-                    <td class="item-key">2015-09-21 23:44:03</td>
-                    <td class="item-key">2015-09-21 23:44:03</td>
-                    <td class="item-key">审批中</td>
-                    <td class="item-key">订单已办理</td>
-                </tr>
+                @endfor
             </table>
         </div>
         @include('components.pagination')

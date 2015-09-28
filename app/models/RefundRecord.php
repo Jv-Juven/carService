@@ -15,6 +15,19 @@ class RefundRecord extends BaseModel{
         'comment'
     ];
 
+    protected static $audit_status = [
+        '0'     => '审核中',
+        '1'     => '审核通过，退款中',
+        '2'     => '退款成功',
+        '3'     => '审核不通过',
+        '4'     => '退款失败'
+    ];
+
+    public static function format_audit_status( $index ){
+
+        return static::$audit_status[ $index ];
+    }
+
     /*
      * 生成主键时所用的前缀
      */
