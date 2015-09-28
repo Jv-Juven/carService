@@ -191,5 +191,44 @@
 			</div>
 		</div>
 	</div>
+	<div class="mask-bg"></div>
+	<div class="mask-wrapper">
+		<div class="warn-box">
+			<div class="warn-title">
+				忘记密码
+				<div class="warn-close">×</div>
+			</div>
+			<div class="warn-content">
+				<div class="warn-msg">
+					<div class="msg-line login-msg-tips">
+						尊敬的用户，忘记密码请通过邮箱验证码重设：
+					</div>
+					<div class="msg-line">
+						<span class="msg-title">
+							邮箱验证码：
+						</span>
+						<input class="msg-input" type="text" placeholder="请前往注册邮箱13********@***.com获取验证码"/>
+						<a href="/" class="msg-btn">获取验证码</a>
+					</div>
+					<div class="msg-line">
+						<span class="msg-title">
+							新密码：
+						</span>
+						<input class="msg-input" type="text" placeholder="字母、数字或者英文符号，最短6位，区分大小写"/>
+					</div>
+					<div class="msg-line">
+						<span class="msg-title">
+							确认密码：
+						</span>
+						<input class="msg-input" type="text" placeholder="请再次输入密码"/>
+					</div>
+				</div>
+				<div class="account-btns">
+					<a class="account-btn" href="javascript:">保存</a>
+					<a class="account-btn" href="javascript:">取消</a>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
