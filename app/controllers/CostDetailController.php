@@ -2,6 +2,8 @@
 
 class CostDetailController extends BaseController{
 
+    public static $default_per_page = 12;
+
     public function overview(){
 
         return View::make( 'pages.finance-center.cost-manage.overview' );
@@ -14,6 +16,11 @@ class CostDetailController extends BaseController{
 
     public function refund_record(){
 
-        return View::make( 'pages.finance-center.cost-manage.refund-record' );
+        $paginator = RefundRecord::where( 'user_id', Sentry::getUser()->user_id )
+                                 ->paginate( static::$default_per_page );
+
+        return View::make( 'pages.finance-center.cost-manage.refund-record', [
+            'records' => $paginator->getCollection()
+        ]);
     }
 }
