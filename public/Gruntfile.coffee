@@ -53,7 +53,11 @@ module.exports = (grunt)->
         less:
             common:
                 files:
-                    'dist/css/common.css': ['src/common/common.less', 'src/common/master.less','src/common/public.less']
+                    'dist/css/common.css': [
+                        'src/common/common.less'
+                        'src/common/master.less'
+                        'src/common/public.less'
+                    ]
                     'dist/css/common/pay/success.css': ['src/common/pay/success.less']
                     'dist/css/common/pay/fail.css': ['src/common/pay/fail.less']
                     'dist/css/common/pay/wechat.css': ['src/common/pay/wechat.less']
@@ -61,7 +65,9 @@ module.exports = (grunt)->
 
             components:
                 files:
-                    'dist/css/components.css': ['src/components/**/*.less']
+                    'dist/css/components.css': [
+                        'src/components/left-nav.less'
+                    ]
             pages:
                 files:
                     #serve-center
@@ -99,58 +105,44 @@ module.exports = (grunt)->
                     'dist/css/pages/finance-center/recharge/index.css': ['src/pages/finance-center/recharge/index.less']
 
         cssmin:
-            mobile:
+            common:
                 files:[
                     {
                         expand: true,
-                        cwd: 'dist/css',
-                        src: ['*.css', '!*.min.css'],
-                        dest: 'dist/css',
-                        ext: '.css'
-                    },
-                    {
-                        expand: true,
-                        cwd: 'dist/css/pages',
-                        src: ['*.css', '!*.min.css'],
-                        dest: 'dist/css/pages',
+                        cwd: 'dist/css/common',
+                        src: ['**/*.css', '!*.min.css'],
+                        dest: 'dist/css/common',
                         ext: '.css'
                     }
                 ]
-            pc:
+            pages:
                 files:[
                     {
                         expand: true,
-                        cwd: 'dist/pc/css',
-                        src: ['*.css', '!*.min.css'],
-                        dest: 'dist/pc/css',
-                        ext: '.css'
-                    },
-                    {
-                        expand: true,
-                        cwd: 'dist/pc/css/pages',
-                        src: ['*.css', '!*.min.css'],
-                        dest: 'dist/pc/css/pages',
+                        cwd: 'dist/css/pages',
+                        src: ['**/*.css', '!*.min.css'],
+                        dest: 'dist/css/pages',
                         ext: '.css'
                     }
                 ]
 
         uglify:
-            mobile:
+            common:
                 files:[
                     {
                         expand: true,
-                        cwd: 'dist/js/',
+                        cwd: 'dist/js/common',
                         src: '**/*.js',
-                        dest: 'dist/js/'
+                        dest: 'dist/js/common'
                     }
                 ]
-            pc:
+            pages:
                 files:[
                     {
                         expand: true,
-                        cwd: 'dist/pc/pages',
+                        cwd: 'dist/js/pages',
                         src: '**/*.js',
-                        dest: 'dist/pc/pages'
+                        dest: 'dist/js/pages'
                     }
                 ]
 
