@@ -79,6 +79,7 @@ module.exports = (grunt)->
                     'dist/css/pages/register-b/baseinfo.css': ['src/pages/register-b/baseinfo.less']
                     'dist/css/pages/register-b/email-active.css': ['src/pages/register-b/email-active.less']
                     'dist/css/pages/register-b/reg-info.css': ['src/pages/register-b/reg-info.less']
+                    'dist/css/pages/register-b/success/success.css': ['src/pages/register-b/success.less']
 
                     #accountc-center
                     'dist/css/pages/account-center/developer-info.css': ['src/pages/account-center/developer-info.less']
