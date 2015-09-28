@@ -17,5 +17,7 @@
 @stop
 
 @section('right-content')
-    @include('pages.message-center.message.base')
+    @include('pages.message-center.message.base', [
+        'notices'   => $notices
+    ])
 @stop

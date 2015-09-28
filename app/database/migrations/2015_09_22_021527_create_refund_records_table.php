@@ -48,7 +48,7 @@ class CreateRefundRecordsTable extends Migration {
 			/*
 			 * 运营人员审批退款时间
 			 */
-			$table->string('approval_at');
+			$table->datetime('approval_at')->nullable();
 
 			/*
 			 * 退款状态: 默认状态审核中
