@@ -20,6 +20,7 @@
 		<div style="clear: both;"></div>
 	</div>	
 	@section("js")
+	<script type="text/javascript" src="/lib/js/jquery-1.11.2.min.js"></script>
 	@show
 </div>
 

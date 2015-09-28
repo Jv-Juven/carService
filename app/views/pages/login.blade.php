@@ -194,8 +194,9 @@
 			</div>
 		</div>
 	</div>
+	<!-- 浮层 START -->
 	<div class="mask-bg"></div>
-	<div class="mask-wrapper">
+	<div class="mask-wrapper mask-reset-psd">
 		<div class="warn-box">
 			<div class="warn-title">
 				忘记密码
@@ -231,13 +232,13 @@
 						<span class="msg-title">
 							新密码：
 						</span>
-						<input class="msg-input" type="text" placeholder="字母、数字或者英文符号，最短6位，区分大小写"/>
+						<input class="msg-input" type="password" placeholder="字母、数字或者英文符号，最短6位，区分大小写"/>
 					</div>
 					<div class="msg-line">
 						<span class="msg-title">
 							确认密码：
 						</span>
-						<input class="msg-input" type="text" placeholder="请再次输入密码"/>
+						<input class="msg-input" type="password" placeholder="请再次输入密码"/>
 					</div>
 				</div>
 				<div class="account-btns">
@@ -247,5 +248,11 @@
 			</div>
 		</div>
 	</div>
+	@include("components.log-reg-mask")
+	<!-- 浮层 END -->
+
+	<script type="text/javascript" src="/lib/js/jquery-1.11.2.min.js"></script>
+
+	<script type="text/javascript" src="/dist/js/pages/login.js"></script>
 </body>
 </html>
