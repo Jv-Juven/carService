@@ -17,7 +17,7 @@ class CreateNoticesTable extends Migration {
 
 			/* 
 			 * 主键：
-			 * 		uniqid('tzzx', true)去标点共26位
+			 * 		自增id
 			 */
 			$table->increments('id');
 
