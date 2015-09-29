@@ -11,7 +11,7 @@ class CreateRefundRecordsTable extends Migration {
 	 * @return void
 	 */
 	public function up(){
-						//退款记录表
+		//退款记录表
 		Schema::create( 'refund_records', function( $table ){
 
 			/*
