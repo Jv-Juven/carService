@@ -11,7 +11,8 @@ class CreateNoticesTable extends Migration {
 	 * @return void
 	 */
 	public function up(){
-						//通知表
+		
+		//通知表
 		Schema::create( 'notices', function( $table ){
 
 			/* 

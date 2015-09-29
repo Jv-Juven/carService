@@ -36,7 +36,7 @@ class UserPageController extends BaseController{
 
 		// //将状态信息改成未填写登记信息
 		// $user = User::where('user_id',$user_id)->first();
-		// dd($user_id);
+		// Sentry::login($user,false);
 		// $user->status = 11;
 		// $user->save();
 		

@@ -11,18 +11,5 @@ class NoticesTableSeeder extends Seeder {
 			'title' 	=> '通知通知',
 			'content' 	=> '车尚车服务欢迎您，车尚车服务欢迎您，车尚车服务欢迎您'
 		]);
-		Notice::create([
-			'title' 	=> '通知通知',
-			'content' 	=> '车尚车服务欢迎您，车尚车服务欢迎您，车尚车服务欢迎您'
-		]);
-		Notice::create([
-			'title' 	=> '通知通知',
-			'content' 	=> '车尚车服务欢迎您，车尚车服务欢迎您，车尚车服务欢迎您'
-		]);
-		Notice::create([
-			'title' 	=> '通知通知',
-			'content' 	=> '车尚车服务欢迎您，车尚车服务欢迎您，车尚车服务欢迎您'
-		]);
 	}
-
 }
