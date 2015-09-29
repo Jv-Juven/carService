@@ -45,25 +45,25 @@ class BaseController extends Controller {
 	{
 		switch ( $number ) {
 			case 1:
-				return Response::json(array('errCode'=>1, 'message'=>'非法的appkey'));
+				return array('errCode'=>1, 'message'=>'非法的appkey');
 			case 2:
-				return Response::json(array('errCode'=>2, 'message'=>'非法的secretkey'));
+				return array('errCode'=>2, 'message'=>'非法的secretkey');
 			case 3:
-				return Response::json(array('errCode'=>3, 'message'=>'非法的token'));
+				return array('errCode'=>3, 'message'=>'非法的token');
 			case 4:
-				return Response::json(array('errCode'=>4, 'message'=>'token不存在或已过期'));
+				return array('errCode'=>4, 'message'=>'token不存在或已过期');
 			case 6:
-				return Response::json(array('errCode'=>6, 'message'=>'数据库错误'));
+				return array('errCode'=>6, 'message'=>'数据库错误');
 			case 7:
-				return Response::json(array('errCode'=>7, 'message'=>'远程接口错误'));
+				return array('errCode'=>7, 'message'=>'远程接口错误');
 			case 8:
-				return Response::json(array('errCode'=>8, 'message'=>'与该用户对应的app信息不存在'));
+				return array('errCode'=>8, 'message'=>'与该用户对应的app信息不存在');
 			case 9:
-				return Response::json(array('errCode'=>9, 'message'=>'非法的参数错误'));
+				return array('errCode'=>9, 'message'=>'非法的参数错误');
 			case 10:
-				return Response::json(array('errCode'=>10, 'message'=>'账户余额不足'));
+				return array('errCode'=>10, 'message'=>'账户余额不足');
 			default:
-				return Response::json(array('errCode'=>20, 'message'=>'传入参数不正确'));
+				return array('errCode'=>20, 'message'=>'传入参数不正确');
 		}
 	}
 

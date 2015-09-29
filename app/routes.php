@@ -68,6 +68,8 @@ Route::group(array('prefix'=>'user'), function(){
 
 //业务逻辑
 Route::group(array('prefix'=>'business','before'=>'auth.user.isIn'),function(){
+	//校验充值的token接口
+	Route::get('auth','BusinessController@authToken');
 	//充值
 	Route::post('recharge','BusinessController@recharge');
 	//获取账户信息
@@ -152,7 +154,10 @@ Route::group([ 'prefix' => 'finance-center', 'before' => 'auth.user.isIn' ], fun
 		Route::get( '/', 'RechargeController@index' );
 	});
 });
-
+	
+// Route::get('tiger',function(){
+// 	return 's';
+// });
 
 Route::get('test',function(){
 	Sentry::login(User::find('yhxx560214c236150446972440'), false);

@@ -25,17 +25,16 @@ class UserPageController extends BaseController{
 	public function isEmailActive()
 	{
 		// $token = Input::get('token');
-		// $user_id = Cache::get($token);
+		// $user = Cache::get($token);
 
 		// // 验证不通过，过期重新填写，回到邮箱注册页
-		// if(!isset($cache_token))
+		// if(!isset($user))
 		// {
 		// 	return '失败';
 		// 	// return View::make('');
 		// }
 
 		// //将状态信息改成未填写登记信息
-		// $user = User::where('user_id',$user_id)->first();
 		// Sentry::login($user,false);
 		// $user->status = 11;
 		// $user->save();

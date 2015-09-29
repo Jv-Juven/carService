@@ -51,21 +51,24 @@ class BusinessController extends BaseController{
 	}
 
 
-
 	//充值
 	public static function recharge()
 	{
 		$money = Input::get('money');
 		if( !isset($money) )
-			return Response::json(array('errCode'=>21, 'message'=>'请填写充值金额'));
+			return array('errCode'=>21, 'message'=>'请填写充值金额');
 
+		//验证token
+		$money_token = md5(time());
+		Session::put('money_token',$money_token);
+		// $appkey ="csak7e90c28065cf11e5a76d031532dd8d5b";
 		$appkey = BusinessUser::find(Sentry::getUser()->user_id)->app_key;
 		$url = Config::get('domain.server').'/account/recharge';
-		$parm = 'appkey='.$appkey.'&money='.$money;
+		$parm = 'appkey='.$appkey.'&money='.$money.'&token='.$money_token;
 		$recharge =  json_decode( CurlController::post($url,$parm), true);
 
 		if( $recharge == null )
-			return Response::json(array('errCode'=>22, 'message'=>'系统出现故障，请及时向客服反应'));
+			return array('errCode'=>22, 'message'=>'系统出现故障，请及时向客服反应');
 
 		if( $recharge['errCode'] != 0 )
 		{
@@ -73,8 +76,23 @@ class BusinessController extends BaseController{
 			return parent::errMessage($recharge['errCode']);
 		}
 
-		return Response::json(array('errCode'=>0, 'message'=>'充值成功','balance'=>$recharge['balance']));
+		return array('errCode'=>0, 'message'=>'充值成功','balance'=>$recharge['balance']);
 	}
+
+	//校验充值的token接口
+	public function authToken()
+	{
+		// $token = Input::get('token');
+		// $money_token = Session::pull('money_token');
+		// if($token == null)
+		// 	return array('errCode'=>21, 'message'=> 'token不正确,无效充值');
+
+		// if( $token != $money_token)
+		// 	return array('errCode'=>22, 'message'=> 'token不正确,无效充值');
+
+		return Response::json( array('errCode'=>0, 'message'=>'token正确,有效充值') );
+	}
+
 
 	//获取访问次数信息
 	public static function count()
@@ -84,7 +102,7 @@ class BusinessController extends BaseController{
 		$count =  json_decode( CurlController::get($url), true);
 		
 		if($count == null)
-			return Response::json(array('errCode'=>21, 'message'=>'系统出现故障，请及时向客服反应'));
+			return array('errCode'=>21, 'message'=>'系统出现故障，请及时向客服反应');
 
 		if( $count['errCode'] != 0)
 		{
@@ -92,7 +110,7 @@ class BusinessController extends BaseController{
 			return parent::errMessage($count['errCode']);
 		}
 		// dd($count['data']);
-		return Response::json(array('errCode'=>0, 'message'=>'获取访问次数信息成功','count'=>$count['data']));
+		return array('errCode'=>0, 'message'=>'获取访问次数信息成功','count'=>$count['data']);
 	}
 
 	//获取账户信息
@@ -104,7 +122,7 @@ class BusinessController extends BaseController{
 		$account_info = json_decode( CurlController::get($url),true );
 
 		if($account_info == null)
-			return Response::json(array('errCode'=>21, 'message'=>'系统出现故障，请及时向客服反应'));
+			return array('errCode'=>21, 'message'=>'系统出现故障，请及时向客服反应');
 
 		if( $account_info['errCode'] != 0)
 		{
@@ -112,7 +130,7 @@ class BusinessController extends BaseController{
 			return parent::errMessage($account_info['errCode']);
 		}
 
-		return Response::json(array('errCode'=>0,'message'=>'返回账户信息','account'=>$account_info['account']));
+		return array('errCode'=>0,'message'=>'返回账户信息','account'=>$account_info['account']);
 
 	}
 
@@ -130,7 +148,7 @@ class BusinessController extends BaseController{
 		$account_info = json_decode( CurlController::post($url,$parm),true );
 
 		if($account_info == null)
-			return Response::json(array('errCode'=>21, 'message'=>'系统出现故障，请及时向客服反应'));
+			return array('errCode'=>21, 'message'=>'系统出现故障，请及时向客服反应');
 
 		if( $account_info['errCode'] != 0)
 		{
@@ -138,7 +156,7 @@ class BusinessController extends BaseController{
 			return parent::errMessage($account_info['errCode']);
 		}
 
-		return Response::json(array('errCode'=>0,'message'=>'修改业务单价', 'account_info'=>$account_info['account'])) ;
+		return array('errCode'=>0,'message'=>'修改业务单价', 'account_info'=>$account_info['account']) ;
 	}
 
 	//违章查询
@@ -173,16 +191,16 @@ class BusinessController extends BaseController{
 			$number = $validation->messages()->all();
 			switch ($number[0]) {
 				case 21:
-					return Response::json(array('errCode'=>21, 'message'=>'请将信息填写完整'));
+					return array('errCode'=>21, 'message'=>'请将信息填写完整');
 					break;
 				case 22:
-					return Response::json(array('errCode'=>22, 'message'=>'车牌号码位数不正确'));
+					return array('errCode'=>22, 'message'=>'车牌号码位数不正确');
 					break;
 				case 23:
-					return Response::json(array('errCode'=>23, 'message'=>'发动机号码位数不正确'));
+					return array('errCode'=>23, 'message'=>'发动机号码位数不正确');
 					break;
 				default:
-					return Response::json(array('errCode'=>24, 'message'=>'车架号码位数不正确'));
+					return array('errCode'=>24, 'message'=>'车架号码位数不正确');
 					break;
 			}
 		}
@@ -195,7 +213,7 @@ class BusinessController extends BaseController{
 		// $violation =  CurlController::get($url);
 			// dd($violation);
 		if($violation == null)
-			return Response::json(array('errCode'=>25, 'message'=>'系统出现故障，请及时向客服反应'));
+			return array('errCode'=>25, 'message'=>'系统出现故障，请及时向客服反应');
 
 		if( $violation['errCode'] != 0)
 		{
@@ -205,11 +223,11 @@ class BusinessController extends BaseController{
 
 		$violation = json_decode( $violation['data'],true);
 		if(isset($violation['body'][0]['tips']))
-			return Response::json(array('errCode'=>26, 'message'=>'车牌号码或号牌种类错误'));
+			return array('errCode'=>26, 'message'=>'车牌号码或号牌种类错误');
 
 		//把违章信息存入session中，以便提交订单时生成
 		Session::put('violation',$violation['body']);
-		return Response::json(array('errCode'=>0, 'message'=>'获取车辆违章信息','violations'=>$violation['body']));
+		return array('errCode'=>0, 'message'=>'获取车辆违章信息','violations'=>$violation['body']);
 	}
 
 	//查询驾驶证扣分信息
@@ -230,7 +248,7 @@ class BusinessController extends BaseController{
 		$validation = Validator::make($data, $rules);
 
 		if($validation->fails())
-			return Response::json(array('errCode'=>21, 'message'=>'请填写完整的信息'));
+			return array('errCode'=>21, 'message'=>'请填写完整的信息');
 
 		 $token = parent::token();
 		 $url = Config::get('domain.server').'/api/license?token='.$token.'&identityID='.
@@ -238,7 +256,7 @@ class BusinessController extends BaseController{
 		 $license = json_decode( CurlController::get($url),true );
 		// dd($license);
 		if($license == null)
-			return Response::json(array('errCode'=>22, 'message'=>'系统出现故障，请及时向客服反应'));
+			return array('errCode'=>22, 'message'=>'系统出现故障，请及时向客服反应');
 
 		 if( $license['errCode'] != 0 )
 		 {
@@ -249,11 +267,11 @@ class BusinessController extends BaseController{
 		 
 		 if($license['returnCode'] == 0)
 		 {
-		 	return Response::json(array('errCode'=>23,'message'=>'身份证号码，驾驶证号码或档案号码错误'));
+		 	return array('errCode'=>23,'message'=>'身份证号码，驾驶证号码或档案号码错误');
 		 }
 		 $license = json_decode( $license['body'],true);
 
-		 return Response::json(array('errCode'=>0, 'message'=>'驾驶证扣分分数','number'=>$license['ljjf']));
+		 return array('errCode'=>0, 'message'=>'驾驶证扣分分数','number'=>$license['ljjf']);
 	}	
 
 
@@ -288,16 +306,16 @@ class BusinessController extends BaseController{
 			$number = $validation->messages()->all();
 			switch ($number[0]) {
 				case 1:
-					return Response::json(array('errCode'=>21,'message'=>'信息填写不完整'));
+					return array('errCode'=>21,'message'=>'信息填写不完整');
 					break;
 				case 2:
-					return Response::json(array('errCode'=>22,'message'=>'发动机后6位格式不正确'));
+					return array('errCode'=>22,'message'=>'发动机后6位格式不正确');
 					break;
 				case 3:
-					return Response::json(array('errCode'=>23,'message'=>'车牌号码格式不正确'));
+					return array('errCode'=>23,'message'=>'车牌号码格式不正确');
 					break;
 				default:
-					return Response::json(array('errCode'=>24,'message'=>'车辆类型格式不正确'));
+					return array('errCode'=>24,'message'=>'车辆类型格式不正确');
 					break;
 			}
 		}
@@ -309,7 +327,7 @@ class BusinessController extends BaseController{
 		$car = json_decode( CurlController::get($url),true );
 		
 		if($car == null)
-			return Response::json(array('errCode'=>25, 'message'=>'系统出现故障，请及时向客服反应'));
+			return array('errCode'=>25, 'message'=>'系统出现故障，请及时向客服反应');
 
 		if( $car['errCode'] != 0 )
 		{
@@ -319,9 +337,9 @@ class BusinessController extends BaseController{
 		$car = json_decode( $car['data'],true);
 		// $car = $car['body'];
 		if( $car['returnCode'] == 0)
-			return Response::json(array('errCode'=>26, 'message'=>'没有车辆信息，请查看信息是否填写正确'));
+			return array('errCode'=>26, 'message'=>'没有车辆信息，请查看信息是否填写正确');
 	
-		return Response::json(array('errCode'=>0, 'message'=>'车辆信息','car'=>$car['body']));
+		return array('errCode'=>0, 'message'=>'车辆信息','car'=>$car['body']);
 	}
 
 	//提交订单
@@ -330,7 +348,7 @@ class BusinessController extends BaseController{
 		$violations = json_decode( Input::get('violations'));
 		$violations = Session::get('violation');
 		if($violations == null )
-			return Response::json(array('errCode'=>21, 'message'=>'请传入违章信息'));
+			return array('errCode'=>21, 'message'=>'请传入违章信息');
 
 		$is_delivered = Input::get('is_delivered');//是否需要快递
 		$data_two = array(
@@ -350,7 +368,7 @@ class BusinessController extends BaseController{
 		{
 			$validation_two = Validator::make($data_two,$rules_two);
 			if($validation_two->fails())
-				return Response::json(array('errCode'=>22, 'message'=>'收件人信息填写不完整'));
+				return array('errCode'=>22, 'message'=>'收件人信息填写不完整');
 			$expressfee = BusinessController::expressFee();
 		}else{
 			$expressfee = 0;
@@ -365,10 +383,10 @@ class BusinessController extends BaseController{
 		//验证手机
 		$phone_regex = Config::get('regex.telephone');
 		if(!preg_match($phone_regex, $data_two['recipient_phone']))
-			return Response::json(array('errCode'=>23,'message'=>'手机号码有误'));
+			return array('errCode'=>23,'message'=>'手机号码有误');
 
 		if(!strlen($data_two['car_engine_no']))
-			return Response::json(array('errCode'=>24,'message'=>'发动机后4位格式不正确，请填写4位'));
+			return array('errCode'=>24,'message'=>'发动机后4位格式不正确，请填写4位');
 
 		try
 		{
@@ -413,7 +431,7 @@ class BusinessController extends BaseController{
 			});
 		}catch(\Exception $e)
 		{
-			return Response::json(array('errCode'=>25,'message'=>'操作失败'.$e->getMessage() ));
+			return array('errCode'=>25,'message'=>'操作失败'.$e->getMessage() );
 		}
 		$data['express_fee'] 		= $expressfee;
 		$data['recipient_name'] 	= $data_two ['recipient_name'];
@@ -425,7 +443,7 @@ class BusinessController extends BaseController{
 		$data['service_charge_sum'] = BusinessController::serviceFee();
 		$data['express_fee']		= $expressfee;
 
-		return Response::json(array('errCode'=>0,'message'=>'返回订单信息','order'=>$data));
+		return array('errCode'=>0,'message'=>'返回订单信息','order'=>$data);
 	}
 
 	//查看违章代办信息
@@ -437,6 +455,6 @@ class BusinessController extends BaseController{
 								->orderBy('created_at','asc')
 								->get();
 
-		return Response::json(array('errCode'=>0, 'message'=>'违章代办信息', 'orders'=>$orders));
+		return array('errCode'=>0, 'message'=>'违章代办信息', 'orders'=>$orders);
 	}
 }

@@ -97,6 +97,29 @@ if( Sentry::check() )
 	 				message,			错误信息
 	 			}
 
+	1.9 信息登记
+	 请求方式: POST
+	 请求url: /user/info_register
+
+	 请求参数:
+	 		business_name,						企业名称
+	 		business_licence_no,				营业执照号
+	 		business_licence_scan_path,			营业执照扫描件存放位置
+	 		bank_account,						企业银行账号
+	 		deposit_bank,						开户银行
+	 		bank_outlets,						开户网点
+	 		operational_name,					运营人员姓名
+	 		operational_card_no,				运营人员身份证号码
+	 		operational_phone,					运营人员电话号码
+	 		id_card_front_scan_path,			身份证正面扫描件
+	 		id_card_back_scan_path,				身份证反面扫描件
+
+	返回参数:	
+			{
+				errCode,			0返回正常
+ 				message,			错误信息
+			}
+
 
 2. C端用户模块
 	1. 注册－获取手机验证码
@@ -501,3 +524,15 @@ if( Sentry::check() )
 			}
 
 
+服务器接口
+	请求方式：GET
+	请求url：/business/auth
+
+	请求参数：	
+			token  					业务服务器token
+
+	返回参数：
+			{
+				errCode,					
+				message,
+			}
