@@ -116,7 +116,7 @@ Route::group(array('prefix'=>'message-center'), function(){
 		});
 	});
 
-	// 反馈
+	// 反馈模块
 	Route::group([ 'prefix' => 'feedback', 'before' => 'auth.user.isIn' ], function(){
 
 		// 反馈页面
@@ -139,13 +139,21 @@ Route::group([ 'prefix' => 'finance-center', 'before' => 'auth.user.isIn' ], fun
 		// 概览
 		Route::get( 'overview', 'CostManageController@overview');
 
-		// 费用明细
-		Route::get( 'cost-detail', 'CostManageController@cost_detail' );
-
 		// 退款记录
 		Route::get( 'refund-record', 'CostManageController@refund_record' );
+
+		// 费用明细
+		Route::group([ 'prefix' => 'cost-detail' ], function(){
+
+			// 费用明细页面
+			Route::get( '/', 'CostManageController@cost_detail' );
+
+			// 查询费用明细
+			Route::get( 'search', 'CostManageController@search_cost_detail' );
+		});
 	});
 
+	// 充值模块
 	Route::group([ 'prefix' => 'recharge' ], function(){
 
 		// 充值页面
