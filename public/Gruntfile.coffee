@@ -66,8 +66,12 @@ module.exports = (grunt)->
             components:
                 files:
                     'dist/css/components.css': [
-                        'src/components/left-nav.less'
+                        'src/components/left-nav.less',
+                        'src/components/log-reg-mask.less'
+                        'src/components/vio-process.less'
+                        'src/components/warn-mask.less'
                     ]
+                    
             pages:
                 files:
                     #serve-center

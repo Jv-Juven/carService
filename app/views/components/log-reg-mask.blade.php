@@ -1,13 +1,19 @@
 <div class="log-reg-bg"></div>
 
-<div class="mask-wrapper mask-login">
+<div class="mask-wrapper log-reg-wrapper mask-login">
 	<div class="warn-box">
 		<div class="warn-title">
-			登录
+			<div class="warn-content-title">
+				<a href="javascript:" class="login-menu-btn active">企业用户登录</a>
+				<a href="javascript:" class="login-menu-btn">个人用户登录</a>
+			</div>
 			<div class="warn-close">×</div>
 		</div>
 		<div class="warn-content">
 			<div class="warn-msg">
+				<div class="input-tips-line">
+					<span class="input-tips">* 如果您的账号还没注册，请先注册！</span>
+				</div>
 				<div class="input-line">
 					<div class="input-title">手机号码：</div>
 					<div class="input">
@@ -21,6 +27,10 @@
 					</div>
 				</div>
 				<div class="input-line">
+					<div class="reg-btns">
+						<a class="reg-btn first" href="/">企业用户注册</a>
+						<a class="reg-btn" href="/">个人用户注册</a>
+					</div>
 					<a href="/" class="forget-tips">忘记密码？</a>
 				</div>
 				<div class="input-line forget-submit">
@@ -30,10 +40,10 @@
 		</div>
 	</div>
 </div>
-<div class="mask-wrapper mask-register">
+<div class="mask-wrapper log-reg-wrapper mask-register">
 	<div class="warn-box">
 		<div class="warn-title">
-			忘记密码
+			注册
 			<div class="warn-close">×</div>
 		</div>
 		<div class="warn-content warn-reg-content">

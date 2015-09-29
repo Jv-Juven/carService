@@ -6,10 +6,12 @@
 		登录
 	</title>
 	<link rel="stylesheet" type="text/css" href="/dist/css/common.css">
+	<link rel="stylesheet" type="text/css" href="/dist/css/components.css">
 	<link rel="stylesheet" type="text/css" href="/dist/css/pages/login.css">
 </head>
 <body>
 	<div class="login-wrapper">
+		<!-- 页头部分 START -->
 		<div class="login-header">
 			<div class="header-content">
 				<img class="logo" src="/images/login/logo.png">
@@ -34,6 +36,7 @@
 				</div>
 			</div>
 		</div>
+		<!-- 页头部分 END -->
 		<div class="login-body clearfix">
 			<div class="header-img">
 				<img class="slider-img" src="/images/login/slider.png">
@@ -189,7 +192,7 @@
 		</div>
 		<div class="login-footer">
 			<div class="footer-words">
-				<span>@版权归所有广州车尚信息科技有限公司</span>|
+				<span>版权所有@广州车尚信息科技有限公司</span>|
 				<span>技术支持：广州紫睿网络有限科技公司</span>
 			</div>
 		</div>
@@ -209,9 +212,15 @@
 					</div>
 					<div class="msg-line">
 						<span class="msg-title">
+							注册邮箱：
+						</span>
+						<input class="msg-input" type="text" placeholder="请输入注册的邮箱"/>
+					</div>
+					<div class="msg-line">
+						<span class="msg-title">
 							邮箱验证码：
 						</span>
-						<input class="msg-input" type="text" placeholder="请前往注册邮箱13********@***.com获取验证码"/>
+						<input class="msg-input msg-validate" type="text" placeholder="请前往注册邮箱获取验证码"/>
 						<a href="/" class="msg-btn">获取验证码</a>
 					</div> -->
 
@@ -221,9 +230,15 @@
 					</div>
 					<div class="msg-line">
 						<span class="msg-title">
+							注册手机号码：
+						</span>
+						<input class="msg-input" type="text" placeholder="请输入注册的手机号码"/>
+					</div>
+					<div class="msg-line">
+						<span class="msg-title">
 							手机验证码：
 						</span>
-						<input class="msg-input" type="text" placeholder="请查看注册手机的短信验证码"/>
+						<input class="msg-input msg-validate" type="text" placeholder="请查看注册手机的短信验证码"/>
 						<a href="/" class="msg-btn">获取验证码</a>
 					</div>
 

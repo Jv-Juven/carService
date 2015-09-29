@@ -16,14 +16,40 @@
 .mask-register{
 	display: none;
 }
-.mask-wrapper{
-	.warn-box(760px, 420px);
+.log-reg-wrapper{
 	.warn-box{
+		.warn-box(760px, 420px);
 		.warn-title{
 			padding: 20px 0px;
 			width: 700px;
 			margin: auto;
 			font-size: 16px;
+
+			.warn-content-title{
+				@btn-height: 30px;
+				border: 1px solid @blue;
+				color: rgb(56, 56, 56);
+				line-height: 30px;
+				width: 270px;
+				height: @btn-height;
+				border-radius: 7px;
+				margin: 0px auto;
+				overflow: hidden;
+				.login-menu-btn{
+					display: inline-block;
+					width: 50%;
+					height: @btn-height;
+					color: rgb(165, 165, 165);
+					line-height: @btn-height;
+					text-align: center;
+					float: left;
+					font-weight: 400;
+				}
+				.active{
+					background: @blue;
+					color: white;
+				}
+			}
 			.warn-close{
 				width: 20px;
 				height: 20px;
@@ -37,7 +63,6 @@
 			.input-line{
 				@line-height: 36px;
 				position: relative;
-				top: 50px;
 				width: 100%;
 				height: @line-height;
 				margin: 20px auto 0px;
@@ -48,6 +73,7 @@
 					text-align: right;
 					color: rgb(56, 56, 56);
 					font-weight: bolder;
+					min-height: 1px;
 				}
 				.input{
 					padding-left: 10px;
@@ -63,11 +89,43 @@
 					}
 				}
 				.forget-tips{
-					display: block;
+					display: inline-block;
 					float: right;
 					padding: 0px;
 					.a-color();
-					margin-right: 200px;
+					margin-right: 190px;
+				}
+				.reg-btns{
+					display: inline-block;
+					position: relative;
+					left: 240px;
+					width: auto;
+					height: auto;
+					color: @blue;
+					height: 14px;
+					.first{
+						border-right: 1px solid @blue;
+					}
+					.reg-btn{
+						float: left;
+						display: inline-block;
+						padding: 0px 6px;
+						.a-color(@blue);
+					}
+				}
+			}
+			.input-tips-line{
+				width: 100%;
+				height: 16px;
+				margin: 0px auto;
+				float: left;
+				.input-tips{
+					display: inline-block;
+					padding-left: 10px;
+					position: relative;
+					left: 240px;
+					color: red;
+					font-size: 12px;
 				}
 			}
 			.forget-submit{

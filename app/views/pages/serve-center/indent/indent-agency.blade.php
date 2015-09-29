@@ -27,60 +27,46 @@
 					<tr>
 						<td class="indent-table-title">车牌号码：</td>
 						<td class="indent-table-content">
-							<select class="input select-plate">
-								<option value="">粤</option>
-								<option value="">琼</option>
-								<option value="">桂</option>
-								<option value="">黔</option>
-							</select>
+							@include("components.province-abbre")
 							<input class="input plate-num" type="text" placeholder="车牌号码后六位"/>
-							<select class="input select-color">
-								<option value="01">大型汽车</option>
-								<option value="02">小型汽车</option>
-								<option value="03">使馆汽车</option>
-								<option value="04">领馆汽车</option>
-								<option value="05">境外汽车</option>
-								<option value="06">外籍汽车</option>
-								<option value="07">普通摩托车</option>
-								<option value="08">轻便摩托车</option>
-								<option value="09">使馆摩托车</option>
-								<option value="10">领馆摩托车</option>
-								<option value="11">境外摩托车</option>
-								<option value="12">外籍摩托车</option>
-								<option value="13">低速车</option>
-								<option value="14">拖拉机</option>
-								<option value="15">挂车</option>
-								<option value="16">教练车</option>
-								<option value="17">教练摩托车</option>
-								<option value="18">试验汽车</option>
-								<option value="19">试验摩托车</option>
-								<option value="20">临时入境汽车</option>
-								<option value="21">临时入境摩托车</option>
-								<option value="22">临时行驶车</option>
-								<option value="23">警用汽车</option>
-								<option value="24">警用摩托</option>
-								<option value="25">原农机号牌车</option>
-								<option value="26">香港入出境车</option>
-								<option value="27">澳门入出境车</option>
-								<option value="31">武警号牌</option>
-								<option value="32">军队号牌</option>
-								<option value="99">其他号牌</option>
-							</select>
+							@include("components.select-types")3
 						</td>
 					</tr>
 					<tr>
-						<td class="indent-table-title">车牌号码：</td>
+						<td class="indent-table-title">违章城市：</td>
 						<td class="indent-table-content">
 							<select class="input select-plate plate-status">
 								<option value="">全部</option>
-								<option value="">红牌</option>
-								<option value="">黄牌</option>
+								<option value="">广州市</option>
+								<option value="">深圳市</option>
+								<option value="">珠海市</option>
+								<option value="">汕头市</option>
+								<option value="">韶关市</option>
+								<option value="">佛山市</option>
+								<option value="">江门市</option>
+								<option value="">湛江市</option>
+								<option value="">茂名市</option>
+								<option value="">肇庆市</option>
+								<option value="">惠州市</option>
+								<option value="">梅州市</option>
+								<option value="">汕尾市</option>
+								<option value="">河源市</option>
+								<option value="">阳江市</option>
+								<option value="">清远市</option>
+								<option value="">东莞市</option>
+								<option value="">中山市</option>
+								<option value="">潮州市</option>
+								<option value="">揭阳市</option>
+								<option value="">云浮市</option>
 							</select>
 							业务状态：
 							<select class="input select-plate plate-status">
 								<option value="">全部</option>
-								<option value="">红牌</option>
-								<option value="">黄牌</option>
+								<option value="">未受理</option>
+								<option value="">已受理办理中</option>
+								<option value="">已受理</option>
+								<option value="">订单完成</option>
+								<option value="">订单关闭</option>
 							</select>
 						</td>
 					</tr>

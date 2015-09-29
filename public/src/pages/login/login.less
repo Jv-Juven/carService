@@ -332,12 +332,10 @@
 }
 
 // 浮层框的基本设置
-.mask-bg{
+.mask-bg, .mask-reset-psd{
 	display: none;
 }
-.mask-reset-psd{
-	display: none;
-}
+
 .warn-box{
 	.warn-box(760px, 480px);
 	.warn-title{
@@ -366,7 +364,7 @@
 				margin-top: 16px;
 				.msg-title{
 					.inline-block();
-					width: 200px;
+					width: 240px;
 					text-align: right;
 					line-height: @line-height;
 				}
@@ -379,12 +377,15 @@
 					padding-left: 10px;
 				}
 				.msg-btn{
-					.inline-btn();
+					.inline-btn(120px);
 					margin-top: 4px;
+				}
+				.msg-validate{
+					width: 167px;
 				}
 			}
 			.login-msg-tips{
-				width: 530px;
+				width: 450px;
 				margin: auto;
 				color: rgb(100, 100, 100);
 			}

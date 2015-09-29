@@ -58,7 +58,7 @@
 								<tr>
 									<td class="cont-title">户名：</td>
 									<td class="cont-content">
-										<input type="text" placeholder="请务必正确填写企业对公账户号码"/>
+										<input type="text" placeholder="请填写企业名称"/>
 									</td>
 								</tr>
 								<tr>
@@ -87,8 +87,8 @@
 									<td class="cont-title">开户地点：</td>
 									<td class="cont-content">
 										<select class="position">
-											<option value="">中国广州</option>
-											<option value="">中国杭州</option>
+											<option value="">中国 广州</option>
+											<option value="">中国 杭州</option>
 										</select>
 									</td>
 								</tr>

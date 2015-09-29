@@ -27,13 +27,13 @@
 				<tr>
 					<td class="input-title">密码：</td>
 					<td class="input">
-						<input type="text" placeholder="字母、数字或英文符号，最短6位，区分大小写"/>
+						<input type="password" placeholder="字母、数字或英文符号，最短6位，区分大小写"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="input-title">确认密码：</td>
 					<td class="input">
-						<input type="text" placeholder="请再次输入密码"/>
+						<input type="password" placeholder="请再次输入密码"/>
 					</td>
 				</tr>
 				<tr>
