@@ -11,7 +11,8 @@ class CreateAgencyOrdersTable extends Migration {
 	 * @return void
 	 */
 	public function up(){
-						//违章代办订单表
+		
+		//违章代办订单表
 		Schema::create( 'agency_orders', function( $table ){
 
 			/*
@@ -51,7 +52,8 @@ class CreateAgencyOrdersTable extends Migration {
 			 * 		微信32位
 			 * 		支付宝64位
 			 */
-			$table->string('pay_trade_no', 64)->nullable();
+			$table->char('pay_trade_no', 64)->nullable();
+			$table->unique('pay_trade_no');
 			
 			/*
 			 * 车牌号

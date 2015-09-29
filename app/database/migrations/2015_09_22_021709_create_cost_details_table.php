@@ -17,7 +17,7 @@ class CreateCostDetailsTable extends Migration {
 
 			/* 
 			 * 主键:
-			 * 		uniqid('fyxx',true)去标点，共26位	
+			 * 		uniqid('fyxx',true)去标点，共26位
 			 */
 			$table->string('cost_id');
 

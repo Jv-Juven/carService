@@ -11,7 +11,7 @@ class CreateUserReadNoticeTable extends Migration {
 	 * @return void
 	 */
 	public function up(){
-						//已读通知用户表
+		//已读通知用户表
 		Schema::create( 'user_read_notice', function( $table ){
 
 			/*
@@ -28,18 +28,18 @@ class CreateUserReadNoticeTable extends Migration {
 
 			/*
 			 * 外键
-			 *		约束：notices表notice_id字段
+			 *		约束：notices表id字段
 			 */
-			$table->string('notice_id');
+			$table->integer('notice_id')->unsigned();
 			$table->index('notice_id');
 			$table->foreign('notice_id')
-				  ->references('notice_id')
+				  ->references('id')
 				  ->on('notices')
 				  ->onDelete('cascade')
 				  ->onUpdate('cascade');
 
 			/*
-			 * 设置联合主键
+			 * 设置联合主键 
 			 */
 			$table->primary([
 				'user_id',

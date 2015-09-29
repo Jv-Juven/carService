@@ -11,7 +11,7 @@ class CreateUserFeeTable extends Migration {
 	 * @return void
 	 */
 	public function up(){
-						//用户费用表
+		//用户费用表
 		Schema::create( 'user_fee', function( $table ){
 
 			/*
@@ -33,19 +33,16 @@ class CreateUserFeeTable extends Migration {
 			$table->integer('fee_type_id')
 			 	  ->unsigned();
 			$table->index('fee_type_id');
-			// $table->foreign('fee_type_id')
-			// 	  ->references('id')
-			// 	  ->on('fee_types')
-			// 	  ->onDelete('cascade')
-			// 	  ->onUpdate('cascade');
+			$table->foreign('fee_type_id')
+			 	  ->references('id')
+			 	  ->on('fee_types')
+			 	  ->onDelete('cascade')
+		 		  ->onUpdate('cascade'); 
 
 			/*
 			 * 设置联合主键: (user_id, item_id) 
 			 */
-			$table->primary([
-				'user_id',
-				// 'fee_type_id'
-			]);
+			$table->primary( 'user_id' );
 
 			/*
 			 * 费用

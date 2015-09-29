@@ -11,7 +11,7 @@ class CreateTrafficViolationInfoTable extends Migration {
 	 * @return void
 	 */
 	public function up(){
-						//违章信息表
+		//违章信息表
 		Schema::create( 'traffic_violation_info', function( $table ){
 
 			/*

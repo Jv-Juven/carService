@@ -11,7 +11,7 @@ class CreateRefundRecordsTable extends Migration {
 	 * @return void
 	 */
 	public function up(){
-						//退款记录表
+		//退款记录表
 		Schema::create( 'refund_records', function( $table ){
 
 			/*
@@ -63,7 +63,7 @@ class CreateRefundRecordsTable extends Migration {
 			/*
 			 * 审核备注
 			 */
-			$table->string('comment');
+			$table->string('comment')->nullable();
 
 			/*
 			 * Laravel自动维护

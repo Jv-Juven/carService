@@ -11,15 +11,15 @@ class CreateNoticesTable extends Migration {
 	 * @return void
 	 */
 	public function up(){
-						//通知表
+		
+		//通知表
 		Schema::create( 'notices', function( $table ){
 
 			/* 
 			 * 主键：
 			 * 		uniqid('tzzx', true)去标点共26位
 			 */
-			$table->string( 'notice_id' );
-			$table->primary( 'notice_id' );
+			$table->increments('id');
 
 			/*
 			 * 标题
