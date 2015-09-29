@@ -64,10 +64,10 @@ class BusinessController extends BaseController{
 		$parm = 'appkey='.$appkey.'&money='.$money;
 		$recharge =  json_decode( CurlController::post($url,$parm), true);
 
-		if($recharge == null)
+		if( $recharge == null )
 			return Response::json(array('errCode'=>22, 'message'=>'系统出现故障，请及时向客服反应'));
 
-		if( $recharge['errCode'] != 0)
+		if( $recharge['errCode'] != 0 )
 		{
 			Log::info( $recharge );
 			return parent::errMessage($recharge['errCode']);
@@ -193,7 +193,7 @@ class BusinessController extends BaseController{
 				$data['req_car_engine_no'].'&licenseType='.$data['car_type_no'];
 		$violation = json_decode( CurlController::get($url), true );
 		// $violation =  CurlController::get($url);
-			
+			// dd($violation);
 		if($violation == null)
 			return Response::json(array('errCode'=>25, 'message'=>'系统出现故障，请及时向客服反应'));
 
@@ -218,9 +218,9 @@ class BusinessController extends BaseController{
 		$identityID = Input::get('identityID');
 		$recordID   = Input::get('recordID');
 		$data = array(
-				//车牌号码
+				//身份证号码/驾驶证号码
 				'identityID' 	=> Input::get('identityID'),
-				//发动机号码后6位
+				//档案号码
 				'recordID' 		=> Input::get('recordID'),
 			);
 		$rules = array(
@@ -236,7 +236,7 @@ class BusinessController extends BaseController{
 		 $url = Config::get('domain.server').'/api/license?token='.$token.'&identityID='.
 		 					$data['identityID'].'&recordID='.$data['recordID'];
 		 $license = json_decode( CurlController::get($url),true );
-		
+		// dd($license);
 		if($license == null)
 			return Response::json(array('errCode'=>22, 'message'=>'系统出现故障，请及时向客服反应'));
 
@@ -386,6 +386,9 @@ class BusinessController extends BaseController{
 				$order->recipient_addr 		= $data_two['recipient_addr'];
 				$order->recipient_phone 	= $data_two['recipient_phone'];
 				$order->car_engine_no 		= $data_two['car_engine_no'];
+				$order->trade_status 		= 0;//交易状态－等待付款
+				$order->process_status 		= 0;//处理状态－未受理
+
 				//在save后不能再取其值
 				$order_id = $order->order_id;
 				$order->save();
