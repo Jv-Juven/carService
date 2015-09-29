@@ -1,13 +1,11 @@
-<?php 
+<?php   
 
-class Notice extends BaseModel{
+class Notice extends Eloquent{
     
     protected $table        = 'notices';
-    protected $primaryKey   = 'notice_id';
 
     protected $hidden       = [];
     protected $fillable     = [
-        'notice_id',
         'title',
         'content'
     ];
@@ -30,14 +28,6 @@ class Notice extends BaseModel{
      */
     public function users_read_id(){
 
-        return $this->hasMany( 'UserReadNotice', 'notice_id', 'notice_id' );
-    }
-
-    /*
-    *每条通知是否被读过
-    */
-    public function notice_user_id(){
-
-        return $this->belongsTo( 'UserReadNotice', 'notice_id', 'notice_id' );
+        return $this->hasMany( 'UserReadNotice', 'notice_id', 'id' );
     }
 }

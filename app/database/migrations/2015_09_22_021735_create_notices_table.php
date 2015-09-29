@@ -19,8 +19,7 @@ class CreateNoticesTable extends Migration {
 			 * 主键：
 			 * 		uniqid('tzzx', true)去标点共26位
 			 */
-			$table->string( 'notice_id' );
-			$table->primary( 'notice_id' );
+			$table->increments('id');
 
 			/*
 			 * 标题
