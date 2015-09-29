@@ -31,16 +31,65 @@ module.exports = (grunt)->
                     # 'dist/js/components.js': ['src/components/**/*.coffee']
                     # 'dist/js/common.js': ['src/common/**/*.coffee']
                 }
-
-            pages:
+            account_center:
                 options:
                   preBundleCB: (b)->
                     b.transform(coffeeify)
                     b.transform(stringify({extensions: ['.hbs', '.html', '.tpl', '.txt']}))
                 expand: true
                 flatten: true
-                src: ['src/pages/**/*.coffee']
-                dest: 'dist/js/pages/'
+                src: ['src/pages/account-center/**/*.coffee']
+                dest: 'dist/js/pages/account-center'
+                ext: '.js'
+            finance_center:
+                options:
+                  preBundleCB: (b)->
+                    b.transform(coffeeify)
+                    b.transform(stringify({extensions: ['.hbs', '.html', '.tpl', '.txt']}))
+                expand: true
+                flatten: true
+                files: {
+                    'dist/src/pages/finance-center/cost-manage/cost-detail.js': ['src/pages/finance-center/cost-detail.coffee']
+                }
+            message_center:
+                options:
+                  preBundleCB: (b)->
+                    b.transform(coffeeify)
+                    b.transform(stringify({extensions: ['.hbs', '.html', '.tpl', '.txt']}))
+                expand: true
+                flatten: true
+                files: {
+                    'dist/src/pages/message-center/feedback/index.js': ['src/pages/message-center/feedback/index.coffee']
+                }
+            register_b:
+                options:
+                  preBundleCB: (b)->
+                    b.transform(coffeeify)
+                    b.transform(stringify({extensions: ['.hbs', '.html', '.tpl', '.txt']}))
+                expand: true
+                flatten: true
+                src: ['src/pages/register-b/**/*.coffee']
+                dest: 'dist/js/pages/register-b'
+                ext: '.js'
+            serve_center:
+                options:
+                  preBundleCB: (b)->
+                    b.transform(coffeeify)
+                    b.transform(stringify({extensions: ['.hbs', '.html', '.tpl', '.txt']}))
+                expand: true
+                flatten: true
+                src: ['src/pages/serve-center/**/*.coffee']
+                dest: 'dist/js/pages/serve-center'
+                ext: '.js'
+            login:
+                options:
+                  preBundleCB: (b)->
+                    b.transform(coffeeify)
+                    b.transform(stringify({extensions: ['.hbs', '.html', '.tpl', '.txt']}))
+                expand: true
+                flatten: true
+                src: ['src/pages/login/**/*.coffee']
+                dest: 'dist/js/pages/login'
                 ext: '.js'
 
         watch:
