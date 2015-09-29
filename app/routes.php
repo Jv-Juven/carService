@@ -17,6 +17,10 @@ try{
 	
 }
 
+Route::get('/',function(){
+	return View::make('pages.login');
+});
+
 Route::group(array('prefix'=>'user'), function(){
 	//获取验证码
 	Route::get('captcha', 'UserController@captcha');
@@ -158,12 +162,7 @@ Route::group([ 'prefix' => 'finance-center', 'before' => 'auth.user.isIn' ], fun
 });
 	
 // Route::get('tiger',function(){
-// 	try{
-// 		$user = Sentry::findUserByLogin('dsd');;
-// 	}catch(\Exception $e){
-
-// 		return 'dsd';
-// 	}
+	
 // });
 
 Route::get('test',function(){
