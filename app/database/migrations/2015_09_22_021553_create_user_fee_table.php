@@ -37,7 +37,7 @@ class CreateUserFeeTable extends Migration {
 			 	  ->references('id')
 			 	  ->on('fee_types')
 			 	  ->onDelete('cascade')
-		 		  ->onUpdate('cascade');
+		 		  ->onUpdate('cascade'); 
 
 			/*
 			 * 设置联合主键: (user_id, item_id) 
