@@ -44,6 +44,8 @@ Route::group(array('prefix'=>'user'), function(){
 		Route::get('operational_phone_code','UserController@operationalPhoneCode');
 		//B端用户打款备注码
 		Route::post('money_remark_code','UserController@moneyRemarkCode');
+		//显示企业信息
+		Route::post('display_company_info','UserController@displayCompanyRegisterInfo');
 
 		//c端用户修改密码－发送验证码到手机
 		Route::post('send_code_to_phone','UserController@sendResetCodeToPhone');
@@ -156,7 +158,12 @@ Route::group([ 'prefix' => 'finance-center', 'before' => 'auth.user.isIn' ], fun
 });
 	
 // Route::get('tiger',function(){
-// 	return 's';
+// 	try{
+// 		$user = Sentry::findUserByLogin('dsd');;
+// 	}catch(\Exception $e){
+
+// 		return 'dsd';
+// 	}
 // });
 
 Route::get('test',function(){

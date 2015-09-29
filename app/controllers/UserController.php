@@ -467,23 +467,26 @@ class UserController extends BaseController{
 		return Response::json(array('errCode'=>0, 'message'=>'验证码发送成功!'));
 	}
 	
-	//c端用户修改密码－发送验证码到手机
+	//c端用户修改密码－发送验证码到手机/忘记密码
 	public function  sendResetCodeToPhone()
 	{
-		$login_account = Sentry::getUser()->login_account;		
-		$input = Input::get('login_account');
-		if($input != $login_account)
-			return Response::json(array('errCode'=>21, 'message'=>'手机号码错误，请重新输入'));
 
-		//发送验证码
-		$number = $this->messageVerificationCode($login_account);
-		if($number->getData()->errCode != "")
-			return Response::json(array('errCode'=>22, 'message'=>'发送太过频繁，请稍候再试，如不能发送，请及时与客户联系'));
+		$login_account = Input::get('login_account');
+		try{
+			$user = Sentry::login($login_account,fasle);
+			Sentry::logout();
+			//发送验证码
+			$number = $this->messageVerificationCode($login_account);
+			if($number->getData()->errCode != "")
+				return Response::json(array('errCode'=>22, 'message'=>'发送太过频繁，请稍候再试，如不能发送，请及时与客户联系'));
+		}catch(Exception $e){
+			return Response::json(array('errCode'=>23, 'message'=>'该用户不存在'));
+		}
 
 		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功'));
 	}
 
-	//c端用户修改密码－重置密码
+	//c端用户修改密码/忘记密码－重置密码
 	public function resetCustomerSitePassword()
 	{
 		//验证码验证
@@ -492,12 +495,15 @@ class UserController extends BaseController{
 		if( $phone_code != $session_phone_code)
 			return Response::json(array('errCode'=>21,'message'=>'验证码不正确'));
 
-		//手机号验证
+		//验证手机
 		$login_account 	= Input::get('login_account');
-		$user = Sentry::getUser();
-		if($login_account != $user->login_account)
+		try{
+			$user = Sentry::login($login_account);
+			Sentry::logout();
+		}catch(Exception $e){
 			return Response::json(array('errCode'=>22,'message'=>'手机号码不正确，请重新输入'));
-		
+		}
+
 		$data = array(
 			'password' 	   => Input::get('password'),
 			're_password'   => Input::get('re_password')
@@ -534,7 +540,7 @@ class UserController extends BaseController{
 			}
 		}
 		//重置密码
-		$user = Sentry::findUserById($user->user_id);
+		$user = Sentry::findUserById($login_account);
 		$resetCode = $user->getResetPasswordCode();
 		if(!$user->attemptResetPassword($resetCode, $data['password']))
 			return Response::json(array('errCode' => 25,'message' => '重置密码失败!'));
@@ -542,17 +548,13 @@ class UserController extends BaseController{
 		return Response::json(array('errCode' => 0,'message' => '重置密码成功!'));
 	}
 
-	//b端用户修改密码－发送验证码到邮箱
+	//b端用户修改密码－发送验证码到邮箱/显示企业信息/修改运营者信息/忘记密码
 	public function sendResetCodeToEmail()
 	{	
 		$login_account = Input::get('login_account');
-		$user = Sentry::findUserByLogin(Sentry::getUser()->login_account);
-		if($login_account != $user->login_account)
-			return Response::json(array('errCode'=>21, 'message'=> '邮箱不正确'));
-
 		try
 		{	
-		    $user = Sentry::findUserByLogin(Sentry::getUser()->login_account);
+		    $user = Sentry::findUserByLogin($login_account);
 		    $reset_code = $user->getResetPasswordCode();
 
 		    //发送邮件
@@ -568,6 +570,7 @@ class UserController extends BaseController{
 
 		return Response::json(array('errCode'=>0, 'message'=>'重置验证码发送成功'));
 	}
+
 
 	//b端用户修改密码－重置密码
 	public function resetBusinessSitePassword()
@@ -663,5 +666,20 @@ class UserController extends BaseController{
 		return Response::json(array('errCode'=>0, 'message'=>'appkey获取成功'));	
 	}
 
-	
+	//显示企业注册信息
+	public function displayCompanyRegisterInfo()
+	{
+		$display_code = Input::get('display_code')
+
+		$user = Sentry::getUser();
+		if ($user->checkResetPasswordCode($display_code))
+		{
+			$business_user 		 = BusinessUser::find($user->user_id);
+			$business_name 		 = $business_user->business_name;
+			$business_licence_no = $business_user->business_licence_no;
+			return Response::json(array('errCode'=>0,'business_name' => $business_name,'business_licence_no' => $business_licence_no));
+		}else{
+			return Response::json(array('errCode'=>21, 'message'=>'验证码不正确'));
+		}
+	}
 }
