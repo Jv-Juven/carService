@@ -18,7 +18,7 @@
 
 @section('right-content')
 <div class="fb-wrap">
-    <form method="POST" action="" class="fb-form" target="fb-form-result">
+    <form method="POST" action="" id="fb-form" class="fb-form" target="fb-form-result">
         <div class="fb-item fb-types clearfix">
             <div class="fb-label">反馈类型:</div>
             <div class="rt-wrap">
