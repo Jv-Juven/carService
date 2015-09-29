@@ -29,7 +29,7 @@ class CostDetail extends BaseModel{
     /*
      * 获取所属费用类型
      */
-    public function item(){
+    public function fee_type(){
 
         return $this->belongsTo( 'FeeType', 'fee_type_id', 'id' );
     }

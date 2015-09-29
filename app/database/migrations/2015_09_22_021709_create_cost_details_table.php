@@ -11,7 +11,8 @@ class CreateCostDetailsTable extends Migration {
 	 * @return void
 	 */
 	public function up(){
-					//费用类型表
+		
+		// 费用明细表
 		Schema::create( 'cost_details', function( $table ){
 
 			/* 
