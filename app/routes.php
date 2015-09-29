@@ -136,16 +136,16 @@ Route::group(array('prefix'=>'message-center'), function(){
 Route::group([ 'prefix' => 'finance-center', 'before' => 'auth.user.isIn' ], function(){
 
 	// 费用管理
-	Route::group([ 'prefix' => 'cost-manange' ], function(){
+	Route::group([ 'prefix' => 'cost-manage' ], function(){
 
 		// 概览
-		Route::get( 'overview', 'CostDetailController@overview');
+		Route::get( 'overview', 'CostManageController@overview');
 
 		// 费用明细
-		Route::get( 'cost-detail', 'CostDetailController@cost_detail' );
+		Route::get( 'cost-detail', 'CostManageController@cost_detail' );
 
 		// 退款记录
-		Route::get( 'refund-record', 'CostDetailController@refund_record' );
+		Route::get( 'refund-record', 'CostManageController@refund_record' );
 	});
 
 	Route::group([ 'prefix' => 'recharge' ], function(){
