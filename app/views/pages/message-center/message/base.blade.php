@@ -14,17 +14,18 @@
                             event-item
                         @else
                             odd-item
+                        @endif
                         @if ( !empty( $notice['already_read'] ) )
                             read
                         @endif
                         clearfix">
-                            <span class="item-lf">{{{ $notices->title }}}</span>
-                            <span class="item-rt">{{{ $notices->created_at->format( 'Y-m-d H:i:s' ) }}}</span>
+                            <span class="item-lf">{{{ $notices[$i]->title }}}</span>
+                            <span class="item-rt">{{{ $notices[$i]->created_at->format( 'Y-m-d H:i:s' ) }}}</span>
                         </li>
                     @endfor
                 </ul>
             </div>
-            @include('components.pagination')
+            @include('components.pagination', [ 'paginator' => $paginator ])
         </div>
     </div>
 </div>

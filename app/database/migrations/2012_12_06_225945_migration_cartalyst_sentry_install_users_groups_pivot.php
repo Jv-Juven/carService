@@ -31,7 +31,7 @@ class MigrationCartalystSentryInstallUsersGroupsPivot extends Migration {
 	{
 		Schema::create('users_groups', function($table)
 		{
-			$table->integer('user_id')->unsigned();
+			$table->string('user_id');
 			$table->integer('group_id')->unsigned();
 
 			// We'll need to ensure that MySQL uses the InnoDB engine to
