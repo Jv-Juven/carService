@@ -50,6 +50,19 @@ class BusinessController extends BaseController{
 		}
 	}
 
+	//更改代办状态信息; $trade_status--交易状态; $process_status--处理状态
+	public static function updateOrderStatus( $order_id, $trade_status, $process_status )
+	{
+		$order = AgencyOrder::where('order_id','=', $order_id)->get();
+		if( count($order) == 0 )
+			return array('errCode'=>21, 'message'=>'该订单不存在');
+		$order->trade_status = $trade_status;//交易状态
+		$order->process_status = $process_status;//处理状态
+		if( !$order->save())
+			return array('errCode'=>22, 'message'=>'交易状态修改失败');
+
+		return array('errCode'=>0,'message'=>'交易状态修改成功');
+	}
 
 	//充值
 	public static function recharge()
@@ -433,7 +446,10 @@ class BusinessController extends BaseController{
 		{
 			return array('errCode'=>25,'message'=>'操作失败'.$e->getMessage() );
 		}
-		$data['express_fee'] 		= $expressfee;
+		$data['order_id']			= AgencyOrder::where('user_id',Sentry::getUser()->user_id)
+												->orderBy('created_at','desc')
+												->first()
+												->order_id;
 		$data['recipient_name'] 	= $data_two ['recipient_name'];
 		$data['recipient_addr'] 	= $data_two ['recipient_addr'];
 		$data['recipient_phone'] 	= $data_two ['recipient_phone'];
