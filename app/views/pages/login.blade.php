@@ -6,23 +6,25 @@
 		登录
 	</title>
 	<link rel="stylesheet" type="text/css" href="/dist/css/common.css">
+	<link rel="stylesheet" type="text/css" href="/dist/css/components.css">
 	<link rel="stylesheet" type="text/css" href="/dist/css/pages/login.css">
 </head>
 <body>
 	<div class="login-wrapper">
+		<!-- 页头部分 START -->
 		<div class="login-header">
 			<div class="header-content">
 				<img class="logo" src="/images/login/logo.png">
 				<div class="header-items">
 					<ul>
 						<li class="blue-text login-btn">
-							<a href="/">
-								登录
+							<a href="/user/b_register">
+								企业用户注册
 							</a>
 						</li>
 						<li class="blue-text">
-							<a href="/">
-								注册
+							<a href="javascript:">
+								个人用户注册
 							</a>
 						</li>
 						<li class="login-help">
@@ -34,20 +36,24 @@
 				</div>
 			</div>
 		</div>
+		<!-- 页头部分 END -->
 		<div class="login-body clearfix">
 			<div class="header-img">
 				<img class="slider-img" src="/images/login/slider.png">
 				<div class="login-box">
 					<div class="login-content clearfix">
-						<div class="login-content-title">登录</div>
+						<div class="login-content-title">
+							<a href="javascript:" class="login-menu-btn active">企业用户登录</a>
+							<a href="javascript:" class="login-menu-btn">个人用户登录</a>
+						</div>
 						<div class="input email-input">
 							<input type="text" placeholder="邮箱"/>
 						</div>
 						<div class="input psd-input">
 							<input type="text" placeholder="密码"/>
 						</div>
-						<div class="login-content-tips">
-							<span class="tips01"><a href="/">立即注册</a></span>
+						<div class="login-content-tips clearfix">
+							<!-- <span class="tips01"><a href="/">立即注册</a></span> -->
 							<span class="tips02"><a href="/">忘记密码</a></span>
 						</div>
 						<div class="login-content-btn">
@@ -80,7 +86,7 @@
 						</i>
 					</dd>
 					<dd class="notices-more">
-						<a href="/">查看更多 > </a>
+						<a href="/notice">查看更多 > </a>
 					</dd>
 				</dl>
 				<div class="login-quick-check">
@@ -186,10 +192,82 @@
 		</div>
 		<div class="login-footer">
 			<div class="footer-words">
-				<span>@版权归所有广州车尚信息科技有限公司</span>|
+				<span>版权所有@广州车尚信息科技有限公司</span>|
 				<span>技术支持：广州紫睿网络有限科技公司</span>
 			</div>
 		</div>
 	</div>
+	<!-- 浮层 START -->
+	<div class="mask-bg"></div>
+	<div class="mask-wrapper mask-reset-psd">
+		<div class="warn-box">
+			<div class="warn-title">
+				忘记密码
+				<div class="warn-close">×</div>
+			</div>
+			<div class="warn-content">
+				<div class="warn-msg">
+					<!-- <div class="msg-line login-msg-tips">
+						尊敬的用户，忘记密码请通过邮箱验证码重设：
+					</div>
+					<div class="msg-line">
+						<span class="msg-title">
+							注册邮箱：
+						</span>
+						<input class="msg-input" type="text" placeholder="请输入注册的邮箱"/>
+					</div>
+					<div class="msg-line">
+						<span class="msg-title">
+							邮箱验证码：
+						</span>
+						<input class="msg-input msg-validate" type="text" placeholder="请前往注册邮箱获取验证码"/>
+						<a href="/" class="msg-btn">获取验证码</a>
+					</div> -->
+
+
+					<div class="msg-line login-msg-tips">
+						尊敬的用户，忘记密码请通过手机验证码重设：
+					</div>
+					<div class="msg-line">
+						<span class="msg-title">
+							注册手机号码：
+						</span>
+						<input class="msg-input" type="text" placeholder="请输入注册的手机号码"/>
+					</div>
+					<div class="msg-line">
+						<span class="msg-title">
+							手机验证码：
+						</span>
+						<input class="msg-input msg-validate" type="text" placeholder="请查看注册手机的短信验证码"/>
+						<a href="/" class="msg-btn">获取验证码</a>
+					</div>
+
+
+					<div class="msg-line">
+						<span class="msg-title">
+							新密码：
+						</span>
+						<input class="msg-input" type="password" placeholder="字母、数字或者英文符号，最短6位，区分大小写"/>
+					</div>
+					<div class="msg-line">
+						<span class="msg-title">
+							确认密码：
+						</span>
+						<input class="msg-input" type="password" placeholder="请再次输入密码"/>
+					</div>
+				</div>
+				<div class="account-btns">
+					<a class="account-btn" href="javascript:">保存</a>
+					<a class="account-btn" href="javascript:">取消</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	@include("components.log-reg-mask")
+	<!-- 浮层 END -->
+
+	<script type="text/javascript" src="/lib/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/dist/js/components.js"></script>
+	<script type="text/javascript" src="/dist/js/pages/login/login.js"></script>
 </body>
 </html>

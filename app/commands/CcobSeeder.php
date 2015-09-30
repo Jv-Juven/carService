@@ -328,8 +328,9 @@ class CcobSeeder extends Command {
 
         for ( $i = 0; $i < 50; ++$i ){
             $notice = new Notice();
-            $notice->title = $this->get_random( self::$RANDOM_ALPHA, 32, 32 );
-            $notice->content = $this->get_random( self::$RANDOM_ALPHA_NUM, 50, 100 );
+            $notice->title      = $this->get_random( self::$RANDOM_ALPHA, 32, 32 );
+            $notice->content    = $this->get_random( self::$RANDOM_ALPHA_NUM, 50, 100 );
+            $notice->created_at = $this->get_random_datetime();
             $notice->save();
         }
 

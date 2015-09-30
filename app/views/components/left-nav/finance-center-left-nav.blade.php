@@ -10,7 +10,7 @@
                 </a>
                 <ul class="nav-sec">
                     <li>
-                        <a href="/">
+                        <a href="/finance-center/cost-manage/overview">
                             <i>•</i>
                             概览
                         </a>
@@ -19,7 +19,7 @@
                         </i>
                     </li>
                     <li class="active">
-                        <a href="/">
+                        <a href="/finance-center/cost-manage/cost-detail">
                             <i>•</i>
                             费用明细
                         </a>
@@ -28,7 +28,7 @@
                         </i>
                     </li>
                     <li>
-                        <a href="/">
+                        <a href="/finance-center/cost-manage/refund-record">
                             <i>•</i>
                             退款记录
                         </a>
@@ -47,7 +47,7 @@
                 </a>
                 <ul class="nav-sec">
                     <li>
-                        <a href="/">
+                        <a href="/finance-center/recharge">
                             <i>•</i>
                             充值
                         </a>

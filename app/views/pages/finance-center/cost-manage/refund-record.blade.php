@@ -33,7 +33,7 @@
                     {{{ $i % 2 ? 'odd-item' : 'even-item' }}} {{-- 注意，这里$i是从0开始的哦 --}}
                 ">
                     <td class="item-key">{{{ $records[$i]->refund_id }}}</td>
-                    <td class="item-key">{{{ $records[$i]->created_at->format('Y-m-d H:i:s') }}}</td>
+                    <td class="item-key">{{{ $records[$i]->created_at }}}</td>
                     <td class="item-key">{{{ $records[$i]->approval_at }}}</td>
                     <td class="item-key">{{{ RefundRecord::format_audit_status( $records[$i]->status ) }}}</td>
                     <td class="item-key">{{{ $records[$i]->comment }}}</td>

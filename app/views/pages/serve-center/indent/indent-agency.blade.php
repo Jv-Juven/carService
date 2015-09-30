@@ -6,7 +6,6 @@
 
 @section("css")
 	@parent
-	<!-- <link rel="stylesheet" type="text/css" href="/dist/css/common/mask/mask.css"> -->
 	<link rel="stylesheet" type="text/css" href="/dist/css/pages/serve-center/indent/indent-agency.css">
 @stop
 
@@ -28,33 +27,46 @@
 					<tr>
 						<td class="indent-table-title">车牌号码：</td>
 						<td class="indent-table-content">
-							<select class="input select-plate">
-								<option value="">粤</option>
-								<option value="">琼</option>
-								<option value="">桂</option>
-								<option value="">黔</option>
-							</select>
+							@include("components.province-abbre")
 							<input class="input plate-num" type="text" placeholder="车牌号码后六位"/>
-							<select class="input select-color">
-								<option value="">蓝牌</option>
-								<option value="">红牌</option>
-								<option value="">黑牌</option>
-							</select>
+							@include("components.select-types")
 						</td>
 					</tr>
 					<tr>
-						<td class="indent-table-title">车牌号码：</td>
+						<td class="indent-table-title">违章城市：</td>
 						<td class="indent-table-content">
 							<select class="input select-plate plate-status">
 								<option value="">全部</option>
-								<option value="">红牌</option>
-								<option value="">黄牌</option>
+								<option value="">广州市</option>
+								<option value="">深圳市</option>
+								<option value="">珠海市</option>
+								<option value="">汕头市</option>
+								<option value="">韶关市</option>
+								<option value="">佛山市</option>
+								<option value="">江门市</option>
+								<option value="">湛江市</option>
+								<option value="">茂名市</option>
+								<option value="">肇庆市</option>
+								<option value="">惠州市</option>
+								<option value="">梅州市</option>
+								<option value="">汕尾市</option>
+								<option value="">河源市</option>
+								<option value="">阳江市</option>
+								<option value="">清远市</option>
+								<option value="">东莞市</option>
+								<option value="">中山市</option>
+								<option value="">潮州市</option>
+								<option value="">揭阳市</option>
+								<option value="">云浮市</option>
 							</select>
 							业务状态：
 							<select class="input select-plate plate-status">
 								<option value="">全部</option>
-								<option value="">红牌</option>
-								<option value="">黄牌</option>
+								<option value="">未受理</option>
+								<option value="">已受理办理中</option>
+								<option value="">已受理</option>
+								<option value="">订单完成</option>
+								<option value="">订单关闭</option>
 							</select>
 						</td>
 					</tr>
@@ -368,6 +380,9 @@
 			</div>
 		</div>
 	</div>
+	@section("js")
+		@parent
+	@stop
 @stop
 
 

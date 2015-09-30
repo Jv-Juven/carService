@@ -66,18 +66,23 @@
 		label{
 			cursor: pointer;
 		}
+		a{
+			.a-color(@blue);
+		}
 	}
 	.submin-btn{
 		width: 100%;
 		height: 40px;
 		.btn{
 			margin: 20px auto 0px;
-			width: 100px;
-			height: 38px;
+			width: 140px;
+			height: 34px;
 			background: @blue;
 			color: rgb(255, 255, 255);
 			text-align: center;
 			overflow: hidden;
+			border-radius: 6px;
+			letter-spacing: 2px;
 			a{
 				.a-color(rgb(255, 255, 255));
 			}
@@ -99,5 +104,15 @@
 				text-decoration: underline;
 			}
 		}
+	}
+
+	.warn-tips{
+		display: inline-block;
+		width: 120px;
+		padding: 0px 6px;
+		font-size: 10px;
+		font-weight: 400;
+		color: red;
+		display: none;
 	}
 }

@@ -12,7 +12,6 @@
 
 @section('js')
 @parent
-<script type="text/javascript" src="/lib/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="/lib/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/dist/js/pages/finance-center/cost-manage/cost-detail.js"></script>
 @stop
@@ -66,7 +65,7 @@
                     @foreach( $paginator->getCollection() as $result )
                         <tr class="data-item odd-item">
                             <td class="item-key">{{{ $result['cost_id'] }}}</td>
-                            <td class="item-key">{{{ $result['created_at']->format( 'Y-m-d H:i:s' ) }}}</td>
+                            <td class="item-key">{{{ $result['created_at'] }}}</td>
                             <td class="item-key">[{{{ $fee_types[ $result['fee_type_id'] ]['category'] }}}]{{{ $fee_types[ $result['fee_type_id'] ]['item'] }}}</td>
                             <td class="item-key">{{{ $result['number'] }}}</td>
                         </tr>

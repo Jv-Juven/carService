@@ -13,42 +13,23 @@
 </head>
 <body>
 	<div class="login-wrapper">
-		<div class="login-header">
-			<div class="header-content">
-				<img class="logo" src="/images/login/logo.png">
-				<div class="header-items">
-					<ul>
-						<li class="blue-text login-btn">
-							<a href="/">
-								登录
-							</a>
-						</li>
-						<li class="blue-text">
-							<a href="/">
-								注册
-							</a>
-						</li>
-						<li class="login-help">
-							<a href="/">
-								使用帮助
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
+		<!-- 页头 START		 -->
+		@include("components.reg-header")
+		<!-- 页头 END		 -->
 		<div class="login-body clearfix">
 		@section("body")
 		@show
 		</div>
 		<div class="login-footer">
 			<div class="footer-words">
-				<span>@版权归所有广州车尚信息科技有限公司</span>|
+				<span>版权所有@广州车尚信息科技有限公司</span>|
 				<span>技术支持：广州紫睿网络有限科技公司</span>
 			</div>
 		</div>
 	</div>
 	@section("js")
+		<script type="text/javascript" src="/lib/js/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="/dist/js/components.js"></script>
 	@show
 </body>
 </html>
