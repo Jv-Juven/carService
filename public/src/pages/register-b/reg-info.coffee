@@ -1,5 +1,9 @@
 Uploader = require "./../../common/uploader/index.coffee"
+validate = require "./../../common/validate/validate.coffee"
+warn = require "./../../common/warn/warn.coffee"
 
+validate = new validate()
+warn = new warn()
 $ ()->
 
 	companyName = $("#company_name")
@@ -34,8 +38,8 @@ $ ()->
 			FilesAdded: (up, files)->
 				# console.log files[0].type
 				if not (files[0].type in fileConfig)
-	           		alert '请上传"jpg"或"jefg"或"png"或"gif"格式的图片'
-	           		up.removeFile(files[0])
+					alert '请上传"jpg"或"jefg"或"png"或"gif"格式的图片'
+					up.removeFile(files[0])
 
 			BeforeUpload: (up, file)->
 
@@ -51,19 +55,41 @@ $ ()->
 	#“提交按钮”信息提交函数
 	submitInfo = ()->
 
+
+
+
 		$.post "/user/info_register", {
-			business_name: companyName,
-			business_licence_no: licenseCode,
-			business_licence_scan_path: licenseScan,
-			bank_account: publicAcc,
-			deposit_bank: ,
-			bank_outlets: ,
-			operational_name: ,
-			operational_card_no: ,
-			operational_phone: ,
-			id_card_front_scan_path: ,
-			id_card_back_scan_path: 
-		}
+
+			business_name: companyName.val(),
+
+			business_licence_no: licenseCode.val(),
+
+			business_licence_scan_path: licenseScan.val(),
+
+			bank_account: publicAcc.val(),
+
+			deposit_bank: bank.text(),
+
+			bank_outlets: position.text(),
+
+			operational_name: name,
+
+			operational_card_no: creditCard,
+
+			operational_phone: phone,
+
+			phone_code: validateCodes,
+
+			id_card_front_scan_path: creditCardScan01,
+
+			id_card_back_scan_path: creditCardScan02
+
+		}, (msg)->
+			if msg["errCode"] isnt 0
+				warn.alert msg["errCode"]
+
+			else
+				window.location.href = ""
 
 
 

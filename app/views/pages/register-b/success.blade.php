@@ -14,7 +14,7 @@
 
 @section('body')
 
-@include("components.reg-process", array("num" => "3"))
+@include("components.reg-process", array("num" => "4"))
 
 <div class="ss-wrap">
     <img src="/images/common/wzdb_10.png" class="ss-img">
