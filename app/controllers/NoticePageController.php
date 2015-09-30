@@ -17,7 +17,9 @@ class NoticePageController extends BaseController{
 								$query->select( 'notice_id' )
 									  ->where( 'user_id', Sentry::getUser()->user_id );
 							}
-					 	])->paginate( static::$default_per_page );
+					 	])
+					 	->orderBy( 'created_at' )
+					 	->paginate( static::$default_per_page );
 	}
 
 	// 主页公告
@@ -26,6 +28,7 @@ class NoticePageController extends BaseController{
 		$paginator = $this->get_paginated_notice();
 
 		return View::make( 'pages.message-center.message-center.home', [
+			'notices'		=> $paginator->getCollection(),
 			'paginator'		=> $paginator
 		]);
 	}
@@ -39,10 +42,11 @@ class NoticePageController extends BaseController{
 		$notices = $paginator->getCollection();
 		$notices->each(function( $notice ){
 
-			$notice['already_read'] = isset( $notice->notice_user_id );
+			$notice['already_read'] = $notice->users_read_id->count() != 0;
 		});
 
 		return View::make( 'pages.message-center.message.message', [
+			'notices'		=> $notices,
 			'paginator'		=> $paginator
 		]);
 	}
@@ -56,18 +60,19 @@ class NoticePageController extends BaseController{
 
 						 		$join->on( 'notices.id', '=', 'user_read_notice.notice_id' )
 						 			 ->where( 'user_read_notice.user_id', '=', Sentry::getUser()->user_id );
-
 						 	})
-						 	->where( 'notices.id', '<>', 'user_read_notice.notice_id' )
+						 	->whereNull( 'user_read_notice.notice_id' )
+						 	->orderBy( 'created_at' )
 						 	->paginate( static::$default_per_page );
 
 		$notices = $paginator->getCollection();
-
+/*
 		$notices->each(function( $notice ){
 			$notice['already_read'] = false;
 		});
-
+*/
 		return View::make( 'pages.message-center.message.message', [
+			'notices'		=> $notices,
 			'paginator'		=> $paginator
 		]);
 	}
@@ -82,15 +87,17 @@ class NoticePageController extends BaseController{
 						 		$join->on( 'notices.id', '=', 'user_read_notice.notice_id' );
 						 	})
 						 	->where( 'user_read_notice.user_id', Sentry::getUser()->user_id )
+						 	->orderBy( 'created_at' )
 						 	->paginate( static::$default_per_page );
 
 		$notices = $paginator->getCollection();
-
+/*
 		$notices->each(function( $notice ){
 			$notice['already_read'] = true;
 		});
-
+*/
 		return View::make( 'pages.message-center.message.message', [
+			'notices'		=> $notices,
 			'paginator'		=> $paginator
 		]);
 	}
@@ -98,12 +105,32 @@ class NoticePageController extends BaseController{
 	//通知的详细内容
 	public function detail(){
 
+		$notice_id = Input::get( 'notice_id' );
 		$notice = Notice::find( Input::get('notice_id') );
 
 		if ( !isset( $notice ) )
 			return View::make( 'errors.missing' );
 
-		return View::make( 'pages.message-center.message-center.detail', [
+		// 用户登陆，标记为已读
+		if ( Sentry::check() ){
+
+			$user_id = Sentry::getUser()->user_id;
+
+			// 先查询是否已标记为已读
+			if ( UserReadNotice::where( 'user_id', $user_id )
+                           	   ->where( 'notice_id', $notice_id )
+                               ->count() == 0 ){
+				$user_read_notice               = new UserReadNotice();
+       			$user_read_notice->user_id      = $user_id;
+        		$user_read_notice->notice_id    = $notice_id;
+
+        		// 保存。不成功，下次读取依旧判断
+        		// 需改进 ？？？
+        		$user_read_notice->save();
+			}
+		}
+
+		return View::make( 'pages.message-center.message.detail', [
 			'notice'	=> $notice
 		]);
 	}

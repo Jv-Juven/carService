@@ -24,7 +24,7 @@
                 <span class="label">账户余额</span>
                 <span class="balance">100</span>
                 <span class="desc">账户余额仅可以抵扣数据查询费用</span>
-                <button class="recharge-btn">充值</button>
+                <button class="recharge-btn"><a href="/finance-center/recharge">充值</a></button>
             </div>
         </div>
 

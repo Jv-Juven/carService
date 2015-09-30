@@ -9,18 +9,11 @@
                         <span class="item-rt">时间</span>
                     </li>
                     @for ( $i = 0; $i < count( $notices ); ++$i )
-                        <li class="data-item
-                        @if ( $i % 2 == 0 )
-                            event-item
-                        @else
-                            odd-item
-                        @endif
-                        @if ( !empty( $notice['already_read'] ) )
-                            read
-                        @endif
-                        clearfix">
-                            <span class="item-lf">{{{ $notices[$i]->title }}}</span>
-                            <span class="item-rt">{{{ $notices[$i]->created_at->format( 'Y-m-d H:i:s' ) }}}</span>
+                        <li class="data-item clearfix {{ $i % 2 ? 'odd-item' : 'even-item' }} {{ !empty( $notices[$i]['already_read'] ) ? 'read' : '' }}">
+                            <span class="item-lf">
+                                <a target="_blank" href="/message-center/message/detail?notice_id={{{ $notices[$i]->id }}}">{{{ $notices[$i]->title }}}</a>
+                            </span>
+                            <span class="item-rt">{{{ $notices[$i]->created_at }}}</span>
                         </li>
                     @endfor
                 </ul>
