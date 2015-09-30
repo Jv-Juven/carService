@@ -60,4 +60,5 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="/dist/js/pages/account-info.js"></script>
 @stop

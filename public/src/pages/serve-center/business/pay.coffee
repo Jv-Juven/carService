@@ -1,0 +1,1 @@
+alert "pay.coffee"

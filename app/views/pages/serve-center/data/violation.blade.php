@@ -297,3 +297,8 @@
 	@include("components.warn-mask")
 	<!-- 浮层 END -->
 @stop
+
+@section("js")
+	@parent
+	<script type="text/javascript" src="/dist/js/pages/serve-center/violation.js"></script>
+@stop

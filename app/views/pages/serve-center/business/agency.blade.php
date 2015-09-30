@@ -152,3 +152,8 @@
 		</div>
 	</div>
 @stop
+
+@section("js")
+	@parent
+	<script type="text/javascript" src="/dist/js/pages/serve-center/agency.js"></script>
+@stop

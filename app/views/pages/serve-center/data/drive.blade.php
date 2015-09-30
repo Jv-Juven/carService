@@ -76,3 +76,9 @@
 		</div>
 	</div>
 @stop
+@section("js")
+	@parent
+	<script type="text/javascript" src="/dist/js/pages/serve-center/drive.js"></script>
+@stop
+
+
