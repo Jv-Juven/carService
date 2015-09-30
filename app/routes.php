@@ -150,15 +150,8 @@ Route::group([ 'prefix' => 'finance-center', 'before' => 'auth.user.isIn' ], fun
 		// 退款记录
 		Route::get( 'refund-record', 'CostManageController@refund_record' );
 
-		// 费用明细
-		Route::group([ 'prefix' => 'cost-detail' ], function(){
-
-			// 费用明细页面
-			Route::get( '/', 'CostManageController@cost_detail' );
-
-			// 查询费用明细
-			Route::get( 'search', 'CostManageController@search_cost_detail' );
-		});
+		// 费用明细页面
+		Route::get( 'cost-detail', 'CostManageController@cost_detail' );
 	});
 
 	// 充值模块

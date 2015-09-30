@@ -83,18 +83,14 @@ class CostManageController extends BaseController{
         return View::make( 'pages.finance-center.cost-manage.cost-detail', $render_data );
     }
 
-    public function search_cost_detail(){
-
-        return Response::json([ 'errCode' => 0, 'details' => [] ]);
-    }
-
     public function refund_record(){
 
         $paginator = RefundRecord::where( 'user_id', Sentry::getUser()->user_id )
                                  ->paginate( static::$default_per_page );
 
         return View::make( 'pages.finance-center.cost-manage.refund-record', [
-            'records' => $paginator->getCollection()
+            'records'       => $paginator->getCollection(),
+            'paginator'     => $paginator
         ]);
     }
 }
