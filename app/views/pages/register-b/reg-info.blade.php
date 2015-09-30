@@ -188,6 +188,7 @@
 				</tr>
 			</table>
 		</div>
+		<div class="reg-info-tips">请确保信息填写完整</div>
 		<div class="submit-btn reg-info-btn">
 			<a href="javascript:">完成</a>
 		</div>

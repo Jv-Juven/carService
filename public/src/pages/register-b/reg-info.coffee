@@ -29,7 +29,7 @@ $ ()->
 	fileConfig = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp']
 
 	# 文件上传类
-	setUploadedPhoto = (name)->
+	setUploadedPhoto = (name, val)->
 		uploader = new Uploader {
 			domain: "http://7xj0sp.com1.z0.glb.clouddn.com/"	# bucket 域名，下载资源时用到，**必需**
 			browse_button: name + '_file',       # 上传选择的点选按钮，**必需**
@@ -48,15 +48,13 @@ $ ()->
 				domain = up.getOption('domain')
 				url = domain + info.key
 
+				val = url
 				
 		}
 
 
 	#“提交按钮”信息提交函数
 	submitInfo = ()->
-
-
-
 
 		$.post "/user/info_register", {
 
@@ -90,6 +88,13 @@ $ ()->
 
 			else
 				window.location.href = ""
+
+
+	license = setUploadedPhoto("license", licenseScan)
+	creditFront = setUploadedPhoto("credit_front", creditCardScan01)
+	creditBack = setUploadedPhoto("credit_back", creditCardScan02)
+
+
 
 
 
