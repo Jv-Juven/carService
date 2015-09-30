@@ -49,7 +49,7 @@ module.exports = (grunt)->
                 expand: true
                 flatten: true
                 files: {
-                    'dist/src/pages/finance-center/cost-manage/cost-detail.js': ['src/pages/finance-center/cost-detail.coffee']
+                    'dist/js/pages/finance-center/cost-manage/cost-detail.js': ['src/pages/finance-center/cost-manage/cost-detail.coffee']
                 }
             message_center:
                 options:
@@ -59,7 +59,7 @@ module.exports = (grunt)->
                 expand: true
                 flatten: true
                 files: {
-                    'dist/src/pages/message-center/feedback/index.js': ['src/pages/message-center/feedback/index.coffee']
+                    'dist/js/pages/message-center/feedback/index.js': ['src/pages/message-center/feedback/index.coffee']
                 }
             register_b:
                 options:
