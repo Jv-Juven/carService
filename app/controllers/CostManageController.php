@@ -45,11 +45,8 @@ class CostManageController extends BaseController{
                                 ->where( 'category', Input::get( 'cost_type' ) )
                                 ->get();
 
-            // 去除id
-            $fee_type_ids = [];
-            foreach ( $fee_types as $fee_type ){
-                array_push( $fee_type_ids, $fee_type->id );
-            }
+            // id列表
+            $fee_type_ids = array_pluck( $fee_types, 'id' );
 
             // 查询费用明细所必须条件
             $query = CostDetail::select( 'cost_id', 'created_at', 'fee_type_id', 'number' )
