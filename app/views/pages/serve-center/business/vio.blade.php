@@ -26,18 +26,9 @@
 					<div class="input-wrapper">
 						<div class="input-title">车牌号码：</div>
 						<div class="inputs">
-							<select class="input select-plate">
-								<option value="">粤</option>
-								<option value="">琼</option>
-								<option value="">桂</option>
-								<option value="">黔</option>
-							</select>
+							@include("components.province-abbre")
 							<input class="input plate-num" type="text" placeholder="车牌号码后六位"/>
-							<select class="input select-color">
-								<option value="">蓝牌</option>
-								<option value="">红牌</option>
-								<option value="">黑牌</option>
-							</select>
+							@include("components.select-types")
 						</div>
 					</div>
 					<div class="input-wrapper">
@@ -60,16 +51,7 @@
 			</div>
 			<!-- 查询框 END -->
 
-			<div class="violation-info">
-				<div class="info-tr">
-					<div class="info-title">账户余额</div>
-					<div class="info-num">100</div>
-				</div>
-				<div class="info-tr">
-					<div class="info-title">剩余查询次数</div>
-					<div class="info-num">2000</div>
-				</div>
-			</div>
+			@include("components.violation-info")
 
 			<div class="violation-records">
 				<div class="vio-records-title">

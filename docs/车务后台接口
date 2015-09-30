@@ -28,6 +28,7 @@ if( Sentry::check() )
 	 请求参数:
 	 			login_account,			邮箱
 	 			password,				密码	
+	 			re_password 			确认密码
 	 			captcha					验证码
 
 	 返回参数:	 

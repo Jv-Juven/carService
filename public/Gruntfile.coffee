@@ -28,7 +28,7 @@ module.exports = (grunt)->
                 expand: true
                 flatten: true
                 files: {
-                    # 'dist/js/components.js': ['src/components/**/*.coffee']
+                    'dist/js/components.js': ['src/components/**/*.coffee']
                     # 'dist/js/common.js': ['src/common/**/*.coffee']
                 }
             account_center:
@@ -115,8 +115,13 @@ module.exports = (grunt)->
             components:
                 files:
                     'dist/css/components.css': [
-                        'src/components/left-nav.less'
+                        'src/components/left-nav.less',
+                        'src/components/log-reg-mask.less'
+                        'src/components/vio-process.less'
+                        'src/components/warn-mask.less'
+                        'src/components/header.less'
                     ]
+                    
             pages:
                 files:
                     #serve-center

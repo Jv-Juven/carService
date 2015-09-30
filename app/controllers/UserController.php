@@ -351,7 +351,6 @@ class UserController extends BaseController{
 			
 			 $user->status = 20;//信息审核中
 			 $user->save();
-			 }
 			});
 		}catch(\Exception $e)
 		{
