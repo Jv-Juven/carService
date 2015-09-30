@@ -10,7 +10,7 @@
 				</a>
 				<ul class="nav-sec">
 					<li>
-						<a href="/">
+						<a href="/business/account">
 							<i>•</i>
 							账号信息
 						</a>

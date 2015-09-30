@@ -18,12 +18,12 @@
 				<div class="header-items">
 					<ul>
 						<li class="blue-text login-btn">
-							<a href="/">
+							<a href="/user/b_register">
 								企业用户注册
 							</a>
 						</li>
 						<li class="blue-text">
-							<a href="/">
+							<a href="javascript:">
 								个人用户注册
 							</a>
 						</li>
@@ -86,7 +86,7 @@
 						</i>
 					</dd>
 					<dd class="notices-more">
-						<a href="/">查看更多 > </a>
+						<a href="/notice">查看更多 > </a>
 					</dd>
 				</dl>
 				<div class="login-quick-check">

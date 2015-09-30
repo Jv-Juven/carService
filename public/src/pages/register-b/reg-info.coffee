@@ -3,7 +3,7 @@ Uploader = require "./../../common/uploader/index.coffee"
 $ ()->
 
 	companyName = $("#company_name")
-	companyCode = $("#company_codes")
+	licenseCode = $("#company_codes")
 	licenseScan = ""
 
 	companyName02 = $("#company_name02")
@@ -19,8 +19,7 @@ $ ()->
 	phone = $("#phone")
 	validateCodes = $("#validate_codes")
 
-	floatLayout = $(".mask, #mask")
-	warnMsg = $(".warn-msg")
+	submitBtn = $(".reg-info-btn")
 
 	# 文件格式
 	fileConfig = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp']
@@ -45,11 +44,36 @@ $ ()->
 				domain = up.getOption('domain')
 				url = domain + info.key
 
-				$("#" + name + "-wrapper").find(".content-img").removeClass("hidden").find("img").attr("src", url)
-				$("#" + name + "-wrapper").find(".img-border").addClass("hidden")
-		
-				$("#credit-" + name).val url
-				$("#" + name + "-file").parent().find(".text").html("重新上传")
-				console.log "complete: " + name
+				
 		}
+
+
+	#“提交按钮”信息提交函数
+	submitInfo = ()->
+
+		$.post "/user/info_register", {
+			business_name: companyName,
+			business_licence_no: licenseCode,
+			business_licence_scan_path: licenseScan,
+			bank_account: publicAcc,
+			deposit_bank: ,
+			bank_outlets: ,
+			operational_name: ,
+			operational_card_no: ,
+			operational_phone: ,
+			id_card_front_scan_path: ,
+			id_card_back_scan_path: 
+		}
+
+
+
+
+
+
+
+
+
+
+
+
 

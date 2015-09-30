@@ -23,24 +23,24 @@ $ ()->
 
 		warnTips.hide()
 
-		# if !validate.email email.val()
-		# 	email.next().fadeIn(100).end().focus()
-		# 	return
+		if !validate.email email.val()
+			email.next().fadeIn(100).end().focus()
+			return
 
-		# if !validate.password password.val()
-		# 	password.next().fadeIn(100).end().focus()
-		# 	return
+		if !validate.password password.val()
+			password.next().fadeIn(100).end().focus()
+			return
 
-		# if rePassword.val().length is 0
-		# 	rePassword.next().fadeIn(100).end().focus()
-		# 	return
+		if rePassword.val().length is 0
+			rePassword.next().fadeIn(100).end().focus()
+			return
 
-		# if validateCodes.val().length is 0
-		# 	validateCodes.next().fadeIn(100).end().focus()
-		# 	return
+		if validateCodes.val().length is 0
+			validateCodes.next().fadeIn(100).end().focus()
+			return
 
 		if !protocol.prop("checked")
-			protocol.parent().next().fadeIn(100)
+			# protocol.parent().next().fadeIn(100)
 			return
 
 		$.post "/user/b_register", {
