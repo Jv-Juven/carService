@@ -103,6 +103,7 @@ if( Sentry::check() )
 	 请求url: /user/info_register
 
 	 请求参数:
+	 		phone_code							验证码
 	 		business_name,						企业名称
 	 		business_licence_no,				营业执照号
 	 		business_licence_scan_path,			营业执照扫描件存放位置

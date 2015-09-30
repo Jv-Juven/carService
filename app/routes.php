@@ -72,6 +72,28 @@ Route::group(array('prefix'=>'user'), function(){
 	});
 });
 
+//账户中心
+Route::group(array('prefix'=>'account-center'),function(){
+	//帐号信息
+	Route::get('account-info','AccountPageController@accountInfo');
+	//开发者中心
+	Route::get('developer-info','AccountPageController@developerInfo');
+});
+
+//服务中心
+Route::group(array('prefix'=>'serve-center'),function(){
+	//违章查询
+	Route::get('violation','ServerCenterPageController@violation');
+	//驾驶证查询
+	Route::get('drive','ServerCenterPageController@drive');
+	//车辆查询
+	Route::get('cars','ServerCenterPageController@cars');
+	//违章办理
+	Route::get('vio','ServerCenterPageController@vio');
+	//违章代办
+	Route::get('indent-agency','ServerCenterPageController@indentAgency');
+});
+
 //业务逻辑
 Route::group(array('prefix'=>'business','before'=>'auth.user.isIn'),function(){
 	//校验充值的token接口
@@ -95,6 +117,8 @@ Route::group(array('prefix'=>'business','before'=>'auth.user.isIn'),function(){
 	//查看违章代办信息
 	Route::get('violation_info','BusinessController@trafficViolationInfo');
 });
+	
+
 
 // 消息中心
 Route::group(array('prefix'=>'message-center'), function(){

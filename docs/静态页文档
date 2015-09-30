@@ -1,0 +1,28 @@
+服务中心
+	1.违章查询
+	url： /serve-center/violation
+
+
+	2.驾驶证查询
+	url： /serve-center/drive
+
+
+	3.车辆查询
+	url： /serve-center/cars
+
+
+	4.违章办理
+	url： /serve-center/vio
+
+	//
+	5.违章代办
+	url： /serve-center/indent-agency
+
+账户中心
+	1.帐号信息
+	url：/account-center/account-info 
+
+
+	2.开发者中心
+	url：/account-center/developer-info 
+	
