@@ -40,6 +40,16 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User implements UserInterface
 
 	protected static $id_prefix = 'yhxx';
 
+	/**
+	 * 获得唯一id前缀
+	 *
+	 * @return string
+	 */
+	public static function get_id_prefix(){
+
+		return static::$id_prefix;
+	}
+
 	/*
 	 * 获取费用表
 	 */

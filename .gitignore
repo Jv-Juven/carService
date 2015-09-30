@@ -7,6 +7,7 @@ public/node_modules
 /app/config/domain.php
 /app/config/app.php
 /app/config/qiniu.php
+/app/config/beeCloud.php
 /app/test_routes.php
 /public/dist/
 composer.phar

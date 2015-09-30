@@ -63,7 +63,7 @@ class CreateRefundRecordsTable extends Migration {
 			/*
 			 * 审核备注
 			 */
-			$table->string('comment');
+			$table->string('comment')->nullable();
 
 			/*
 			 * Laravel自动维护

@@ -28,6 +28,7 @@ if( Sentry::check() )
 	 请求参数:
 	 			login_account,			邮箱
 	 			password,				密码	
+	 			re_password 			确认密码
 	 			captcha					验证码
 
 	 返回参数:	 
@@ -57,7 +58,7 @@ if( Sentry::check() )
 	 			视图，					验证通过跳到信息登记页
 	 									验证失败跳到邮箱注册页
 
-	1.6 B端用户修改密码－发送验证码到邮箱
+	1.6 B端用户修改密码－发送验证码到邮箱/显示密码／忘记密码／修改运营者信息
 	 请求方式:POST
 	 请求url: /user/send_code_to_email
 
@@ -97,6 +98,43 @@ if( Sentry::check() )
 	 				message,			错误信息
 	 			}
 
+	1.9 信息登记
+	 请求方式: POST
+	 请求url: /user/info_register
+
+	 请求参数:
+	 		business_name,						企业名称
+	 		business_licence_no,				营业执照号
+	 		business_licence_scan_path,			营业执照扫描件存放位置
+	 		bank_account,						企业银行账号
+	 		deposit_bank,						开户银行
+	 		bank_outlets,						开户网点
+	 		operational_name,					运营人员姓名
+	 		operational_card_no,				运营人员身份证号码
+	 		operational_phone,					运营人员电话号码
+	 		id_card_front_scan_path,			身份证正面扫描件
+	 		id_card_back_scan_path,				身份证反面扫描件
+
+	返回参数:	
+			{
+				errCode,			0返回正常
+ 				message,			错误信息
+			}
+
+	1.10 显示企业注册信息
+	 请求方式： POST
+	 请求url： /user/display_company_info
+
+	 请求参数：
+	 			display_code 					验证码
+
+	 返回参数：
+ 			{
+				errCode,						0返回正常
+ 				message,						错误信息
+				business_name,					企业名称
+				business_licence_no, 			营业执照注册号
+			}
 
 2. C端用户模块
 	1. 注册－获取手机验证码
@@ -128,7 +166,7 @@ if( Sentry::check() )
 	 				message,			错误信息
 	 			}
 
-	3. C端用户修改密码－发送验证码到手机
+	3. C端用户修改密码/忘记密码－发送验证码到手机
 	 请求方式: POST
 	 请求url: /user/send_code_to_phone
 
@@ -141,7 +179,7 @@ if( Sentry::check() )
 	 				message,			错误信息
 	 			}
 
-	4. C端用户修改密码－重置密码
+	4. C端用户修改密码/忘记密码－重置密码
 	 请求方式: POST
 	 请求url: /user/reset_csite_pwd
 
@@ -501,3 +539,15 @@ if( Sentry::check() )
 			}
 
 
+服务器接口
+	请求方式：GET
+	请求url：/business/auth
+
+	请求参数：	
+			token  					业务服务器token
+
+	返回参数：
+			{
+				errCode,					
+				message,
+			}

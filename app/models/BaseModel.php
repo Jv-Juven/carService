@@ -22,7 +22,11 @@ class BaseModel extends Eloquent{
      * 
      * @return  string
      */
-    public static function get_unique_id( $prefix ){
+    public static function get_unique_id( $prefix = null ){
+
+        if ( $prefix == null ){
+            $prefix = static::get_id_prefix();
+        }
 
         return str_replace('.', '', uniqid( $prefix, true ) );
     }

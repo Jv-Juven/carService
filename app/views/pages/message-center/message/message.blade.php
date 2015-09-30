@@ -18,6 +18,7 @@
 
 @section('right-content')
     @include('pages.message-center.message.base', [
-        'notices'   => $notices
+        'notices'           => $paginator->getCollection(),
+        'paginator'         => $paginator
     ])
 @stop

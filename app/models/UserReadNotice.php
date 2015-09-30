@@ -3,7 +3,6 @@
 class UserReadNotice extends Eloquent{
     
     protected $table        = 'user_read_notice';
-    protected $primaryKey   = array( 'user_id', 'notice_id' );
 
     protected $hidden       = [];
     protected $fillable     = [
@@ -24,6 +23,6 @@ class UserReadNotice extends Eloquent{
      */
     public function notice(){
 
-        return $this->belongsTo( 'Notice', 'notice_id', 'notice_id' );
+        return $this->belongsTo( 'Notice', 'notice_id', 'id' );
     }
 }

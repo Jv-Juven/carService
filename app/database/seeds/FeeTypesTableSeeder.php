@@ -24,40 +24,44 @@ class FeeTypesTableSeeder extends Seeder {
 		// 	'user_type' => 1
 		// ]);
 
+		// 普通充值
 		FeeType::create([
-			'item_id' => 2,
-			'category' => '个人服务费',
-			'item' 	=> '个人违章代办凭证快递费',
+			'category' => '10',
+			'item' 	=> '1',
 			'number' => 15,
 			'flow_direction' => 1,
 			'user_type' => 0
 		]);
 		FeeType::create([
-			'item_id' => 3,
-			'category' => '个人服务费',
-			'item' 	=> '个人代办服务费',
-			'number' => 30,
+			'category' => '20',
+			'item' 	=> '1',
+			'number' => 15,
 			'flow_direction' => 1,
 			'user_type' => 0
 		]);
 
 		FeeType::create([
-			'item_id' => 4,
-			'category' => '企业服务费',
-			'item' 	=> '企业违章代办凭证快递费',
+			'category' => '20',
+			'item' 	=> '2',
+			'number' => 20,
+			'flow_direction' => 1,
+			'user_type' => 1
+		]);
+
+		FeeType::create([
+			'category' => '30',
+			'item' 	=> '1',
 			'number' => 15,
 			'flow_direction' => 1,
-			'user_type' => 1
+			'user_type' => 0
 		]);
+
 		FeeType::create([
-			'item_id' => 5,
-			'category' => '企业服务费',
-			'item' 	=> '3＝企业违章代办服务费',
-			'number' => 30,
+			'category' => '30',
+			'item' 	=> '2',
+			'number' => 20,
 			'flow_direction' => 1,
 			'user_type' => 1
-		]);
-		
+		]);	
 	}
-
 }

@@ -17,15 +17,19 @@ try{
 	
 }
 
+Route::get('/',function(){
+	return View::make('pages.login');
+});
+
 Route::group(array('prefix'=>'user'), function(){
-	//获取验证码
-	Route::get('captcha', 'UserController@captcha');
 	//B端用户邮箱注册页
 	Route::get('b_register','UserPageController@bSiteRegisterPage');
-	//B端用户注册-密码页
-	Route::post('b_register','UserController@bSiteRegister');
 	//B端用户注册－发到B端用户邮箱后，点击链接验证，通过后去到信息登记页
 	Route::get('b_site_active','UserPageController@isEmailActive');
+	//获取验证码
+	Route::get('captcha', 'UserController@captcha');
+	//B端用户注册-密码页
+	Route::post('b_register','UserController@bSiteRegister');
 	//B,C端登录
 	Route::post('login','UserController@login');
 	//C端用户注册-获取手机验证码
@@ -34,17 +38,23 @@ Route::group(array('prefix'=>'user'), function(){
 	Route::post('c_register','UserController@cSiteRegister');
 	
 	Route::group(array('before'=>'auth.user.isIn'),function(){
+		//B端用户注册－填写完注册信息后跳转到邮箱激活页面
+		Route::get('email_active','UserPageController@emailActivePage');
 		//B端用户注册-信息登记
 		Route::post('info_register', 'UserController@informationRegister');
 		//B端用户注册-意外退出后发送验证信息再次发送信息到邮箱
 		Route::get('send_token_to_email','UserController@sendTokenToEmail');
-		//B端用户注册－填写完注册信息后跳转到邮箱激活页面
-		Route::get('email_active','UserPageController@emailActivePage');
 		//B端用户注册－运营人员手机验证码
 		Route::get('operational_phone_code','UserController@operationalPhoneCode');
 		//B端用户打款备注码
 		Route::post('money_remark_code','UserController@moneyRemarkCode');
+		//显示企业信息
+		Route::post('display_company_info','UserController@displayCompanyRegisterInfo');
 
+		//B端用户邮箱注册验证通过后跳转到邮箱激活页面
+		Route::get('b_active','UserPageController@emailActivePage');
+		//打款验证码静态页面
+		Route::get('remark_code','UserPageController@remarkCode');
 		//c端用户修改密码－发送验证码到手机
 		Route::post('send_code_to_phone','UserController@sendResetCodeToPhone');
 		//c端用户修改密码－重置密码
@@ -53,10 +63,6 @@ Route::group(array('prefix'=>'user'), function(){
 		Route::post('send_code_to_email','UserController@sendResetCodeToEmail');
 		//b端用户修改密码－重置密码
 		Route::post('reset_bsite_pwd', 'UserController@resetBusinessSitePassword');
-		//B端用户邮箱注册验证通过后跳转到邮箱激活页面
-		Route::get('b_active','UserPageController@emailActivePage');
-		//打款验证码静态页面
-		Route::get('remark_code','UserPageController@remarkCode');
 		//获取appkey和secretkey
 		Route::get('app', 'UserController@app');
 		//获取token
@@ -68,6 +74,8 @@ Route::group(array('prefix'=>'user'), function(){
 
 //业务逻辑
 Route::group(array('prefix'=>'business','before'=>'auth.user.isIn'),function(){
+	//校验充值的token接口
+	Route::get('auth','BusinessController@authToken');
 	//充值
 	Route::post('recharge','BusinessController@recharge');
 	//获取账户信息
@@ -142,15 +150,8 @@ Route::group([ 'prefix' => 'finance-center', 'before' => 'auth.user.isIn' ], fun
 		// 退款记录
 		Route::get( 'refund-record', 'CostManageController@refund_record' );
 
-		// 费用明细
-		Route::group([ 'prefix' => 'cost-detail' ], function(){
-
-			// 费用明细页面
-			Route::get( '/', 'CostManageController@cost_detail' );
-
-			// 查询费用明细
-			Route::get( 'search', 'CostManageController@search_cost_detail' );
-		});
+		// 费用明细页面
+		Route::get( 'cost-detail', 'CostManageController@cost_detail' );
 	});
 
 	// 充值模块
@@ -160,7 +161,10 @@ Route::group([ 'prefix' => 'finance-center', 'before' => 'auth.user.isIn' ], fun
 		Route::get( '/', 'RechargeController@index' );
 	});
 });
-
+	
+// Route::get('tiger',function(){
+	
+// });
 
 Route::get('test',function(){
 	Sentry::login(User::find('yhxx560214c236150446972440'), false);

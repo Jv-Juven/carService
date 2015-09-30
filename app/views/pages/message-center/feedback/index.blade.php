@@ -10,6 +10,8 @@
 @stop
 
 @section('js')
+@parent
+<script type="text/javascript" src="/dist/js/pages/message-center/feedback/index.js"></script>
 @stop
 
 @section('left-nav')
@@ -41,13 +43,13 @@
         <div class="fb-item fb-title clearfix">
             <div class="fb-label">标题:</div>
             <div class="rt-wrap">
-                <input name="title" type="text" class="fb-input">
+                <input name="title" type="text" required="required" class="fb-input">
             </div>
         </div>
         <div class="fb-item fb-content clearfix">
             <div class="fb-label">内容:</div>
             <div class="rt-wrap">
-                <textarea name="content" id="" class="fb-input"></textarea>
+                <textarea name="content" required="required" class="fb-input"></textarea>
             </div>
         </div>
         <div class="fb-btns">
