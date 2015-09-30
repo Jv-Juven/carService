@@ -21,18 +21,29 @@
     <div class="data-wrap">
         <div class="data-section">
             <table class="data-list">
+                <tr class="data-item data-head">
+                    <th class="item-key">流水号</th>
+                    <th class="item-key">日期</th>
+                    <th class="item-key">审批时间</th>
+                    <th class="item-key">审批状态</th>
+                    <th class="item-key">备注</th>
+                </tr>
                 @for ( $i = 0; $i < count( $records ); ++$i )
-                <tr class="data-item odd-item">
-                    <td class="item-key">{{{ $records->refund_id }}}</td>
-                    <td class="item-key">{{{ $records->created_at->formate('Y-m-d H:i:s') }}}</td>
-                    <td class="item-key">{{{ $records->approval_at }}}</td>
-                    <td class="item-key">{{{ RefundRecord::format_audit_status( $records->status ) }}}</td>
-                    <td class="item-key">{{{ $records->comment }}}</td>
+                <tr class="data-item 
+                    {{{ $i % 2 ? 'odd-item' : 'even-item' }}} {{-- 注意，这里$i是从0开始的哦 --}}
+                ">
+                    <td class="item-key">{{{ $records[$i]->refund_id }}}</td>
+                    <td class="item-key">{{{ $records[$i]->created_at->format('Y-m-d H:i:s') }}}</td>
+                    <td class="item-key">{{{ $records[$i]->approval_at }}}</td>
+                    <td class="item-key">{{{ RefundRecord::format_audit_status( $records[$i]->status ) }}}</td>
+                    <td class="item-key">{{{ $records[$i]->comment }}}</td>
                 </tr>
                 @endfor
             </table>
         </div>
-        @include('components.pagination')
+        @include('components.pagination', [
+            'paginator' => $paginator
+        ])
     </div>
 </div>
 @stop
