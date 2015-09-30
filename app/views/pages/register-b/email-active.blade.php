@@ -24,7 +24,7 @@
 			感谢注册！确认邮件已发送至您的注册邮箱*********@**.com。请进入邮箱查看邮件，并激活公众平台账号。
 		</div>
 		<div class="submit-btn">
-			<a href="javascript:">登录邮箱</a>
+			<a target="_blank" href="/email-active">登录邮箱</a>
 		</div>
 		<div class="email-explain">
 			<table>

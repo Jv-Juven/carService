@@ -11,25 +11,6 @@
 		</a>
 	</div>
 
-	<ul class="header-menu clearfix">
-		<li class="header-menu-item">
-			<a href="/">服务中心</a>
-			<div class="item-underline"></div>
-		</li>
-		<li class="header-menu-item active">
-			<a href="/">商务中心</a>
-			<div class="item-underline"></div>
-		</li>
-		<li class="header-menu-item">
-			<a href="/">消息中心</a>
-			<div class="item-underline"></div>
-		</li>
-		<li class="header-menu-item">
-			<a href="/">账户设置</a>
-			<div class="item-underline"></div>
-		</li>
-	</ul>
-
 	<ul class="header-btns-wrapper">
 		<!-- <li>
 			<a class="bg-block header-user" href="/">

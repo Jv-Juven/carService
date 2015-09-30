@@ -19,12 +19,12 @@
 					<ul>
 						<li class="blue-text login-btn">
 							<a href="/">
-								登录
+								企业用户注册
 							</a>
 						</li>
 						<li class="blue-text">
 							<a href="/">
-								注册
+								个人用户注册
 							</a>
 						</li>
 						<li class="login-help">
@@ -267,7 +267,7 @@
 	<!-- 浮层 END -->
 
 	<script type="text/javascript" src="/lib/js/jquery-1.11.2.min.js"></script>
-
-	<script type="text/javascript" src="/dist/js/pages/login.js"></script>
+	<script type="text/javascript" src="/dist/js/components.js"></script>
+	<script type="text/javascript" src="/dist/js/pages/login/login.js"></script>
 </body>
 </html>

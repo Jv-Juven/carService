@@ -29,7 +29,7 @@
 						<td class="indent-table-content">
 							@include("components.province-abbre")
 							<input class="input plate-num" type="text" placeholder="车牌号码后六位"/>
-							@include("components.select-types")3
+							@include("components.select-types")
 						</td>
 					</tr>
 					<tr>
@@ -380,6 +380,9 @@
 			</div>
 		</div>
 	</div>
+	@section("js")
+		@parent
+	@stop
 @stop
 
 
