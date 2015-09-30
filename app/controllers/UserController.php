@@ -264,7 +264,7 @@ class UserController extends BaseController{
 	//信息登记
 	public function informationRegister()
 	{
-		$checkcode	= Input::get('checkcode');
+		$checkcode	= Input::get('phone_code');
 		$phone_code = Session::get('phone_code');
 		
 		$user = User::getUser();

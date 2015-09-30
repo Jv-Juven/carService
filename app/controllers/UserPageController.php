@@ -44,6 +44,12 @@ class UserPageController extends BaseController{
 		return View::make('pages.register-b.reg-info');
 	}
 
+	//审核
+	public function pending()
+	{
+		return View::make('pages.register-b.sueecss');
+	}
+
 	//打款码填写静态页面
 	public function remarkCode()
 	{
