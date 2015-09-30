@@ -12,7 +12,6 @@
 
 @section('js')
 @parent
-<script type="text/javascript" src="/lib/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="/lib/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/dist/js/pages/finance-center/cost-manage/cost-detail.js"></script>
 @stop
