@@ -1,10 +1,64 @@
 <?php
 
+use GuzzleHttp\Client as httpClient;
+
 class BusinessController extends BaseController{
 
+	protected static function getBaseHttpClient(){
+
+		return new httpClient([
+			'base_uri' 	=> Config::get( 'domain.server' ),
+		]);
+	}
+
+	protected static function isResponseSuccessful( $response ){
+
+		return $response['errCode'] == 0;
+	}
+
+	protected static function logError( $user_id, $action, $error_message ){
+
+		Log::info( "User: $user_id\n"."Action: $action\n"."Error message: $error_message" );
+	}
+
+	/**
+	 * 获得access token
+	 *
+	 * @return string
+	 */
+	protected static function getAccessToken( $appkey, $secretkey ){
+
+		// http 请求
+		try{
+
+			$http_client = static::getBaseHttpClient();
+			$response = $http_client->request( 'POST', '/token', [
+				'query' => [
+					'appkey' 	=> $appkey,
+					'secretkey'	=> $secretkey
+				]
+			]);
+			$response_content = json_decode( $response->getBody() );
+
+		// 请求出错则写日志，同时抛出异常
+		}catch( \Exception $e ){
+
+			static::logError( $user->user_id, 'count', $e->getMessage() );
+			throw $e;
+		}
+
+		// 是否成功
+		if ( static::isResponseSuccessful( $response_content ) ){
+			return $response_content[ 'token' ];
+		}
+
+		return null;
+	}
+
 	//算服务费
-	public static function serviceFee()
+	public static function getServiceFee( $user_id = null )
 	{
+		/*
 		$user = Sentry::getUser();
 		try
 		{
@@ -24,11 +78,36 @@ class BusinessController extends BaseController{
 			$rep_service_charge = $fee_type->number;
 		}
 		return $rep_service_charge;
+		*/
+
+		if ( $user_id ){
+			$user = User::find( $user_id );
+		}else{
+			$user = Sentry::getUser();	
+		}
+
+		$fee_type 	= FeeType::where( 'user_type', $user->user_type )
+							 ->where( 'category', FeeType::get_service_code() )
+							 ->where( 'item', FeeType::get_service_subitem( $user->user_type ) )
+							 ->first();
+		$user_fee 	= UserFee::where( 'fee_type_id', $fee_type->id )->first();
+
+		// 有特殊费用情况
+		if ( isset( $user_fee ) && $user_fee->fee_no ){
+			return $user_fee->fee_no;
+		}
+
+		// 否则返回默认值
+		return $fee_type->number;
 	}
 
 	//算快递费
-	public static function expressFee()
+	/*
+	 * 修改同上
+	 */
+	public static function getExpressFee( $user_id = null )
 	{
+		/*
 		//算快递费
 		$user = Sentry::getUser();
 		try
@@ -48,38 +127,72 @@ class BusinessController extends BaseController{
 		}else{
 			$express_fee = $fee_type->number;
 		}
+		*/
+
+		if ( $user_id ){
+			$user = User::find( $user_id );
+		}else{
+			$user = Sentry::getUser();	
+		}
+
+		$fee_type 	= FeeType::where( 'user_type', $user->user_type )
+							 ->where( 'category', FeeType::get_express_code() )
+							 ->where( 'item', FeeType::get_express_subitem( $user->user_type ) )
+							 ->first();
+		$user_fee 	= UserFee::where( 'fee_type_id', $fee_type->id )->first();
+
+		// 有特殊费用情况
+		if ( isset( $user_fee ) && $user_fee->fee_no ){
+			return $user_fee->fee_no;
+		}
+
+		// 否则返回默认值
+		return $fee_type->number;
 	}
 
 	//更改代办状态信息; $trade_status--交易状态; $process_status--处理状态
 	public static function updateOrderStatus( $order_id, $trade_status, $process_status )
 	{
-		$order = AgencyOrder::where('order_id','=', $order_id)->get();
-		if( count($order) == 0 )
-			return array('errCode'=>21, 'message'=>'该订单不存在');
-		$order->trade_status = $trade_status;//交易状态
-		$order->process_status = $process_status;//处理状态
-		if( !$order->save())
-			return array('errCode'=>22, 'message'=>'交易状态修改失败');
+		$order = AgencyOrder::find( $order_id );
 
-		return array('errCode'=>0,'message'=>'交易状态修改成功');
+		if( !isset( $order ) ){
+			return false;
+			//return array('errCode'=>21, 'message'=>'该订单不存在');
+		}
+			
+		$order->trade_status 	= $trade_status;		// 交易状态
+		$order->process_status 	= $process_status;		// 处理状态
+		
+		if( !$order->save() ){
+			return false;
+			//return array('errCode'=>22, 'message'=>'交易状态修改失败');
+		}
+			
+		return true;
+		//return array('errCode'=>0,'message'=>'交易状态修改成功');
 	}
 
 	//充值
-	public static function recharge()
+	/**
+	 * 注意，这种接口不应该直接开放给前端
+	 * 应在支付后，收到微信/支付宝的通知并确认之后再调用
+	 */
+	public static function recharge( $number, $user_id = null )
 	{
-		$money = Input::get('money');
-		if( !isset($money) )
-			return array('errCode'=>21, 'message'=>'请填写充值金额');
+
+		//$money = Input::get('money');
+		//if( !isset($money) )
+		//	return array('errCode'=>21, 'message'=>'请填写充值金额');
 
 		//验证token
-		$money_token = md5(time());
-		Session::put('money_token',$money_token);
+		//$money_token = md5(time()); // md5算法是固定的，输入一样，输出就一样，这样毫无意义的
+		//Session::put('money_token',$money_token);
 		// $appkey ="csak7e90c28065cf11e5a76d031532dd8d5b";
-		$appkey = BusinessUser::find(Sentry::getUser()->user_id)->app_key;
-		$url = Config::get('domain.server').'/account/recharge';
-		$parm = 'appkey='.$appkey.'&money='.$money.'&token='.$money_token;
-		$recharge =  json_decode( CurlController::post($url,$parm), true);
 
+//		$url = Config::get('domain.server').'/account/recharge';
+//		$parm = 'appkey='.$appkey.'&money='.$money;
+//		$recharge =  json_decode( CurlController::post($url,$parm), true);
+/*
 		if( $recharge == null )
 			return array('errCode'=>22, 'message'=>'系统出现故障，请及时向客服反应');
 
@@ -90,6 +203,35 @@ class BusinessController extends BaseController{
 		}
 
 		return array('errCode'=>0, 'message'=>'充值成功','balance'=>$recharge['balance']);
+*/
+
+		if ( $user_id ){
+			$user = User::find( $user_id );
+		}else{
+			$user = Sentry::getUser();	
+		}
+
+		// http 请求
+		try{
+
+			$http_client = static::getBaseHttpClient();
+			$response = $http_client->request( 'POST', '/account/recharge', [
+				'query' => [
+					'appkey' 	=> Config::get( 'cheshang.appkey' ),
+					'money'		=> $money
+				]
+			]);
+			$response_content = json_decode( $response->getBody() );
+
+		// 请求出错则写日志，同时抛出异常
+		}catch( \Exception $e ){
+
+			static::logError( $user->user_id, 'recharge', $e->getMessage() );
+			throw $e;
+		}
+
+		// 直接返回boolean类型值
+		return static::isResponseSuccessful( $response_content );
 	}
 
 	//校验充值的token接口
@@ -106,10 +248,10 @@ class BusinessController extends BaseController{
 		return Response::json( array('errCode'=>0, 'message'=>'token正确,有效充值') );
 	}
 
-
 	//获取访问次数信息
-	public static function count()
+	public static function count( $user_id = null )
 	{
+		/*
 		$appkey = BusinessUser::find(Sentry::getUser()->user_id)->app_key;
 		$url = Config::get('domain.server').'/account/count?appkey='.$appkey;
 		$count =  json_decode( CurlController::get($url), true);
@@ -124,11 +266,44 @@ class BusinessController extends BaseController{
 		}
 		// dd($count['data']);
 		return array('errCode'=>0, 'message'=>'获取访问次数信息成功','count'=>$count['data']);
+		*/
+
+		if ( $user_id ){
+			$user = User::find( $user_id );
+		}else{
+			$user = Sentry::getUser();	
+		}
+
+		// http 请求
+		try{
+
+			$http_client = static::getBaseHttpClient();
+			$response = $http_client->request( 'GET', '/account/count', [
+				'query' => [
+					'appkey' 	=> Config::get( 'cheshang.app_key' )
+				]
+			]);
+			$response_content = json_decode( $response->getBody() );
+
+		// 请求出错则写日志，同时抛出异常
+		}catch( \Exception $e ){
+
+			static::logError( $user->user_id, 'count', $e->getMessage() );
+			throw $e;	
+		}
+
+		// 是否成功
+		if ( static::isResponseSuccessful( $response_content ) ){
+			return $response_content[ 'data' ];
+		}
+
+		return null;
 	}
 
 	//获取账户信息
-	public static function accountInfo()
+	public static function accountInfo( $user_id = null )
 	{
+		/*
 		$appkey = BusinessUser::find(Sentry::getUser()->user_id)->app_key;
 		$url = Config::get('domain.server').'/account?appkey='.$appkey;
 
@@ -144,12 +319,44 @@ class BusinessController extends BaseController{
 		}
 
 		return array('errCode'=>0,'message'=>'返回账户信息','account'=>$account_info['account']);
+		*/
 
+		if ( $user_id ){
+			$user = User::find( $user_id );
+		}else{
+			$user = Sentry::getUser();	
+		}
+
+		// http 请求
+		try{
+
+			$http_client = static::getBaseHttpClient();
+			$response = $http_client->request( 'GET', '/account', [
+				'query' => [
+					'appkey' 	=> Config::get( 'cheshang.app_key' )
+				]
+			]);
+			$response_content = json_decode( $response->getBody() );
+
+		// 请求出错则写日志，同时抛出异常
+		}catch( \Exception $e ){
+
+			static::logError( $user->user_id, 'count', $e->getMessage() );
+			throw $e;
+		}
+
+		// 是否成功
+		if ( static::isResponseSuccessful( $response_content ) ){
+			return $response_content[ 'account' ];
+		}
+
+		return null;
 	}
 
 	//修改业务单价<<<<<<管理员接口>>>>>>>
-	public static function univalence()
+	public static function univalence( $violation = null, $license = null, $car = null )
 	{	
+		/*
 		$violation 		= Input::get('violation');
 		$license 		= Input::get('license');
 		$car 			= Input::get('car');
@@ -170,12 +377,39 @@ class BusinessController extends BaseController{
 		}
 
 		return array('errCode'=>0,'message'=>'修改业务单价', 'account_info'=>$account_info['account']) ;
+		*/
+		$query = [
+			'appkey'	=> Config::get( 'cheshang.app_key' ),
+			'violation'	=> $violation,
+			'license'	=> $license,
+			'car'		=> $car
+		];
+
+		// http 请求
+		try{
+
+			$http_client = static::getBaseHttpClient();
+			$response = $http_client->request( 'POST', '/account/univalence', [
+				'query' => array_filter( $query ) 		// 需过滤
+			]);
+			$response_content = json_decode( $response->getBody() );
+
+		// 请求出错则写日志，同时抛出异常
+		}catch( \Exception $e ){
+
+			static::logError( $user->user_id, 'univalence', $e->getMessage() );
+			throw $e;
+		}
+
+		return static::isResponseSuccessful( $response_content );
 	}
 
 	//违章查询
-	public static function violation()
+	public static function violation( $token, $engineCode, $licensePlate, $licenseType )
 	{
-		$data = array(
+		// 验证的代码写在外面，这里就发送请求，将结果简单处理然后返回
+		/*
+		$query = array(
 				//车牌号码
 				'req_car_plate_no' 	=> Input::get('req_car_plate_no'),
 				//发动机号码后6位
@@ -198,7 +432,7 @@ class BusinessController extends BaseController{
 				'car_type_no.size'		 	 => 24
 			);
 
-		$validation = Validator::make($data, $rules,$messages);
+		$validation = Validator::make($query, $rules,$messages);
 		if($validation->fails())
 		{
 			$number = $validation->messages()->all();
@@ -217,7 +451,9 @@ class BusinessController extends BaseController{
 					break;
 			}
 		}
+		*/
 		
+		/*
 		$token = parent::token();
 		$url = Config::get('domain.server').'/api/violation?token='.$token.
 				'&licensePlate='.$data['req_car_plate_no'].'&engineCode='.
@@ -241,11 +477,39 @@ class BusinessController extends BaseController{
 		//把违章信息存入session中，以便提交订单时生成
 		Session::put('violation',$violation['body']);
 		return array('errCode'=>0, 'message'=>'获取车辆违章信息','violations'=>$violation['body']);
+		*/
+
+		try{
+
+			$http_client = static::getBaseHttpClient();
+			$response = $http_client->request( 'GET', '/api/violation', [
+				'query' => [
+					'token'			=> $token
+					'engineCode' 	=> $engineCode,
+					'licensePlate'	=> $licensePlate,
+					'licenseType'	=> $licenseType
+				]
+			]);
+			$response_content = json_decode( $response->getBody() );
+
+		// 请求出错则写日志，同时抛出异常
+		}catch( \Exception $e ){
+
+			static::logError( $user->user_id, 'univalence', $e->getMessage() );
+			throw $e;
+		}
+
+		if ( static::isResponseSuccessful( $response_content ) ){
+			return $response_content['body'];
+		}
+
+		return null;
 	}
 
 	//查询驾驶证扣分信息
-	public static function license()
+	public static function license( $token, $identity_id, $record_id )
 	{
+		/*
 		$identityID = Input::get('identityID');
 		$recordID   = Input::get('recordID');
 		$data = array(
@@ -285,12 +549,38 @@ class BusinessController extends BaseController{
 		 $license = json_decode( $license['body'],true);
 
 		 return array('errCode'=>0, 'message'=>'驾驶证扣分分数','number'=>$license['ljjf']);
+		 */
+		try{
+
+			$http_client = static::getBaseHttpClient();
+			$response = $http_client->request( 'GET', '/api/license', [
+				'query' => [
+					'token'			=> $token,
+					'identityID'	=> $identity_id,
+					'recordID'		=> $record_id
+				]
+			]);
+			$response_content = json_decode( $response->getBody() );
+
+		// 请求出错则写日志，同时抛出异常
+		}catch( \Exception $e ){
+
+			static::logError( $user->user_id, 'univalence', $e->getMessage() );
+			throw $e;
+		}
+
+		if ( static::isResponseSuccessful( $response_content ) ){
+			return $response_content['body'];
+		}
+
+		return null;
 	}	
 
 
 	//查询车辆信息
-	public static function car()
+	public static function car( $token, $engineCode, $licensePlate, $licenseType )
 	{
+		/*
 		$data = array(
 			'engineCode'		=> Input::get('engineCode'),//发动机号后六位
 			'licensePlate' 		=> Input::get('licensePlate'),//车牌号码
@@ -353,6 +643,32 @@ class BusinessController extends BaseController{
 			return array('errCode'=>26, 'message'=>'没有车辆信息，请查看信息是否填写正确');
 	
 		return array('errCode'=>0, 'message'=>'车辆信息','car'=>$car['body']);
+		*/
+		try{
+
+			$http_client = static::getBaseHttpClient();
+			$response = $http_client->request( 'GET', '/api/car', [
+				'query' => [
+					'token'			=> $token,
+					'engineCode'	=> $engineCode,
+					'licensePlate'	=> $licensePlate,
+					'licenseType'	=> $licenseType
+				]
+			]);
+			$response_content = json_decode( $response->getBody() );
+
+		// 请求出错则写日志，同时抛出异常
+		}catch( \Exception $e ){
+
+			static::logError( $user->user_id, 'univalence', $e->getMessage() );
+			throw $e;
+		}
+
+		if ( static::isResponseSuccessful( $response_content ) ){
+			return $response_content['body'];
+		}
+
+		return null;
 	}
 
 	//提交订单
