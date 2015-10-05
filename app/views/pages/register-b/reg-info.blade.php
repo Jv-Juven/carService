@@ -41,7 +41,7 @@
 				<tr>
 					<td class="tr-title">营业执照扫描件：</td>
 					<td class="tr-content" id="license_wrapper">
-						<input type="file" id="license_btn" />
+						<input type="file" id="license_file" />
 						<span class="tr-tips">请上传营业执照扫描件</span>
 					</td>
 				</tr>
@@ -58,7 +58,7 @@
 								<tr>
 									<td class="cont-title">户名：</td>
 									<td class="cont-content">
-										<input type="text" id="company_name02" placeholder="请填写企业名称"/>
+										<input class="readonly" type="text" id="company_name02" placeholder="" readonly="true" />
 									</td>
 								</tr>
 								<tr>
@@ -188,7 +188,7 @@
 				</tr>
 			</table>
 		</div>
-		<div class="reg-info-tips">请确保信息填写完整</div>
+		<div class="reg-info-tips"></div>
 		<div class="submit-btn reg-info-btn">
 			<a href="javascript:">完成</a>
 		</div>

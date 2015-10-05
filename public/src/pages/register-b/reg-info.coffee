@@ -24,9 +24,12 @@ $ ()->
 	validateCodes = $("#validate_codes")
 
 	submitBtn = $(".reg-info-btn")
+	regInfoTips = $(".reg-info-tips")
+
+	licensePreg = /[a-zA-Z0-9]{15}|[a-zA-Z0-9]{18}/
 
 	# 文件格式
-	fileConfig = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp']
+	fileConfig = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp','image/JPEG', 'image/PNG', 'image/GIF', 'image/BMP']
 
 	# 文件上传类
 	setUploadedPhoto = (name, val)->
@@ -38,7 +41,7 @@ $ ()->
 			FilesAdded: (up, files)->
 				# console.log files[0].type
 				if not (files[0].type in fileConfig)
-					alert '请上传"jpg"或"jefg"或"png"或"gif"格式的图片'
+					warn.alert '请上传"jpg"或"jefg"或"png"或"gif"格式的图片'
 					up.removeFile(files[0])
 
 			BeforeUpload: (up, file)->
@@ -56,13 +59,21 @@ $ ()->
 	#“提交按钮”信息提交函数
 	submitInfo = ()->
 
+		if companyName.val().length is 0 or publicAcc.val().length is 0 or rePublicAcc.val().length is 0 or name.val().length is 0 or creditCard.val().length is 0 or !licensePreg.test(licenseCode.val())
+			regInfoTips.text("*请确保信息填写完整")
+			return
+
+		if $("#license_file").val() is "" or $("#credit_front_file").val() is "" or $("#credit_back_file").val() is ""
+			regInfoTips.text("*请上传相关文件")
+			return
+
 		$.post "/user/info_register", {
 
 			business_name: companyName.val(),
 
 			business_licence_no: licenseCode.val(),
 
-			business_licence_scan_path: licenseScan.val(),
+			business_licence_scan_path: licenseScan,
 
 			bank_account: publicAcc.val(),
 
@@ -88,6 +99,15 @@ $ ()->
 
 			else
 				window.location.href = ""
+
+
+	#保持企业名称和户名一致
+	companyName.on "change input", ()->
+		_val = $(this).val()
+		companyName02.val(_val)
+
+	#"提交"按钮事件绑定
+	submitBtn.on "click", submitInfo
 
 
 	license = setUploadedPhoto("license", licenseScan)
