@@ -15,28 +15,79 @@ class FeeType extends Eloquent{
         'user_type'
     ];
 
+    public static $type_codes = [
+        'recharge'      => '10',
+        'express'       => '20',
+        'service'       => '30'
+    ];
+
     protected static $types_map = [
         '10'    => [
             'name'      => '普通充值',
             'subitems'  => [
-                '1'     => '普通充值'
+                '0'     => '普通充值'
             ]
         ],
         '20'    => [
             'name'      => '快递费',
             'subitems'  => [
-                '1'     => '个人用户快递费',
-                '2'     => '企业用户快递费'
+                '0'     => '个人用户快递费',
+                '1'     => '企业用户快递费'
             ]
         ],
         '30'    => [
             'name'      => '服务费',
             'subitems'  => [
-                '1'     => '个人用户代办服务费',
-                '2'     => '企业用户代办服务费'
+                '0'     => '个人用户代办服务费',
+                '1'     => '企业用户代办服务费'
             ]
         ]
     ];
+
+    public function get_recharge_code(){
+
+        return static::$type_codes[ 'recharge' ];
+    }
+
+    public function get_express_code(){
+
+        return static::$type_codes[ 'express' ];
+    }
+
+    public function get_service_code(){
+
+        return static::$type_codes[ 'service' ];
+    }
+
+    /**
+     * 获得普通充值分类的子项
+     * 
+     * @return string
+     */
+    public static function get_recharge_subitem( $user_type ){
+
+        return $user_type;
+    }
+
+    /**
+     * 获得快递费分类的子项
+     * 
+     * @return string
+     */
+    public static function get_express_subitem( $user_type ){
+
+        return $user_type;
+    }
+
+    /**
+     * 获得服务费分类的子项
+     * 
+     * @return string
+     */
+    public static function get_service_subitem( $user_type ){
+
+        return $user_type;
+    }
 
     /**
      * 获得目录

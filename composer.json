@@ -7,7 +7,8 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"cartalyst/sentry": "2.1.*",
-		"gregwar/captcha": "1.*"
+		"gregwar/captcha": "1.*",
+		"lokielse/omnipay-alipay": "dev-master"
 	},
 	"require-dev":{
 		"way/generators": "~2.0"
@@ -38,5 +39,9 @@
 	"config": {
 		"preferred-install": "dist"
 	},
-	"minimum-stability": "stable"
+	"minimum-stability": "stable",
+	"repositories": [
+        {"type": "composer", "url": "https://toran.reimu.io/repo/packagist/" },
+        {"packagist": false}
+    ]
 }
