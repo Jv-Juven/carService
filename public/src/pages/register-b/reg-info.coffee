@@ -70,13 +70,13 @@ $ ()->
 
 			bank_outlets: position.text(),
 
-			operational_name: name,
+			operational_name: name.val(),
 
-			operational_card_no: creditCard,
+			operational_card_no: creditCard.val(),
 
-			operational_phone: phone,
+			operational_phone: phone.val(),
 
-			phone_code: validateCodes,
+			phone_code: validateCodes.val(),
 
 			id_card_front_scan_path: creditCardScan01,
 
