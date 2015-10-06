@@ -23,12 +23,12 @@
 			</div>
 			<div class="developer-tr">
 				<div class="tr tr-title">企业名称：</div>
-				<div class="tr tr-content">*****************************</div>
+				<div class="tr tr-content company-name">*****************************</div>
 			</div>
 
 			<div class="developer-tr">
 				<div class="tr tr-title">营业执照注册号：</div>
-				<div class="tr tr-content">****************************************</div>
+				<div class="tr tr-content reg-license">****************************************</div>
 			</div>
 			<div class="submit-btn">
 				<a href="javascript:">
@@ -50,15 +50,26 @@
 						<span class="msg-title">
 							邮箱验证码：
 						</span>
-						<input class="msg-input" type="text" placeholder="请前往注册邮箱13********@***.com获取验证码"/>
-						<a href="/" class="msg-btn">获取验证码</a>
+						<input class="msg-input codes-input" type="text" placeholder="请前往注册邮箱获取验证码"/>
+						<a href="javascript:" class="msg-btn get-codes-btn">获取验证码</a>
 					</div>
 				</div>
+				<span class="tips-words dev-tips"></span>
 				<div class="submit-btn msg-submit-btn">
 					<a href="javascript:">提交</a>
 				</div>
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="/dist/js/pages/account-info.js"></script>
 @stop
+@section("js")
+	@parent
+	<script type="text/javascript" src="/dist/js/pages/account-center/developer-info.js"></script>
+@stop
+
+
+
+
+
+
+

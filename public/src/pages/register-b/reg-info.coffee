@@ -109,6 +109,7 @@ $ ()->
 	#"提交"按钮事件绑定
 	submitBtn.on "click", submitInfo
 
+	warn.alert "hello word!"
 
 	license = setUploadedPhoto("license", licenseScan)
 	creditFront = setUploadedPhoto("credit_front", creditCardScan01)

@@ -183,3 +183,8 @@
 		</div>
 	</div>
 @stop
+
+@section("js")
+	@parent
+	<script type="text/javascript" src="/dist/js/pages/account-center/account-info.js"></script>
+@stop
