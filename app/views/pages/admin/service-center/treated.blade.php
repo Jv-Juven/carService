@@ -9,10 +9,6 @@
 	<link rel="stylesheet" type="text/css" href="/dist/css/pages/admin/service-center/all.css">
 @stop
 
-@section('left-nav')
-    
-@stop
-
 @section('service-center-content')
 	<hr />
     <div class="service-center-content">

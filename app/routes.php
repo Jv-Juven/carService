@@ -226,7 +226,7 @@ Route::group(array('prefix' => 'admin'), function() {
 		// 审核企业用户
 		Route::get('/check-new-user', 'adminBusinessCenterPageController@checkNewUser');
 		// 修改用户状态
-		Route::get('/change-user-state', 'adminBusinessCenterPageController@changeUserState');
+		Route::get('/change-user-status', 'adminBusinessCenterPageController@changeUserStatus');
 		// 修改用户查询单价
 		Route::get('/change-query-univalence', 'adminBusinessCenterPageController@changeQueryUnivalence');
 		// 修改用户服务单价
