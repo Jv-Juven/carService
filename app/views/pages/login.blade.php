@@ -23,7 +23,7 @@
 							</a>
 						</li>
 						<li class="blue-text">
-							<a href="javascript:">
+							<a href="javascript:" id="personalReg">
 								个人用户注册
 							</a>
 						</li>
@@ -47,20 +47,21 @@
 							<a href="javascript:" class="login-menu-btn">个人用户登录</a>
 						</div>
 						<div class="input email-input">
-							<input type="text" placeholder="邮箱"/>
+							<input id="account_num" type="text" placeholder="邮箱"/>
 						</div>
 						<div class="input psd-input">
-							<input type="text" placeholder="密码"/>
+							<input id="password" type="password" placeholder="密码"/>
 						</div>
 						<div class="login-content-tips clearfix">
 							<!-- <span class="tips01"><a href="/">立即注册</a></span> -->
-							<span class="tips02"><a href="/">忘记密码</a></span>
+							<span class="tips02"><a href="javascript:">忘记密码</a></span>
 						</div>
 						<div class="login-content-btn">
 							<a class="bg-block" href="javascript:">
 								登录
 							</a>
 						</div>
+						<div class="tips-words login-tips"></div>
 					</div>
 				</div>
 			</div>
@@ -207,39 +208,40 @@
 			</div>
 			<div class="warn-content">
 				<div class="warn-msg">
-					<!-- <div class="msg-line login-msg-tips">
+
+					<div class="msg-line login-msg-tips change-email">
 						尊敬的用户，忘记密码请通过邮箱验证码重设：
 					</div>
-					<div class="msg-line">
+					<div class="msg-line change-email">
 						<span class="msg-title">
-							注册邮箱：
+							邮箱：
 						</span>
-						<input class="msg-input" type="text" placeholder="请输入注册的邮箱"/>
+						<input class="msg-input email-input" type="text" placeholder="请输入注册的邮箱"/>
 					</div>
-					<div class="msg-line">
+					<div class="msg-line change-email">
 						<span class="msg-title">
 							邮箱验证码：
 						</span>
-						<input class="msg-input msg-validate" type="text" placeholder="请前往注册邮箱获取验证码"/>
-						<a href="/" class="msg-btn">获取验证码</a>
-					</div> -->
+						<input class="msg-input msg-validate email-codes" type="text" placeholder="请前往注册邮箱获取验证码"/>
+						<a href="javascript:" class="msg-btn get-email-codes">获取验证码</a>
+					</div>
 
 
-					<div class="msg-line login-msg-tips">
+					<div class="msg-line login-msg-tips change-phone">
 						尊敬的用户，忘记密码请通过手机验证码重设：
 					</div>
-					<div class="msg-line">
+					<div class="msg-line change-phone">
 						<span class="msg-title">
-							注册手机号码：
+							手机号码：
 						</span>
-						<input class="msg-input" type="text" placeholder="请输入注册的手机号码"/>
+						<input class="msg-input phone-input" type="text" placeholder="请输入注册的手机号码"/>
 					</div>
-					<div class="msg-line">
+					<div class="msg-line change-phone">
 						<span class="msg-title">
 							手机验证码：
 						</span>
-						<input class="msg-input msg-validate" type="text" placeholder="请查看注册手机的短信验证码"/>
-						<a href="/" class="msg-btn">获取验证码</a>
+						<input class="msg-input msg-validate phone-codes" type="text" placeholder="请查看注册手机的短信验证码"/>
+						<a href="javascript:" class="msg-btn get-phone-codes">获取验证码</a>
 					</div>
 
 
@@ -247,23 +249,28 @@
 						<span class="msg-title">
 							新密码：
 						</span>
-						<input class="msg-input" type="password" placeholder="字母、数字或者英文符号，最短6位，区分大小写"/>
+						<input class="msg-input new-password" type="password" placeholder="字母、数字或者英文符号，最短6位，区分大小写"/>
 					</div>
 					<div class="msg-line">
 						<span class="msg-title">
 							确认密码：
 						</span>
-						<input class="msg-input" type="password" placeholder="请再次输入密码"/>
+						<input class="msg-input re-new-password" type="password" placeholder="请再次输入密码"/>
+					</div>
+					<div class="msg-line find-psd-tips">
+						<span class="msg-title"></span>
+						<input class="msg-input" type="text" placeholder="" readonly="true" value="" />
 					</div>
 				</div>
 				<div class="account-btns">
-					<a class="account-btn" href="javascript:">保存</a>
-					<a class="account-btn" href="javascript:">取消</a>
+					<a class="account-btn save-btn" href="javascript:">保存</a>
+					<a class="account-btn cancel-btn" href="javascript:">取消</a>
 				</div>
 			</div>
 		</div>
 	</div>
 	@include("components.log-reg-mask")
+	@include("components.warn-mask")
 	<!-- 浮层 END -->
 
 	<script type="text/javascript" src="/lib/js/jquery-1.11.2.min.js"></script>

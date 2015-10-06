@@ -22,11 +22,15 @@ class validate
 		return preg.test str
 
 	mobile: (str)->
-		preg = /^0*(13|15|18)\d{9}$/
+		preg = /^0*(13|14|15|17|18)\d{9}$/
 		return preg.test str
 
 	phone: (str)->
 		preg = /^(\d{3,4})?-?\d{7,8}(-\d{3,4})?$/
+		return preg.test str
+
+	charCodes: (str)->
+		preg = /[a-zA-Z0-9]{4,}/
 		return preg.test str
 
 module.exports = validate
