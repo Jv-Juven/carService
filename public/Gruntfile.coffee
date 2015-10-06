@@ -29,7 +29,6 @@ module.exports = (grunt)->
                 flatten: true
                 files: {
                     'dist/js/components.js': ['src/components/**/*.coffee']
-                    # 'dist/js/common.js': ['src/common/**/*.coffee']
                 }
             account_center:
                 options:
@@ -91,6 +90,16 @@ module.exports = (grunt)->
                 src: ['src/pages/login/**/*.coffee']
                 dest: 'dist/js/pages/login'
                 ext: '.js'
+            admin:
+                options:
+                  preBundleCB: (b)->
+                    b.transform(coffeeify)
+                    b.transform(stringify({extensions: ['.hbs', '.html', '.tpl', '.txt']}))
+                expand: true
+                flatten: true
+                src: ['src/pages/admin/**/*.coffee', 'src/pages/admin/**/**/*.coffee']
+                dest: 'dist/js/pages/admin'
+                ext: '.js'
 
         watch:
             compile:
@@ -116,12 +125,17 @@ module.exports = (grunt)->
                 files:
                     'dist/css/components.css': [
                         'src/components/left-nav.less',
-                        'src/components/log-reg-mask.less'
-                        'src/components/vio-process.less'
-                        'src/components/warn-mask.less'
-                        'src/components/header.less'
+                        'src/components/log-reg-mask.less',
+                        'src/components/vio-process.less',
+                        'src/components/warn-mask.less',
+                        'src/components/header.less',
+                        'src/components/admin/header.less'
                     ]
-                    
+            adminComponents:
+                files:
+                    'dist/css/admin-components.css': [
+                        'src/components/admin/*.less'
+                    ]
             pages:
                 files:
                     #serve-center
@@ -145,19 +159,43 @@ module.exports = (grunt)->
                     'dist/css/pages/account-center/developer-info.css': ['src/pages/account-center/developer-info.less']
                     'dist/css/pages/account-center/account-info.css': ['src/pages/account-center/account-info.less']
 
-                    # message center
+                    # message-center
                     'dist/css/pages/message-center/feedback/index.css': ['src/pages/message-center/feedback/index.less']
                     'dist/css/pages/message-center/feedback/success.css': ['src/pages/message-center/feedback/success.less']
                     'dist/css/pages/message-center/message/home.css': ['src/pages/message-center/message/home.less']
                     'dist/css/pages/message-center/message/base.css': ['src/pages/message-center/message/base.less']
                     'dist/css/pages/message-center/message/detail.css': ['src/pages/message-center/message/detail.less']
 
-                    # finance center
+                    # finance-center
                     'dist/css/pages/finance-center/cost-manage/overview.css':['src/pages/finance-center/cost-manage/overview.less']
                     'dist/css/pages/finance-center/cost-manage/cost-detail.css':['src/pages/finance-center/cost-manage/cost-detail.less']
                     'dist/css/pages/finance-center/cost-manage/refund-record.css':['src/pages/finance-center/cost-manage/refund-record.less']
                     'dist/css/pages/finance-center/recharge/index.css': ['src/pages/finance-center/recharge/index.less']
 
+                    # admin
+                    'dist/css/pages/admin/layout.css':['src/pages/admin/layout.less']
+
+                    # admin account
+                    'dist/css/pages/admin/admin-account/admin-account.css':['src/pages/admin/admin-account/admin-account.less']
+                    
+                    # admin service-center
+                    'dist/css/pages/admin/service-center/layout.css':['src/pages/admin/service-center/layout.less']
+                    'dist/css/pages/admin/service-center/all.css':['src/pages/admin/service-center/all.less']
+                    'dist/css/pages/admin/service-center/treated.css':['src/pages/admin/service-center/treated.less']
+                    'dist/css/pages/admin/service-center/untreated.css':['src/pages/admin/service-center/untreated.less']
+                    
+                    #admin business-center
+                    'dist/css/pages/admin/business-center/layout.css':['src/pages/admin/business-center/layout.less']
+                    'dist/css/pages/admin/business-center/user-info.css':['src/pages/admin/business-center/user-info.less']
+                    'dist/css/pages/admin/business-center/user-list.css':['src/pages/admin/business-center/user-list.less']
+                    'dist/css/pages/admin/business-center/search-user.css':['src/pages/admin/business-center/search-user.less']
+                    'dist/css/pages/admin/business-center/new-user-list.css':['src/pages/admin/business-center/new-user-list.less']
+                    'dist/css/pages/admin/business-center/check-new-user.css':['src/pages/admin/business-center/check-new-user.less']
+                    'dist/css/pages/admin/business-center/change-user-state.css':['src/pages/admin/business-center/change-user-state.less']
+                    'dist/css/pages/admin/business-center/change-service-univalence.css':['src/pages/admin/business-center/change-service-univalence.less']
+                    'dist/css/pages/admin/business-center/change-query-univalence.css':['src/pages/admin/business-center/change-query-univalence.less']
+                    'dist/css/pages/admin/business-center/change-default-service-univalence.css':['src/pages/admin/business-center/change-default-service-univalence.less']
+                    'dist/css/pages/admin/business-center/change-default-query-univalence.css':['src/pages/admin/business-center/change-default-query-univalence.less']
         cssmin:
             common:
                 files:[

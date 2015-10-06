@@ -199,3 +199,65 @@ Route::get('test',function(){
 	var_dump($user->user_id);
 	// return uniqid('hyxx',true);
 });
+
+// 后台管理
+Route::group(array('prefix' => 'admin'), function() {
+
+	// 客服中心
+	Route::group(array('prefix' => 'service-center'), function() {
+		// 全部
+		Route::get('/all', 'adminServiceCenterPageController@all');
+		// 已处理
+		Route::get('/treated', 'adminServiceCenterPageController@treated');
+		// 未处理
+		Route::get('/untreated', 'adminServiceCenterPageController@untreated');
+	});
+
+	// 操作中心
+	Route::group(array('prefix' => 'business-center'), function() {
+		// 企业用户完整信息
+		Route::get('/user-info', 'adminBusinessCenterPageController@userInfo');
+		// 企业用户列表
+		Route::get('/user-list', 'adminBusinessCenterPageController@userList');
+		// 企业用户搜索
+		Route::get('/search-user', 'adminBusinessCenterPageController@searchUser');
+		// 新用户列表
+		Route::get('/new-user-list', 'adminBusinessCenterPageController@newUserList');
+		// 审核企业用户
+		Route::get('/check-new-user', 'adminBusinessCenterPageController@checkNewUser');
+		// 修改用户状态
+		Route::get('/change-user-state', 'adminBusinessCenterPageController@changeUserState');
+		// 修改用户查询单价
+		Route::get('/change-query-univalence', 'adminBusinessCenterPageController@changeQueryUnivalence');
+		// 修改用户服务单价
+		Route::get('/change-service-univalence', 'adminBusinessCenterPageController@changeServiceUnivalence');
+		// 修改默认查询单价
+		Route::get('/change-default-query-univalence', 'adminBusinessCenterPageController@changeDefaultQueryUnivalence');
+		// 修改默认服务单价
+		Route::get('/change-default-service-univalence', 'adminBusinessCenterPageController@changeDefaultServiceUnivalence');
+	});
+
+	// 账户设置
+	Route::group(array('prefix' => 'admin-account'), function() {
+		// 后台管理员账户设置
+		Route::get('/', 'adminAccountPageController@index');
+	});
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
