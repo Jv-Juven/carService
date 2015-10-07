@@ -45,7 +45,7 @@ class CcobSeeder extends Command {
         '130','131','132','133','134','135','136','137','138','139',
         '180','181','182','183','184','185','186','187','188','189',
         '150','151','152','153','155','156','157','158','159',
-        '175','176','177','178','17'
+        '175','176','177','178','179'
     ];
 
     protected function get_random_timestamp_offset(){
@@ -242,14 +242,14 @@ class CcobSeeder extends Command {
         if ( FeeType::all()->count() == 0 ){
             FeeType::create([
                 'category' => '10',
-                'item'  => '1',
+                'item'  => '0',
                 'number' => 15,
                 'flow_direction' => 1,
                 'user_type' => 0
             ]);
             FeeType::create([
                 'category' => '20',
-                'item'  => '1',
+                'item'  => '0',
                 'number' => 15,
                 'flow_direction' => 1,
                 'user_type' => 0
@@ -257,7 +257,7 @@ class CcobSeeder extends Command {
 
             FeeType::create([
                 'category' => '20',
-                'item'  => '2',
+                'item'  => '1',
                 'number' => 20,
                 'flow_direction' => 1,
                 'user_type' => 1
@@ -265,7 +265,7 @@ class CcobSeeder extends Command {
 
             FeeType::create([
                 'category' => '30',
-                'item'  => '1',
+                'item'  => '0',
                 'number' => 15,
                 'flow_direction' => 1,
                 'user_type' => 0
@@ -273,7 +273,7 @@ class CcobSeeder extends Command {
 
             FeeType::create([
                 'category' => '30',
-                'item'  => '2',
+                'item'  => '1',
                 'number' => 20,
                 'flow_direction' => 1,
                 'user_type' => 1

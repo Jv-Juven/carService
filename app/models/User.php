@@ -50,6 +50,26 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User implements UserInterface
 		return static::$id_prefix;
 	}
 
+	/**
+	 * 判断是否企业用户
+	 *
+	 * @return boolean
+	 */
+	public function is_business_user(){
+
+		return $this->user_type == '1';
+	}
+
+	/**
+	 * 判断是否普通用户
+	 *
+	 * @return boolean
+	 */
+	public function is_common_user(){
+
+		return $this->user_type == '0';
+	}
+
 	/*
 	 * 获取费用表
 	 */
