@@ -3,6 +3,8 @@ node_modules/
 public/node_modules
 /bootstrap/compiled.php
 /vendor/*
+app/filters.php
+/app/filters.php
 /app/config/database.php
 /app/config/domain.php
 /app/config/app.php
