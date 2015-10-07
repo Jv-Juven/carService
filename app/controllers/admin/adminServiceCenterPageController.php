@@ -1,6 +1,6 @@
 <?php
 
-class adminServiceCenterPageController extends BaseController{
+class AdminServiceCenterPageController extends BaseController{
 
 	public function all()
 	{

@@ -13,22 +13,22 @@
     <div class="business-center-content">
         <ul class="nav nav-pills" id="admin-business-center-user-list-header">
             <li class="nav active">
-                <a href="javascript:void(0)" id="all">全部</a>
+                <a href="/admin/business-center/user-list" id="all">全部</a>
             </li>
             <li class="nav">
-                <a href="javascript:void(0)" id="actived">激活</a>
+                <a href="/admin/business-center/user-list?type=actived" id="actived">激活</a>
             </li>
             <li class="nav">
-                <a href="javascript:void(0)" id="unactived">等待用户激活</a>
+                <a href="/admin/business-center/user-list?type=unactived" id="unactived">等待用户激活</a>
             </li>
             <li class="nav">
-                <a href="javascript:void(0)" id="unchecked">未审核</a>
+                <a href="/admin/business-center/user-list?type=unchecked" id="unchecked">未审核</a>
             </li>
             <li class="nav">
-                <a href="javascript:void(0)" id="locked">锁定</a>
+                <a href="/admin/business-center/user-list?type=locked" id="locked">锁定</a>
             </li>
             <li class="nav">
-                <a href="javascript:void(0)" id="others">其他</a>
+                <a href="/admin/business-center/user-list?type=others" id="others">其他</a>
             </li>
             <div class="clear"></div>
         </ul>
@@ -42,61 +42,54 @@
         		<th>帐号状态</th>
         		<th>操作</th>
         	</tr>
+            @foreach($users as $user)
         	<tr>
-        		<td class="username">广州紫睿科技有限公司</td>
-        		<td class="license-code">123456789011121</td>
+        		<td class="username">{{{ $user->business_info->business_name }}}</td>
+        		<td class="license-code">{{{ $user->business_info->business_licence_no }}}</td>
         		<td class="bank-account">
-                    6222026542378654219 <br/>
-                    开户银行：工商银行 <br/>
-                    开户网点：广东
+                    {{{ $user->business_info->bank_account }}} <br/>
+                    {{{ $user->business_info->deposit_bank }}} <br/>
+                    {{{ $user->business_info->bank_outlets }}}
                 </td>
+
                 <td>2015/9/21 11:12:21</td>
-        		<td class="status">激活</td>
+                @if($user->status === "20")
+                <td class="status">未审核</td>
+                @elseif($user->status === "21")
+                <td class="status">等待用户激活</td>
+                @elseif($user->status === "22")
+                <td class="status">激活</td>
+                @elseif($user->status === "30")
+                <td class="status">锁定</td>
+                @else
+                <td class="status">其他</td>
+                @endif
+        		
         		<td class="operation">
-                    <a href="#">修改费用</a> 
-                    <a href="#">修改帐号状态</a> 
-                    <a href="#">重置备注码</a>
+                    @if($user->status === "20")
+                    <a href="/admin/business-center/check-new-user?user_id={{{$user->user_id}}}">设置备注码</a>
+                    @elseif($user->status === "21")
+                    <a href="/admin/business-center/check-new-user?user_id={{{$user->user_id}}}">重置备注码</a>
+                    @elseif($user->status === "22")
+                    <a href="/admin/business-center/change-service-univalence?user_id={{{$user->user_id}}}">修改费用</a> 
+                    <a href="/admin/business-center/change-user-status?user_id={{{$user->user_id}}}">修改帐号状态</a> 
+                    @elseif($user->status === "30")
+                    <a href="/admin/business-center/change-user-status?user_id={{{$user->user_id}}}">修改帐号状态</a> 
+                    @endif
         		</td>
         	</tr>
-        	<tr>
-                <td class="username">广州紫睿科技有限公司</td>
-                <td class="license-code">123456789011121</td>
-                <td class="bank-account">
-                    6222026542378654219 <br/>
-                    开户银行：工商银行 <br/>
-                    开户网点：广东
-                </td>
-                <td>2015/9/21 11:12:21</td>
-                <td class="status">未审核</td>
-                <td class="operation">
-                    <a href="#">审核</a> 
-                </td>
-            </tr>
-            <tr>
-                <td class="username">广州紫睿科技有限公司</td>
-                <td class="license-code">123456789011121</td>
-                <td class="bank-account">
-                    6222026542378654219 <br/>
-                    开户银行：工商银行 <br/>
-                    开户网点：广东
-                </td>
-                <td>2015/9/21 11:12:21</td>
-                <td class="status">其他</td>
-                <td class="operation">
-                    <a href="#">等待用户完成注册流程</a> 
-                </td>
-            </tr>
+            @endforeach
 		</table>
 		<nav>
-		 	<ul class="pager">
-		    	<li><a href="#">上一页</a></li>
-		    	<li><a href="#">下一页</a></li>
-		  	</ul>
-		</nav>
+            @if ($count < $totalCount)
+                {{ $users->links() }}
+            @endif
+        </nav>
     </div>
 @stop
 
 @section('js')
     @parent
+    <script type="text/javascript" src="/dist/js/pages/admin/user-list.js"></script>
 @stop
     

@@ -1,6 +1,6 @@
 <?php
 
-class adminAccountPageController extends BaseController{
+class AdminAccountPageController extends BaseController{
 
 	//帐号信息
 	public function userInfo()
