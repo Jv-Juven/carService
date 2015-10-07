@@ -187,13 +187,20 @@ Route::group([ 'prefix' => 'serve-center', 'before' => 'auth.user.isIn' ], funct
 	Route::group([ 'prefix' => 'order' ], function(){
 
 		// 查询违章代办订单页面
-		Route::get( 'violation', 'OrderPageController@violation' );
+		Route::group([ 'prefix' => 'pages' ], function(){
 
-		// 查询违章代办订单ajax接口
-		Route::get( 'search', 'OrderController@search' );
+			Route::get( 'violation', 'OrderPageController@violation' );
+		});
 
-		// 取消订单
-		Route::post( 'cancel', 'OrderController@cancel' );
+		// 操作订单接口
+		Route::group([ 'prefix' => 'operation' ], function(){
+			
+			// 查询违章代办订单ajax接口
+			Route::get( 'search', 'OrderController@search' );
+
+			// 取消订单
+			Route::post( 'cancel', 'OrderController@cancel' );
+		});
 	});
 });
 
