@@ -24,6 +24,7 @@
 	@section("js")
 	<script type="text/javascript" src="/lib/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/lib/js/bootstrap/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/dist/js/admin-components.js"></script>
 	@show
 </div>
 

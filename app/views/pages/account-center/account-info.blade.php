@@ -72,25 +72,25 @@
 							邮箱验证码：
 						</span>
 						<input class="msg-input psd-email-code" type="text" placeholder="请前往注册邮箱获取验证码"/>
-						<a href="/" class="msg-btn psd-get-email-codes">获取验证码</a>
+						<a href="javascript:" class="msg-btn psd-get-email-codes">获取验证码</a>
 					</div>
 					<div class="msg-line">
 						<span class="msg-title">
 							原密码：
 						</span>
-						<input class="msg-input old-password" type="text" placeholder="请填写账号的原密码"/>
+						<input class="msg-input old-password" type="password" placeholder="请填写账号的原密码"/>
 					</div>
 					<div class="msg-line">
 						<span class="msg-title">
 							密码：
 						</span>
-						<input class="msg-input psd-password" type="text" placeholder="字母、数字或者英文符号，最短6位，区分大小写"/>
+						<input class="msg-input psd-password" type="password" placeholder="字母、数字或者英文符号，最短6位，区分大小写"/>
 					</div>
 					<div class="msg-line">
 						<span class="msg-title">
 							确认密码：
 						</span>
-						<input class="msg-input psd-repassword" type="text" placeholder="请再次输入密码"/>
+						<input class="msg-input psd-repassword" type="password" placeholder="请再次输入密码"/>
 					</div>
 				</div>
 				<div class="tips-words psd-tips"></div>
