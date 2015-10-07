@@ -5,14 +5,14 @@
         </li>
         <li role="presentation">
             <ul class="nav nav-pills nav-stacked">
-                <li role="presentation" class="active">
-                    <a href="/admin/service-center/all">全部</a>
+                <li role="presentation">
+                    <a href="/admin/service-center/all" class="nav-item">全部</a>
                 </li>
                 <li role="presentation">
-                    <a href="/admin/service-center/treated">已处理</a>
+                    <a href="/admin/service-center/treated" class="nav-item">已处理</a>
                 </li>
                 <li role="presentation">
-                    <a href="/admin/service-center/untreated">未处理</a>
+                    <a href="/admin/service-center/untreated" class="nav-item">未处理</a>
                 </li>
             </ul>
         </li>

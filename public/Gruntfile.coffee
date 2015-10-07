@@ -30,6 +30,16 @@ module.exports = (grunt)->
                 files: {
                     'dist/js/components.js': ['src/components/**/*.coffee']
                 }
+            adminComponents: 
+                options:
+                  preBundleCB: (b)->
+                    b.transform(coffeeify)
+                    b.transform(stringify({extensions: ['.hbs', '.html', '.tpl', '.txt']}))
+                expand: true
+                flatten: true
+                files: {
+                    'dist/js/admin-components.js': ['src/components/admin/*.coffee', 'src/components/admin/**/*.coffee']
+                }
             account_center:
                 options:
                   preBundleCB: (b)->

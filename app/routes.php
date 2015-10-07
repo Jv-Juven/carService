@@ -317,7 +317,7 @@ Route::group(array('prefix' => 'admin'), function() {
 	// 账户设置
 	Route::group(array('prefix' => 'admin-account'), function() {
 		// 后台管理员账户设置
-		Route::get('/', 'adminAccountPageController@index');
+		Route::get('/user-info', 'adminAccountPageController@userInfo');
 	});
 });
 
