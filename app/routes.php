@@ -127,7 +127,7 @@ Route::group([ 'prefix' => 'serve-center', 'before' => 'auth.user.isIn' ], funct
 	Route::group([ 'prefix' => 'search' ], function(){
 
 		// 查询相关
-		Route::group( 'prefix' => 'pages', function(){
+		Route::group([ 'prefix' => 'pages'], function(){
 
 			// 违章查询页面
 			Route::get( 'violation', 'SearchPageController@violation' );
@@ -140,7 +140,7 @@ Route::group([ 'prefix' => 'serve-center', 'before' => 'auth.user.isIn' ], funct
 		});
 
 		// 查询ajax接口
-		Route::group( 'prefix' => 'api', function(){
+		Route::group([ 'prefix' => 'api' ], function(){
 
 			// 违章查询
 			Route::get( 'violation', 'SearchController@violation' );

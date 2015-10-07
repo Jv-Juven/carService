@@ -115,7 +115,7 @@ info = {
 				warn.alert "保存成功"
 }
 
-password = {
+psd = {
 
 	#获取邮箱验证码
 	getEmailCodes: ()->
@@ -129,7 +129,7 @@ password = {
 		if !validate.charCodes(psdEmailCode.val())
 			psdTips.text("*请正确输入验证码")
 			return
-		if oldPassword.val().length < 6 || password.val().length < 6
+		if (oldPassword.val().length < 6) || (password.val().length < 6)
 			psdTips.text("*请输入不少于六位的密码")
 			return
 		if rePassword.val().length < 6
@@ -162,9 +162,9 @@ $ ()->
 	#"获取手机验证码"按钮绑定事件
 	getPhoneCodesBtn.on "click", info.getPhoneCodes
 	#修改密码的"获取邮箱验证码"按钮绑定事件
-	psdGetEmailCodes.on "click", password.getEmailCodes
+	psdGetEmailCodes.on "click", psd.getEmailCodes
 	#修改密码"保存"按钮绑定事件
-	psdSaveBtn.on "click", password.savePsd
+	psdSaveBtn.on "click", psd.savePsd
 	#修改密码"取消"按钮绑定事件
 	psdCancelBtn.on "click", mask.closeMask
 
