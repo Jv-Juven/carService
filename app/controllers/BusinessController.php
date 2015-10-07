@@ -1,6 +1,15 @@
 <?php
 
 use GuzzleHttp\Client as httpClient;
+use Guzzle\Common\Exception\GuzzleException;
+
+class SearchException extends Exception{
+
+}
+
+class ParseException extends Exception{
+
+}
 
 class BusinessController extends BaseController{
 
@@ -13,46 +22,12 @@ class BusinessController extends BaseController{
 
 	protected static function isResponseSuccessful( $response ){
 
-		return $response['errCode'] == 0;
+		return array_key_exists( 'errCode', $response ) && $response['errCode'] == 0;
 	}
 
 	protected static function logError( $user_id, $action, $error_message ){
 
 		Log::info( "User: $user_id\n"."Action: $action\n"."Error message: $error_message" );
-	}
-
-	/**
-	 * 获得access token
-	 *
-	 * @return string
-	 */
-	protected static function getAccessToken( $appkey, $secretkey ){
-
-		// http 请求
-		try{
-
-			$http_client = static::getBaseHttpClient();
-			$response = $http_client->request( 'POST', '/token', [
-				'query' => [
-					'appkey' 	=> $appkey,
-					'secretkey'	=> $secretkey
-				]
-			]);
-			$response_content = json_decode( $response->getBody() );
-
-		// 请求出错则写日志，同时抛出异常
-		}catch( \Exception $e ){
-
-			static::logError( $user->user_id, 'count', $e->getMessage() );
-			throw $e;
-		}
-
-		// 是否成功
-		if ( static::isResponseSuccessful( $response_content ) ){
-			return $response_content[ 'token' ];
-		}
-
-		return null;
 	}
 
 	//算服务费
@@ -93,7 +68,7 @@ class BusinessController extends BaseController{
 		$user_fee 	= UserFee::where( 'fee_type_id', $fee_type->id )->first();
 
 		// 有特殊费用情况
-		if ( isset( $user_fee ) && $user_fee->fee_no ){
+		if ( isset( $user_fee ) && $user_fee->fee_no != null ){
 			return $user_fee->fee_no;
 		}
 
@@ -142,7 +117,7 @@ class BusinessController extends BaseController{
 		$user_fee 	= UserFee::where( 'fee_type_id', $fee_type->id )->first();
 
 		// 有特殊费用情况
-		if ( isset( $user_fee ) && $user_fee->fee_no ){
+		if ( isset( $user_fee ) && $user_fee->fee_no != null ){
 			return $user_fee->fee_no;
 		}
 
@@ -221,17 +196,45 @@ class BusinessController extends BaseController{
 					'money'		=> $money
 				]
 			]);
+
 			$response_content = json_decode( $response->getBody() );
 
-		// 请求出错则写日志，同时抛出异常
-		}catch( \Exception $e ){
+			if ( static::isResponseSuccessful( $response_content ) ){
+				return true;
+			}
 
-			static::logError( $user->user_id, 'recharge', $e->getMessage() );
+			// 服务器提供错误信息
+			if ( array_key_exists( 'errMsg', $response_content ) ){
+
+				$error_message = $response_content[ 'errMsg' ];
+			}else{
+				$error_message = '查询失败';
+			}
+
+			throw new SearchException( $error_message, $response_content['errCode'] );
+		}
+		/*
+		 * 请求出错
+		 * 错误种类可以查询http://docs.guzzlephp.org/en/latest/quickstart.html#exceptions
+		 * 这里统一为GuzzleException
+		 */
+		catch( GuzzleException $e ){
+
+			throw new Exception( "请求失败", 41 );
+		}
+		// 查询出错
+		catch( SearchException $e ){
+
 			throw $e;
 		}
+		// 其他错误
+		catch( Exception $e ){
 
-		// 直接返回boolean类型值
-		return static::isResponseSuccessful( $response_content );
+			throw new Exception( '服务器出错', 51 );
+		}
+
+		// 返回boolean类型值
+		return false;
 	}
 
 	//校验充值的token接口
@@ -271,7 +274,11 @@ class BusinessController extends BaseController{
 		if ( $user_id ){
 			$user = User::find( $user_id );
 		}else{
-			$user = Sentry::getUser();	
+			$user = Sentry::getUser();
+		}
+
+		if ( $user->is_common_user() ){
+			
 		}
 
 		// http 请求
@@ -283,18 +290,43 @@ class BusinessController extends BaseController{
 					'appkey' 	=> Config::get( 'cheshang.app_key' )
 				]
 			]);
+
 			$response_content = json_decode( $response->getBody() );
 
-		// 请求出错则写日志，同时抛出异常
-		}catch( \Exception $e ){
+			// 是否成功
+			if ( static::isResponseSuccessful( $response_content ) ){
+				return $response_content[ 'data' ];
+			}
 
-			static::logError( $user->user_id, 'count', $e->getMessage() );
-			throw $e;	
+			// 服务器提供错误信息
+			if ( array_key_exists( 'errMsg', $response_content ) ){
+
+				$error_message = $response_content[ 'errMsg' ];
+			}else{
+				$error_message = '查询失败';
+			}
+
+			throw new SearchException( $error_message, $response_content['errCode'] );
 		}
+		/*
+		 * 请求出错
+		 * 错误种类可以查询http://docs.guzzlephp.org/en/latest/quickstart.html#exceptions
+		 * 这里统一为GuzzleException
+		 */
+		catch( GuzzleException $e ){
 
-		// 是否成功
-		if ( static::isResponseSuccessful( $response_content ) ){
-			return $response_content[ 'data' ];
+//			static::logError( $user->user_id, 'count', $e->getMessage() );
+			throw new Exception( "请求失败", 41 );
+		}
+		// 查询出错
+		catch( SearchException $e ){
+
+			throw $e;
+		}
+		// 其他错误
+		catch( Exception $e ){
+
+			throw new Exception( '服务器出错', 51 );
 		}
 
 		return null;
@@ -327,6 +359,10 @@ class BusinessController extends BaseController{
 			$user = Sentry::getUser();	
 		}
 
+		if ( $user->is_business_user() ){
+
+		}
+
 		// http 请求
 		try{
 
@@ -336,18 +372,43 @@ class BusinessController extends BaseController{
 					'appkey' 	=> Config::get( 'cheshang.app_key' )
 				]
 			]);
+			
 			$response_content = json_decode( $response->getBody() );
 
-		// 请求出错则写日志，同时抛出异常
-		}catch( \Exception $e ){
+			// 是否成功
+			if ( static::isResponseSuccessful( $response_content ) ){
+				return $response_content[ 'account' ];
+			}
 
-			static::logError( $user->user_id, 'count', $e->getMessage() );
+			// 服务器提供错误信息
+			if ( array_key_exists( 'errMsg', $response_content ) ){
+
+				$error_message = $response_content[ 'errMsg' ];
+			}else{
+				$error_message = '查询失败';
+			}
+
+			throw new SearchException( $error_message, $response_content['errCode'] );
+		}
+		/*
+		 * 请求出错
+		 * 错误种类可以查询http://docs.guzzlephp.org/en/latest/quickstart.html#exceptions
+		 * 这里统一为GuzzleException
+		 */
+		catch( GuzzleException $e ){
+
+//			static::logError( $user->user_id, 'accountInfo', $e->getMessage() );
+			throw new Exception( "请求失败", 41 );
+		}
+		// 查询出错
+		catch( SearchException $e ){
+
 			throw $e;
 		}
+		// 其他错误
+		catch( Exception $e ){
 
-		// 是否成功
-		if ( static::isResponseSuccessful( $response_content ) ){
-			return $response_content[ 'account' ];
+			throw new Exception( '服务器出错', 51 );
 		}
 
 		return null;
@@ -392,16 +453,46 @@ class BusinessController extends BaseController{
 			$response = $http_client->request( 'POST', '/account/univalence', [
 				'query' => array_filter( $query ) 		// 需过滤
 			]);
+
 			$response_content = json_decode( $response->getBody() );
 
-		// 请求出错则写日志，同时抛出异常
-		}catch( \Exception $e ){
+			if ( static::isResponseSuccessful() ){
+				return true;
+			}
 
-			static::logError( $user->user_id, 'univalence', $e->getMessage() );
-			throw $e;
+			// 服务器提供错误信息
+			if ( array_key_exists( 'errMsg', $response_content ) ){
+
+				$error_message = $response_content[ 'errMsg' ];
+			}else{
+				$error_message = '查询失败';
+			}
+
+			throw new SearchException( $error_message, $response_content['errCode'] );
 		}
 
-		return static::isResponseSuccessful( $response_content );
+		/*
+		 * 请求出错
+		 * 错误种类可以查询http://docs.guzzlephp.org/en/latest/quickstart.html#exceptions
+		 * 这里统一为GuzzleException
+		 */
+		catch( GuzzleException $e ){
+
+//			static::logError( $user->user_id, 'univalence', $e->getMessage() );
+			throw new Exception( "请求失败", 41 );
+		}
+		// 查询出错
+		catch( SearchException $e ){
+
+			throw $e;
+		}
+		// 其他错误
+		catch( Exception $e ){
+
+			throw new Exception( '服务器出错', 51 );
+		}
+
+		return false;
 	}
 
 	//违章查询
@@ -490,17 +581,44 @@ class BusinessController extends BaseController{
 					'licenseType'	=> $licenseType
 				]
 			]);
+			
 			$response_content = json_decode( $response->getBody() );
 
-		// 请求出错则写日志，同时抛出异常
-		}catch( \Exception $e ){
+			if ( static::isResponseSuccessful( $response_content ) ){
 
-			static::logError( $user->user_id, 'univalence', $e->getMessage() );
-			throw $e;
+				return $response_content['body'];
+			}
+
+			// 服务器提供错误信息
+			if ( array_key_exists( 'errMsg', $response_content ) ){
+
+				$error_message = $response_content[ 'errMsg' ];
+			}else{
+				$error_message = '查询失败';
+			}
+
+			throw new SearchException( $error_message, $response_content['errCode'] );
 		}
 
-		if ( static::isResponseSuccessful( $response_content ) ){
-			return $response_content['body'];
+		/*
+		 * 请求出错
+		 * 错误种类可以查询http://docs.guzzlephp.org/en/latest/quickstart.html#exceptions
+		 * 这里统一为GuzzleException
+		 */
+		catch( GuzzleException $e ){
+
+//			static::logError( $user->user_id, 'violation', $e->getMessage() );
+			throw new Exception( "请求失败", 41 );
+		}
+		// 查询出错
+		catch( SearchException $e ){
+
+			throw $e;
+		}
+		// 其他错误
+		catch( Exception $e ){
+
+			throw new Exception( '服务器出错', 51 );
 		}
 
 		return null;
@@ -560,22 +678,47 @@ class BusinessController extends BaseController{
 					'recordID'		=> $record_id
 				]
 			]);
+
 			$response_content = json_decode( $response->getBody() );
 
-		// 请求出错则写日志，同时抛出异常
-		}catch( \Exception $e ){
+			if ( static::isResponseSuccessful( $response_content ) ){
 
-			static::logError( $user->user_id, 'univalence', $e->getMessage() );
+				return $response_content['body'];
+			}
+
+			// 服务器提供错误信息
+			if ( array_key_exists( 'errMsg', $response_content ) ){
+
+				$error_message = $response_content[ 'errMsg' ];
+			}else{
+				$error_message = '查询失败';
+			}
+
+			throw new SearchException( $error_message, $response_content['errCode'] );
+		}
+		/*
+		 * 请求出错
+		 * 错误种类可以查询http://docs.guzzlephp.org/en/latest/quickstart.html#exceptions
+		 * 这里统一为GuzzleException
+		 */
+		catch( GuzzleException $e ){
+
+//			static::logError( $user->user_id, 'license', $e->getMessage() );
+			throw new Exception( "请求失败", 41 );
+		}
+		// 查询出错
+		catch( SearchException $e ){
+
 			throw $e;
 		}
+		// 其他错误
+		catch( Exception $e ){
 
-		if ( static::isResponseSuccessful( $response_content ) ){
-			return $response_content['body'];
+			throw new Exception( '服务器出错', 51 );
 		}
 
 		return null;
 	}	
-
 
 	//查询车辆信息
 	public static function car( $token, $engineCode, $licensePlate, $licenseType )
@@ -655,17 +798,44 @@ class BusinessController extends BaseController{
 					'licenseType'	=> $licenseType
 				]
 			]);
+
 			$response_content = json_decode( $response->getBody() );
 
-		// 请求出错则写日志，同时抛出异常
-		}catch( \Exception $e ){
+			if ( static::isResponseSuccessful( $response_content ) ){
 
-			static::logError( $user->user_id, 'univalence', $e->getMessage() );
-			throw $e;
+				return $response_content['body'];
+			}
+
+			// 服务器提供错误信息
+			if ( array_key_exists( 'errMsg', $response_content ) ){
+
+				$error_message = $response_content[ 'errMsg' ];
+			}else{
+				$error_message = '查询失败';
+			}
+
+			throw new SearchException( $error_message, $response_content['errCode'] );
 		}
 
-		if ( static::isResponseSuccessful( $response_content ) ){
-			return $response_content['body'];
+		/*
+		 * 请求出错
+		 * 错误种类可以查询http://docs.guzzlephp.org/en/latest/quickstart.html#exceptions
+		 * 这里统一为GuzzleException
+		 */
+		catch( GuzzleException $e ){
+
+//			static::logError( $user->user_id, 'car', $e->getMessage() );
+			throw new Exception( "请求失败", 41 );
+		}
+		// 查询出错
+		catch( SearchException $e ){
+
+			throw $e;
+		}
+		// 其他错误
+		catch( Exception $e ){
+
+			throw new Exception( '服务器出错', 51 );
 		}
 
 		return null;

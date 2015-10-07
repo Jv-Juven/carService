@@ -73,6 +73,7 @@ Route::group(array('prefix'=>'user'), function(){
 });
 
 //业务逻辑
+/*
 Route::group(array('prefix'=>'business','before'=>'auth.user.isIn'),function(){
 	//校验充值的token接口
 	Route::get('auth','BusinessController@authToken');
@@ -95,9 +96,87 @@ Route::group(array('prefix'=>'business','before'=>'auth.user.isIn'),function(){
 	//查看违章代办信息
 	Route::get('violation_info','BusinessController@trafficViolationInfo');
 });
+*/
+
+// 服务中心
+Route::group([ 'prefix' => 'serve-center', 'before' => 'auth.user.isIn' ], function(){
+
+	// 数据查询模块
+	Route::group([ 'prefix' => 'search' ], function(){
+
+		// 查询相关
+		Route::group( 'prefix' => 'pages', function(){
+
+			// 违章查询页面
+			Route::get( 'violation', 'SearchPageController@violation' );
+
+			// 驾驶证查询页面
+			Route::get( 'license', 'SearchPageController@license' );
+
+			// 车辆查询页面
+			Route::get( 'car', 'SearchPageController@car' );
+		});
+
+		// 查询ajax接口
+		Route::group( 'prefix' => 'api', function(){
+
+			// 违章查询
+			Route::get( 'violation', 'SearchController@violation' );
+
+			// 驾驶证查询页面
+			Route::get( 'license', 'SearchController@license' );
+
+			// 车辆查询页面
+			Route::get( 'car', 'SearchController@car' );
+		});
+	});
+
+	// 违章代办模块
+	Route::group([ 'prefix' => 'agency' ], function(){
+
+		// 页面路由
+		Route::group([ 'prefix' => 'pages' ], function(){
+
+			// 第一步，违章查询
+			Route::get( 'search_violation', 'AgencyPageController@search_violation' );
+
+			// 第二步，违章代办
+			Route::get( 'agency', 'AgencyPageController@agency' );
+
+			// 第三步，支付页面
+			Route::get( 'pay', 'AgencyPageController@pay' );
+
+			// 第四步，完成页面
+			Route::get( 'success', 'AgencyPageController@success' );
+		});
+
+		// 办理违章ajax路由
+		Route::group([ 'prefix' => 'business' ], function(){
+
+			// 确认办理违章
+			Route::post( 'confirm_violation', 'AgencyController@confirm_violation' );
+
+			// 提交订单
+			Route::post( 'submit_order', 'AgencyController@submit_order' );
+		});
+	});
+
+	// 订单管理模块
+	Route::group([ 'prefix' => 'order' ], function(){
+
+		// 查询违章代办订单页面
+		Route::get( 'violation', 'OrderPageController@violation' );
+
+		// 查询违章代办订单ajax接口
+		Route::get( 'search', 'OrderController@search' );
+
+		// 取消订单
+		Route::post( 'cancel', 'OrderController@cancel' );
+	});
+});
 
 // 消息中心
-Route::group(array('prefix'=>'message-center'), function(){
+Route::group([ 'prefix'=>'message-center' ], function(){
 
 	// 消息模块
 	Route::group([ 'prefix' => 'message' ], function(){

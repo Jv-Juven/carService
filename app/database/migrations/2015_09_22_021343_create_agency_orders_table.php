@@ -59,6 +59,16 @@ class CreateAgencyOrdersTable extends Migration {
 			 * 车牌号
 			 */
 			$table->char('car_plate_no', 8);
+
+			/*
+			 * 发动机后6位
+			 */
+			$table->char('car_engine_no', 6)->nullable();
+
+			/*
+			 * 号牌种类名称，只存数字编号，
+			 */
+			$table->char('car_type_no',2);
 			
 			/*
 			 * 代办订单数量
@@ -127,16 +137,6 @@ class CreateAgencyOrdersTable extends Migration {
 			 * 收件人手机号
 			 */
 			$table->char('recipient_phone', 11)->nullable();
-			
-			/*
-			 * 发动机后四位
-			 */
-			$table->char('car_engine_no', 4)->nullable();
-
-			/*
-			 * 号牌种类名称，只存数字编号，
-			 */
-			$table->char('car_type_no',2);
 
 			/*
 			 * Laravel自动维护
