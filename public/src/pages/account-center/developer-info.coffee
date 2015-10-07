@@ -45,13 +45,14 @@ submitMsg = ()->
 
 
 
+$ ()->
+	
+	#“完整显示”按钮绑定事件
+	showBtn.on "click", showBox
 
-#“完整显示”按钮绑定事件
-showBtn.on "click", showBox
+	#“获取验证码”按钮绑定事件
+	getCodesBtn.on "click", getCodes
 
-#“获取验证码”按钮绑定事件
-getCodesBtn.on "click", getCodes
-
-#"提交"按钮绑定事件
-submitBtn.on "click", submitMsg
+	#"提交"按钮绑定事件
+	submitBtn.on "click", submitMsg
 

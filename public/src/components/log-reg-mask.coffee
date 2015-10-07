@@ -316,6 +316,9 @@ mask = {
 
 	showResetPannel: ()->
 		showResetPannel()
+
+	closeMask: ()->
+		closeMask()
 }
 
 module.exports = mask

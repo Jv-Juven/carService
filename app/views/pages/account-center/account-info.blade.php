@@ -59,7 +59,7 @@
 		</div>
 	</div>
 	<div class="mask-bg"></div>		
-	<div class="mask-wrapper" style="display: none;">
+	<div class="mask-wrapper change-password" style="display: none;">
 		<div class="warn-box">
 			<div class="warn-title">
 				修改密码
@@ -71,36 +71,37 @@
 						<span class="msg-title">
 							邮箱验证码：
 						</span>
-						<input class="msg-input" type="text" placeholder="请前往注册邮箱13********@***.com获取验证码"/>
-						<a href="/" class="msg-btn">获取验证码</a>
+						<input class="msg-input psd-email-code" type="text" placeholder="请前往注册邮箱获取验证码"/>
+						<a href="/" class="msg-btn psd-get-email-codes">获取验证码</a>
 					</div>
 					<div class="msg-line">
 						<span class="msg-title">
 							原密码：
 						</span>
-						<input class="msg-input" type="text" placeholder="请填写账号的原密码"/>
+						<input class="msg-input old-password" type="text" placeholder="请填写账号的原密码"/>
 					</div>
 					<div class="msg-line">
 						<span class="msg-title">
 							密码：
 						</span>
-						<input class="msg-input" type="text" placeholder="字母、数字或者英文符号，最短6位，区分大小写"/>
+						<input class="msg-input psd-password" type="text" placeholder="字母、数字或者英文符号，最短6位，区分大小写"/>
 					</div>
 					<div class="msg-line">
 						<span class="msg-title">
 							确认密码：
 						</span>
-						<input class="msg-input" type="text" placeholder="请再次输入密码"/>
+						<input class="msg-input psd-repassword" type="text" placeholder="请再次输入密码"/>
 					</div>
 				</div>
+				<div class="tips-words psd-tips"></div>
 				<div class="account-btns">
-					<a class="account-btn" href="javascript:">保存</a>
-					<a class="account-btn" href="javascript:">取消</a>
+					<a class="account-btn psd-save-btn" href="javascript:">保存</a>
+					<a class="account-btn psd-cancel-btn" href="javascript:">取消</a>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="mask-wrapper">
+	<div class="mask-wrapper change-information">
 		<div class="chang-info-box">
 			<div class="warn-title">
 				修改运营者信息
@@ -112,22 +113,22 @@
 						<tr>
 							<td class="tr-title">邮箱验证码：</td>
 							<td class="tr-content content">
-								<input class="text-input short-input" type="text" placeholder="请前往注册邮箱13********@***.com获取验证码" />
+								<input class="text-input short-input info-email-code" type="text" placeholder="请前往注册邮箱获取验证码" />
 							</td>
 							<td class="tr-tips">
-								<a class="get-code-btn" href="javascript:">获取验证码</a>
+								<a class="get-code-btn get-email-codes" href="javascript:">获取验证码</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="tr-title">运营者身份证姓名：</td>
 							<td class="tr-content" colspan="2">
-								<input class="text-input long-input" type="text" placeholder="请填写运营者的姓名，如果名字包含分隔号“•”,请勿忽略" />
+								<input class="text-input long-input info-name" type="text" placeholder="请填写运营者的姓名，如果名字包含分隔号“•”,请勿忽略" />
 							</td>
 						</tr>
 						<tr>
 							<td class="tr-title">运营者身份证号码：</td>
 							<td class="tr-content" colspan="2">
-								<input class="text-input long-input" type="text" placeholder="请填写运营者的身份证号码" />
+								<input class="text-input long-input info-credit-num" type="text" placeholder="请填写运营者的身份证号码" />
 							</td>
 						</tr>
 						<tr>
@@ -157,26 +158,26 @@
 						<tr>
 							<td class="tr-title">运营者手机号码：</td>
 							<td class="tr-content content">
-								<input class="text-input short-input" type="text" placeholder="请输入您的手机号码" />
+								<input class="text-input short-input info-phone" type="text" placeholder="请输入您的手机号码" />
 							</td>
 							<td class="tr-tips">
-								<a class="get-code-btn" href="javascript:">获取验证码</a>
+								<a class="get-code-btn get-phone-codes" href="javascript:">获取验证码</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="tr-title">短信验证码：</td>
 							<td class="tr-content content">
-								<input class="text-input short-input" type="text" placeholder="请输入手机短信收到的6位验证码" />
+								<input class="text-input short-input info-phone-code" type="text" placeholder="请输入手机短信收到的6位验证码" />
 							</td>
 							<td class="tr-tips">
 								<a class="get-code-btn question-link" href="javascript:">无法收验证码？</a>
 							</td>
 						</tr>
 					</table>
-
+					<div class="tips-words account-tips"></div>
 					<div class="account-btns">
-						<a class="account-btn" href="javascript:">保存</a>
-						<a class="account-btn" href="javascript:">取消</a>
+						<a class="account-btn info-save-btn" href="javascript:">保存</a>
+						<a class="account-btn info-cancel-btn" href="javascript:">取消</a>
 					</div>
 				</div>
 			</div>
