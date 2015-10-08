@@ -35,7 +35,7 @@
             <tr>
                 <td>企业服务费</td>
                 <td>企业用户票证快递费</td>
-                <td>15</td>
+                <td>{{{ $expressUnivalence }}}</td>
                 <td>
                     <input type="text" class="form-control" id="express-univalence" />
                 </td>
@@ -43,7 +43,7 @@
             <tr>
                 <td>企业服务费</td>
                 <td>企业用户代办服务费</td>
-                <td>10</td>
+                <td>{{{ $agencyUnivalence }}}</td>
                 <td>
                     <input type="text" class="form-control" id="agency-univalence" />
                 </td>

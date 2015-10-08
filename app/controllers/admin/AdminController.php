@@ -57,7 +57,7 @@ class AdminController extends BaseController{
 	// 修改特定用户的服务价格
 	public function changeServiceUnivalence()
 	{
-		
+		$userId = Input::get("userId");
 	}
 
 	// 修改特定用户的查询价格
