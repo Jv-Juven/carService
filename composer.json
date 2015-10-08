@@ -18,7 +18,7 @@
 			"app/commands",
 			"app/controllers",
 			"app/controllers/admin",
-			"app/controllers/Exception"
+			"app/controllers/Exception",
 			"app/models",
 			"app/database/migrations",
 			"app/database/seeds",
