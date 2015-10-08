@@ -323,284 +323,149 @@ if( Sentry::check() )
 				.....
 			]
 
-4.业务模块
-	4.1 充值
-	请求方式: POST
-	请求url: /business/recharge
+4.服务中心模块
 
-	请求参数:
-			money,					钱（单位：元）
-	返回参数:	
-			{
-				errCode,			错误信息	（业务模块1-10统一为这些错误信息）
-									1 		非法的appkey
-									2 		非法的secretkey
-									3 		非法的token
-									4		token不存在或已过期
-									6		数据库错误
-									7		远程接口错误
-									8 		与该用户对应的app信息不存在
-									9 		非法的参数错误
-									10 		账户余额不足
-									11		请填写充值金额 		
-				message,
-				balance,
-			}
+	4.1 查询模块
 
-	4.2 获取账户信息
-	请求方式: GET
-	请求url: /business/account
+		4.1.1 违章查询
+			请求方式: GET
+			请求url: /serve-center/search/api/violation
 
-	请求参数:
-
-	返回参数:
-			{
-			    "errCode": 0,		错误信息
-									1 		非法的appkey
-									2 		非法的secretkey
-									3 		非法的token
-									4		token不存在或已过期
-									6		数据库错误
-									7		远程接口错误
-									8 		与该用户对应的app信息不存在
-									9 		非法的参数错误
-									10 		账户余额不足
-
-			    "message": "xxxxxx",
-			    "account": {
-			        carUnit: "0.5",			// 查询车辆信息单价
-			        lisenceUnit: 0.5,			// 查询驾驶证记分信息单价 
-			        violationUnit: 0.12,		// 查询违章信息单价
-			        balance: 0				// 账户余额
-			    }
-			}
-
-
-
-	4.3 获取访问次数信息
-	请求方式: GET
-	请求url: /business/account/count
-	请求参数:
-
-	返回参数:
-			{
-				errCode,			错误信息
-									1 		非法的appkey
-									2 		非法的secretkey
-									3 		非法的token
-									4		token不存在或已过期
-									6		数据库错误
-									7		远程接口错误
-									8 		与该用户对应的app信息不存在
-									9 		非法的参数错误
-									10 		账户余额不足
-
-				message,
-				count:[
+			请求参数:
+					engineCode			发动机号后六位 		
+					licensePlate		车牌号码 				
+					licenseType			车辆类型 				
+										01	大型汽车
+										02	小型汽车
+										03	使馆汽车
+										04	领馆汽车
+										05	境外汽车
+										06	外籍汽车
+										07	普通摩托车
+										08	轻便摩托车
+										09	使馆摩托车
+										10	领馆摩托车
+										11	境外摩托车
+										12	外籍摩托车
+										13	低速车
+										14	拖拉机
+										15	挂车
+										16	教练汽车
+										17	教练摩托车
+										18	试验汽车
+										19	试验摩托车
+										20	临时入境汽车
+										21	临时入境摩托车
+										22	临时行驶车
+										23	警用汽车
+										24	警用摩托
+										25	原农机号牌
+										26	香港入出境车
+										27	澳门入出境车
+										31	武警号牌
+										32	军队号牌
+										99	其他号牌
+			返回参数:
 					{
-						date: "2015-09-22T16:00:00.000Z",		时间
-						type:   "violation/车辆违章信息",			查询类型
-								“license/驾驶证扣分信息”,
-								“car/车辆信息”		
-						value: 3		
-					},
-					....
-				]
-			}
-
-	4.4 修改业务单价					《后台管理员接口》
-	请求方式: POST
-	请求url: /business/account/univalence
-
-	请求参数:		
-			<<<<<<-----通过传参的方式引入|按顺序----->>>>>
-			violation			查询车辆违章信息的单价（可选）
-			lisence 			查询驾驶证扣分信息的单价（可选）
-			car 				查询车辆信息的单价（可选）
-
-	返回参数:
-			{
-			    "errCode": 0,
-			    "message": "修改业务单价",
-			    "account_info": {
-			            carUnit: "0.5",				// 查询车辆信息单价
-			        	lisenceUnit: 0.5,			// 查询驾驶证记分信息单价 
-			       		violationUnit: 0.12,		// 查询违章信息单价
-			       		balance: 0					// 账户余额
-			        }
-			    }
-			}
-
-	4.5 违章查询
-	请求方式: POST
-	请求url: /business/api/violation
-
-	请求参数:
-			<<<<<<-----通过传参的方式引入|按顺序----->>>>>
-			engineCode			发动机号后六位 		
-			licensePlate		车牌号码 				
-			licenseType			车辆类型 				
-								01	大型汽车
-								02	小型汽车
-								03	使馆汽车
-								04	领馆汽车
-								05	境外汽车
-								06	外籍汽车
-								07	普通摩托车
-								08	轻便摩托车
-								09	使馆摩托车
-								10	领馆摩托车
-								11	境外摩托车
-								12	外籍摩托车
-								13	低速车
-								14	拖拉机
-								15	挂车
-								16	教练汽车
-								17	教练摩托车
-								18	试验汽车
-								19	试验摩托车
-								20	临时入境汽车
-								21	临时入境摩托车
-								22	临时行驶车
-								23	警用汽车
-								24	警用摩托
-								25	原农机号牌
-								26	香港入出境车
-								27	澳门入出境车
-								31	武警号牌
-								32	军队号牌
-								99	其他号牌
-	返回参数:
-			{
-		    "errCode": 0,
-		    "message": "获取车辆违章信息",
-    		"violations": [
-				        {
-				            "hphm": "粤X10N07",						//车牌号码
-				            "hpzl": "02",							//号牌种类
-				            "fdjh": "A02568",						//发动机号后六位
-				            "xh": "4401267900363165",				//违法序号
-				            "wfsj": "2015-01-15 16:28:00",			//违法时间
-				            "wfbh": "4401262015161512033641",		//违法信息编号
-				            "wfdz": "广州市大学城中大东一路",			//违法地址
-				            "wfxw": "1039",							//违法代号
-				            "fkje": "200",							//罚款金额
-				            "cljgmc": "番禺大队八中队",				//处理机关名称
-				            "clbj": "1",							//处理标记，1为已处理，不等于1为未处理
-				            "jkbj": "1",							//交款标记，等于1即为已交款，不等于1为未交款
-				            "wfjfs": "0",							//违法记分数
-				            "wfxwzt": "机动车违反规定停放"				//违法行为
-				        },
-				        .....
-				]
-		}
-
-	4.6 查询驾驶证扣分信息
-	请求方式: GET
-	请求url: /business/api/license
-
-	请求参数:	
-			<<<<<<-----通过传参的方式引入|按顺序----->>>>>
-			identityID			身份证号码/驾驶证号码
-			recordID			档案号码
-
-	返回参数:
-			{
-				"errCode": 0,
-			    "message": "驾驶证扣分分数",
-			    "number": "0"					正确时返回number
-			}
-
-	4.7 查询车辆信息
-	请求方式: GET
-	请求url: /business/api/car
-
-	请求参数:
-				engineCode			发动机号后六位
-				licensePlate		车牌号码
-				licenseType			车辆类型
-	返回参数:
-			{
-			    "errCode": 0,			
-			    "message": "车辆信息",
-			    "car": [
-			        {
-			            "fdjh": "80307709",					// 发动机号后八位
-			            "yxqz": "2015-11-30 00:00:00",		// 检验合格状态
-			            "qzbfqz": "2099-12-31 00:00:00",	// 强制报废日期
-			            "zt": "G",							// 状态代号
-			            "cllx": "K33",						// 车辆类型代号
-			            "ztmc": "违法未处理",					// 状态名称
-			            "cllxmc": "小型轿车"					// 车辆类型名称
-			        }
-			    ]
-			}		
-    4.8 订单提交
-     请求方式：POST
-     请求url：/business/submit_order	
-
-     请求参数：
-     			is_delivered，				true/false
-     			car_plate_no,				车牌号码	
-     			agency_no,					办理笔数
-     			capital_sum，				本金总额
-     			service_charge_sum，			代办服务费
-     			express_fee，				快递费
-     			recipient_name，				收件人姓名
-     			recipient_addr，				收件人地址
-     			recipient_phone，			收件人手机
-     			car_engine_no，				发动机后4位
-
-     返回参数：
-     			{
-					errCode,			
-					message,
-					order:{
-							car_plate_no,				车牌号码	
-			     			agency_no,					办理笔数
-			     			capital_sum，				本金总额
-			     			service_charge_sum，			代办服务费
-			     			express_fee，				快递费
-			     			recipient_name，				收件人姓名
-			     			recipient_addr，				收件人地址
-			     			recipient_phone，			收件人手机
+					    "errCode": 0,
+					    "message": "获取车辆违章信息",
+					    "service_fee": 123
+			    		"violations": [
+						    {
+						        "hphm": "粤X10N07",						//车牌号码
+						        "hpzl": "02",							//号牌种类
+						        "fdjh": "A02568",						//发动机号后六位
+						        "xh": "4401267900363165",				//违法序号
+						        "wfsj": "2015-01-15 16:28:00",			//违法时间
+						        "wfbh": "4401262015161512033641",		//违法信息编号
+						        "wfdz": "广州市大学城中大东一路",			//违法地址
+						        "wfxw": "1039",							//违法代号
+						        "fkje": "200",							//罚款金额
+						        "cljgmc": "番禺大队八中队",				//处理机关名称
+						        "clbj": "1",							//处理标记，1为已处理，不等于1为未处理
+						        "jkbj": "1",							//交款标记，等于1即为已交款，不等于1为未交款
+						        "wfjfs": "0",							//违法记分数
+						        "wfxwzt": "机动车违反规定停放"				//违法行为
+						    },
+						    .....
+						]
 					}
 
-				}
+		4.1.2 驾驶证查询
+			请求方式: GET
+			请求url: /serve-center/search/api/license
 
-	4.9 查看违章代办信息
-	 请求方式：GET
-	 请求url：/business/violation_info
+			请求参数:	
+					identityID			身份证号码/驾驶证号码
+					recordID			档案号码
 
-	 请求参数：
+			返回参数:
+					{
+						"errCode": 0,
+					    "message": "驾驶证扣分分数",
+					    "number": "0"					正确时返回number
+					}
 
+		4.1.3 车辆查询
 
-	 返回参数：	
-	 			{
-	 				errCode,			
-					message,
+			请求方式: GET
+			请求url: /serve-center/search/api/car
 
-	 			}
+			请求参数:
+						engineCode			发动机号后六位
+						licensePlate		车牌号码
+						licenseType			车辆类型
+			返回参数:
+					{
+					    "errCode": 0,			
+					    "message": "车辆信息",
+					    "car": [
+					        {
+					            "fdjh": "80307709",					// 发动机号后八位
+					            "yxqz": "2015-11-30 00:00:00",		// 检验合格状态
+					            "qzbfqz": "2099-12-31 00:00:00",	// 强制报废日期
+					            "zt": "G",							// 状态代号
+					            "cllx": "K33",						// 车辆类型代号
+					            "ztmc": "违法未处理",					// 状态名称
+					            "cllxmc": "小型轿车"					// 车辆类型名称
+					        }
+					    ]
+					}
 
+    4.2 办理违章模块
 
+    	4.2.1 确认办理违章
 
-5.反馈模块
-	请求方式: POST
-	请求url: /user/feedback
+    		请求方式：POST
+    		请求url: /serve-center/agency/business/confirm_violation
 
-	请求参数:
-			type 					反馈类型	1＝咨询，2=建议，3=投诉
-			title					反馈标题
-			content					反馈内容
+    		请求参数:
+    					xh: [ '123', '234' ]		违章序号，数组形式
+    		返回参数:
+    					{
+    						errCode: 0,
+    						message: "ok"
+    					}
 
-	返回参数:			
-			{
-				errCode,			
-				message,
-			}
+    	4.2.2 提交订单
 
+		    请求方式：POST
+		    请求url：/serve-center/agency/business/submit_order
 
-服务器接口
+		    请求参数：
+		     			is_delivered，		    true/false
+		     			recipient_name，			收件人姓名
+		     			recipient_addr，			收件人地址
+		     			recipient_phone，			收件人手机
+
+		    返回参数：
+		     			{
+							errCode,			
+							message,
+							order_id: 'xxxxxxx'
+						}
+
+验证请求token接口
 	请求方式：GET
 	请求url：/business/auth_request_token
 

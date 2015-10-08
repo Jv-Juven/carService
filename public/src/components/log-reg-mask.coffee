@@ -145,23 +145,23 @@ personalReg = ()->
 
 	$.post "/user/c_register", {
 		login_account: regPhone.val(),
-		password: regValidateCodes.val(),
-		re_password: regPassword.val(),
-		phone_code: regRePassword.val()
+		password: regPassword.val(),
+		re_password: regRePassword.val(),
+		phone_code: regValidateCodes.val()
 	}, (msg)->
 		if msg["errCode"] isnt 0
 			regTips.val(msg["message"])
 
 
 #关闭按钮绑定事件
-closeBtn.on "click", closeMask
+closeBtn.off().on "click", closeMask
 #切换用户类型按钮绑定事件
-logMenuBtn.on "click",cutUserType
+logMenuBtn.off().on "click",cutUserType
 #”个人用户注册“按钮绑定事件
-personalRegBtn.on "click", personal
+personalRegBtn.off().on "click", personal
 
 #手机获取验证码
-getCodes.on "click", ()->
+getCodes.off().on "click", ()->
 
 	if !validate.mobile(regPhone.val())
 		regTips.val("*请正确填写手机号码")
@@ -175,13 +175,13 @@ getCodes.on "click", ()->
 			return
 
 #"登录"按钮绑定事件
-submitBtn.on "click", userLogin
+submitBtn.off().on "click", userLogin
 
 #"注册"按钮绑定事件
-regBtn.on "click", personalReg
+regBtn.off().on "click", personalReg
 
 #"取消"按钮绑定事件
-cancelBtn.on "click", closeMask
+cancelBtn.off().on "click", closeMask
 
 
 ###
@@ -263,7 +263,7 @@ resetPsd = ()->
 
 
 #邮箱获取验证码
-emailCodesBtn.on "click", ()->
+emailCodesBtn.off().on "click", ()->
 
 	if !validate.email(emailInput.val())
 		warnTips.val("*请正确填写邮箱")
@@ -277,7 +277,7 @@ emailCodesBtn.on "click", ()->
 			warn.alert msg["message"]
 
 #手机获取验证码
-phoneCodesBtn.on "click", ()->
+phoneCodesBtn.off().on "click", ()->
 
 	if !validate.mobile(phoneInput.val())
 		warnTips.val("*请正确填写手机号码")
@@ -291,13 +291,13 @@ phoneCodesBtn.on "click", ()->
 			warn.alert msg["message"]
 
 #修改密码
-saveBtn.on "click", resetPsd
+saveBtn.off().on "click", resetPsd
 
 #"取消"按钮事件绑定
-cancelBtn.on "click", closeReg
+cancelBtn.off().on "click", closeReg
 
 #"忘记密码"框关闭按钮事件绑定
-resetClose.on "click", closeReg
+resetClose.off().on "click", closeReg
 
 ###
 # 忘记密码框 END

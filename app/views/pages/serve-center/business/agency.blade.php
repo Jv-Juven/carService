@@ -31,7 +31,7 @@
 						<td class="details-title">
 							代办机构：
 						</td>
-						<td class="details-content">
+						<td  class="details-content">
 							[公司名]联系人姓名
 						</td>
 					</tr>
@@ -40,7 +40,7 @@
 							车牌号码：
 						</td>
 						<td class="details-content">
-							粤X1234 <span class="plate-col">蓝牌</span>
+							<span id="plate_num">粤X1234</span><span class="plate-col">蓝牌</span>
 						</td>
 					</tr>
 					<tr class="details-tr">
@@ -48,7 +48,7 @@
 							代理笔数：
 						</td>
 						<td class="details-content">
-							2笔
+							<span id="agency_count">2</span>笔
 						</td>
 					</tr>
 					<tr class="details-tr">
@@ -64,7 +64,7 @@
 							服务费：
 						</td>
 						<td class="details-content">
-							￥ 20.0 元
+							￥ <span id="charge">20.0</span> 元
 						</td>
 					</tr>
 					<tr class="details-tr">
@@ -73,7 +73,7 @@
 						</td>
 						<td class="details-content">
 							<label for="noneed">
-							<input type="radio" id="noneed" name="need" />
+							<input type="radio" id="noneed" checked="true" name="need" />
 								不需要
 							</label>
 							<label for="express">
@@ -87,7 +87,7 @@
 							票证快递费：
 						</td>
 						<td class="details-content">
-							￥ 0 元
+							￥ <span id="express_fee">0</span> 元
 						</td>
 					</tr>
 					<tr class="details-tr">
@@ -95,7 +95,7 @@
 							费用总计：
 						</td>
 						<td class="details-content">
-							￥ 420.0 元
+							￥ <span id="sum">420.0</span> 元
 						</td>
 					</tr>
 					<tr class="details-blank"></tr>
@@ -114,28 +114,28 @@
 					<tr class="table-content">
 						<td class="content-title">收件人姓名：</td>
 						<td class="content-input">
-							<input type="text" placeholder="请输入接受违章办理票证的收件人姓名"/>
+							<input type="text" id="name" placeholder="请输入接受违章办理票证的收件人姓名"/>
 						</td>
 					</tr>
 
 					<tr class="table-content">
-						<td class="content-title">收件人姓名：</td>
+						<td class="content-title">收件人手机：</td>
 						<td class="content-input">
-							<input type="text" placeholder="请输入接受违章办理票证的收件人姓名"/>
+							<input type="text" id="phone" placeholder="用于接受办理进度短信或紧急联系"/>
 						</td>
 					</tr>
 					<tr class="table-content">
-						<td class="content-title">收件人姓名：</td>
+						<td class="content-title">收件地址：</td>
 						<td class="content-input">
-							<input type="text" placeholder="请输入接受违章办理票证的收件人姓名"/>
+							<input type="text" id="address" placeholder="签收违章办理凭证的地址"/>
 						</td>
 					</tr>
-					<tr class="table-content">
-						<td class="content-title">收件人姓名：</td>
+					<!-- <tr class="table-content">
+						<td class="content-title">发动机号后4位：</td>
 						<td class="content-input">
-							<input type="text" placeholder="请输入接受违章办理票证的收件人姓名"/>
+							<input type="text" id="engine_number" placeholder="用于快速缴纳罚款"/>
 						</td>
-					</tr>
+					</tr> -->
 					<tr class="agency-form-tips">
 						<td colspan="2">
 							<span class="tips-title">温馨提示：</span>为确保您能及时收到违章代办后的相关凭证，请务必留下手机号码及收取凭证的详细地址。
@@ -145,7 +145,8 @@
 
 			</div>
 			<!-- 提交按钮 START -->
-			<div class="submit-btn">
+			<div class="tips-words agency-warn-tips"></div>
+			<div class="submit-btn agency-btn">
 				<a href="javascript:">提交订单</a>
 			</div>
 			<!-- 提交按钮 END -->
