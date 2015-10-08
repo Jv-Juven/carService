@@ -44,17 +44,17 @@ class FeeType extends Eloquent{
         ]
     ];
 
-    public function get_recharge_code(){
+    public static function get_recharge_code(){
 
         return static::$type_codes[ 'recharge' ];
     }
 
-    public function get_express_code(){
+    public static function get_express_code(){
 
         return static::$type_codes[ 'express' ];
     }
 
-    public function get_service_code(){
+    public static function get_service_code(){
 
         return static::$type_codes[ 'service' ];
     }

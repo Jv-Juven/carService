@@ -96,27 +96,34 @@ class AdminBusinessCenterPageController extends BaseController{
 		return View::make('pages.admin.business-center.change-query-univalence');
 	}
 
-	// 
 	public function changeServiceUnivalence()
 	{
-		return View::make('pages.admin.business-center.change-service-univalence');
+		$userId = Input::get("userId");
+
+		$agencyUnivalence = BusinessController::getServiceFee($userId);
+		$expressUnivalence = BusinessController::getExpressFee($userId);
+
+		return View::make('pages.admin.business-center.change-service-univalence', [
+			"expressUnivalence" => $expressUnivalence,
+			"agencyUnivalence" => $agencyUnivalence
+		]);
 	}
 
 	// 
 	public function changeDefaultQueryUnivalence()
 	{
-		$violationUnivalence = DB::table('fee_types')->select('number')->where("category", "20")->where("item", "2")->first();
-	    $licenseUnivalence = DB::table('fee_types')->select('number')->where("category", "20")->where("item", "1")->first();
-	    $carUnivalence = DB::table('fee_types')->select('number')->where("category", "30")->where("item", "2")->first();
+		// $violationUnivalence = DB::table('fee_types')->select('number')->where("category", "20")->where("item", "2")->first();
+	 //    $licenseUnivalence = DB::table('fee_types')->select('number')->where("category", "20")->where("item", "1")->first();
+	 //    $carUnivalence = DB::table('fee_types')->select('number')->where("category", "30")->where("item", "2")->first();
 
-	    
 
-		return View::make('pages.admin.business-center.change-default-query-univalence', [
-			"companyExpressUnivalence" => $companyExpressUnivalence->number,
-			"personExpressUnivalence" => $personExpressUnivalence->number,
-			"companyAgencyUnivalence" => $companyAgencyUnivalence->number,
-			"personAgencyUnivalence" => $personAgencyUnivalence->number
-		]);
+
+		// return View::make('pages.admin.business-center.change-default-query-univalence', [
+		// 	"companyExpressUnivalence" => $companyExpressUnivalence->number,
+		// 	"personExpressUnivalence" => $personExpressUnivalence->number,
+		// 	"companyAgencyUnivalence" => $companyAgencyUnivalence->number,
+		// 	"personAgencyUnivalence" => $personAgencyUnivalence->number
+		// ]);
 	}
 
 	// 
