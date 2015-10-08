@@ -203,13 +203,13 @@ class BusinessController extends BaseController{
 	 *
 	 * @return 	array
 	 */
-	public static function get_default_univalence( $token ){
+	public static function get_default_univalence( ){
 
 		$http_params = [
 			'method'	=> 'GET',
 			'uri'		=> '/account/default-univalence',
 			'query'		=> [
-				'token'	=> $token // use TokenController::getAccessToken()
+				'token'	=> static::create_request_token()
 			]
 		];
 
@@ -224,14 +224,14 @@ class BusinessController extends BaseController{
 	 * @param 	$query 	array 	[ 'violation' => 0.2, 'license' => 0.2, 'car' => 0.6 ]
 	 * @return 	array
 	 */
-	public static function modify_default_univalence( $query, $token ){
+	public static function modify_default_univalence( $query ){
 
 		$http_params = [
 			'method'	=> 'POST',
 			'uri'		=> '/account/default-univalence',
 			'query'		=> [
 				'params'	=> $query,
-				'token'		=> $token // use TokenController::getAccessToken()
+				'token'		=> static::create_request_token()
 			]
 		];
 
@@ -246,9 +246,9 @@ class BusinessController extends BaseController{
 	 * @param 	$query 	array 	[ 'violation' => 0.2, 'license' => 0.2, 'car' => 0.6 ]
 	 * @return 	array
 	 */
-	public static function modify_business_user_univalence( $query, $token ){
+	public static function modify_business_user_univalence( $query ){
 
-		$query[ 'token' ] = $token;
+		$query[ 'token' ] = static::create_request_token();
 
 		$http_params = [
 			'method'	=> 'POST',
