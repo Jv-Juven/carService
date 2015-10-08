@@ -8,7 +8,7 @@ class AgencyController extends BaseController{
             return Response::json([ 'errCode' => 1, 'message' => '请先查询' ]);
         }
 
-        $sequences = Input::get( 'seq' );
+        $sequences = Input::get( 'xh' );
 
         if ( empty( $sequences ) ){
             return Response::json([ 'errCode' => 2, 'message' => '请选择需要办理的订单' ])

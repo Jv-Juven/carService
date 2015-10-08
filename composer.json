@@ -8,7 +8,7 @@
 		"laravel/framework": "4.2.*",
 		"cartalyst/sentry": "2.1.*",
 		"gregwar/captcha": "1.*",
-		"lokielse/omnipay-alipay": "dev-master"
+		"guzzlehttp/guzzle": "~6.0"
 	},
 	"require-dev":{
 		"way/generators": "~2.0"
@@ -18,7 +18,7 @@
 			"app/commands",
 			"app/controllers",
 			"app/controllers/admin",
-			"app/controllers/Exception"
+			"app/controllers/Exception",
 			"app/models",
 			"app/database/migrations",
 			"app/database/seeds",
@@ -41,9 +41,5 @@
 	"config": {
 		"preferred-install": "dist"
 	},
-	"minimum-stability": "stable",
-	"repositories": [
-        {"type": "composer", "url": "https://toran.reimu.io/repo/packagist/" },
-        {"packagist": false}
-    ]
+	"minimum-stability": "stable"
 }
