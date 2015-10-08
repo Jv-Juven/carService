@@ -427,7 +427,7 @@ class UserController extends BaseController{
 		$validation = Validator::make($data, $rules);
 
 		if( $validation->fails())
-			return Response::json('errCode'=>23, 'message'=>'参数填写不完整');
+			return Response::json(array('errCode'=>23, 'message'=>'参数填写不完整'));
 
 		$business_user = New BusinessUser;
 		$business_user->operational_phone 	= $operational_phone;
@@ -753,7 +753,7 @@ class UserController extends BaseController{
 	//显示企业注册信息
 	public function displayCompanyRegisterInfo()
 	{
-		$display_code = Input::get('display_code')
+		$display_code = Input::get('display_code');
 
 		$user = Sentry::getUser();
 		if ($user->checkResetPasswordCode($display_code))
