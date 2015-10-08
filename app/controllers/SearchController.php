@@ -65,7 +65,7 @@ class SearchController extends BaseController{
 
             return Response::json([ 'errCode' => $e->getCode(), 'message' => $e->getMessage() ]);
         }
-
+        
         $service_fee = BusinessController::getServiceFee();
 
         return Response::json([ 'errCode' => 0, 'violations' => $violation_result, 'service_fee' => $service_fee ]);
