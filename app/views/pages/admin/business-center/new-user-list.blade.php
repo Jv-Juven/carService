@@ -21,38 +21,28 @@
         		<th>帐号状态</th>
         		<th>操作</th>
         	</tr>
-        	<tr>
-        		<td class="username">广州紫睿科技有限公司</td>
-        		<td class="license-code">123456789011121</td>
-        		<td class="bank-account">
-                    6222026542378654219 <br/>
-                    开户银行：工商银行 <br/>
-                    开户网点：广东
-                </td>
-        		<td class="status">未审核</td>
-        		<td class="operation">
-        			<button type="button" class="btn btn-primary">审核</button>
-        		</td>
-        	</tr>
-        	<tr>
-                <td class="username">广州紫睿科技有限公司</td>
-                <td class="license-code">123456789011121</td>
+            @foreach ($newUsers as $newUser)
+            <tr>
+                <td class="username">{{{ $newUser->business_info->business_name }}}</td>
+                <td class="license-code">{{{ $newUser->business_info->business_licence_no }}}</td>
                 <td class="bank-account">
-                    6222026542378654219 <br/>
-                    开户银行：工商银行 <br/>
-                    开户网点：广东
+                    对公账户：{{{ $newUser->business_info->bank_account }}} <br/>
+                    开户银行：{{{ $newUser->business_info->deposit_bank }}} <br/>
+                    开户网点：{{{ $newUser->business_info->bank_outlets }}}
                 </td>
                 <td class="status">未审核</td>
                 <td class="operation">
-                    <button type="button" class="btn btn-primary">审核</button>
+                    <a href="/admin/business-center/user-info?user_id={{{ $newUser->user_id }}}">
+                        <button type="button" class="btn btn-primary">审核</button>
+                    </a>
                 </td>
             </tr>
+            @endforeach
 		</table>
 		<nav>
-		 	<ul class="pager">
-		    	<li><a href="#">上一页</a></li>
-		    	<li><a href="#">下一页</a></li>
-		  	</ul>
+            @if ($count < $totalCount)
+                {{ $newUsers->links() }}
+            @endif
 		</nav>
     </div>
 @stop

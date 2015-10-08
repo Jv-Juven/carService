@@ -284,51 +284,74 @@ Route::get('test',function(){
 	// return uniqid('hyxx',true);
 });
 
-// 后台管理
+// 后台管理-页面
 Route::group(array('prefix' => 'admin'), function() {
 
 	// 客服中心
 	Route::group(array('prefix' => 'service-center'), function() {
 		// 全部
-		Route::get('/all', 'adminServiceCenterPageController@all');
+		Route::get('/all', 'AdminServiceCenterPageController@all');
 		// 已处理
-		Route::get('/treated', 'adminServiceCenterPageController@treated');
+		Route::get('/treated', 'AdminServiceCenterPageController@treated');
 		// 未处理
-		Route::get('/untreated', 'adminServiceCenterPageController@untreated');
+		Route::get('/untreated', 'AdminServiceCenterPageController@untreated');
 	});
 
 	// 操作中心
 	Route::group(array('prefix' => 'business-center'), function() {
 		// 企业用户完整信息
-		Route::get('/user-info', 'adminBusinessCenterPageController@userInfo');
+		Route::get('/user-info', 'AdminBusinessCenterPageController@userInfo');
 		// 企业用户列表
-		Route::get('/user-list', 'adminBusinessCenterPageController@userList');
+		Route::get('/user-list', 'AdminBusinessCenterPageController@userList');
 		// 企业用户搜索
-		Route::get('/search-user', 'adminBusinessCenterPageController@searchUser');
+		Route::get('/search-user', 'AdminBusinessCenterPageController@searchUser');
 		// 新用户列表
-		Route::get('/new-user-list', 'adminBusinessCenterPageController@newUserList');
+		Route::get('/new-user-list', 'AdminBusinessCenterPageController@newUserList');
 		// 审核企业用户
-		Route::get('/check-new-user', 'adminBusinessCenterPageController@checkNewUser');
+		Route::get('/check-new-user', 'AdminBusinessCenterPageController@checkNewUser');
 		// 修改用户状态
-		Route::get('/change-user-status', 'adminBusinessCenterPageController@changeUserStatus');
+		Route::get('/change-user-status', 'AdminBusinessCenterPageController@changeUserStatus');
 		// 修改用户查询单价
-		Route::get('/change-query-univalence', 'adminBusinessCenterPageController@changeQueryUnivalence');
+		Route::get('/change-query-univalence', 'AdminBusinessCenterPageController@changeQueryUnivalence');
 		// 修改用户服务单价
-		Route::get('/change-service-univalence', 'adminBusinessCenterPageController@changeServiceUnivalence');
+		Route::get('/change-service-univalence', 'AdminBusinessCenterPageController@changeServiceUnivalence');
 		// 修改默认查询单价
-		Route::get('/change-default-query-univalence', 'adminBusinessCenterPageController@changeDefaultQueryUnivalence');
+		Route::get('/change-default-query-univalence', 'AdminBusinessCenterPageController@changeDefaultQueryUnivalence');
 		// 修改默认服务单价
-		Route::get('/change-default-service-univalence', 'adminBusinessCenterPageController@changeDefaultServiceUnivalence');
+		Route::get('/change-default-service-univalence', 'AdminBusinessCenterPageController@changeDefaultServiceUnivalence');
 	});
 
 	// 账户设置
 	Route::group(array('prefix' => 'admin-account'), function() {
 		// 后台管理员账户设置
-		Route::get('/user-info', 'adminAccountPageController@userInfo');
+		Route::get('/user-info', 'AdminAccountPageController@userInfo');
 	});
 });
 
+// 后台管理-接口
+Route::group(array('prefix' => 'admin'), function() {
 
+	// 查询用户信息
+	Route::get('/search-user', 'AdminController@searchUser');
+
+	// 设置转账备注码
+	Route::post('/set-remark-code', 'AdminController@setRemarkCode');
+
+	// 修改用户状态
+	Route::post('/change-user-status', 'AdminController@changeUserStatus');
+
+	// 修改默认服务价格
+	Route::post('/change-default-service-univalence', 'AdminController@changeDefaultServiceUnivalence');
+
+	// 修改默认查询价格
+	Route::post('/change-default-query-univalence', 'AdminController@changeDefaultServiceUnivalence');
+
+	// 修改特定用户的服务价格
+	Route::post('/change-service-univalence', 'AdminController@changeServiceUnivalence');
+
+	// 修改特定用户的查询价格
+	Route::post('/change-query-univalence', 'AdminController@changeServiceUnivalence');
+});
 
 
 

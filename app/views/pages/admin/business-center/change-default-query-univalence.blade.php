@@ -37,7 +37,7 @@
                 <td>车辆违章查询</td>
                 <td>0.12</td>
                 <td>
-                    <input type="text" class="form-control" value="0.08" />
+                    <input type="text" class="form-control" id="violation-univalence" />
                 </td>
             </tr>
             <tr>
@@ -45,7 +45,7 @@
                 <td>驾驶证查询</td>
                 <td>0.5</td>
                 <td>
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" id="license-univalence" />
                 </td>
             </tr>
             <tr>
@@ -53,7 +53,7 @@
                 <td>机动车信息查询</td>
                 <td>0.5</td>
                 <td>
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" id="car-univalence" />
                 </td>
             </tr>
         </table>
@@ -64,5 +64,6 @@
 
 @section('js')
     @parent
+    <script type="text/javascript" src="/dist/js/pages/admin/change-default-query-univalence.js"></script>
 @stop
     
