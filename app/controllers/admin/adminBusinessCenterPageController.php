@@ -72,7 +72,16 @@ class AdminBusinessCenterPageController extends BaseController{
 	// 审核企业用户
 	public function checkNewUser()
 	{
-		return View::make('pages.admin.business-center.check-new-user');
+		$userId = Input::get("user_id");
+
+		$user = User::where("user_id", "=", $userId)->with("business_info")->get();
+
+		if(count($user) == 0)
+			return View::make("errors.user-missing");
+
+		return View::make('pages.admin.business-center.check-new-user', [
+			"user" => $user[0]
+		]);
 	}
 
 	// 

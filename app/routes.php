@@ -326,6 +326,24 @@ Route::group(array('prefix' => 'admin'), function() {
 
 	// 查询用户信息
 	Route::get('/search-user', 'AdminController@searchUser');
+
+	// 设置转账备注码
+	Route::post('/set-remark-code', 'AdminController@setRemarkCode');
+
+	// 修改用户状态
+	Route::post('/change-user-status', 'AdminController@changeUserStatus');
+
+	// 修改默认服务价格
+	Route::post('/change-default-service-univalence', 'AdminController@changeDefaultServiceUnivalence');
+
+	// 修改默认查询价格
+	Route::post('/change-default-query-univalence', 'AdminController@changeDefaultServiceUnivalence');
+
+	// 修改特定用户的服务价格
+	Route::post('/change-service-univalence', 'AdminController@changeServiceUnivalence');
+
+	// 修改特定用户的查询价格
+	Route::post('/change-query-univalence', 'AdminController@changeServiceUnivalence');
 });
 
 

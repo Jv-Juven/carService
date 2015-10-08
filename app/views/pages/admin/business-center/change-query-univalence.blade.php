@@ -60,5 +60,6 @@
 
 @section('js')
     @parent
+    <script type="text/javascript" src="/dist/js/pages/admin/change-query-univalence.js"></script>
 @stop
     

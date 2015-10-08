@@ -68,5 +68,6 @@
 
 @section('js')
     @parent
+    <script type="text/javascript" src="/dist/js/pages/admin/change-service-univalence.js"></script>
 @stop
     

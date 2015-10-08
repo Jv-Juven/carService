@@ -37,7 +37,7 @@
                 <td>企业用户票证快递费</td>
                 <td>15</td>
                 <td>
-                    <input type="text" class="form-control" value="10" />
+                    <input type="text" class="form-control" id="express-univalence" />
                 </td>
             </tr>
             <tr>
@@ -45,7 +45,7 @@
                 <td>企业用户代办服务费</td>
                 <td>10</td>
                 <td>
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" id="agency-univalence" />
                 </td>
             </tr>
         </table>
@@ -56,5 +56,6 @@
 
 @section('js')
     @parent
+    <script type="text/javascript" src="/dist/js/pages/admin/change-default-service-univalence.js"></script>
 @stop
     

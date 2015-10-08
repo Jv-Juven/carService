@@ -14,13 +14,14 @@
         <h4>企业用户审核</h4>
         <hr />
         <form class="form-inline">
+            <input type="hidden" id="user-id" value="{{{ $user->user_id }}}">
             <div class="form-group">
                 <label for="company-name">企业名称：</label>
-                <span>广州车尚车务服务有限公司</span>
+                <span>{{{ $user->business_info->business_name }}}</span>
             </div>
             <div class="form-group">
                 <label for="transfer-code">打款备注码：</label>
-                <input type="text" id="transfer-code" class="form-control" placeholder="请输入六位打款验证码"/>
+                <input type="text" id="remark-code" class="form-control" placeholder="请输入六位打款验证码"/>
             </div>
             <div class="form-group">
                 <label for="company-name">说明：</label>
@@ -34,5 +35,6 @@
 
 @section('js')
     @parent
+    <script type="text/javascript" src="/dist/js/pages/admin/check-new-user.js"></script>
 @stop
     
