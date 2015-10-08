@@ -33,7 +33,7 @@ Route::group(array('prefix'=>'user'), function(){
 	//B,C端登录
 	Route::post('login','UserController@login');
 	//C端用户注册-获取手机验证码
-	Route::get('phone_code','UserController@getPhoneCode');
+	Route::post('phone_code','UserController@getPhoneCode');
 	//C端用户注册－密码页
 	Route::post('c_register','UserController@cSiteRegister');
 	
