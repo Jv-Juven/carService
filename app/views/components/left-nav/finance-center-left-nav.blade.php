@@ -1,4 +1,4 @@
-<div class="left-nav">
+<div class="left-nav" id="finance-center-left-nav">
     <div class="nav">
         <ul class="nav-first">
             <li class="li">
@@ -10,7 +10,7 @@
                 </a>
                 <ul class="nav-sec">
                     <li>
-                        <a href="/finance-center/cost-manage/overview">
+                        <a class="nav-item" href="/finance-center/cost-manage/overview">
                             <i>•</i>
                             概览
                         </a>
@@ -18,8 +18,8 @@
                             <img src="/images/components/nav_arrow.png">
                         </i>
                     </li>
-                    <li class="active">
-                        <a href="/finance-center/cost-manage/cost-detail">
+                    <li class="">
+                        <a class="nav-item" href="/finance-center/cost-manage/cost-detail">
                             <i>•</i>
                             费用明细
                         </a>
@@ -28,7 +28,7 @@
                         </i>
                     </li>
                     <li>
-                        <a href="/finance-center/cost-manage/refund-record">
+                        <a class="nav-item" href="/finance-center/cost-manage/refund-record">
                             <i>•</i>
                             退款记录
                         </a>
@@ -47,7 +47,7 @@
                 </a>
                 <ul class="nav-sec">
                     <li>
-                        <a href="/finance-center/recharge">
+                        <a class="nav-item" href="/finance-center/recharge">
                             <i>•</i>
                             充值
                         </a>

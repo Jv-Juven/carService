@@ -1,4 +1,4 @@
-<div class="left-nav">
+<div class="left-nav" id="account-center-left-nav">
 	<div class="nav">
 		<ul class="nav-first">
 			<li class="li">
@@ -10,7 +10,7 @@
 				</a>
 				<ul class="nav-sec">
 					<li>
-						<a href="/business/account">
+						<a class="nav-item" href="/business/account">
 							<i>•</i>
 							账号信息
 						</a>
@@ -29,7 +29,7 @@
 				</a>
 				<ul class="nav-sec">
 					<li>
-						<a href="/">
+						<a class="nav-item" href="/">
 							<i>•</i>
 							开发者信息
 						</a>
