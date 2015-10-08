@@ -1,5 +1,7 @@
 <?php
 
 return array(
-		'server' => 'http://127.0.0.1:8888',
+    'server'        => 'http://127.0.0.1:8888',
+    'app_key'       => '',
+    'app_secret'    => ''
 );

@@ -137,6 +137,66 @@ if( Sentry::check() )
 				business_licence_no, 			营业执照注册号
 			}
 
+	1.11 修改运营者信息－获取运营者手机验证码
+	 请求方式：GET
+	 请求url：/user/operational_phone_code
+
+	 请求参数：	
+	 		 telephone 				手机号
+
+
+	 返回参数：
+	 		{
+				errCode,			0返回正常
+ 				message,			错误信息
+			}
+
+	1.12 B端用户-修改运营者信息-发送邮箱验证码
+ 	 请求方式：GET
+ 	 请求url：/user/update_operator_code
+
+ 	 请求参数：
+
+ 	 返回参数：
+ 	 		{
+				errCode,			0返回正常
+ 				message,			错误信息
+			}
+
+	1.12 修改运营者信息－保存
+	 请求方式：POST
+	 请求url：/user/save_operator_info
+
+	 请求参数：
+	 		 email_code 			  	 邮箱验证码
+	 		 operational_phone 		 	 手机号码
+	 		 phone_code 				 手机验证码
+	 		 operational_name			 运营者姓名
+	 		 operational_card_no		 运营者身份证号码
+	 		 id_card_front_scan_path	 身份证正面扫描件
+	 		 id_card_back_scan_path		 身份证反面扫描件
+
+	 返回参数：
+	 		{
+				errCode,			0返回正常
+ 				message,			错误信息
+			}
+
+	1.13 B/C端登录
+	 请求方式：POST
+	 请求url：/user/login
+
+	 请求参数：
+	 		login_account				邮箱或手机
+	 		password 					密码
+
+	 返回参数：
+	 		{
+				errCode,			0返回正常
+ 				message,			错误信息
+			}
+
+
 2. C端用户模块
 	1. 注册－获取手机验证码
 	 请求方式: POST
@@ -377,9 +437,9 @@ if( Sentry::check() )
 
 	请求参数:
 			<<<<<<-----通过传参的方式引入|按顺序----->>>>>
-			engineCode			发动机号后六位
-			licensePlate		车牌号码
-			licenseType			车辆类型
+			engineCode			发动机号后六位 		
+			licensePlate		车牌号码 				
+			licenseType			车辆类型 				
 								01	大型汽车
 								02	小型汽车
 								03	使馆汽车
@@ -542,7 +602,7 @@ if( Sentry::check() )
 
 服务器接口
 	请求方式：GET
-	请求url：/business/auth
+	请求url：/business/auth_request_token
 
 	请求参数：	
 			token  					业务服务器token

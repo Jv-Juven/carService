@@ -28,7 +28,24 @@ class AdminController extends BaseController{
 	// 修改默认服务价格
 	public function changeDefaultServiceUnivalence()
 	{
-		
+		$companyExpressUnivalence = Input::get("companyExpressUnivalence");
+		$personExpressUnivalence = Input::get("personExpressUnivalence");
+		$companyAgencyUnivalence = Input::get("companyAgencyUnivalence");
+		$personAgencyUnivalence = Input::get("personAgencyUnivalence");
+
+		try {
+			DB::transaction(function() use($companyExpressUnivalence, $personExpressUnivalence, $companyAgencyUnivalence, $personAgencyUnivalence)
+			{
+			    DB::table('fee_types')->where("category", "=", "20")->where("item", "=", "2")->update(["number" => $companyExpressUnivalence]);
+			    DB::table('fee_types')->where("category", "=", "20")->where("item", "=", "1")->update(["number" => $personExpressUnivalence]);
+			    DB::table('fee_types')->where("category", "=", "30")->where("item", "=", "2")->update(["number" => $companyAgencyUnivalence]);
+			    DB::table('fee_types')->where("category", "=", "30")->where("item", "=", "1")->update(["number" => $personAgencyUnivalence]);
+			});
+		} catch(Exception $e) {
+			return Response::json(array('errCode' => 1, "errMsg" => "修改失败"));
+		}
+
+		return Response::json(array('errCode' => 0));
 	}
 
 	// 修改默认查询价格
@@ -40,7 +57,7 @@ class AdminController extends BaseController{
 	// 修改特定用户的服务价格
 	public function changeServiceUnivalence()
 	{
-		
+		$userId = Input::get("userId");
 	}
 
 	// 修改特定用户的查询价格

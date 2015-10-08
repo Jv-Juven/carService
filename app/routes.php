@@ -44,12 +44,17 @@ Route::group(array('prefix'=>'user'), function(){
 		Route::post('info_register', 'UserController@informationRegister');
 		//B端用户注册-意外退出后发送验证信息再次发送信息到邮箱
 		Route::get('send_token_to_email','UserController@sendTokenToEmail');
-		//B端用户注册－运营人员手机验证码
-		Route::get('operational_phone_code','UserController@operationalPhoneCode');
 		//B端用户打款备注码
 		Route::post('money_remark_code','UserController@moneyRemarkCode');
 		//显示企业信息
 		Route::post('display_company_info','UserController@displayCompanyRegisterInfo');
+		//B端用户注册/修改运营者信息－运营人员手机验证码
+		Route::get('operational_phone_code','UserController@operationalPhoneCode');
+		//B端用户-修改运营者信息-发送邮箱验证码
+		Route::get('update_operator_code','UserController@updateOperatorCode');
+		//B端用户－修改运营者信息－保存
+		Route::post('save_operator_info','UserController@saveOperatorInfo');
+
 
 		//B端用户邮箱注册验证通过后跳转到邮箱激活页面
 		Route::get('b_active','UserPageController@emailActivePage');
@@ -81,6 +86,7 @@ Route::group(array('prefix'=>'account-center'),function(){
 });
 
 //服务中心
+/*
 Route::group(array('prefix'=>'serve-center'),function(){
 	//违章查询
 	Route::get('violation','ServerCenterPageController@violation');
@@ -93,6 +99,7 @@ Route::group(array('prefix'=>'serve-center'),function(){
 	//违章代办
 	Route::get('indent-agency','ServerCenterPageController@indentAgency');
 });
+*/
 
 //业务逻辑
 /*
@@ -119,6 +126,8 @@ Route::group(array('prefix'=>'business','before'=>'auth.user.isIn'),function(){
 	Route::get('violation_info','BusinessController@trafficViolationInfo');
 });
 */
+
+Route::get( 'business/auth_request_token', 'BusinessController@auth_request_token' );
 
 // 服务中心
 Route::group([ 'prefix' => 'serve-center', 'before' => 'auth.user.isIn' ], function(){
@@ -205,7 +214,7 @@ Route::group([ 'prefix' => 'serve-center', 'before' => 'auth.user.isIn' ], funct
 });
 
 // 消息中心
-Route::group([ 'prefix'=>'message-center' ], function(){
+Route::group([ 'prefix' => 'message-center' ], function(){
 
 	// 消息模块
 	Route::group([ 'prefix' => 'message' ], function(){
