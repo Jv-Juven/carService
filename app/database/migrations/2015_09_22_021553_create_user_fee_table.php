@@ -28,7 +28,7 @@ class CreateUserFeeTable extends Migration {
 			
 			/*
 			 * 主键之一 & 外键
-			 * 		约束: fee_types表item_id字段
+			 * 		约束: fee_types表id字段
 			 */
 			$table->integer('fee_type_id')
 			 	  ->unsigned();
@@ -40,9 +40,9 @@ class CreateUserFeeTable extends Migration {
 		 		  ->onUpdate('cascade'); 
 
 			/*
-			 * 设置联合主键: (user_id, item_id) 
+			 * 设置联合主键: (user_id, fee_type_id) 
 			 */
-			$table->primary( 'user_id' );
+			$table->primary(['user_id', 'fee_type_id']);
 
 			/*
 			 * 费用
