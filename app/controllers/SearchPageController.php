@@ -14,6 +14,6 @@ class SearchPageController extends BaseController{
 
     public function car(){
 
-        return View::make( 'pages.serve-center.data.car' );
+        return View::make( 'pages.serve-center.data.cars' );
     }
 }
