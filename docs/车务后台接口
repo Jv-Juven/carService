@@ -474,6 +474,7 @@ if( Sentry::check() )
 			{
 		    "errCode": 0,
 		    "message": "获取车辆违章信息",
+    		"service_fee" : 服务费
     		"violations": [
 				        {
 				            "hphm": "粤X10N07",						//车牌号码
