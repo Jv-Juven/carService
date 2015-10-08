@@ -9,7 +9,6 @@ phone = $("#phone")
 address = $("#address")
 engineNumber = $("#engine_number")
 
-# plate_num = $("#plate_num")
 agency_count = $("#agency_count")
 express = $("#express")
 plate_num = $("#plate_num").text() + $(".plate-col").text()
@@ -37,23 +36,17 @@ submit = ()->
 			agencyWarnTips.text "*请输入收件人地址"
 			return
 
-		if (!validate.engineNum(engineNumber.val())) || (engineNumber.val().length isnt 4)
-			agencyWarnTips.text "*请输入发动机号后4位"
-			return
+		# if (!validate.engineNum(engineNumber.val())) || (engineNumber.val().length isnt 4)
+		# 	agencyWarnTips.text "*请输入发动机号后4位"
+		# 	return
 
 	agencyWarnTips.text(" ")
 
-	$.post "/business/submit_order", {
+	$.post "/serve-center/agency/business/", {
 		is_delivered: express.prop("checked"),
-		car_plate_no: plate_num,
-		agency_no: agency_count.text(),
-		capital_sum: sum.text(),
-		service_charge_sum: charge.text(),
-		express_fee: express_fee.text(),
 		recipient_name: name.val(),
 		recipient_addr: phone.val(),
 		recipient_phone: address.val(),
-		car_engine_no:  engineNumber.val()
 	}, (msg)->
 
 		if msg["errCode"] isnt 0 

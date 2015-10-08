@@ -145,9 +145,9 @@ personalReg = ()->
 
 	$.post "/user/c_register", {
 		login_account: regPhone.val(),
-		password: regValidateCodes.val(),
-		re_password: regPassword.val(),
-		phone_code: regRePassword.val()
+		password: regPassword.val(),
+		re_password: regRePassword.val(),
+		phone_code: regValidateCodes.val()
 	}, (msg)->
 		if msg["errCode"] isnt 0
 			regTips.val(msg["message"])

@@ -454,7 +454,7 @@ if( Sentry::check() )
 		    请求url：/serve-center/agency/business/submit_order
 
 		    请求参数：
-		     			is_delivered，				true/false
+		     			is_delivered，		    true/false
 		     			recipient_name，			收件人姓名
 		     			recipient_addr，			收件人地址
 		     			recipient_phone，			收件人手机
