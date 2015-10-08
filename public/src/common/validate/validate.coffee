@@ -33,4 +33,8 @@ class validate
 		preg = /[a-zA-Z0-9]{4,}/
 		return preg.test str
 
+	engineNum: (str)->
+		preg = /[a-zA-Z0-9]{4}/
+		return preg.test str
+
 module.exports = validate
