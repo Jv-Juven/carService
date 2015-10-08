@@ -1,40 +1,6 @@
 <?php
 
 class SearchController extends BaseController{
-
-    protected static $common_user_search_limit = 2;
-
-    // 仅针对普通用户，可改进。
-    // 每种查询每天不能超过两次。
-    protected static function is_reach_search_limit( $user, $type ){
-
-        $cache_key = static::get_search_key( $user, $type );
-
-        $count = Cache::get( $cache_key, 0 );
-
-        return $count <= static::$common_user_search_limit;
-    }
-
-    protected static function increase_search_count( $user, $type ){
-
-        $cache_key = static::get_search_key( $user, $type );
-
-        $count = Cache::get( $cache_key, 0 );
-
-        if ( empty( $count ) ){
-
-            Cache::put( $cache_key, 1 );
-        }
-        else if ( $count <= static::$common_user_search_limit ){
-
-            Cache::put( $cache_key, $count + 1 );
-        }
-    }
-
-    protected static function get_search_key( $user, $type ){
-
-        return 'search_count_'.$type.'_'.$user->user_id;
-    }
     
     public function violation(){
 
@@ -99,8 +65,10 @@ class SearchController extends BaseController{
 
             return Response::json([ 'errCode' => $e->getCode(), 'message' => $e->getMessage() ]);
         }
-        $service_fee = BusinessController::getServiceFee($current_user->user_id);
-        return Response::json([ 'errCode' => 0, 'violations' => $violation_result ],'service_fee'=>$service_fee);
+        
+        $service_fee = BusinessController::getServiceFee();
+
+        return Response::json([ 'errCode' => 0, 'violations' => $violation_result, 'service_fee' => $service_fee ]);
     }
 
     public function license(){
