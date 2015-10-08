@@ -51,7 +51,20 @@ class AdminController extends BaseController{
 	// 修改默认查询价格
 	public function changeDefaultQueryUnivalence()
 	{
-		
+		$violationUnivalence = Input::get("violationUnivalence");
+		$licenseUnivalence = Input::get("licenseUnivalence");
+		$carUnivalence = Input::get("carUnivalence");
+
+		$query = [
+			"violation" => $violationUnivalence,
+			"license" => $licenseUnivalence,
+			"car" => $carUnivalence
+		];
+
+		$result = BusinessUser::modify_default_univalence($query, $token);
+
+		var_dump($result);
+		exit;
 	}
 
 	// 修改特定用户的服务价格
