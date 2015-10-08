@@ -602,7 +602,7 @@ if( Sentry::check() )
 
 服务器接口
 	请求方式：GET
-	请求url：/business/auth
+	请求url：/business/auth_request_token
 
 	请求参数：	
 			token  					业务服务器token

@@ -127,6 +127,8 @@ Route::group(array('prefix'=>'business','before'=>'auth.user.isIn'),function(){
 });
 */
 
+Route::get( 'business/auth_request_token', 'BusinessController@auth_request_token' );
+
 // 服务中心
 Route::group([ 'prefix' => 'serve-center', 'before' => 'auth.user.isIn' ], function(){
 
