@@ -86,6 +86,7 @@ Route::group(array('prefix'=>'account-center'),function(){
 });
 
 //服务中心
+/*
 Route::group(array('prefix'=>'serve-center'),function(){
 	//违章查询
 	Route::get('violation','ServerCenterPageController@violation');
@@ -98,6 +99,7 @@ Route::group(array('prefix'=>'serve-center'),function(){
 	//违章代办
 	Route::get('indent-agency','ServerCenterPageController@indentAgency');
 });
+*/
 
 //业务逻辑
 /*
@@ -210,7 +212,7 @@ Route::group([ 'prefix' => 'serve-center', 'before' => 'auth.user.isIn' ], funct
 });
 
 // 消息中心
-Route::group([ 'prefix'=>'message-center' ], function(){
+Route::group([ 'prefix' => 'message-center' ], function(){
 
 	// 消息模块
 	Route::group([ 'prefix' => 'message' ], function(){
