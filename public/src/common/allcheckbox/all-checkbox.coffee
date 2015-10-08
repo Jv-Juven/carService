@@ -2,10 +2,9 @@
 
 class AllCheckbox 
 
-	constructor: (@allBtn, @checkBoxes)->
-		bindEvnet(@allBtn, @checkBoxes)
+	constructor: ()->
 
-	bindEvnet: (allBtn, checkBoxes)->
+	bindEvent: (allBtn, checkBoxes)->
 
 		allBtn.on "chick", ()->
 			if allBtn.prop("checked")
@@ -13,10 +12,14 @@ class AllCheckbox
 		checkBoxes.on "click", ()->
 			if $(this).prop("checked")
 				tag = true
-				checkBoxes.each (item, index)->
+				length = checkBoxes.length
+				checkBoxes.each (index, item)->
 					if item.prop("checked")
-						continue
+						if index is (length - 1)
+							allBtn.prop("checked", tag)
 					else
 						tag = false
-						break
-				allBtn.prop("checked", tag)
+						return
+
+module.exports = AllCheckbox
+				
