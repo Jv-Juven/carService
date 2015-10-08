@@ -57,7 +57,7 @@
                 <td>个人用户代办服务费</td>
                 <td>个人用户</td>
                 <td>
-                    <input type="text" class="form-control" value="{{{ $personExpressUnivalence }}}" id="person-agency-univalence" />
+                    <input type="text" class="form-control" value="{{{ $personAgencyUnivalence }}}" id="person-agency-univalence" />
                 </td>
             </tr>
         </table>

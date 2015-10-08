@@ -12,8 +12,8 @@
 @section('business-center-content')
     <div class="business-center-content" id="change-service-univalence-content">
         <ul id="change-default-query-univalence-header" class="nav nav-tabs">
-            <li role="presentation"><a href="/admin/business-center/change-service-univalence">服务费用</a></li>
-            <li role="presentation" class="active"><a href="/admin/business-center/change-query-univalence">查询费用</a></li>
+            <li role="presentation"><a href="/admin/business-center/change-service-univalence?user_id={{{ $userId }}}">服务费用</a></li>
+            <li role="presentation" class="active"><a href="/admin/business-center/change-query-univalence?user_id={{{ $userId }}}">查询费用</a></li>
         </ul>
         <form class="form-inline">
             <div class="form-group">

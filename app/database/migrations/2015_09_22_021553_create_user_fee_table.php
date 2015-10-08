@@ -12,7 +12,7 @@ class CreateUserFeeTable extends Migration {
 	 */
 	public function up(){
 		//用户费用表
-		Schema::create( 'user_fee', function( $table ){
+		Schema::create('user_fee', function( $table ){
 
 			/*
 			 * 主键之一 & 外键

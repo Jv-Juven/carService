@@ -3,7 +3,6 @@
 class UserFee extends Eloquent{
     
     protected $table        = 'user_fee';
-    protected $primaryKey   = array( 'user_id', 'item_id' );
 
     protected $hidden       = [];
     protected $fillable     = [
