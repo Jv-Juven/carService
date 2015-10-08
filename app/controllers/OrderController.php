@@ -54,7 +54,22 @@ class OrderController extends BaseController{
 
     public function cancel(){
 
-        if ( !AgencyOrder::destroy( Input::get( 'order_id' ) ) ){
+        $order_id = Input::get( 'order_id' );
+        
+
+        if ( empty( $order_id ) ){
+            return Response::json([ 'errCode' => 2, '无效参数' ]);
+        }
+
+        $agency_order = AgencyOrder::find( $order_id );
+
+        if ( !isset( $agency_order ) || $agency_order->user_id != Sentry::getUser()->user_id ){
+            return Response::json([ 'errCode' => 3, '无效订单' ])
+        }
+
+        // Todo: 订单处于什么状态下可以删除?
+
+        if ( !$agency_order->delete() ){
             return Response::json([ 'errCode' => 1, '删除失败' ]);
         }
 

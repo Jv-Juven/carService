@@ -245,7 +245,7 @@ class UserController extends BaseController{
 		}
 	}
 
-	//运营人员手机验证码<<<<<<未测试>>>>>>>
+	//运营人员手机验证码
 	public function operationalPhoneCode()
 	{
 		$login_account 			= Input::get('telephone');
@@ -364,7 +364,7 @@ class UserController extends BaseController{
 	return Response::json(array('errCode'=>0, 'message'=> '注册成功'));
 	}
 
-	//B端用户-修改运营者信息-发送邮箱验证码<<<<<<未测试>>>>>>>
+	//B端用户-修改运营者信息-发送邮箱验证码
 	public function updateOperatorCode()
 	{
 		$user = Sentry::getUser();
@@ -389,19 +389,21 @@ class UserController extends BaseController{
 	}
 
 
-	//B端用户－修改运营者信息－保存<<<<<未测试>>>>>>>
+	//B端用户－修改运营者信息－保存
 	public function saveOperatorInfo()
 	{	
 		//邮箱验证码验证
 		$reset_code = Input::get('email_code');
 		$user = Sentry::getUser();
-		if( !$user->checkResetPasswordCode($reset_code) );
+		$user = Sentry::findUserById( $user->user_id );
+
+		if( !$user->checkResetPasswordCode($reset_code) )
 			return Response::json(array('errCode'=>21, 'message'=>'邮箱验证码错误'));
 
 		//手机号错误
 		$operational_phone	= Input::get('operational_phone');
 		$session_operational_phone = Session::get('operator_phone');
-		if($operator_phone != $session_operational_phone)
+		if($operational_phone != $session_operational_phone)
 			return Response::json(array('errCode'=>22, 'message'=>'手机号码错误'));
 
 		//手机验证码验证
@@ -429,7 +431,7 @@ class UserController extends BaseController{
 		if( $validation->fails())
 			return Response::json(array('errCode'=>23, 'message'=>'参数填写不完整'));
 
-		$business_user = New BusinessUser;
+		$business_user = BusinessUser::find($user->user_id);
 		$business_user->operational_phone 	= $operational_phone;
 		$business_user->operational_name  	= $data['operational_name'];
 		$business_user->operational_card_no = $data['operational_card_no'];
@@ -532,7 +534,7 @@ class UserController extends BaseController{
         }
 	}
 
-	//意外退出后发送验证信息<<<<<<未测试>>>>>>>
+	//意外退出后发送验证信息<<<<<<需要回跳回网站，要上线后测试>>>>>>>
 	public function sendTokenToEmail()
 	{
 		$user = Sentry::getUser();
@@ -540,9 +542,9 @@ class UserController extends BaseController{
 
 		$token = md5($login_account.time());
 		//发送邮件
-		Mail::send('emails/token',array('token' => $token),function($message) use ($data)
+		Mail::send('emails/token',array('token' => $token),function($message) use ($login_account)
 		{
-			$message->to($data['login_account'],'')->subject('车尚车务系统!');
+			$message->to($login_account,'')->subject('车尚车务系统!');
 		});
 		$user = User::where('login_account',$login_account)->first();
 		//储存数据
