@@ -20,28 +20,26 @@ express_fee = $("#express_fee")
 agencyWarnTips = $(".agency-warn-tips")
 agencyBtn = $(".agency-btn a")
 
-table01 = $(".vio-records-table01")
-table02 = $(".vio-records-table02")
-
-th = table01.html()
 
 submit = ()->
 
-	if name.val().length is 0
-		agencyWarnTips.text "*请输入收件人姓名"
-		return
+	if express.prop("checked")
 
-	if !validate.mobile(phone.val())
-		agencyWarnTips.text "*请输入收件人手机号码"
-		return
+		if name.val().length is 0
+			agencyWarnTips.text "*请输入收件人姓名"
+			return
 
-	if address.val().length is 0
-		agencyWarnTips.text "*请输入收件人地址"
-		return
+		if !validate.mobile(phone.val())
+			agencyWarnTips.text "*请输入收件人手机号码"
+			return
 
-	if (!validate.engineNum(engineNumber.val())) || (engineNumber.val().length isnt 4)
-		agencyWarnTips.text "*请输入发动机号后4位"
-		return
+		if address.val().length is 0
+			agencyWarnTips.text "*请输入收件人地址"
+			return
+
+		if (!validate.engineNum(engineNumber.val())) || (engineNumber.val().length isnt 4)
+			agencyWarnTips.text "*请输入发动机号后4位"
+			return
 
 	agencyWarnTips.text(" ")
 
@@ -61,30 +59,6 @@ submit = ()->
 		if msg["errCode"] isnt 0 
 
 			warn.alert msg["message"]
-
-		else
-
-			array01 = _.filter msg["violations"], "wfjfs", "0"
-			array02 = _.filter msg["violations"], (subArr)->
-				return subArr["wfjfs"] > 0
-
-			tpl01 = _.template $("#vio_template").html()
-			tpl01 = tpl01({
-				"array": array01,
-				"service_fee": msg["service_fee"]
-				})
-
-			tpl02 = _.template $("#vio_template").html()
-			tpl02 = tpl02({
-				"array": array02,
-				"service_fee": msg["service_fee"]
-				})
-			
-			table01.html("").append(th).append(tpl01)
-			table02.html("").append(th).append(tpl02)
-
-
-
 
 
 $ ()->

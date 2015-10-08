@@ -70,7 +70,7 @@
 						</tr>
 						
 					</table>
-					<div class="vio-submit-btn">
+					<div class="vio-submit-btn deal-btn">
 						<a href="javascript:">办理违章</a>
 					</div>
 				</div>
@@ -106,7 +106,7 @@
 	<% for (var i = 0; i < array.length; i++){ %>
 		<tr class="tb-tr">
 			<td>
-				<input type="checkbox" />
+				<input class="checkbox" type="checkbox" />
 			</td>
 			<td>
 				<span class="date"><%- array[i]["wfsj"] %></span>
