@@ -197,16 +197,58 @@ class BusinessController extends BaseController{
 	}
 
 	/**
-	 * 修改业务单价
+	 * 查询企业用户业务默认单价
 	 *
-	 * 仅对管理员开发，原样返回计费系统的返回结果
+	 * 管理人员接口，原样返回计费系统的返回结果
+	 *
+	 * @return 	array
+	 */
+	public static function get_default_univalence( $token ){
+
+		$http_params = [
+			'method'	=> 'GET',
+			'uri'		=> '/account/default-univalence',
+			'query'		=> [
+				'token'	=> $token // use TokenController::getAccessToken()
+			]
+		];
+
+		return static::send_request( $http_params, 'data' );
+	}
+
+	/**
+	 * 修改企业查询业务默认单价
+	 *
+	 * 管理人员接口，原样返回计费系统的返回结果
 	 *
 	 * @param 	$query 	array 	[ 'violation' => 0.2, 'license' => 0.2, 'car' => 0.6 ]
 	 * @return 	array
 	 */
-	public static function univalence( $query ){
+	public static function modify_default_univalence( $query, $token ){
 
-		$query['appkey'] = Config::get( 'domain.app_key' );
+		$http_params = [
+			'method'	=> 'POST',
+			'uri'		=> '/account/default-univalence',
+			'query'		=> [
+				'params'	=> $query,
+				'token'		=> $token // use TokenController::getAccessToken()
+			]
+		];
+
+		return static::send_request( $http_params, 'data' );
+	}
+
+	/**
+	 * 修改特定企业查询业务默认单价
+	 *
+	 * 管理人员接口，原样返回计费系统的返回结果
+	 *
+	 * @param 	$query 	array 	[ 'violation' => 0.2, 'license' => 0.2, 'car' => 0.6 ]
+	 * @return 	array
+	 */
+	public static function modify_business_user_univalence( $query, $token ){
+
+		$query[ 'token' ] = $token;
 
 		$http_params = [
 			'method'	=> 'POST',
@@ -214,7 +256,7 @@ class BusinessController extends BaseController{
 			'query'		=> $query
 		];
 
-		return static::send_request( $http_params );
+		return static::send_request( $http_params, 'account' );
 	}
 
 	/**
