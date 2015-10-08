@@ -97,14 +97,25 @@ class AdminBusinessCenterPageController extends BaseController{
 
 		$user = BusinessUser::where("user_id", "=", $userId)->get();
 
-		$accountInfo = BusinessController::accountInfo($userId);
+		try 
+		{
+			$accountInfo = BusinessController::accountInfo($userId);
+			$result = BusinessController::get_default_univalence();
+		} 
+		catch (Exception $e) 
+		{
+			return View::make('errors.page-error');
+		}		
 
 		return View::make('pages.admin.business-center.change-query-univalence', [
 			"userId" => $userId,
 			"username" => $user[0]->business_name,
 			"violationUnivalence" => $accountInfo["violationUnit"],
+			"defaultViolationUnivalence" => $result["violation"],
 			"licenseUnivalence" => $accountInfo["licenseUnit"],
-			"carUnivalence" => $accountInfo["carUnit"]
+			"defaultLicenseUnivalence" => $result["license"],
+			"carUnivalence" => $accountInfo["carUnit"],
+			"defaultCarUnivalence" => $result["car"]
 		]);
 	}
 

@@ -36,25 +36,25 @@
             <tr>
                 <td>查询</td>
                 <td>车辆违章查询</td>
-                <td id="violation-univalence-show">{{{ $violationUnivalence }}}</td>
+                <td id="violation-univalence-show">{{{ $defaultViolationUnivalence }}}</td>
                 <td>
-                    <input type="text" class="form-control" id="violation-univalence" />
+                    <input type="text" class="form-control" id="violation-univalence" value="{{{ $violationUnivalence }}}" />
                 </td>
             </tr>
             <tr>
                 <td>查询</td>
                 <td>驾驶证查询</td>
-                <td id="license-univalence-show">{{{ $licenseUnivalence }}}</td>
+                <td id="license-univalence-show">{{{ $defaultLicenseUnivalence }}}</td>
                 <td>
-                    <input type="text" class="form-control" id="license-univalence" />
+                    <input type="text" class="form-control" id="license-univalence" value="{{{ $licenseUnivalence }}}" />
                 </td>
             </tr>
             <tr>
                 <td>查询</td>
                 <td>机动车信息查询</td>
-                <td id="car-univalence-show">{{{ $carUnivalence }}}</td>
+                <td id="car-univalence-show">{{{ $defaultCarUnivalence }}}</td>
                 <td>
-                    <input type="text" class="form-control" id="car-univalence" />
+                    <input type="text" class="form-control" id="car-univalence" value="{{{ $carUnivalence }}}" />
                 </td>
             </tr>
         </table>
