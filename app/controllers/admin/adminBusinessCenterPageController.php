@@ -122,19 +122,21 @@ class AdminBusinessCenterPageController extends BaseController{
 	// 
 	public function changeDefaultQueryUnivalence()
 	{
-		// $violationUnivalence = DB::table('fee_types')->select('number')->where("category", "20")->where("item", "2")->first();
-	 //    $licenseUnivalence = DB::table('fee_types')->select('number')->where("category", "20")->where("item", "1")->first();
-	 //    $carUnivalence = DB::table('fee_types')->select('number')->where("category", "30")->where("item", "2")->first();
+		try 
+		{
+			$result = BusinessController::get_default_univalence();
+		} 
+		catch (Exception $e) 
+		{
+			return View::make('errors.page-error');
+		}		
 
 
-
-		return View::make('pages.admin.business-center.change-default-query-univalence', []);
-		// return View::make('pages.admin.business-center.change-default-query-univalence', [
-		// 	"companyExpressUnivalence" => $companyExpressUnivalence->number,
-		// 	"personExpressUnivalence" => $personExpressUnivalence->number,
-		// 	"companyAgencyUnivalence" => $companyAgencyUnivalence->number,
-		// 	"personAgencyUnivalence" => $personAgencyUnivalence->number
-		// ]);
+		return View::make('pages.admin.business-center.change-default-query-univalence', [
+			"violationUnivalence" => $result["violation"],
+			"licenseUnivalence" => $result["license"],
+			"carUnivalence" => $result["car"]
+		]);
 	}
 
 	// 

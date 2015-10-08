@@ -61,10 +61,16 @@ class AdminController extends BaseController{
 			"car" => $carUnivalence
 		];
 
-		$result = BusinessUser::modify_default_univalence($query, $token);
+		try 
+		{
+			$result = BusinessController::modify_default_univalence($query);
+		} 
+		catch(Exception $e) 
+		{
+			return Response::json(array('errCode' => 1, "errMsg" => "[数据库错误]修改失败"));
+		}
 
-		var_dump($result);
-		exit;
+		return Response::json(array('errCode' => 0));
 	}
 
 	// 修改特定用户的服务价格
