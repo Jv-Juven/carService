@@ -48,7 +48,7 @@ class BusinessController extends BaseController{
 	 * @return float
 	 */
 	public static function getServiceFee( $user_id = null ){
-		
+
 		if ( $user_id ){
 			$user = User::find( $user_id );
 		}else{
@@ -80,7 +80,7 @@ class BusinessController extends BaseController{
 		if ( $user_id ){
 			$user = User::find( $user_id );
 		}else{
-			$user = Sentry::getUser();	
+			$user = Sentry::getUser();
 		}
 
 		$fee_type 	= FeeType::where( 'user_type', $user->user_type )
@@ -169,6 +169,26 @@ class BusinessController extends BaseController{
 	}
 
 	/**
+	 * 修改业务单价
+	 *
+	 * 仅对管理员开发
+	 *
+	 * @return array
+	 */
+	public static function univalence( $query ){
+
+		$query['appkey'] = Config::get( 'domain.app_key' );
+
+		$http_params = [
+			'method'	=> 'POST',
+			'uri'		=> '/account/univalence',
+			'query'		=> $query
+		];
+
+		return static::send_request( $http_params );
+	}
+
+	/**
 	 * 充值
 	 *
 	 * 仅对企业用户开放
@@ -182,7 +202,8 @@ class BusinessController extends BaseController{
 			'uri'		=> '/account/recharge',
 			'query'		=> [
 				'appkey'	=> static::get_appkey( $user_id ),
-				'money'		=> $number
+				'money'		=> $number,
+				'token'		=> static::create_auth_token()
 			]
 		];
 
@@ -202,7 +223,8 @@ class BusinessController extends BaseController{
 			'method'	=> 'GET',
 			'uri'		=> '/account/count',
 			'query'		=> [
-				'appkey'	=> static::get_appkey( $user_id )
+				'appkey'	=> static::get_appkey( $user_id ),
+				'token'		=> static::create_auth_token()
 			]
 		];
 
@@ -220,7 +242,8 @@ class BusinessController extends BaseController{
 			'method'	=> 'GET',
 			'uri'		=> '/account',
 			'query'		=> [
-				'appkey'	=> static::get_appkey( $user_id )
+				'appkey'	=> static::get_appkey( $user_id ),
+				'token'		=> static::create_auth_token()
 			]
 		];
 
@@ -287,5 +310,38 @@ class BusinessController extends BaseController{
 		];
 
 		return static::send_request( $http_params, 'body' );
+	}
+
+	/**
+	 * 生成随机的验证请求的token
+	 *
+	 * @return
+	 */
+	protected static function create_request_token( $prefix = 'rt' ){
+
+		$token = str_replace( '.', '', uniqid( 'rt', true ) );
+
+		Cache::put( $token );
+
+		return $token;
+	}
+
+	/**
+	 * 验证请求的token
+	 *
+	 * @return
+	 */
+	public function auth_request_token(){
+
+		$token = Input::get( 'token' );
+
+		if ( Cache::has( $token ) ){
+			
+			Cache::forget( $token );
+
+			return Response::json([ 'errCode' => 0, 'message' => 'OK' ]);
+		}
+
+		return Response::json([ 'errCode' => 1, 'message' => '错误' ]);
 	}
 }

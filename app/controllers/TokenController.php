@@ -29,10 +29,10 @@ class TokenController extends BaseController{
         // 不存在默认返回空字符串( 即长度为0字符串 )
         if ( $user_id == null ){
 
-            return Cache::get( 'token', '' );
+            return Cache::get( 'cheshang_token', '' );
         }else{
 
-            return Cache::get( "token_$user_id", '' );
+            return Cache::get( "token_user_$user_id", '' );
         }
     }
 
@@ -43,10 +43,10 @@ class TokenController extends BaseController{
 
         if ( $user_id == null ){
 
-            Cache::put( 'token', $token );
+            Cache::put( 'cheshang_token', $token );
         }else{
 
-            Cache::put( "token_$user_id", $token );
+            Cache::put( "cheshang_token_user_$user_id", $token );
         }
     }
 
@@ -59,7 +59,7 @@ class TokenController extends BaseController{
 
         /*
             未设置$user，默认为普通用户，
-            token均从缓存中获取
+            token均从缓存中获取, 从缓存中获取失败，则从远程服务器中获取
             对于普通用户，app_key和app_secret用通用的, token获取的key为：token
             对于企业用户，app_key和app_secret每个用户均不相同, token获取的key为：'token_' + user_id，比如 'token_yhxx1231231231231231231231'
          */
