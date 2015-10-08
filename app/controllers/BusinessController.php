@@ -250,16 +250,17 @@ class BusinessController extends BaseController{
 	}
 
 	/**
-	 * 修改特定企业查询业务默认单价
+	 * 修改特定企业查询业务单价
 	 *
 	 * 管理人员接口，原样返回计费系统的返回结果
 	 *
 	 * @param 	$query 	array 	[ 'violation' => 0.2, 'license' => 0.2, 'car' => 0.6 ]
 	 * @return 	array
 	 */
-	public static function modify_business_user_univalence( $query ){
+	public static function modify_business_user_univalence( $user_id, $query ){
 
 		$query[ 'token' ] = static::create_request_token();
+		$query[ 'appkey' ] = static::get_appkey($user_id);
 
 		$http_params = [
 			'method'	=> 'POST',

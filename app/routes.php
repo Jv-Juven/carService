@@ -359,7 +359,7 @@ Route::group(array('prefix' => 'admin'), function() {
 	Route::post('/change-service-univalence', 'AdminController@changeServiceUnivalence');
 
 	// 修改特定用户的查询价格
-	Route::post('/change-query-univalence', 'AdminController@changeServiceUnivalence');
+	Route::post('/change-query-univalence', 'AdminController@changeQueryUnivalence');
 });
 
 

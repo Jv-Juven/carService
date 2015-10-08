@@ -19,7 +19,7 @@
         <form class="form-inline">
             <div class="form-group">
                 <label for="company-name">企业名称：</label>
-                <div class="intro">广州车尚信息有限公司</div>
+                <div class="intro">{{{ $username }}}</div>
             </div>
             <div class="form-group">
                 <label for="company-name">说明：</label>

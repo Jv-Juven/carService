@@ -134,7 +134,18 @@ class AdminController extends BaseController{
 	// 修改特定用户的查询价格
 	public function changeQueryUnivalence()
 	{
-		
+		$userId = Input::get("userId");
+		$params = Input::get("params");
+		try 
+		{
+			$result = BusinessController::modify_business_user_univalence($userId, $params);
+		} 
+		catch (Exception $e) 
+		{
+			return Response::json(array('errCode' => 1, "errMsg" => "[数据库错误]修改失败"));
+		}
+
+		return Response::json(array('errCode' => 0));
 	}
 
 	// 通过企业名称或营业执照号查询用户信息

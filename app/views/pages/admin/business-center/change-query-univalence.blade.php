@@ -11,6 +11,7 @@
 
 @section('business-center-content')
     <div class="business-center-content" id="change-service-univalence-content">
+        <input type="hidden" id="user-id" value="{{{ $userId }}}" />
         <ul id="change-default-query-univalence-header" class="nav nav-tabs">
             <li role="presentation"><a href="/admin/business-center/change-service-univalence?user_id={{{ $userId }}}">服务费用</a></li>
             <li role="presentation" class="active"><a href="/admin/business-center/change-query-univalence?user_id={{{ $userId }}}">查询费用</a></li>
@@ -18,7 +19,7 @@
         <form class="form-inline">
             <div class="form-group">
                 <label for="company-name">企业名称：</label>
-                <div class="intro">广州车尚信息有限公司</div>
+                <div class="intro">{{{ $username }}}</div>
             </div>
             <div class="form-group">
                 <label for="company-name">说明：</label>
@@ -35,7 +36,7 @@
             <tr>
                 <td>查询</td>
                 <td>车辆违章查询</td>
-                <td>{{{ $violationUnivalence }}}</td>
+                <td id="violation-univalence-show">{{{ $violationUnivalence }}}</td>
                 <td>
                     <input type="text" class="form-control" id="violation-univalence" />
                 </td>
@@ -43,7 +44,7 @@
             <tr>
                 <td>查询</td>
                 <td>驾驶证查询</td>
-                <td>{{{ $licenseUnivalence }}}</td>
+                <td id="license-univalence-show">{{{ $licenseUnivalence }}}</td>
                 <td>
                     <input type="text" class="form-control" id="license-univalence" />
                 </td>
@@ -51,7 +52,7 @@
             <tr>
                 <td>查询</td>
                 <td>机动车信息查询</td>
-                <td>{{{ $carUnivalence }}}</td>
+                <td id="car-univalence-show">{{{ $carUnivalence }}}</td>
                 <td>
                     <input type="text" class="form-control" id="car-univalence" />
                 </td>

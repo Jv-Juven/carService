@@ -95,10 +95,13 @@ class AdminBusinessCenterPageController extends BaseController{
 	{
 		$userId = Input::get("user_id");
 
+		$user = BusinessUser::where("user_id", "=", $userId)->get();
+
 		$accountInfo = BusinessController::accountInfo($userId);
 
 		return View::make('pages.admin.business-center.change-query-univalence', [
 			"userId" => $userId,
+			"username" => $user[0]->business_name,
 			"violationUnivalence" => $accountInfo["violationUnit"],
 			"licenseUnivalence" => $accountInfo["licenseUnit"],
 			"carUnivalence" => $accountInfo["carUnit"]
@@ -108,6 +111,8 @@ class AdminBusinessCenterPageController extends BaseController{
 	public function changeServiceUnivalence()
 	{
 		$userId = Input::get("user_id");
+		
+		$user = BusinessUser::where("user_id", "=", $userId)->get();
 
 		$agencyUnivalence = BusinessController::getServiceFee($userId);
 		$expressUnivalence = BusinessController::getExpressFee($userId);
@@ -115,6 +120,7 @@ class AdminBusinessCenterPageController extends BaseController{
 		return View::make('pages.admin.business-center.change-service-univalence', [
 			"expressUnivalence" => $expressUnivalence,
 			"agencyUnivalence" => $agencyUnivalence,
+			"username" => $user[0]->business_name,
 			"userId" => $userId
 		]);
 	}
