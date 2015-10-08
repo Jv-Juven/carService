@@ -97,11 +97,11 @@ class AdminBusinessCenterPageController extends BaseController{
 
 		$accountInfo = BusinessController::accountInfo($userId);
 
-		var_dump($accountInfo);
-		exit;
-
 		return View::make('pages.admin.business-center.change-query-univalence', [
-			"userId" => $userId
+			"userId" => $userId,
+			"violationUnivalence" => $accountInfo["violationUnit"],
+			"licenseUnivalence" => $accountInfo["licenseUnit"],
+			"carUnivalence" => $accountInfo["carUnit"]
 		]);
 	}
 

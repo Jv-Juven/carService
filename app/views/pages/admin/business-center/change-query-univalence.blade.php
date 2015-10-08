@@ -35,7 +35,7 @@
             <tr>
                 <td>查询</td>
                 <td>车辆违章查询</td>
-                <td>0.12</td>
+                <td>{{{ $violationUnivalence }}}</td>
                 <td>
                     <input type="text" class="form-control" id="violation-univalence" />
                 </td>
@@ -43,7 +43,7 @@
             <tr>
                 <td>查询</td>
                 <td>驾驶证查询</td>
-                <td>0.5</td>
+                <td>{{{ $licenseUnivalence }}}</td>
                 <td>
                     <input type="text" class="form-control" id="license-univalence" />
                 </td>
@@ -51,7 +51,7 @@
             <tr>
                 <td>查询</td>
                 <td>机动车信息查询</td>
-                <td>0.5</td>
+                <td>{{{ $carUnivalence }}}</td>
                 <td>
                     <input type="text" class="form-control" id="car-univalence" />
                 </td>

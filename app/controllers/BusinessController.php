@@ -111,7 +111,7 @@ class BusinessController extends BaseController{
 
 		try{
 			$http_client = static::getBaseHttpClient();
-			
+				
 			$response = $http_client->request( $http_params['method'], $http_params['uri'], [
 				'query' => $http_params['query']
 			]);
