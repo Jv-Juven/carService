@@ -1,8 +1,10 @@
 validate = require "./../../../common/validate/validate.coffee"
 warn = require "./../../../common/warn/warn.coffee"
+allCheck = require "./../../../common/allcheckbox/all-checkbox.coffee"
 
 validate = new validate()
 warn = new warn()
+allCheck = new allCheck()
 
 
 plateNum = $("#vio_plate_num")
@@ -15,9 +17,13 @@ vioTips = $(".vio-warn-tips")
 table01 = $(".vio-records-table01")
 table02 = $(".vio-records-table02")
 
+vioRecords = $(".vio-records")
+
 th = table01.html()
 
 dealBtn = $(".deal-btn")
+
+xhArr = []
 
 #“确定”按钮事件，显示违章查询结果
 submit = ()->
@@ -67,20 +73,32 @@ submit = ()->
 				"service_fee": msg["service_fee"]
 				})
 
-			table01.html("").append(th).append(tpl01).fadeIn(100)
-			table02.html("").append(th).append(tpl02).fadeIn(100)
+			table01.html("").append(th).append(tpl01)
+			table02.html("").append(th).append(tpl02)
+			vioRecords.fadeIn(100)
 
 
 
 #“违章办理”按钮事件
 dealVio = ()->
-	table01.find(".tb-tr .checkbox").each ()->
-		_this = $(this)
+	length = table01.find(".tb-tr .checkbox").length
+	table01.find(".tb-tr .checkbox").each (item, index)->
+		_this = item
+		if _this.prop("checked")
+			xhArr.push parseInt(_this.attr("data-xh"))
+		if index is (length - 1)
+			if xhArr.length is 0
+				warn.alert "请选中要办理的违章记录！"
+			else
+				$.post "/serve-center/agency/business/confirm_violation", {
+					xh: xhArr
+				}, (msg)->
+					if msg["errCode"] isnt 0
+						alert msg["message"]
+					
 
-#"全选"多选框事件
-selectAll = (e)->
-	_this = $(e.currentTarget)
-	
+
+
 
 
 
@@ -89,9 +107,10 @@ $ ()->
 	#违章查询的“确定”按钮绑定事件
 	vioBtn.on "click", submit
 	#“违章办理”按钮事件绑定
-	dealBtn.on "click", dealBtn
-	#"联系客服"按钮绑定事件
-
+	dealBtn.on "click", dealVio
+	#"全选"按钮绑定事件
+	allCheck.bindEvent(table01.find("th input[type='checkbox']"), table01.find("tr input[type='checkbox']"))
+	allCheck.bindEvent(table02.find("th input[type='checkbox']"), table02.find("tr input[type='checkbox']"))
 
 
 

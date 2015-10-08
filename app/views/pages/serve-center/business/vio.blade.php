@@ -47,7 +47,7 @@
 
 			@include("components.violation-info")
 
-			<div class="violation-records">
+			<div class="violation-records vio-records">
 				<div class="vio-records-title">
 					车牌号码为<span class="records-plate">XXXXXX</span>的车辆共有<span class="records-total">3</span>笔违章记录
 				</div>
@@ -56,7 +56,7 @@
 						<tr class="tb-head">
 							<th>
 								<label for="vio_select_all">
-									<input type="checkbox" id="vio_select_all"/>
+									<input type="checkbox" class="vio-select-all"/>
 									全选
 								</label>
 							</th>
@@ -79,7 +79,7 @@
 						<tr class="tb-head">
 							<th>
 								<label for="vio_select_all">
-									<input type="checkbox" id="vio_select_all"/>
+									<input type="checkbox" class="vio-select-all"/>
 									全选
 								</label>
 							</th>
@@ -102,37 +102,37 @@
 	</div>
 	@include("components.warn-mask")
 
-	<script type="text/javascript" id="vio_template">
-	<% for (var i = 0; i < array.length; i++){ %>
-		<tr class="tb-tr">
-			<td>
-				<input class="checkbox" type="checkbox" />
-			</td>
-			<td>
-				<span class="date"><%- array[i]["wfsj"] %></span>
-			</td>
-			<td>
-				// <span class="city">[广东省 广州市]</span>
-				<span class="block"><%- array[i]["wfdz"] %></span>
-				// <span class="status">[电子眼未处理-未交款]</span>
-			</td>
-			<td>
-				<span class="describe">
-					<%- array[i]["wfxwzt"] %>
-				</span>
-				<span class="num">[<%- array[i]["wfxw"] %>]</span>
-			</td>
-			<td>
-				<span class="scores"><%- array[i]["wfjfs"] %></span>
-			</td>
-			<td>
-				<span class="principal"><%- array[i]["fkje"] %></span>
-			</td>
-			<td>
-				<span class="serve-money"><%- service_fee %></span>
-			</td>
-		</tr>
-	<% } %>
+	<script type="text/template" id="vio_template">
+		<% for (var i = 0; i < array.length; i++){ %>
+			<tr class="tb-tr">
+				<td>
+					<input class="checkbox" type="checkbox" data-xh="<%- array[i]['xh'] %>" />
+				</td>
+				<td>
+					<span class="date"><%- array[i]["wfsj"] %></span>
+				</td>
+				<td>
+					// <span class="city">[广东省 广州市]</span>
+					<span class="block"><%- array[i]["wfdz"] %></span>
+					// <span class="status">[电子眼未处理-未交款]</span>
+				</td>
+				<td>
+					<span class="describe">
+						<%- array[i]["wfxwzt"] %>
+					</span>
+					<span class="num">[<%- array[i]["wfxw"] %>]</span>
+				</td>
+				<td>
+					<span class="scores"><%- array[i]["wfjfs"] %></span>
+				</td>
+				<td>
+					<span class="principal"><%- array[i]["fkje"] %></span>
+				</td>
+				<td>
+					<span class="serve-money"><%- service_fee %></span>
+				</td>
+			</tr>
+		<% } %>
 
 	</script>
 

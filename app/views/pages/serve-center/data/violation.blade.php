@@ -34,12 +34,12 @@
 						</div>
 					</div>
 
-					<div class="input-wrapper">
+					<!-- <div class="input-wrapper">
 						<div class="input-title">车架号码：</div>
 						<div class="inputs">
 							<input class="input fullwidth" type="text" placeholder="请输入车架号码后六位"/>
 						</div>
-					</div>
+					</div> -->
 					<div class="input-wrapper input-btn">
 						确定
 					</div>
