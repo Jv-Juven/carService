@@ -112,9 +112,19 @@ class BusinessController extends BaseController{
 		try{
 			$http_client = static::getBaseHttpClient();
 				
-			$response = $http_client->request( $http_params['method'], $http_params['uri'], [
-				'query' => $http_params['query']
-			]);
+			if(strtoupper($http_params['method']) == "GET") 
+			{
+				$response = $http_client->request( $http_params['method'], $http_params['uri'], [
+					'query' => $http_params['query']
+				]);
+			}
+			else
+			{
+				$response = $http_client->request( $http_params['method'], $http_params['uri'], [
+					'form_params' => $http_params['query']
+				]);
+			}
+			
 
 			$response_content = $response->getBody()->getContents();
 
@@ -225,13 +235,14 @@ class BusinessController extends BaseController{
 	 * @return 	array
 	 */
 	public static function modify_default_univalence( $query ){
+		$token = static::create_request_token();
 
 		$http_params = [
 			'method'	=> 'POST',
 			'uri'		=> '/account/default-univalence',
 			'query'		=> [
 				'params'	=> $query,
-				'token'		=> static::create_request_token()
+				'token'		=> $token
 			]
 		];
 
