@@ -99,8 +99,8 @@ class SearchController extends BaseController{
 
             return Response::json([ 'errCode' => $e->getCode(), 'message' => $e->getMessage() ]);
         }
-
-        return Response::json([ 'errCode' => 0, 'violations' => $violation_result ]);
+        $service_fee = BusinessController::getServiceFee($current_user->user_id);
+        return Response::json([ 'errCode' => 0, 'violations' => $violation_result ],'service_fee'=>$service_fee);
     }
 
     public function license(){

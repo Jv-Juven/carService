@@ -392,7 +392,6 @@ if( Sentry::check() )
 					}
 
 		4.1.2 驾驶证查询
-
 			请求方式: GET
 			请求url: /serve-center/search/api/license
 
