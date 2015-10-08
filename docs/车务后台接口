@@ -437,9 +437,9 @@ if( Sentry::check() )
 
 	请求参数:
 			<<<<<<-----通过传参的方式引入|按顺序----->>>>>
-			engineCode			发动机号后六位
-			licensePlate		车牌号码
-			licenseType			车辆类型
+			engineCode			发动机号后六位 		
+			licensePlate		车牌号码 				
+			licenseType			车辆类型 				
 								01	大型汽车
 								02	小型汽车
 								03	使馆汽车

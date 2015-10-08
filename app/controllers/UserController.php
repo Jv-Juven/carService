@@ -534,7 +534,7 @@ class UserController extends BaseController{
         }
 	}
 
-	//意外退出后发送验证信息<<<<<<未测试>>>>>>>
+	//意外退出后发送验证信息<<<<<<需要回跳回网站，要上线后测试>>>>>>>
 	public function sendTokenToEmail()
 	{
 		$user = Sentry::getUser();
