@@ -1,4 +1,4 @@
-<div class="left-nav">
+<div class="left-nav" id="message-center-left-nav">
 	<div class="nav">
 		<ul class="nav-first">
 			<li class="li">
@@ -10,7 +10,7 @@
 				</a>
 				<ul class="nav-sec">
 					<li>
-						<a href="/message-center/message/all">
+						<a class="nav-item" href="/message-center/message/all">
 							<i>•</i>
 							全部消息
 						</a>
@@ -19,7 +19,7 @@
 						</i>
 					</li>
 					<li class="active">
-						<a href="/message-center/message/unread">
+						<a class="nav-item" href="/message-center/message/unread">
 							<i>•</i>
 							未读消息
 						</a>
@@ -28,7 +28,7 @@
 						</i>
 					</li>
 					<li>
-						<a href="/message-center/message/read">
+						<a class="nav-item" href="/message-center/message/read">
 							<i>•</i>
 							已读消息
 						</a>
@@ -47,7 +47,7 @@
 				</a>
 				<ul class="nav-sec">
 					<li>
-						<a href="/message-center/feedback">
+						<a class="nav-item" href="/message-center/feedback">
 							<i>•</i>
 							反馈
 						</a>

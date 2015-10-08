@@ -44,12 +44,17 @@ Route::group(array('prefix'=>'user'), function(){
 		Route::post('info_register', 'UserController@informationRegister');
 		//B端用户注册-意外退出后发送验证信息再次发送信息到邮箱
 		Route::get('send_token_to_email','UserController@sendTokenToEmail');
-		//B端用户注册－运营人员手机验证码
-		Route::get('operational_phone_code','UserController@operationalPhoneCode');
 		//B端用户打款备注码
 		Route::post('money_remark_code','UserController@moneyRemarkCode');
 		//显示企业信息
 		Route::post('display_company_info','UserController@displayCompanyRegisterInfo');
+		//B端用户注册/修改运营者信息－运营人员手机验证码
+		Route::get('operational_phone_code','UserController@operationalPhoneCode');
+		//B端用户-修改运营者信息-发送邮箱验证码
+		Route::get('update_operator_code','UserController@updateOperatorCode');
+		//B端用户－修改运营者信息－保存
+		Route::post('save_operator_info','UserController@saveOperatorInfo');
+
 
 		//B端用户邮箱注册验证通过后跳转到邮箱激活页面
 		Route::get('b_active','UserPageController@emailActivePage');
@@ -187,13 +192,20 @@ Route::group([ 'prefix' => 'serve-center', 'before' => 'auth.user.isIn' ], funct
 	Route::group([ 'prefix' => 'order' ], function(){
 
 		// 查询违章代办订单页面
-		Route::get( 'violation', 'OrderPageController@violation' );
+		Route::group([ 'prefix' => 'pages' ], function(){
 
-		// 查询违章代办订单ajax接口
-		Route::get( 'search', 'OrderController@search' );
+			Route::get( 'violation', 'OrderPageController@violation' );
+		});
 
-		// 取消订单
-		Route::post( 'cancel', 'OrderController@cancel' );
+		// 操作订单接口
+		Route::group([ 'prefix' => 'operation' ], function(){
+			
+			// 查询违章代办订单ajax接口
+			Route::get( 'search', 'OrderController@search' );
+
+			// 取消订单
+			Route::post( 'cancel', 'OrderController@cancel' );
+		});
 	});
 });
 

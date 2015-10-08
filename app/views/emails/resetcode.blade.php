@@ -6,7 +6,7 @@
   </head>
 <body>
   <div>
-  		<p>车尚密码重置验证码: {{$reset_code}}</p>
+  		<p>车尚验证码: {{$reset_code}}</p>
 
   </div>
 </body>

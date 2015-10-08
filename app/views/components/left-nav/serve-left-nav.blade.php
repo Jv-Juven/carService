@@ -1,4 +1,4 @@
-<div class="left-nav">
+<div class="left-nav" id="serve-left-nav">
 	<div class="nav">
 		<ul class="nav-first">
 			<li class="li">
@@ -10,7 +10,7 @@
 				</a>
 				<ul class="nav-sec">
 					<li>
-						<a href="/">
+						<a class="nav-item" href="/serve-center/search/pages/violation">
 							<i>•</i>
 							违章查询
 						</a>
@@ -18,8 +18,8 @@
 							<img src="/images/components/nav_arrow.png">
 						</i>
 					</li>
-					<li class="active">
-						<a href="/">
+					<li class="">
+						<a class="nav-item" href="/serve-center/search/pages/license">
 							<i>•</i>
 							驾驶证查询
 						</a>
@@ -28,7 +28,7 @@
 						</i>
 					</li>
 					<li>
-						<a href="/">
+						<a class="nav-item" href="/serve-center/search/pages/car">
 							<i>•</i>
 							车辆查询
 						</a>
@@ -47,7 +47,7 @@
 				</a>
 				<ul class="nav-sec">
 					<li>
-						<a href="/">
+						<a class="nav-item" href="/serve-center/agency/pages/search_violation">
 							<i>•</i>
 							违章办理
 						</a>
@@ -66,7 +66,7 @@
 				</a>
 				<ul class="nav-sec">
 					<li>
-						<a href="/">
+						<a class="nav-item" href="/">
 							<i>•</i>
 							违章代办
 						</a>

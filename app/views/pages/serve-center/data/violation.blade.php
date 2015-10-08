@@ -7,7 +7,6 @@
 @section("css")
 	@parent
 	<link rel="stylesheet" type="text/css" href="/dist/css/pages/serve-center/business/violation.css">
-	<link rel="stylesheet" type="text/css" href="/dist/css/components/violation/warn-mask.css">
 @stop
 
 @section("left-nav")
