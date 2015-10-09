@@ -45,26 +45,41 @@ class BeeCloundController extends BaseController{
 		Log::info( $data );
 
 		if( !isset( $data ))
+		{
+			Log::info( 'data有错' );
 			return Response::json(array('errCode'=>21, 'message'=>''));
+		}
 		//验证签名
 		$sign = md5($appId . $appSecret . $msg['timestamp']);
 		if ( $sign != $msg['sign'] ) 
+		{
+			Log::info( '签名有错' );
 		    return Response::json(array( 'errCode'=>22, 'message'=>'验证码不正确' ));
+		}  
 
 		//订单金额
 		if($data['total_fee'] != $msg['transactionFee'])
+		{
+			Log::info( '金额有错有错' );
 		    return Response::json(array( 'errCode'=>23, 'message'=>'金额不不正确' ));
+		}    
 
 		//订单号
 		if($data['bill_no'] != $msg['transactionId'])
+		{
+			Log::info( '订单号有错' );
 		    return Response::json(array( 'errCode'=>24, 'message'=>'订单号' ));
+		}    
 
 		if($msg['transactionType'] == "PAY") {
 	    
 		    $message_detail =$msg['messageDetail'];
 		    
 	        if( $message_detail['total_fee'] != $data['total_fee'])
+	        {
+	        	Log::info( 'messageDetail中金额有错' );
 	        	return Response::json(array( 'errCode'=>24, 'message'=>'金额不不正确' ));
+	        }
 		    
 		    //判断是代办还是充值，有user_id为充值
 		    if( isset($msg['optional']['user_id']) )
