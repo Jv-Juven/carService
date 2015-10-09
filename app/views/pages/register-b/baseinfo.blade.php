@@ -46,7 +46,7 @@
 						<div class="validate-img">
 							<img src="/images/login/logo.png">
 						</div>
-						<a href="javascript:">
+						<a class="change-captcha" href="javascript:">
 							换一换
 						</a>
 					</td>

@@ -116,6 +116,8 @@ userLogin = ()->
 		}, (msg)->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
+			else
+				closeMask
 
 #切换到个人用户注册
 personal = ()->
@@ -151,6 +153,9 @@ personalReg = ()->
 	}, (msg)->
 		if msg["errCode"] isnt 0
 			regTips.val(msg["message"])
+		else
+			closeMask()
+
 
 
 #关闭按钮绑定事件
@@ -260,6 +265,8 @@ resetPsd = ()->
 		}, (msg)->
 			if msg["errCode"] isnt 0
 				warn.alert msg["message"]
+			else
+				closeMask()
 
 
 #邮箱获取验证码
