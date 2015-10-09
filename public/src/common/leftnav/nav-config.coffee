@@ -45,7 +45,7 @@ navConfig = {
 		navIndexes: {
 			"cost-detail": 1,
 			"overview": 0,
-			"recharge": 3,
+			"index": 3,
 			"refund-record": 2
 		}
 	}
@@ -56,13 +56,12 @@ navConfig = {
 		navIndexes: {
 			"all": 0,
 			# "detail": 1
-			"feedback": 3,
+			"index": 3,
 			# "home": 1
 			"read": 2,
 			# "read_notice": 1
 			# "success": 1
-			"unread": 1,
-			"feedback": 3
+			"unread": 1
 		}
 	}
 	serveCenter: {
