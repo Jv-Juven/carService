@@ -16,7 +16,14 @@
 			<a href="javascript:void(0);">经营分析</a>
 		</li>
 		<li class="header-menu-item">
-			<a href="/admin/admin-account/user-info">账户设置</a>
+			<a href="/admin/account/change-password">账户设置</a>
 		</li>
 	</ul>
+
+	@if(Auth::check())
+	<div id="welcome">
+		<span id="text">欢迎你，{{{ Auth::user()->username }}}</span>
+		<a href="javascript:void(0);" id="logout">退出</a>
+	</div>
+	@endif
 </nav>

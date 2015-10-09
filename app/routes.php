@@ -296,8 +296,10 @@ Route::get('test',function(){
 // 后台管理-页面
 Route::group(array('prefix' => 'admin'), function() {
 
+	Route::get('/login', 'AdminAccountPageController@login');
+
 	// 客服中心
-	Route::group(array('prefix' => 'service-center'), function() {
+	Route::group(array('prefix' => 'service-center', 'before' => 'auth.admin'), function() {
 		// 咨询
 		Route::get('/consult', 'AdminServiceCenterPageController@consult');
 		// 建议
@@ -307,7 +309,7 @@ Route::group(array('prefix' => 'admin'), function() {
 	});
 
 	// 操作中心
-	Route::group(array('prefix' => 'business-center'), function() {
+	Route::group(array('prefix' => 'business-center', 'before' => 'auth.admin'), function() {
 		// 企业用户完整信息
 		Route::get('/user-info', 'AdminBusinessCenterPageController@userInfo');
 		// 企业用户列表
@@ -331,38 +333,53 @@ Route::group(array('prefix' => 'admin'), function() {
 	});
 
 	// 账户设置
-	Route::group(array('prefix' => 'admin-account'), function() {
+	Route::group(array('prefix' => 'account', 'before' => 'auth.admin'), function() {
 		// 后台管理员账户设置
-		Route::get('/user-info', 'AdminAccountPageController@userInfo');
+		Route::get('/change-password', 'AdminAccountPageController@changePassword');
 	});
 });
 
 // 后台管理-接口
 Route::group(array('prefix' => 'admin'), function() {
 
-	// 查询用户信息
-	Route::post('/feedback', 'AdminController@feedback');
+	// 管理员注册
+	Route::post('/register', 'AdminController@register');
 
-	// 查询用户信息
-	Route::get('/search-user', 'AdminController@searchUser');
+	// 管理员登录
+	Route::post('/login', 'AdminController@login');
 
-	// 设置转账备注码
-	Route::post('/set-remark-code', 'AdminController@setRemarkCode');
+	Route::group(array('before' => 'auth.admin'), function() {
+		
+		// 退出登录
+		Route::post('/logout', 'AdminController@logout');
 
-	// 修改用户状态
-	Route::post('/change-user-status', 'AdminController@changeUserStatus');
+		// 修改管理员密码
+		Route::post('/change-password', 'AdminController@changePassword');
 
-	// 修改默认服务价格
-	Route::post('/change-default-service-univalence', 'AdminController@changeDefaultServiceUnivalence');
+		// 获取用户反馈
+		Route::post('/feedback', 'AdminController@feedback');
 
-	// 修改默认查询价格
-	Route::post('/change-default-query-univalence', 'AdminController@changeDefaultQueryUnivalence');
+		// 查询用户信息
+		Route::get('/search-user', 'AdminController@searchUser');
 
-	// 修改特定用户的服务价格
-	Route::post('/change-service-univalence', 'AdminController@changeServiceUnivalence');
+		// 设置转账备注码
+		Route::post('/set-remark-code', 'AdminController@setRemarkCode');
 
-	// 修改特定用户的查询价格
-	Route::post('/change-query-univalence', 'AdminController@changeQueryUnivalence');
+		// 修改用户状态
+		Route::post('/change-user-status', 'AdminController@changeUserStatus');
+
+		// 修改默认服务价格
+		Route::post('/change-default-service-univalence', 'AdminController@changeDefaultServiceUnivalence');
+
+		// 修改默认查询价格
+		Route::post('/change-default-query-univalence', 'AdminController@changeDefaultQueryUnivalence');
+
+		// 修改特定用户的服务价格
+		Route::post('/change-service-univalence', 'AdminController@changeServiceUnivalence');
+
+		// 修改特定用户的查询价格
+		Route::post('/change-query-univalence', 'AdminController@changeQueryUnivalence');
+	});
 });
 
 

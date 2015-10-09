@@ -186,7 +186,8 @@ module.exports = (grunt)->
                     'dist/css/pages/admin/layout.css':['src/pages/admin/layout.less']
 
                     # admin account
-                    'dist/css/pages/admin/admin-account/admin-account.css':['src/pages/admin/admin-account/admin-account.less']
+                    'dist/css/pages/admin/account/login.css':['src/pages/admin/account/login.less']
+                    'dist/css/pages/admin/account/change-password.css':['src/pages/admin/account/change-password.less']
                     
                     # admin service-center
                     'dist/css/pages/admin/service-center/layout.css':['src/pages/admin/service-center/layout.less']

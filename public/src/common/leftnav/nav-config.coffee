@@ -26,7 +26,7 @@ navConfig = {
 
 		},
 		navIndexes: {
-			"user-info": 0
+			"change-password": 0
 		}
 	}
 	accountCenter: {
