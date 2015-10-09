@@ -198,7 +198,7 @@ Route::group([ 'prefix' => 'serve-center', 'before' => 'auth.user.isIn' ], funct
 		// 查询违章代办订单页面
 		Route::group([ 'prefix' => 'pages' ], function(){
 
-			Route::get( 'violation', 'OrderPageController@violation' );
+			Route::get( 'order_violation', 'OrderPageController@violation' );
 		});
 
 		// 操作订单接口
@@ -245,10 +245,10 @@ Route::group([ 'prefix' => 'message-center' ], function(){
 	Route::group([ 'prefix' => 'feedback', 'before' => 'auth.user.isIn' ], function(){
 
 		// 反馈页面
-		Route::get( '/', 'FeedbackController@index' );
+		Route::get( '/index', 'FeedbackController@index' );
 
 		// 添加反馈
-		Route::post( '/', 'FeedbackController@add_feedback' );
+		Route::post( '/index', 'FeedbackController@add_feedback' );
 
 		// 反馈成功
 		Route::get( 'success', 'FeedbackController@feedback_success' );
@@ -275,7 +275,7 @@ Route::group([ 'prefix' => 'finance-center', 'before' => 'auth.user.isIn' ], fun
 	Route::group([ 'prefix' => 'recharge' ], function(){
 
 		// 充值页面
-		Route::get( '/', 'RechargeController@index' );
+		Route::get( '/index', 'RechargeController@index' );
 	});
 });
 	

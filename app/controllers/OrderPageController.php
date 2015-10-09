@@ -8,7 +8,7 @@ class OrderPageController extends BaseController{
                                 ->orderBy( 'created_at' )
                                 ->paginate( 3 );
 
-        return View::make( 'pages.serve-center.indent', [
+        return View::make( 'pages.serve-center.indent.indent-agency', [
             'paginator' => $paginator
         ]);
     }

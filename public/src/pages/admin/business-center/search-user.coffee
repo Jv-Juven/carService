@@ -22,7 +22,6 @@ $ ()->
 			str = template(res)	
 			$("#search-result").html(str);
 
-
 	$("#company-name-select").click (e)->
 		type = "companyName"
 		$("#dropdown-show").html("企业名称")

@@ -10,7 +10,7 @@
 				</a>
 				<ul class="nav-sec">
 					<li>
-						<a class="nav-item" href="/business/account">
+						<a class="nav-item" href="/account-center/account-info">
 							<i>•</i>
 							账号信息
 						</a>
@@ -29,7 +29,7 @@
 				</a>
 				<ul class="nav-sec">
 					<li>
-						<a class="nav-item" href="/">
+						<a class="nav-item" href="/account-center/developer-info">
 							<i>•</i>
 							开发者信息
 						</a>

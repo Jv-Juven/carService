@@ -8,10 +8,10 @@ class AdminController extends BaseController{
 		$userId = Input::get("userId");
 		$remarkCode = Input::get("remarkCode");
 
-		if(count($remarkCode) != 6) 
+		if(strlen($remarkCode) != 6) 
 			return Response::json(array('errCode' => 1, 'errMsg' => "备注码必须为六位"));
 
-		$result = User::where("user_id", "=", $userId)->update(["remark_code" => $remarkCode]);
+		$result = User::where("user_id", "=", $userId)->update(["remark_code" => $remarkCode, "status" => "21"]);
 	
 		if(!$result) 
 			return Response::json(array('errCode' => 1, 'errMsg' => "该用户不存在"));
@@ -22,7 +22,20 @@ class AdminController extends BaseController{
 	// 修改用户状态
 	public function changeUserStatus()
 	{
+		$userId = Input::get("userId");
+		$status = Input::get("status");
+
+		try {
+			$result = User::where("user_id", "=", $userId)->update(["status" => $status]);
+
+			if($result == 0)
+				return Response::json(array('errCode' => 1, "errMsg" => "[数据库错误]该用户信息不存在，修改失败"));
+				
+		} catch (Exception $e) {
+			return Response::json(array('errCode' => 1, "errMsg" => "[数据库错误]修改失败"));
+		}
 		
+		return Response::json(array('errCode' => 0));
 	}
 
 	// 修改默认服务价格

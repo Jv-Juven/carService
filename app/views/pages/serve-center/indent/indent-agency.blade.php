@@ -6,6 +6,7 @@
 
 @section("css")
 	@parent
+	<link rel="stylesheet" type="text/css" href="/lib/css/jquery-ui.min.css">
 	<link rel="stylesheet" type="text/css" href="/dist/css/pages/serve-center/indent/indent-agency.css">
 @stop
 
@@ -19,23 +20,31 @@
 			<div class="indent-inputs-wrapper">
 				<table class="input-table">
 					<tr>
+						<td colspan="2" class="btns-wrapper">
+							<a class="btn active" href="javascript:">按订单编号查询</a>
+							<a class="btn" href="javascript:">按订单信息查询</a>
+						</td>
+					</tr>
+					<tr class="indent-number">
 						<td class="indent-table-title">订单编号：</td>
 						<td class="indent-table-content">
 							<input type="text" id="indent-number" placeholder="请输入发动机号码后6位"/>
 						</td>
 					</tr>
-					<tr>
+					<tr class="indent-number"></tr>
+					<tr class="indent-number"></tr>
+					<tr class="indent-details">
 						<td class="indent-table-title">车牌号码：</td>
-						<td class="indent-table-content">
+						<td class="indent-table-content indent-inputs">
 							@include("components.province-abbre")
 							<input class="input plate-num" type="text" placeholder="车牌号码后六位"/>
-							@include("components.select-types")
+							<!-- @include("components.select-types") -->
 						</td>
 					</tr>
-					<tr>
-						<td class="indent-table-title">违章城市：</td>
+					<tr class="indent-details">
+						<td class="indent-table-title">业务状态：</td>
 						<td class="indent-table-content">
-							<select class="input select-plate plate-status">
+							<!-- <select class="input select-plate plate-status indent-city">
 								<option value="">全部</option>
 								<option value="">广州市</option>
 								<option value="">深圳市</option>
@@ -58,24 +67,24 @@
 								<option value="">潮州市</option>
 								<option value="">揭阳市</option>
 								<option value="">云浮市</option>
-							</select>
-							业务状态：
-							<select class="input select-plate plate-status">
+							</select> -->
+							
+							<select class="input select-plate plate-status indent-status">
 								<option value="">全部</option>
-								<option value="">未受理</option>
-								<option value="">已受理办理中</option>
-								<option value="">已受理</option>
-								<option value="">订单完成</option>
-								<option value="">订单关闭</option>
+								<option value="0">未受理</option>
+								<option value="1">已受理</option>
+								<option value="2">已受理办理中</option>
+								<option value="3">订单完成</option>
+								<option value="4">订单关闭</option>
 							</select>
 						</td>
 					</tr>
-					<tr>
+					<tr class="indent-details">
 						<td class="indent-table-title">下单时间：</td>
 						<td class="indent-table-content indent-date">
-							<input class="input plate-num" type="date" placeholder=""/>
+							<input class="input plate-num" type="text" id="indent_date_start" placeholder=""/>
 							至
-							<input class="input plate-num" type="date" placeholder=""/>
+							<input class="input plate-num" type="text" id="indent_date_end" placeholder=""/>
 						</td>
 					</tr>
 				</table>
@@ -105,7 +114,7 @@
 							<span>12345677654321</span>
 						</td>
 					</tr>
-					<tr class="table-line">
+					<tr class="table-line" id="deal_status01">
 						<td></td>
 						<td></td>
 						<td></td>
@@ -188,7 +197,7 @@
 							<span>12345677654321</span>
 						</td>
 					</tr>
-					<tr class="table-line">
+					<tr class="table-line" id="deal_status02">
 						<td></td>
 						<td></td>
 						<td></td>
@@ -276,7 +285,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
-						<td class="last-td" rowspan="3"><!-- 接受该项的信息条目数+1（即：总条目数是2，填3） -->
+						<td class="last-td" rowspan="3"  id="deal_status03"><!-- 接受该项的信息条目数+1（即：总条目数是2，填3） -->
 							已办理
 						</td>
 					</tr>
@@ -382,6 +391,7 @@
 	</div>
 	@section("js")
 		@parent
+		<script type="text/javascript" src="/lib/js/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="/dist/js/pages/serve-center/indent-agency.js"></script>
 	@stop
 @stop

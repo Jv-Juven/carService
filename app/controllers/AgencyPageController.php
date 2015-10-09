@@ -11,7 +11,7 @@ class AgencyPageController extends BaseController{
 
         $total_fee = 0;
 
-        for ( $violations as $violation ){
+        foreach ( $violations as $violation ){
             $total_fee += (int)$violation[ 'fkje' ];
         }
 
@@ -32,7 +32,7 @@ class AgencyPageController extends BaseController{
         $agency_info = [
             'service_fee'   => BusinessController::getServiceFee() * $violations_info['count'],
             'express_fee'   => BusinessController::getExpressFee()
-        ]
+        ];
 
         Session::put( 'violations', $violations );
         Session::put( 'agency_info', $agency_info );

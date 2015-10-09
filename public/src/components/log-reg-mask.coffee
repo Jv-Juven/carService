@@ -154,14 +154,14 @@ personalReg = ()->
 
 
 #关闭按钮绑定事件
-closeBtn.off().on "click", closeMask
+closeBtn.on "click", closeMask
 #切换用户类型按钮绑定事件
-logMenuBtn.off().on "click",cutUserType
+logMenuBtn.on "click",cutUserType
 #”个人用户注册“按钮绑定事件
-personalRegBtn.off().on "click", personal
+personalRegBtn.on "click", personal
 
 #手机获取验证码
-getCodes.off().on "click", ()->
+getCodes.on "click", ()->
 
 	if !validate.mobile(regPhone.val())
 		regTips.val("*请正确填写手机号码")
@@ -175,13 +175,13 @@ getCodes.off().on "click", ()->
 			return
 
 #"登录"按钮绑定事件
-submitBtn.off().on "click", userLogin
+submitBtn.on "click", userLogin
 
 #"注册"按钮绑定事件
-regBtn.off().on "click", personalReg
+regBtn.on "click", personalReg
 
 #"取消"按钮绑定事件
-cancelBtn.off().on "click", closeMask
+cancelBtn.on "click", closeMask
 
 
 ###
@@ -291,13 +291,13 @@ phoneCodesBtn.off().on "click", ()->
 			warn.alert msg["message"]
 
 #修改密码
-saveBtn.off().on "click", resetPsd
+saveBtn.on "click", resetPsd
 
 #"取消"按钮事件绑定
-cancelBtn.off().on "click", closeReg
+cancelBtn.on "click", closeReg
 
 #"忘记密码"框关闭按钮事件绑定
-resetClose.off().on "click", closeReg
+resetClose.on "click", closeReg
 
 ###
 # 忘记密码框 END
@@ -309,19 +309,19 @@ fotgetPsd.on "click", ()->
 	closeMask()
 	showResetPannel()
 
-mask = {
+# mask = {
 
-	showPersReg: ()->
-		showPersReg()
+# 	showPersReg: ()->
+# 		showPersReg()
 
-	showResetPannel: ()->
-		showResetPannel()
+# 	showResetPannel: ()->
+# 		showResetPannel()
 
-	closeMask: ()->
-		closeMask()
-}
+# 	closeMask: ()->
+# 		closeMask()
+# }
 
-module.exports = mask
+# module.exports = mask
 
 
 
