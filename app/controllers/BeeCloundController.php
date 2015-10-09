@@ -35,12 +35,15 @@ class BeeCloundController extends BaseController{
 	//验证支付返回信息是否正确－正确时调用充值接口
 	public function authBeeCloud()
 	{		
-		return 'success';
+		// return 'success';
 		$appId 		= Config::get('beeCloud.app_secret');
 		$appSecret 	= Config::get('beeCloud.app_id');
 		$jsonStr 	= file_get_contents("php://input");
 		$msg 		= json_decode($jsonStr);
 		$data 		= Cache::get($msg->transactionFee);//支付数据
+		Log::info( $msg );
+		Log::info( $data );
+
 		if( !isset( $data ))
 			return Response::json(array('errCode'=>21, 'message'=>''));
 		//验证签名
