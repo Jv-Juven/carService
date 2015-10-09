@@ -362,7 +362,12 @@ Route::group(array('prefix' => 'admin'), function() {
 	Route::post('/change-query-univalence', 'AdminController@changeQueryUnivalence');
 });
 
+//beeclound接口
+Route::group(array('prefix'=>'beeclound','before'=>'auth.user.isIn'), function(){
+	//微信充值
+	Route::get('recharge','BeeCloundController@recharge');
 
+});
 
 
 
