@@ -55,6 +55,8 @@ $ ()->
 			}, (msg)->
 				if msg["errCode"] isnt 0
 					alert msg["message"]
+				else
+					window.location.href = "/serve-center/search/pages/violation"
 
 	#点击显示指定的大图
 	selectPic = (e)->
