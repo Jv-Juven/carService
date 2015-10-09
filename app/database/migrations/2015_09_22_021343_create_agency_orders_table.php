@@ -110,11 +110,11 @@ class CreateAgencyOrdersTable extends Migration {
 			/*
 			 *  处理状态
 			 * 		0 : 未受理
-			 * 		1 : 已受理
+			 * 		1 : 已受理//可以办理退款
 			 * 		2 : 已受理办理中
 			 * 		3 : 订单完成
 			 * 		4 : 订单关闭
-			 */
+			 */	
 			$table->char('process_status', 2);
 			
 			/*

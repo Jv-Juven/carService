@@ -64,12 +64,6 @@ class CreateTrafficViolationInfoTable extends Migration {
 			
 			/*
 			 * 请求结果
-			 * 		违章城市
-			 */
-			$table->string('rep_event_city');
-			
-			/*
-			 * 请求结果
 			 * 		违章地点
 			 */
 			$table->string('rep_event_addr');

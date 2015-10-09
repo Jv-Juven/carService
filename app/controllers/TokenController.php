@@ -1,6 +1,8 @@
 <?php
 
 class TokenController extends BaseController{
+
+    const CACHE_EXPIRED = 120;
     
     /**
      * 从远程服务器获取access token
@@ -29,10 +31,10 @@ class TokenController extends BaseController{
         // 不存在默认返回空字符串( 即长度为0字符串 )
         if ( $user_id == null ){
 
-            return Cache::get( 'cheshang_token', '' );
+            return Cache::get( 'cheshang_access_token', '' );
         }else{
 
-            return Cache::get( "token_user_$user_id", '' );
+            return Cache::get( "cheshang_access_token_user_$user_id", '' );
         }
     }
 
@@ -43,10 +45,10 @@ class TokenController extends BaseController{
 
         if ( $user_id == null ){
 
-            Cache::put( 'cheshang_token', $token );
+            Cache::put( 'cheshang_access_token', $token, self::CACHE_EXPIRED );
         }else{
 
-            Cache::put( "cheshang_token_user_$user_id", $token );
+            Cache::put( "cheshang_access_token_user_$user_id", $token, self::CACHE_EXPIRED );
         }
     }
 
@@ -92,12 +94,12 @@ class TokenController extends BaseController{
             if ( empty( $token ) ){
 
                 // 获取企业用户信息
-                $user_bussiness_info = BussinessUser::find( $user->user_id );
+                $user_bussiness_info = BusinessUser::find( $user->user_id );
 
                 // 从远程服务器获取
                 $token = static::getAccessTokenFromRemote( $user_bussiness_info->app_key, $user_bussiness_info->app_secret );
 
-                static::putAccessTokenIntoCache( $token, $user_id );
+                static::putAccessTokenIntoCache( $token, $user->user_id );
             }
 
             return $token;

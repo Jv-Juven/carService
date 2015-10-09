@@ -51,7 +51,7 @@ Route::filter('auth.admin', function()
 Route::filter('auth.user.isIn',function()
 {
 	Session_start();
-	$user = User::first();
+	$user = User::where( 'user_type', '1' )->first();
 	// dd($user);
 	Sentry::login($user,false);
 	// Sentry::logout();

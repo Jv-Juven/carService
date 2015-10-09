@@ -111,20 +111,19 @@ class BusinessController extends BaseController{
 
 		try{
 			$http_client = static::getBaseHttpClient();
-				
-			if(strtoupper($http_params['method']) == "GET") 
-			{
-				$response = $http_client->request( $http_params['method'], $http_params['uri'], [
-					'query' => $http_params['query']
-				]);
+
+			$method = strtoupper( $http_params['method'] );
+
+			if( $method == 'GET' ) {
+
+				$query_params = [ 'query' => $http_params['query'] ];
 			}
-			else
-			{
-				$response = $http_client->request( $http_params['method'], $http_params['uri'], [
-					'form_params' => $http_params['query']
-				]);
+			else if ( $method == 'POST' ){
+
+				$query_params = [ 'form_params' => $http_params['query'] ];
 			}
-			
+
+			$response = $http_client->request( $method, $http_params['uri'], $query_params );
 
 			$response_content = $response->getBody()->getContents();
 
@@ -158,11 +157,12 @@ class BusinessController extends BaseController{
 			// 若服务器提供错误信息，则返回相应消息，否则统一返回'操作失败'
 			if ( array_key_exists( 'errMsg', $response_content ) ){
 				$error_message = $response_content[ 'errMsg' ];
-			}else{
+			}
+			else{
 				$error_message = '操作失败';
 			}
 
-			throw new SearchException( $error_message, $response_content['errCode'] );
+			throw new OperationException( $error_message, $response_content['errCode'] );
 		}
 		catch( ClientException $e ){
 
@@ -170,7 +170,7 @@ class BusinessController extends BaseController{
 			throw new Exception( "请求失败", 41 );
 		}
 		// 查询出错
-		catch( SearchException $e ){
+		catch( OperationException $e ){
 
 			throw $e;
 		}
@@ -260,7 +260,7 @@ class BusinessController extends BaseController{
 	public static function modify_business_user_univalence( $user_id, $query ){
 
 		$query[ 'token' ] = static::create_request_token();
-		$query[ 'appkey' ] = static::get_appkey($user_id);
+		$query[ 'appkey' ] = static::get_appkey( $user_id );
 
 		$http_params = [
 			'method'	=> 'POST',
@@ -278,7 +278,7 @@ class BusinessController extends BaseController{
 	 *
 	 * @param 	$number 	integer 	0.00
 	 * @param 	$user_id 	string
-	 * @return 	array
+	 * @return 	boolean
 	 */
 	public static function recharge( $number, $user_id = null ){
 
@@ -286,13 +286,13 @@ class BusinessController extends BaseController{
 			'method'	=> 'POST',
 			'uri'		=> '/account/recharge',
 			'query'		=> [
-				'appkey'	=> static::get_appkey( $user_id ),
 				'money'		=> $number,
+				'appkey'	=> static::get_appkey( $user_id ),
 				'token'		=> static::create_request_token()
 			]
 		];
 
-		return static::send_request( $http_params );
+		return static::send_request( $http_params, 'errCode' ) == 0;
 	}
 
 	/**
@@ -359,7 +359,25 @@ class BusinessController extends BaseController{
 			]
 		];
 
-		return static::send_request( $http_params, 'body' );
+		$search_result = json_decode( static::send_request( $http_params, 'data' ), true );
+		$search_result['returnCode'] = (int)( $search_result['returnCode'] );
+
+		if ( (int)( $search_result['returnCode'] ) == 1 ){
+
+			foreach ( $search_result[ 'body' ] as $key => $value ){
+
+				if ( isset( $value[ 'tips' ] ) ){
+
+					throw new SearchException( '查询失败', 32 );
+				}
+			}
+
+			return $search_result[ 'body' ];
+
+		}else{
+
+			throw new SearchException( '查询失败', 32 );
+		}
 	}
 
 	/**
@@ -382,8 +400,20 @@ class BusinessController extends BaseController{
 			]
 		];
 
-		return static::send_request( $http_params, 'body' );
-	}	
+		return static::send_request( $http_params );
+
+		$search_result = json_decode( static::send_request( $http_params, 'data' ), true );
+		$search_result['returnCode'] = (int)( $search_result['returnCode'] );
+
+		if ( (int)( $search_result['returnCode'] ) == 1 ){
+
+			return $search_result[ 'body' ];
+
+		}else{
+
+			throw new SearchException( '查询失败', 32 );
+		}
+	}
 
 	/**
 	 * 查询车辆信息
@@ -407,7 +437,7 @@ class BusinessController extends BaseController{
 			]
 		];
 
-		return static::send_request( $http_params, 'body' );
+		return json_decode( static::send_request( $http_params, 'data' ), true );
 	}
 
 	/**
