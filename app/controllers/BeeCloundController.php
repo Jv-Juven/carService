@@ -39,7 +39,7 @@ class BeeCloundController extends BaseController{
 		$appId 		= Config::get('beeCloud.app_secret');
 		$appSecret 	= Config::get('beeCloud.app_id');
 		$jsonStr 	= file_get_contents("php://input");
-		$msg 		= json_decode($jsonStr);
+		$msg 		= json_decode($jsonStr,true);
 		$data 		= Cache::get($msg->transactionId);//支付数据
 		Log::info( $msg );
 		Log::info( $data );
@@ -115,7 +115,7 @@ class BeeCloundController extends BaseController{
 		$data["bill_no"] 	= CostDetail::get_unique_id();
 		$data["total_fee"] 	= $money; 
 		$data['title']		= '充值';
-		$data["optional"] 	= json_decode(json_encode(array("user_id"=>Sentry::getUser()->user_id)));
+		$data["optional"] 	= json_decode(json_encode(array("user_id"=>Sentry::getUser()->user_id),true),true);
 		Cache::put($data["bill_no"],$data,30);
 		
 	    $result = BCRESTApi::bill($data);
