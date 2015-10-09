@@ -59,8 +59,8 @@ $ ()->
 
 	#获取验证码
 	getCaptcha = ()->
-		$.get "/user/captcha", {}, (msg)->
-			captcha.attr("src", msg)
+		captcha.attr('src', ' ').attr('src', '/user/captcha' + '?id=' + Math.random(12));
+
 
 	#立即获取
 	getCaptcha()

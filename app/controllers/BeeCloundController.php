@@ -90,7 +90,12 @@ class BeeCloundController extends Basecontroller{
 							->first()
 	*/
 
-	//微信支付－充值
+	/* 微信支付－充值
+	 * 需要参数：money
+	 *
+	 *
+	 */
+
 	public function recharge()
 	{	
 		$data = $this->returnDataArray();
@@ -113,7 +118,7 @@ class BeeCloundController extends Basecontroller{
 	    }
 	    $code_url = $result->code_url;//生成支付链接
 		//根据不同的支付方式返回不同的支付页面
-		return View::make('beeclound.recharge')->with(array('bill_no'=>$data['bill_no'], 
+		return View::make('beeclound.pay')->with(array('bill_no'=>$data['bill_no'], 
 												'code_url'=>$code_url));
 	}
 
@@ -131,14 +136,20 @@ class BeeCloundController extends Basecontroller{
 		if( !isset( $order ) )
 			return Response::json(array('errCode'=>21, 'message'=>'该订单不存在'));
  
-		$data["bill_no"] 	= $order->order_id;
+		$data["bill_no"] 	= $order_id;
 		$data["total_fee"] 	= ($order->capital_sum+$order->service_charge_sum+$order->express_fee)*100;
 		$data['title'] 		= '订单代办';
+		Cache::put($order_id,$data,30);
 
-		
+		$result = BCRESTApi::bill($data);
+	    if ($result->result_code != 0) {
+	        return  json_decode( json_encode($result,true), true);
+	    }
+	    $code_url = $result->code_url;//生成支付链接
+		//根据不同的支付方式返回不同的支付页面
+		return View::make('beeclound.pay')->with(array('bill_no'=>$data['bill_no'], 
+												'code_url'=>$code_url));
 	}
-
-
 
 	//退款
 	public function refund()
