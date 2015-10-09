@@ -60,10 +60,10 @@ $ ()->
 	#获取验证码
 	getCaptcha = ()->
 		$.get "/user/captcha", {}, (msg)->
-			captcha.attr(src, msg)
+			captcha.attr("src", msg)
 
 	#立即获取
-	getCaptcha()
+	# getCaptcha()
 
 	#绑定”注册“按钮事件
 	submitBtn.on "click", submit
