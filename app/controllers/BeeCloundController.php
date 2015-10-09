@@ -131,9 +131,9 @@ class BeeCloundController extends Basecontroller{
 		if( !isset( $order ) )
 			return Response::json(array('errCode'=>21, 'message'=>'该订单不存在'));
  
-		$data["bill_no"] = $order->order_id;
-		$data["total_fee"] = ($order->capital_sum+$order->service_charge_sum+$order->express_fee)*100;
-		
+		$data["bill_no"] 	= $order->order_id;
+		$data["total_fee"] 	= ($order->capital_sum+$order->service_charge_sum+$order->express_fee)*100;
+		$data['title'] 		= '订单代办';
 
 	}
 
