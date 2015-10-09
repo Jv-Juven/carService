@@ -20,7 +20,7 @@
 		4. 支付宝返回的total_fee（商品总价），subject（订单标题）
 		5. 微信返回的total_fee（商品总价
 */
-class BeeCloundController extends Basecontroller{
+class BeeCloundController extends BaseController{
 
 	public function returnDataArray()
 	{
