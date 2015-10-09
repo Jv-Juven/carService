@@ -7,7 +7,7 @@
 @section('body')
     <div id="main">
     	<div id="left-nav">
-	       	@include('components.admin.left-nav.admin-account-left-nav')
+	       	@include('components.admin.left-nav.account-left-nav')
     	</div>
 
     	<div id="right-content">

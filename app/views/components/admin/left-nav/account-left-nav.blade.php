@@ -6,7 +6,7 @@
         <li role="presentation">
             <ul class="nav nav-pills nav-stacked">
                 <li role="presentation">
-                    <a href="/admin/admin-account/user-info" class="nav-item">用户信息</a>
+                    <a href="/admin/account/change-password" class="nav-item">修改密码</a>
                 </li>
             </ul>
         </li>

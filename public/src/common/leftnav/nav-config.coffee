@@ -16,9 +16,9 @@ navConfig = {
 
 		},
 		navIndexes: {
-			"all": 0,
-			"treated": 1,
-			"untreated": 2
+			"consult": 0,
+			"suggestion": 1,
+			"complain": 2
 		}
 	}
 	adminAccount: {
@@ -26,7 +26,7 @@ navConfig = {
 
 		},
 		navIndexes: {
-			"user-info": 0
+			"change-password": 0
 		}
 	}
 	accountCenter: {

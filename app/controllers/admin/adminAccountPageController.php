@@ -3,8 +3,13 @@
 class AdminAccountPageController extends BaseController{
 
 	//帐号信息
-	public function userInfo()
+	public function changePassword()
 	{
-		return View::make('pages.admin.admin-account.admin-account');
+		return View::make('pages.admin.account.change-password');
+	}
+
+	public function login()
+	{
+		return View::make('pages.admin.account.login');
 	}
 }
