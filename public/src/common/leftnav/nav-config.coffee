@@ -44,10 +44,9 @@ navConfig = {
 		},
 		navIndexes: {
 			"cost-detail": 1,
-			"overview": 0
-			"recharge": 3
+			"overview": 0,
+			"recharge": 3,
 			"refund-record": 2
-			"": 3
 		}
 	}
 	messageCenter: {

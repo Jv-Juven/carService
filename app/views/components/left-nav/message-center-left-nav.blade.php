@@ -47,7 +47,7 @@
 				</a>
 				<ul class="nav-sec">
 					<li>
-						<a class="nav-item" href="/message-center/feedback">
+						<a class="nav-item" href="/message-center/feedback/feedback/">
 							<i>•</i>
 							反馈
 						</a>
