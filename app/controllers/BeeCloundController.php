@@ -117,6 +117,27 @@ class BeeCloundController extends Basecontroller{
 												'code_url'=>$code_url));
 	}
 
+	//订单代办
+	public function OrderAgency()
+	{
+		$data = $this->returnDataArray();
+		$data["channel"] = "WX_NATIVE";
+
+		$order_id = Input::get('order_id');
+		if( !isset($order_id) )
+			return Response::json(array('errCode'=>21, 'message'=>'请输入订单id' ));
+
+		$order = AgencyOrder::find($order_id);
+		if( !isset( $order ) )
+			return Response::json(array('errCode'=>21, 'message'=>'该订单不存在'));
+ 
+		$data["bill_no"] = $order->order_id;
+		$data["total_fee"] = ($order->capital_sum+$order->service_charge_sum+$order->express_fee)*100;
+		
+
+	}
+
+
 
 	//退款
 	public function refund()
