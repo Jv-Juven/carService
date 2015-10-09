@@ -135,6 +135,7 @@ class BeeCloundController extends Basecontroller{
 		$data["total_fee"] 	= ($order->capital_sum+$order->service_charge_sum+$order->express_fee)*100;
 		$data['title'] 		= '订单代办';
 
+		
 	}
 
 
