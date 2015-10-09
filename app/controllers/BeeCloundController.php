@@ -104,8 +104,8 @@ class BeeCloundController extends BaseController{
 		$data = $this->returnDataArray();
 		$data["channel"] = "WX_NATIVE";
 
-		// $money = 1;
-		$money = Input::get('money');
+		$money = 1;
+		// $money = Input::get('money');
 		if( !is_int( $money ) )
 			return Response::json(array('errCode'=>21, 'message'=>'请输入正确的金额'));
 		
