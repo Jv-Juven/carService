@@ -6,7 +6,7 @@ validate = new validate()
 warn = new warn()
 allCheck = new allCheck()
 
-
+recordsPlate = $(".records-plate")
 plateNum = $("#vio_plate_num")
 engineNum = $("#engine_num")
 plateNumberSelect = $(".plate-number-container").find("select")
@@ -43,7 +43,7 @@ submit = ()->
 
 	vioTips.text(" ")
 
-	$.post "/business/api/violation", {
+	$.get "/business/api/violation", {
 
 		engineCode: engineNum,
 		licensePlate: place + plateNum,
@@ -75,6 +75,10 @@ submit = ()->
 
 			table01.html("").append(th).append(tpl01)
 			table02.html("").append(th).append(tpl02)
+
+			#修改标题头
+			recordsPlate.text(place + plateNum)
+
 			vioRecords.fadeIn(100)
 
 

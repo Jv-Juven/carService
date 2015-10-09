@@ -34,8 +34,8 @@
 							<input class="input fullwidth" id="file_codes" type="text" placeholder="请输入您驾驶证上的档案编号"/>
 						</div>
 					</div>
-					<div class="tips-words drive-tips">*请输入发动机后六位</div>
-					<div class="input-wrapper input-btn">
+					<div class="tips-words drive-tips"></div>
+					<div class="input-wrapper input-btn drive-btn">
 						查询
 					</div>
 				</div>
