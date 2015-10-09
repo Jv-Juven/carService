@@ -15,6 +15,9 @@ $ ()->
 	protocol = $("#protocol")
 	submitBtn = $(".submin-btn a")
 
+	captcha = $(".validate-img img")
+	changeCaptcha = $(".change-captcha")
+
 	###
 	# 点击”注册“按钮事件
 	# 验证输入的信息的合法性
@@ -54,6 +57,24 @@ $ ()->
 			else
 				window.location.href = "/user/b_active"
 
+	#获取验证码
+	getCaptcha = ()->
+		captcha.attr('src', ' ').attr('src', '/user/captcha' + '?id=' + Math.random(12));
+
+
+	#立即获取
+	getCaptcha()
+
 	#绑定”注册“按钮事件
 	submitBtn.on "click", submit
+
+	#更换验证码图片
+	changeCaptcha.on "click", getCaptcha
+
+
+
+
+
+
+
 

@@ -18,7 +18,7 @@
 							<img src="/images/components/nav_arrow.png">
 						</i>
 					</li>
-					<li class="active">
+					<li class="">
 						<a class="nav-item" href="/message-center/message/unread">
 							<i>•</i>
 							未读消息
@@ -47,7 +47,7 @@
 				</a>
 				<ul class="nav-sec">
 					<li>
-						<a class="nav-item" href="/message-center/feedback">
+						<a class="nav-item" href="/message-center/feedback/index/">
 							<i>•</i>
 							反馈
 						</a>

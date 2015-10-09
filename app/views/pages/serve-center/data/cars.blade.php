@@ -7,7 +7,6 @@
 @section("css")
 	@parent
 	<link rel="stylesheet" type="text/css" href="/dist/css/pages/serve-center/business/violation.css">
-	<link rel="stylesheet" type="text/css" href="/dist/css/pages/serve-center/data/drive.css">
 	<link rel="stylesheet" type="text/css" href="/dist/css/pages/serve-center/data/cars.css">
 @stop
 
@@ -17,54 +16,84 @@
 
 @section("right-content")
 	<div class="content-box">
-		<div class="violation-container">
+		<div class="violation-container clearfix">
 			<!-- 查询框 START -->
 			<div class="violation-search">
 				<div class="violation-wrapper">
-					
 					<div class="input-wrapper">
-						<div class="input-title">身份证/驾驶证：</div>
-						<div class="inputs">
-							<input class="input fullwidth" type="text" placeholder="请输入您的身份证号或驾驶证号"/>
+						<div class="input-title">车牌号码：</div>
+						<div class="inputs cars-inputs">
+							@include("components.province-abbre")
+							<input class="input plate-num" type="text" placeholder="车牌号码后六位"/>
+							@include("components.select-types")
 						</div>
 					</div>
 					<div class="input-wrapper">
 						<div class="input-title">档案编号：</div>
 						<div class="inputs">
-							<input class="input fullwidth" type="text" placeholder="请输入您驾驶证上的档案编号"/>
+							<input class="input fullwidth record-id" type="text" placeholder="请输入发动机号码后六位"/>
 						</div>
 					</div>
 
-					<div class="input-wrapper input-btn">
+					<div class="input-wrapper input-btn cars-btn">
 						查询
 					</div>
 				</div>
 			</div>
 			<!-- 查询框 END -->
 
-			<div class="violation-info">
-				<div class="info-tr">
-					<div class="info-title">账户余额</div>
-					<div class="info-num">100</div>
-				</div>
-				<div class="info-tr">
-					<div class="info-title">剩余查询次数</div>
-					<div class="info-num">2000</div>
-				</div>
-			</div>
+			@include("components.violation-info")
 
-			<div class="cars-results">
-				本年度，截止至当前时间，您累计已扣分<span class="stress">3分</span>	！
+			<div class="violation-records clearfix cars-records">
+				<div class="vio-records-title">
+					车牌号码为<span class="records-plate">XXXXXX</span>的机动车信息如下
+				</div>
+				<div class="vio-records-table">
+					<table>
+						<tr class="tb-head">
+							<th>车辆类型</th>
+							<th>状态</th>
+							<th>检验合格状态</th>
+							<th>强制报废日期</th>
+						</tr>
+						<tr class="tb-tr cars-resulte">
+							<!-- <td>
+								<span class="scores">小型汽车</span>
+							</td>
+							<td>
+								<span class="principal">正常</span>
+							</td>
+							<td>
+								<span class="overdul-fine">20120512</span>
+							</td>
+							<td>
+								<span class="serve-money">20220512</span>
+							</td> -->
+						</tr>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
+	<script type="text/template" id="cars_template">
+		<td>
+			<span class="scores"><%- array["cllxmc"]%></span>
+		</td>
+		<td>
+			<span class="principal"><%- array["ztmc"]%></span>
+		</td>
+		<td>
+			<span class="overdul-fine"><%- array["yxqz"]%></span>
+		</td>
+		<td>
+			<span class="serve-money"><%- array["qzbfqz"]%></span>
+		</td>
+	</script>
 @stop
-
-
 @section("js")
 	@parent
+	<script type="text/javascript" src="/lib/js/lodash.min.js"></script>
 	<script type="text/javascript" src="/dist/js/pages/serve-center/cars.js"></script>
 @stop
-
 
 

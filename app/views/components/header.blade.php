@@ -12,20 +12,20 @@
 	</div>
 
 	<ul class="header-menu clearfix">
-		<li class="header-menu-item">
-			<a href="/">服务中心</a>
+		<li class="header-menu-item nav-item">
+			<a href="/serve-center/search/pages/violation">服务中心</a>
 			<div class="item-underline"></div>
 		</li>
-		<li class="header-menu-item active">
-			<a href="/">商务中心</a>
+		<li class="header-menu-item nav-item">
+			<a href="/finance-center/cost-manage/overview">商务中心</a>
 			<div class="item-underline"></div>
 		</li>
-		<li class="header-menu-item">
-			<a href="/">消息中心</a>
+		<li class="header-menu-item nav-item">
+			<a href="/message-center/message/all">消息中心</a>
 			<div class="item-underline"></div>
 		</li>
-		<li class="header-menu-item">
-			<a href="/">账户设置</a>
+		<li class="header-menu-item nav-item">
+			<a href="/account-center/account-info">账户设置</a>
 			<div class="item-underline"></div>
 		</li>
 	</ul>
@@ -50,7 +50,7 @@
 				<a class="reg-btn" href="javascript:">登录</a>
 				<ul class="reg-dropdown-list">
 					<li class="reg-li first"><a href="javascript:">个人用户注册</a></li>
-					<li class="reg-li"><a href="/">企业用户注册</a></li>
+					<li class="reg-li"><a href="/user/b_register">企业用户注册</a></li>
 				</ul>
 			</div>
 		</li>
