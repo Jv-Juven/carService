@@ -34,25 +34,27 @@ class BeeCloundController extends Basecontroller{
 
 	//验证支付返回信息是否正确－正确时调用充值接口
 	public function authBeeCloud()
-	{	
+	{		
+		return 'success';
 		$appId 		= Config::get('beeCloud.app_secret');
 		$appSecret 	= Config::get('beeCloud.app_id');
 		$jsonStr 	= file_get_contents("php://input");
 		$msg 		= json_decode($jsonStr);
-		$data 		= Session::get('pay_data');//支付数据
-		
+		$data 		= Cache::get($msg->transactionFee);//支付数据
+		if( !isset( $data ))
+			return Response::json(array('errCode'=>21, 'message'=>''));
 		//验证签名
 		$sign = md5($appId . $appSecret . $msg->timestamp);
 		if ( $sign != $msg->sign ) 
-		    return Response::json(array( 'errCode'=>21, 'message'=>'验证码不正确' ));
+		    return Response::json(array( 'errCode'=>22, 'message'=>'验证码不正确' ));
 
 		//订单金额
 		if($data['total_fee'] != $msg->transactionFee)
-		    return Response::json(array( 'errCode'=>22, 'message'=>'金额不不正确' ));
+		    return Response::json(array( 'errCode'=>23, 'message'=>'金额不不正确' ));
 
 		//订单号
 		if($data['bill_no'] != $msg->transactionId)
-		    return Response::json(array( 'errCode'=>23, 'message'=>'订单号' ));
+		    return Response::json(array( 'errCode'=>24, 'message'=>'订单号' ));
 
 		if($msg->transactionType == "PAY") {
 	    
@@ -61,24 +63,28 @@ class BeeCloundController extends Basecontroller{
 	        if( $message_detail->total_fee*100 != $data['total_fee'])
 	        	return Response::json(array( 'errCode'=>24, 'message'=>'金额不不正确' ));
 		    
-		   //  //判断是代办还是充值，1 = 充值；2 ＝ 代办
-		   //  if( $msg->optional->optional = 1 )
-		   //  {
-			  //    $result = BusinessController::recharge($data['total_fee']);
-			  //    if( $result['errCode'] != 0)
-				 // 	return 'false';
+		    //判断是代办还是充值，有user_id为充值
+		    if( isset($msg->optional->user_id) )
+		    {
+			     $cost_detail = New CostDetail;
+			     $cost_detail->user_id 		= $msg->optional->user_id;
+			     $cost_detail->cost_id 		= $data['total_fee'];
+			     $cost_detail->fee_type_id 	= FeeType::where( 'category', FeeType::get_recharge_code() )
+									->where( 'item', FeeType::get_rechage_subitem() )
+									->first();
+				if( !$cost_detail->save() )	
+				 	return 'false';
 
-				 // return 'sucess';
-		   //  }
+				 return 'sucess';
+		    }else{
+		    	$order = AgencyOrder::find( $data['bill_no'] );
+		    	$order->trade_status = 1; //已付款
+		    	$order->process_status = 1; //未处理
+		    	if( !$order->save() ) 
+		    		return 'false';
 
-		   //  if( $msg->optional->optional = 2 )
-		   //  {
-		   //  	BusinessController::updateOrderStatus( $msg->optional->order_id,1,1);
-		   //  	if( $result['errCode'] != 0)
-				 // 	return 'false';
-				 	   
-				 // return 'sucess';
-		   //  }
+		    	return 'sucess';
+		    }
 
 			} else if ($msg->transactionType == "REFUND") {
 				//更改退款状态
@@ -91,11 +97,8 @@ class BeeCloundController extends Basecontroller{
 	*/
 
 	/* 微信支付－充值
-	 * 需要参数：money
-	 *
-	 *
+	 * parm：money
 	 */
-
 	public function recharge()
 	{	
 		$data = $this->returnDataArray();
@@ -122,8 +125,10 @@ class BeeCloundController extends Basecontroller{
 												'code_url'=>$code_url));
 	}
 
-	//订单代办
-	public function OrderAgency()
+	/* 微信支付－代办
+	 * parm：order_id
+	 */
+	public function orderAgency()
 	{
 		$data = $this->returnDataArray();
 		$data["channel"] = "WX_NATIVE";

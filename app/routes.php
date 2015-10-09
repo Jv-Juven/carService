@@ -368,6 +368,8 @@ Route::group(array('prefix'=>'beeclound','before'=>'auth.user.isIn'), function()
 	Route::get('recharge','BeeCloundController@recharge');
 
 });
+	//验证
+	Route::get('beeclound','BeeCloundController@authBeeCloud');
 
 
 
