@@ -1,7 +1,86 @@
 <?php
 
+use Illuminate\Hashing\BcryptHasher;
+
 class AdminController extends BaseController{
+
+	public function login()
+	{
+		$username = Input::get("username");
+		$password = Input::get("password");
+
+		if(Auth::attempt(array('username' => $username, 'password' => $password)))
+		{
+		    return Response::json(array("errCode" => 0));
+		} 
+		else
+		{
+		    return Response::json(array("errCode" => 1, "errMsg" => "[登陆失败]用户名或密码错误"));
+		}
+	}
+
+	public function logout()
+	{
+		Auth::logout();
+
+		return Response::json(array("errCode" => 0));
+	}
+
+	public function register()
+	{
+		$username = Input::get("username");
+		$password = Input::get("password");
+
+		$hasher = new BcryptHasher();
+
+		$admin = new Admin();//实例化User对象
+	    $admin->username = $username;
+	    $admin->password = $hasher->make($password);
+	    $admin->save();
+		
+		return Response::json(array("errCode" => 0));
+	}
+
+	public function changePassword()
+	{
+		$adminId = Input::get("adminId");
+		$username = Input::get("username");
+		$oldPassword = Input::get("oldPassword");
+		$newPassword = Input::get("newPassword");
+		$newPasswordConfirm = Input::get("newPasswordConfirm");
+
+		$hasher = new BcryptHasher();
+
+		if(Auth::attempt(array('username' => $username, 'password' => $oldPassword)))
+		{
+			$result = Admin::where("admin_id", "=", $adminId)->update(["password" => $hasher->make($newPassword)]);
+			
+			if($result == 0)
+			{
+				return Response::json(array('errCode' => 1, 'errMsg' => "[修改失败]数据库错误"));
+			}
+		} 
+		else
+		{
+			return Response::json(array('errCode' => 1, 'errMsg' => "[修改失败]原密码错误"));
+		}
+
+
+		return Response::json(array('errCode' => 0));
+	}
 	
+	public function feedback()
+	{
+		$feedbackId = Input::get("feedbackId");
+
+		$result = Feedback::where("feedback_id", "=", $feedbackId)->update(["status" => true]);
+	
+		if(!$result)
+			return Response::json(array('errCode' => 1, 'errMsg' => "[数据库错误]找不到该条反馈信息"));
+
+		return Response::json(array('errCode' => 0));
+	}
+
 	// 设置转账备注码
 	public function setRemarkCode()
 	{

@@ -40,7 +40,7 @@ class BeeCloundController extends BaseController{
 		$appSecret 	= Config::get('beeCloud.app_id');
 		$jsonStr 	= file_get_contents("php://input");
 		$msg 		= json_decode($jsonStr);
-		$data 		= Cache::get($msg->transactionFee);//支付数据
+		$data 		= Cache::get($msg->transactionId);//支付数据
 		Log::info( $msg );
 		Log::info( $data );
 
