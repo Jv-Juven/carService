@@ -47,30 +47,30 @@ class BeeCloundController extends BaseController{
 		if( !isset( $data ))
 			return Response::json(array('errCode'=>21, 'message'=>''));
 		//验证签名
-		$sign = md5($appId . $appSecret . $msg->timestamp);
-		if ( $sign != $msg->sign ) 
+		$sign = md5($appId . $appSecret . $msg['timestamp']);
+		if ( $sign != $msg['sign'] ) 
 		    return Response::json(array( 'errCode'=>22, 'message'=>'验证码不正确' ));
 
 		//订单金额
-		if($data['total_fee'] != $msg->transactionFee)
+		if($data['total_fee'] != $msg['transactionFee'])
 		    return Response::json(array( 'errCode'=>23, 'message'=>'金额不不正确' ));
 
 		//订单号
-		if($data['bill_no'] != $msg->transactionId)
+		if($data['bill_no'] != $msg['transactionId'])
 		    return Response::json(array( 'errCode'=>24, 'message'=>'订单号' ));
 
-		if($msg->transactionType == "PAY") {
+		if($msg['transactionType'] == "PAY") {
 	    
-		    $message_detail =$msg->messageDetail;
+		    $message_detail =$msg['messageDetail'];
 		    
-	        if( $message_detail->total_fee*100 != $data['total_fee'])
+	        if( $message_detail['total_fee'] != $data['total_fee'])
 	        	return Response::json(array( 'errCode'=>24, 'message'=>'金额不不正确' ));
 		    
 		    //判断是代办还是充值，有user_id为充值
-		    if( isset($msg->optional->user_id) )
+		    if( isset($msg['optional']['user_id']) )
 		    {
 			     $cost_detail = New CostDetail;
-			     $cost_detail->user_id 		= $msg->optional->user_id;
+			     $cost_detail->user_id 		= $msg['optional']['user_id'];
 			     $cost_detail->cost_id 		= $data['total_fee'];
 			     $cost_detail->fee_type_id 	= FeeType::where( 'category', FeeType::get_recharge_code() )
 									->where( 'item', FeeType::get_rechage_subitem() )
@@ -89,7 +89,7 @@ class BeeCloundController extends BaseController{
 		    	return 'sucess';
 		    }
 
-			} else if ($msg->transactionType == "REFUND") {
+			} else if ($msg['transactionType'] == "REFUND") {
 				//更改退款状态
 		}	
 	}	
