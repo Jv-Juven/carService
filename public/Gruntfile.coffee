@@ -190,9 +190,6 @@ module.exports = (grunt)->
                     
                     # admin service-center
                     'dist/css/pages/admin/service-center/layout.css':['src/pages/admin/service-center/layout.less']
-                    'dist/css/pages/admin/service-center/all.css':['src/pages/admin/service-center/all.less']
-                    'dist/css/pages/admin/service-center/treated.css':['src/pages/admin/service-center/treated.less']
-                    'dist/css/pages/admin/service-center/untreated.css':['src/pages/admin/service-center/untreated.less']
                     
                     #admin business-center
                     'dist/css/pages/admin/business-center/layout.css':['src/pages/admin/business-center/layout.less']

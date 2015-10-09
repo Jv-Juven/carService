@@ -2,6 +2,18 @@
 
 class AdminController extends BaseController{
 	
+	public function feedback()
+	{
+		$feedbackId = Input::get("feedbackId");
+
+		$result = Feedback::where("feedback_id", "=", $feedbackId)->update(["status" => true]);
+	
+		if(!$result)
+			return Response::json(array('errCode' => 1, 'errMsg' => "[数据库错误]找不到该条反馈信息"));
+
+		return Response::json(array('errCode' => 0));
+	}
+
 	// 设置转账备注码
 	public function setRemarkCode()
 	{

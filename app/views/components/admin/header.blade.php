@@ -10,7 +10,7 @@
 			<a href="/admin/business-center/new-user-list">操作中心</a>
 		</li>
 		<li class="header-menu-item">
-			<a href="/admin/service-center/all">客服中心</a>
+			<a href="/admin/service-center/consult">客服中心</a>
 		</li>
 		<li class="header-menu-item">
 			<a href="javascript:void(0);">经营分析</a>

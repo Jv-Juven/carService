@@ -298,12 +298,12 @@ Route::group(array('prefix' => 'admin'), function() {
 
 	// 客服中心
 	Route::group(array('prefix' => 'service-center'), function() {
-		// 全部
-		Route::get('/all', 'AdminServiceCenterPageController@all');
-		// 已处理
-		Route::get('/treated', 'AdminServiceCenterPageController@treated');
-		// 未处理
-		Route::get('/untreated', 'AdminServiceCenterPageController@untreated');
+		// 咨询
+		Route::get('/consult', 'AdminServiceCenterPageController@consult');
+		// 建议
+		Route::get('/suggestion', 'AdminServiceCenterPageController@suggestion');
+		// 投诉
+		Route::get('/complain', 'AdminServiceCenterPageController@complain');
 	});
 
 	// 操作中心
@@ -339,6 +339,9 @@ Route::group(array('prefix' => 'admin'), function() {
 
 // 后台管理-接口
 Route::group(array('prefix' => 'admin'), function() {
+
+	// 查询用户信息
+	Route::post('/feedback', 'AdminController@feedback');
 
 	// 查询用户信息
 	Route::get('/search-user', 'AdminController@searchUser');

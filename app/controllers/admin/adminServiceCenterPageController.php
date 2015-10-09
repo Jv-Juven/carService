@@ -2,18 +2,75 @@
 
 class AdminServiceCenterPageController extends BaseController{
 
-	public function all()
+	public function consult()
 	{
-		return View::make('pages.admin.service-center.all');
+		$type = Input::get("type", "all");
+		$perPage = 10;
+
+		if($type == "treated")
+			$feedbacks = Feedback::where("type", "=", "1")->where("status", "=", 1)->paginate($perPage);
+		else if($type == "untreated")
+			$feedbacks = Feedback::where("type", "=", "1")->where("status", "=", 0)->paginate($perPage);
+		else
+			$feedbacks = Feedback::where("type", "=", "1")->paginate($perPage);
+
+		$totalCount = $feedbacks->getTotal();
+		$count = $feedbacks->count();
+
+		$feedbacks->addQuery( 'type', $type );
+
+		return View::make('pages.admin.service-center.feedback', [
+			"count" => $count,
+			"feedbacks" => $feedbacks,
+			"totalCount" => $totalCount
+		]);
 	}
 
-	public function treated()
+	public function suggestion()
 	{
-		return View::make('pages.admin.service-center.treated');
+		$type = Input::get("type", "all");
+		$perPage = 10;
+
+		if($type == "treated")
+			$feedbacks = Feedback::where("type", "=", "2")->where("status", "=", 1)->paginate($perPage);
+		else if($type == "untreated")
+			$feedbacks = Feedback::where("type", "=", "2")->where("status", "=", 0)->paginate($perPage);
+		else
+			$feedbacks = Feedback::where("type", "=", "2")->paginate($perPage);
+
+		$totalCount = $feedbacks->getTotal();
+		$count = $feedbacks->count();
+
+		$feedbacks->addQuery( 'type', $type );
+
+		return View::make('pages.admin.service-center.feedback', [
+			"count" => $count,
+			"feedbacks" => $feedbacks,
+			"totalCount" => $totalCount
+		]);
 	}
 
-	public function untreated()
+	public function complain()
 	{
-		return View::make('pages.admin.service-center.untreated');
+		$type = Input::get("type", "all");
+		$perPage = 10;
+
+		if($type == "treated")
+			$feedbacks = Feedback::where("type", "=", "3")->where("status", "=", 1)->paginate($perPage);
+		else if($type == "untreated")
+			$feedbacks = Feedback::where("type", "=", "3")->where("status", "=", 0)->paginate($perPage);
+		else
+			$feedbacks = Feedback::where("type", "=", "3")->paginate($perPage);
+
+		$totalCount = $feedbacks->getTotal();
+		$count = $feedbacks->count();
+		
+		$feedbacks->addQuery( 'type', $type );
+
+		return View::make('pages.admin.service-center.feedback', [
+			"count" => $count,
+			"feedbacks" => $feedbacks,
+			"totalCount" => $totalCount
+		]);
 	}
 }
