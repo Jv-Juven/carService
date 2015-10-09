@@ -38,13 +38,13 @@
 						<td class="indent-table-content indent-inputs">
 							@include("components.province-abbre")
 							<input class="input plate-num" type="text" placeholder="车牌号码后六位"/>
-							@include("components.select-types")
+							<!-- @include("components.select-types") -->
 						</td>
 					</tr>
 					<tr class="indent-details">
-						<td class="indent-table-title">违章城市：</td>
+						<td class="indent-table-title">业务状态：</td>
 						<td class="indent-table-content">
-							<select class="input select-plate plate-status indent-city">
+							<!-- <select class="input select-plate plate-status indent-city">
 								<option value="">全部</option>
 								<option value="">广州市</option>
 								<option value="">深圳市</option>
@@ -67,8 +67,8 @@
 								<option value="">潮州市</option>
 								<option value="">揭阳市</option>
 								<option value="">云浮市</option>
-							</select>
-							业务状态：
+							</select> -->
+							
 							<select class="input select-plate plate-status indent-status">
 								<option value="">全部</option>
 								<option value="0">未受理</option>

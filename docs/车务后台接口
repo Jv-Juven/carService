@@ -497,13 +497,16 @@ if( Sentry::check() )
 									'process_status'							处理状态
 
 									'traffic_violation_info': [						违章信息列表
-										'rep_event_time': '2015-08-22 17:22:22'		违章时间
-										'rep_event_addr': ''						违章地点
-										'rep_violation_behavior': ''				违章行为
-										'rep_priciple_balance': 123.12				本金
-										'rep_late_fee':	0.00						滞纳金
-										'rep_service_charge': 20.00					服务费
-										'rep_total_fee': 100.00						总额
+										{
+											'rep_event_time': '2015-08-22 17:22:22'		违章时间
+											'rep_event_addr': ''						违章地点
+											'rep_violation_behavior': ''				违章行为
+											'rep_priciple_balance': 123.12				本金
+											'rep_late_fee':	0.00						滞纳金
+											'rep_service_charge': 20.00					服务费
+											'rep_total_fee': 100.00						总额	
+										}
+										
 									]
 								}
 							],

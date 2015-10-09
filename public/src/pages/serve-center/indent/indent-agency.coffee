@@ -1,9 +1,9 @@
 
-indentNum = $("#indent-number")
+indentNum = $("#indent-number").val()
 indentInputs = $(".indent-inputs")
-plate = indentNum.find("select").eq(0).find("option:selected").text()
-plateNum = $(".plate-num")
-carType = indentNum.find("select").eq(1).find("option:selected").val()
+plate = indentInputs.find("select").eq(0).find("option:selected").text()
+plateNum = $(".plate-num").val()
+carType = indentInputs.find("select").eq(1).find("option:selected").val()
 
 #违章城市
 city = $(".indent-city option:selected").text()
@@ -33,10 +33,18 @@ init_datepicker = ()->
 #”查询“
 submit = ()->
 
-	$.get "", {}, (msg)->
+	$.get "/serve-center/order/operation/search", {
+			order_id: indentNum,
+			car_plate_no: plate + plateNum,
+			process_status: status.val(),
+			start_date: dateStart.val(),
+			end_date: dateEnd
+		}, (msg)->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
 		else
+			
+
 
 #切换信息填写
 cutInfoInput = (e)->
@@ -60,3 +68,12 @@ $ ()->
 	init_datepicker()
 
 	btns.on "click", cutInfoInput
+
+
+
+
+
+
+
+
+
