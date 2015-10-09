@@ -11,14 +11,15 @@
 
 @section('business-center-content')
     <div class="business-center-content" id="change-service-univalence-content">
+        <input type="hidden" value="{{{ $userId }}}" id="user-id" />
         <ul id="change-default-query-univalence-header" class="nav nav-tabs">
-            <li role="presentation" class="active"><a href="/admin/business-center/change-service-univalence">服务费用</a></li>
-            <li role="presentation"><a href="/admin/business-center/change-query-univalence">查询费用</a></li>
+            <li role="presentation" class="active"><a href="/admin/business-center/change-service-univalence?user_id={{{ $userId }}}">服务费用</a></li>
+            <li role="presentation"><a href="/admin/business-center/change-query-univalence?user_id={{{ $userId }}}">查询费用</a></li>
         </ul>
         <form class="form-inline">
             <div class="form-group">
                 <label for="company-name">企业名称：</label>
-                <div class="intro">广州车尚信息有限公司</div>
+                <div class="intro">{{{ $username }}}</div>
             </div>
             <div class="form-group">
                 <label for="company-name">说明：</label>
@@ -35,17 +36,17 @@
             <tr>
                 <td>企业服务费</td>
                 <td>企业用户票证快递费</td>
-                <td>{{{ $expressUnivalence }}}</td>
+                <td id="express-univalence-show">{{{ $defaultExpressUnivalence }}}</td>
                 <td>
-                    <input type="text" class="form-control" id="express-univalence" />
+                    <input type="text" class="form-control" id="express-univalence" value="{{{ $expressUnivalence }}}" />
                 </td>
             </tr>
             <tr>
                 <td>企业服务费</td>
                 <td>企业用户代办服务费</td>
-                <td>{{{ $agencyUnivalence }}}</td>
+                <td id="agency-univalence-show">{{{ $defaultAgencyUnivalence }}}</td>
                 <td>
-                    <input type="text" class="form-control" id="agency-univalence" />
+                    <input type="text" class="form-control" id="agency-univalence" value="{{{ $agencyUnivalence }}}" />
                 </td>
             </tr>
         </table>

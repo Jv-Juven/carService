@@ -87,52 +87,93 @@ class AdminBusinessCenterPageController extends BaseController{
 	// 
 	public function changeUserStatus()
 	{
-		return View::make('pages.admin.business-center.change-user-status');
+		$userId = Input::get("user_id");
+		$user = User::where("user_id", "=", $userId)->with("business_info")->first();
+
+		return View::make('pages.admin.business-center.change-user-status', [
+			"userId" => $userId,
+			"status" => $user->status,
+			"name" => $user->business_info->business_name
+		]);
 	}
 
 	// 
 	public function changeQueryUnivalence()
 	{
-		return View::make('pages.admin.business-center.change-query-univalence');
+		$userId = Input::get("user_id");
+
+		$user = BusinessUser::where("user_id", "=", $userId)->get();
+
+		try 
+		{
+			$accountInfo = BusinessController::accountInfo($userId);
+			$result = BusinessController::get_default_univalence();
+		} 
+		catch (Exception $e) 
+		{
+			return View::make('errors.page-error');
+		}		
+
+		return View::make('pages.admin.business-center.change-query-univalence', [
+			"userId" => $userId,
+			"username" => $user[0]->business_name,
+			"violationUnivalence" => $accountInfo["violationUnit"],
+			"defaultViolationUnivalence" => $result["violation"],
+			"licenseUnivalence" => $accountInfo["licenseUnit"],
+			"defaultLicenseUnivalence" => $result["license"],
+			"carUnivalence" => $accountInfo["carUnit"],
+			"defaultCarUnivalence" => $result["car"]
+		]);
 	}
 
 	public function changeServiceUnivalence()
 	{
-		$userId = Input::get("userId");
+		$userId = Input::get("user_id");
+		
+		$user = BusinessUser::where("user_id", "=", $userId)->get();
 
 		$agencyUnivalence = BusinessController::getServiceFee($userId);
 		$expressUnivalence = BusinessController::getExpressFee($userId);
+	    $defaultAgencyUnivalence = DB::table('fee_types')->select('number')->where("category", "30")->where("item", "1")->first();
+		$defaultExpressUnivalence = DB::table('fee_types')->select('number')->where("category", "20")->where("item", "1")->first();
 
 		return View::make('pages.admin.business-center.change-service-univalence', [
+			"defaultExpressUnivalence" => $defaultExpressUnivalence->number,
+			"defaultAgencyUnivalence" => $defaultAgencyUnivalence->number,
 			"expressUnivalence" => $expressUnivalence,
-			"agencyUnivalence" => $agencyUnivalence
+			"agencyUnivalence" => $agencyUnivalence,
+			"username" => $user[0]->business_name,
+			"userId" => $userId
 		]);
 	}
 
 	// 
 	public function changeDefaultQueryUnivalence()
 	{
-		// $violationUnivalence = DB::table('fee_types')->select('number')->where("category", "20")->where("item", "2")->first();
-	 //    $licenseUnivalence = DB::table('fee_types')->select('number')->where("category", "20")->where("item", "1")->first();
-	 //    $carUnivalence = DB::table('fee_types')->select('number')->where("category", "30")->where("item", "2")->first();
+		try 
+		{
+			$result = BusinessController::get_default_univalence();
+		} 
+		catch (Exception $e) 
+		{
+			return View::make('errors.page-error');
+		}		
 
 
-
-		// return View::make('pages.admin.business-center.change-default-query-univalence', [
-		// 	"companyExpressUnivalence" => $companyExpressUnivalence->number,
-		// 	"personExpressUnivalence" => $personExpressUnivalence->number,
-		// 	"companyAgencyUnivalence" => $companyAgencyUnivalence->number,
-		// 	"personAgencyUnivalence" => $personAgencyUnivalence->number
-		// ]);
+		return View::make('pages.admin.business-center.change-default-query-univalence', [
+			"violationUnivalence" => $result["violation"],
+			"licenseUnivalence" => $result["license"],
+			"carUnivalence" => $result["car"]
+		]);
 	}
 
 	// 
 	public function changeDefaultServiceUnivalence()
 	{
-		$companyExpressUnivalence = DB::table('fee_types')->select('number')->where("category", "20")->where("item", "2")->first();
-	    $personExpressUnivalence = DB::table('fee_types')->select('number')->where("category", "20")->where("item", "1")->first();
-	    $companyAgencyUnivalence = DB::table('fee_types')->select('number')->where("category", "30")->where("item", "2")->first();
-	    $personAgencyUnivalence = DB::table('fee_types')->select('number')->where("category", "30")->where("item", "1")->first();
+		$companyExpressUnivalence = DB::table('fee_types')->select('number')->where("category", "20")->where("item", "1")->first();
+	    $personExpressUnivalence = DB::table('fee_types')->select('number')->where("category", "20")->where("item", "0")->first();
+	    $companyAgencyUnivalence = DB::table('fee_types')->select('number')->where("category", "30")->where("item", "1")->first();
+	    $personAgencyUnivalence = DB::table('fee_types')->select('number')->where("category", "30")->where("item", "0")->first();
 
 		return View::make('pages.admin.business-center.change-default-service-univalence', [
 			"companyExpressUnivalence" => $companyExpressUnivalence->number,

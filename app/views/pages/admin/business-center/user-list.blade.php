@@ -28,7 +28,7 @@
                 <a href="/admin/business-center/user-list?type=locked" id="locked">锁定</a>
             </li>
             <li class="nav">
-                <a href="/admin/business-center/user-list?type=others" id="others">其他</a>
+                <a href="/admin/business-center/user-list?type=others" id="others">注册信息未填写</a>
             </li>
             <div class="clear"></div>
         </ul>
@@ -62,7 +62,7 @@
                 @elseif($user->status === "30")
                 <td class="status">锁定</td>
                 @else
-                <td class="status">其他</td>
+                <td class="status">注册信息未填写</td>
                 @endif
         		
         		<td class="operation">

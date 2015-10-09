@@ -11,14 +11,15 @@
 
 @section('business-center-content')
     <div class="business-center-content" id="change-service-univalence-content">
+        <input type="hidden" id="user-id" value="{{{ $userId }}}" />
         <ul id="change-default-query-univalence-header" class="nav nav-tabs">
-            <li role="presentation"><a href="/admin/business-center/change-service-univalence">服务费用</a></li>
-            <li role="presentation" class="active"><a href="/admin/business-center/change-query-univalence">查询费用</a></li>
+            <li role="presentation"><a href="/admin/business-center/change-service-univalence?user_id={{{ $userId }}}">服务费用</a></li>
+            <li role="presentation" class="active"><a href="/admin/business-center/change-query-univalence?user_id={{{ $userId }}}">查询费用</a></li>
         </ul>
         <form class="form-inline">
             <div class="form-group">
                 <label for="company-name">企业名称：</label>
-                <div class="intro">广州车尚信息有限公司</div>
+                <div class="intro">{{{ $username }}}</div>
             </div>
             <div class="form-group">
                 <label for="company-name">说明：</label>
@@ -35,25 +36,25 @@
             <tr>
                 <td>查询</td>
                 <td>车辆违章查询</td>
-                <td>0.12</td>
+                <td id="violation-univalence-show">{{{ $defaultViolationUnivalence }}}</td>
                 <td>
-                    <input type="text" class="form-control" id="violation-univalence" />
+                    <input type="text" class="form-control" id="violation-univalence" value="{{{ $violationUnivalence }}}" />
                 </td>
             </tr>
             <tr>
                 <td>查询</td>
                 <td>驾驶证查询</td>
-                <td>0.5</td>
+                <td id="license-univalence-show">{{{ $defaultLicenseUnivalence }}}</td>
                 <td>
-                    <input type="text" class="form-control" id="license-univalence" />
+                    <input type="text" class="form-control" id="license-univalence" value="{{{ $licenseUnivalence }}}" />
                 </td>
             </tr>
             <tr>
                 <td>查询</td>
                 <td>机动车信息查询</td>
-                <td>0.5</td>
+                <td id="car-univalence-show">{{{ $defaultCarUnivalence }}}</td>
                 <td>
-                    <input type="text" class="form-control" id="car-univalence" />
+                    <input type="text" class="form-control" id="car-univalence" value="{{{ $carUnivalence }}}" />
                 </td>
             </tr>
         </table>

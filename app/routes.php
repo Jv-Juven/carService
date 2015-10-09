@@ -33,7 +33,7 @@ Route::group(array('prefix'=>'user'), function(){
 	//B,C端登录
 	Route::post('login','UserController@login');
 	//C端用户注册-获取手机验证码
-	Route::get('phone_code','UserController@getPhoneCode');
+	Route::post('phone_code','UserController@getPhoneCode');
 	//C端用户注册－密码页
 	Route::post('c_register','UserController@cSiteRegister');
 	
@@ -353,13 +353,13 @@ Route::group(array('prefix' => 'admin'), function() {
 	Route::post('/change-default-service-univalence', 'AdminController@changeDefaultServiceUnivalence');
 
 	// 修改默认查询价格
-	Route::post('/change-default-query-univalence', 'AdminController@changeDefaultServiceUnivalence');
+	Route::post('/change-default-query-univalence', 'AdminController@changeDefaultQueryUnivalence');
 
 	// 修改特定用户的服务价格
 	Route::post('/change-service-univalence', 'AdminController@changeServiceUnivalence');
 
 	// 修改特定用户的查询价格
-	Route::post('/change-query-univalence', 'AdminController@changeServiceUnivalence');
+	Route::post('/change-query-univalence', 'AdminController@changeQueryUnivalence');
 });
 
 

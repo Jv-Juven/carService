@@ -1,7 +1,7 @@
 <?php
 
 use GuzzleHttp\Client as httpClient;
-use Guzzle\Http\Exception\HttpException as HttpException;
+use GuzzleHttp\Exception\ClientException as ClientException;
 
 class BusinessController extends BaseController{
 
@@ -24,8 +24,9 @@ class BusinessController extends BaseController{
 
 	/**
 	 * 获得用户app key，若未指定$user_id，则取当前用户
-	 *
-	 * @return string
+	 * 
+	 * @param 	$user_id 	string
+	 * @return 	string
 	 */
 	public static function get_appkey( $user_id = null ){
 
@@ -45,7 +46,8 @@ class BusinessController extends BaseController{
 	/**
 	 * 算服务费
 	 *
-	 * @return float
+	 * @param 	$user_id 	string
+	 * @return 	float
 	 */
 	public static function getServiceFee( $user_id = null ){
 
@@ -73,7 +75,8 @@ class BusinessController extends BaseController{
 	/**
 	 * 算快递费
 	 *
-	 * @return float
+	 * @param 	$user_id 	string
+	 * @return 	float
 	 */
 	public static function getExpressFee( $user_id = null ){
 
@@ -101,21 +104,33 @@ class BusinessController extends BaseController{
 	/**
 	 * 通用请求函数
 	 *
-	 * @return mixed
+	 * @param 	$http_params 	array 	[ 'method' => 'GET', 'uri' => '/xx/xx', 'query' => [ ... ] ]
+	 * @return 	mixed
 	 */
 	public static function send_request( $http_params, $return_flieds = null ){
 
 		try{
 			$http_client = static::getBaseHttpClient();
-			$response = $http_client->request( $http_params['method'], $http_params['uri'], [
-				'query' => $http_params['query']
-			]);
+				
+			if(strtoupper($http_params['method']) == "GET") 
+			{
+				$response = $http_client->request( $http_params['method'], $http_params['uri'], [
+					'query' => $http_params['query']
+				]);
+			}
+			else
+			{
+				$response = $http_client->request( $http_params['method'], $http_params['uri'], [
+					'form_params' => $http_params['query']
+				]);
+			}
+			
 
-			$response_content = $response->getBody();
+			$response_content = $response->getBody()->getContents();
 
 			// 默认解析为json
 			if ( !array_key_exists('accept', $http_params) || $http_params['accept'] == 'json' ){
-				$response_content = json_decode( $response_content );
+				$response_content = json_decode( $response_content, true );
 			}
 			// 其他格式直接返回
 			else{
@@ -149,8 +164,9 @@ class BusinessController extends BaseController{
 
 			throw new SearchException( $error_message, $response_content['errCode'] );
 		}
-		catch( HttpException $e ){
+		catch( ClientException $e ){
 
+			throw $e;
 			throw new Exception( "请求失败", 41 );
 		}
 		// 查询出错
@@ -161,6 +177,7 @@ class BusinessController extends BaseController{
 		// 其他错误
 		catch( Exception $e ){
 
+			throw $e;
 			throw new Exception( '服务器出错', 51 );
 		}
 
@@ -169,15 +186,81 @@ class BusinessController extends BaseController{
 	}
 
 	/**
-	 * 修改业务单价
-	 *
-	 * 仅对管理员开发
-	 *
-	 * @return array
+	 * 根据$user_id从远程服务器获取app key和app secret
+	 * 
+	 * @param 	$user_id 	string
+	 * @return 	array
+	 * @example [ 'uid': 'xxx', 'appkey': 'xxxx', secretKey: '' ]
 	 */
-	public static function univalence( $query ){
+	public static function get_appkey_appsecret_from_remote( $user_id ){
 
-		$query['appkey'] = Config::get( 'domain.app_key' );
+		$http_params = [
+			'method'	=> 'GET',
+			'uri'		=> '/app',
+			'query'		=> [
+				'uid'	=> $user_id,
+				'token'	=> static::create_request_token()
+			]
+		];
+
+		return static::send_request( $http_params, 'app' );
+	}
+
+	/**
+	 * 查询企业用户业务默认单价
+	 *
+	 * 管理人员接口，原样返回计费系统的返回结果
+	 *
+	 * @return 	array
+	 */
+	public static function get_default_univalence( ){
+
+		$http_params = [
+			'method'	=> 'GET',
+			'uri'		=> '/account/default-univalence',
+			'query'		=> [
+				'token'	=> static::create_request_token()
+			]
+		];
+
+		return static::send_request( $http_params, 'data' );
+	}
+
+	/**
+	 * 修改企业查询业务默认单价
+	 *
+	 * 管理人员接口，原样返回计费系统的返回结果
+	 *
+	 * @param 	$query 	array 	[ 'violation' => 0.2, 'license' => 0.2, 'car' => 0.6 ]
+	 * @return 	array
+	 */
+	public static function modify_default_univalence( $query ){
+		$token = static::create_request_token();
+
+		$http_params = [
+			'method'	=> 'POST',
+			'uri'		=> '/account/default-univalence',
+			'query'		=> [
+				'params'	=> $query,
+				'token'		=> $token
+			]
+		];
+
+		return static::send_request( $http_params, 'data' );
+	}
+
+	/**
+	 * 修改特定企业查询业务单价
+	 *
+	 * 管理人员接口，原样返回计费系统的返回结果
+	 *
+	 * @param 	$query 	array 	[ 'violation' => 0.2, 'license' => 0.2, 'car' => 0.6 ]
+	 * @return 	array
+	 */
+	public static function modify_business_user_univalence( $user_id, $query ){
+
+		$query[ 'token' ] = static::create_request_token();
+		$query[ 'appkey' ] = static::get_appkey($user_id);
 
 		$http_params = [
 			'method'	=> 'POST',
@@ -185,7 +268,7 @@ class BusinessController extends BaseController{
 			'query'		=> $query
 		];
 
-		return static::send_request( $http_params );
+		return static::send_request( $http_params, 'account' );
 	}
 
 	/**
@@ -193,7 +276,9 @@ class BusinessController extends BaseController{
 	 *
 	 * 仅对企业用户开放
 	 *
-	 * @return array
+	 * @param 	$number 	integer 	0.00
+	 * @param 	$user_id 	string
+	 * @return 	array
 	 */
 	public static function recharge( $number, $user_id = null ){
 
@@ -203,7 +288,7 @@ class BusinessController extends BaseController{
 			'query'		=> [
 				'appkey'	=> static::get_appkey( $user_id ),
 				'money'		=> $number,
-				'token'		=> static::create_auth_token()
+				'token'		=> static::create_request_token()
 			]
 		];
 
@@ -215,7 +300,8 @@ class BusinessController extends BaseController{
 	 *
 	 * 仅对企业用户开放
 	 *
-	 * @return array
+	 * @param 	$user_id 	string
+	 * @return 	array
 	 */
 	public static function count( $user_id = null ){
 
@@ -224,7 +310,7 @@ class BusinessController extends BaseController{
 			'uri'		=> '/account/count',
 			'query'		=> [
 				'appkey'	=> static::get_appkey( $user_id ),
-				'token'		=> static::create_auth_token()
+				'token'		=> static::create_request_token()
 			]
 		];
 
@@ -234,7 +320,8 @@ class BusinessController extends BaseController{
 	/**
 	 * 获取账户信息
 	 *
-	 * @return array
+	 * @param 	$user_id 	string
+	 * @return 	array
 	 */
 	public static function accountInfo( $user_id = null ){
 
@@ -243,7 +330,7 @@ class BusinessController extends BaseController{
 			'uri'		=> '/account',
 			'query'		=> [
 				'appkey'	=> static::get_appkey( $user_id ),
-				'token'		=> static::create_auth_token()
+				'token'		=> static::create_request_token()
 			]
 		];
 
@@ -253,7 +340,11 @@ class BusinessController extends BaseController{
 	/**
 	 * 查询违章信息
 	 *
-	 * @return array
+	 * @param 	$token 			string
+	 * @param 	$engineCode 	string
+	 * @param 	$licensePlate 	string
+	 * @param 	$licenseType 	string
+	 * @return 	array
 	 */
 	public static function violation( $token, $engineCode, $licensePlate, $licenseType ){
 
@@ -274,7 +365,10 @@ class BusinessController extends BaseController{
 	/**
 	 * 查询驾驶证扣分信息
 	 *
-	 * @return array
+	 * @param 	$token 			string
+	 * @param 	$record_id 		string
+	 * @param 	$identity_id 	string
+	 * @return 	array
 	 */
 	public static function license( $token, $identity_id, $record_id ){
 
@@ -294,7 +388,11 @@ class BusinessController extends BaseController{
 	/**
 	 * 查询车辆信息
 	 *
-	 * @return array
+	 * @param 	$token 			string
+	 * @param 	$engineCode 	string
+	 * @param 	$licensePlate 	string
+	 * @param 	$licenseType 	string
+	 * @return 	array
 	 */
 	public static function car( $token, $engineCode, $licensePlate, $licenseType ){
 
@@ -315,13 +413,13 @@ class BusinessController extends BaseController{
 	/**
 	 * 生成随机的验证请求的token
 	 *
-	 * @return
+	 * @return 	string
 	 */
-	protected static function create_request_token( $prefix = 'rt' ){
+	public static function create_request_token( $prefix = 'rt' ){
 
 		$token = str_replace( '.', '', uniqid( 'rt', true ) );
 
-		Cache::put( $token );
+		Cache::put( $token, $token, 120 );
 
 		return $token;
 	}
@@ -329,9 +427,9 @@ class BusinessController extends BaseController{
 	/**
 	 * 验证请求的token
 	 *
-	 * @return
+	 * @return 	array
 	 */
-	public function auth_request_token(){
+	public static function auth_request_token(){
 
 		$token = Input::get( 'token' );
 
@@ -339,9 +437,9 @@ class BusinessController extends BaseController{
 			
 			Cache::forget( $token );
 
-			return Response::json([ 'errCode' => 0, 'message' => 'OK' ]);
+			return Response::json([ 'errCode' => 0 ]);
 		}
 
-		return Response::json([ 'errCode' => 1, 'message' => '错误' ]);
+		return Response::json([ 'errCode' => 1 ]);
 	}
 }

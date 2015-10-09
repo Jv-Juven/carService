@@ -4,6 +4,9 @@ $ ()->
 		licenseUnivalence = $("#license-univalence").val()
 		carUnivalence = $("#car-univalence").val()
 
+		if(!violationUnivalence || !licenseUnivalence || !carUnivalence)
+			return alert("请勿留空");
+
 		params = 
 			violationUnivalence: violationUnivalence
 			licenseUnivalence: licenseUnivalence

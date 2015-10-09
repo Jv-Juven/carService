@@ -5,6 +5,9 @@ $ ()->
 		companyAgencyUnivalence = $("#company-agency-univalence").val()
 		personAgencyUnivalence = $("#person-agency-univalence").val()
 
+		if(!companyExpressUnivalence || !personAgencyUnivalence || !companyAgencyUnivalence || !personExpressUnivalence)
+			return alert("请勿留空");
+
 		params = 
 			companyExpressUnivalence: companyExpressUnivalence
 			personExpressUnivalence: personExpressUnivalence
