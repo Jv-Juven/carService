@@ -369,7 +369,7 @@ Route::group(array('prefix'=>'beeclound','before'=>'auth.user.isIn'), function()
 
 });
 	//验证
-	Route::get('beeclound','BeeCloundController@authBeeCloud');
+	Route::post('beeclound','BeeCloundController@authBeeCloud');
 
 
 
