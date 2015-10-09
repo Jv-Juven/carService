@@ -54,6 +54,7 @@
                     <th>营业执照</th>
                     <th>注册时间</th>
                     <th>帐号状态</th>
+                    <th></th>
                 </tr>
                 <% for(var i = 0, length = users.length; i < length; i ++) { %>
                 <tr>
@@ -73,6 +74,7 @@
                     <% } else if(users[i].user.status == 30) { %>
                     <td>账号锁定</td>
                     <% } %>
+                    <td><a target="_blank" href="/admin/business-center/user-info?user_id=<%= users[i].user.user_id %>">详细信息</a></td>
                 </tr>
                 <% } %>
             </table>

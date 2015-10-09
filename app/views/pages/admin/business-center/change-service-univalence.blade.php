@@ -36,17 +36,17 @@
             <tr>
                 <td>企业服务费</td>
                 <td>企业用户票证快递费</td>
-                <td id="express-univalence-show">{{{ $expressUnivalence }}}</td>
+                <td id="express-univalence-show">{{{ $defaultExpressUnivalence }}}</td>
                 <td>
-                    <input type="text" class="form-control" id="express-univalence" />
+                    <input type="text" class="form-control" id="express-univalence" value="{{{ $expressUnivalence }}}" />
                 </td>
             </tr>
             <tr>
                 <td>企业服务费</td>
                 <td>企业用户代办服务费</td>
-                <td id="agency-univalence-show">{{{ $agencyUnivalence }}}</td>
+                <td id="agency-univalence-show">{{{ $defaultAgencyUnivalence }}}</td>
                 <td>
-                    <input type="text" class="form-control" id="agency-univalence" />
+                    <input type="text" class="form-control" id="agency-univalence" value="{{{ $agencyUnivalence }}}" />
                 </td>
             </tr>
         </table>

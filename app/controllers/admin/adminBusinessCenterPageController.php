@@ -87,7 +87,14 @@ class AdminBusinessCenterPageController extends BaseController{
 	// 
 	public function changeUserStatus()
 	{
-		return View::make('pages.admin.business-center.change-user-status');
+		$userId = Input::get("user_id");
+		$user = User::where("user_id", "=", $userId)->with("business_info")->first();
+
+		return View::make('pages.admin.business-center.change-user-status', [
+			"userId" => $userId,
+			"status" => $user->status,
+			"name" => $user->business_info->business_name
+		]);
 	}
 
 	// 
@@ -127,8 +134,12 @@ class AdminBusinessCenterPageController extends BaseController{
 
 		$agencyUnivalence = BusinessController::getServiceFee($userId);
 		$expressUnivalence = BusinessController::getExpressFee($userId);
+	    $defaultAgencyUnivalence = DB::table('fee_types')->select('number')->where("category", "30")->where("item", "1")->first();
+		$defaultExpressUnivalence = DB::table('fee_types')->select('number')->where("category", "20")->where("item", "1")->first();
 
 		return View::make('pages.admin.business-center.change-service-univalence', [
+			"defaultExpressUnivalence" => $defaultExpressUnivalence->number,
+			"defaultAgencyUnivalence" => $defaultAgencyUnivalence->number,
 			"expressUnivalence" => $expressUnivalence,
 			"agencyUnivalence" => $agencyUnivalence,
 			"username" => $user[0]->business_name,

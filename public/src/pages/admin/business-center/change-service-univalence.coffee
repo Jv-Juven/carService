@@ -13,9 +13,5 @@ $ ()->
 		$.post "/admin/change-service-univalence", params, (res)->
 			if(res.errCode == 0) 
 				alert '修改成功'
-				if(expressUnivalence)
-					$("#express-univalence-show").html(expressUnivalence)
-				if(agencyUnivalence)
-					$("#agency-univalence-show").html(agencyUnivalence)
 			else 
 				alert res.errMsg
