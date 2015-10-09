@@ -63,7 +63,7 @@ $ ()->
 			captcha.attr("src", msg)
 
 	#立即获取
-	# getCaptcha()
+	getCaptcha()
 
 	#绑定”注册“按钮事件
 	submitBtn.on "click", submit
