@@ -40,7 +40,7 @@
 							<input class="input fullwidth" type="text" placeholder="请输入车架号码后六位"/>
 						</div>
 					</div> -->
-					<div class="input-wrapper input-btn">
+					<div class="input-wrapper input-btn violation-btn">
 						确定
 					</div>
 				</div>

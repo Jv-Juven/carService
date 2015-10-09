@@ -18,7 +18,7 @@
 							<img src="/images/components/nav_arrow.png">
 						</i>
 					</li>
-					<li class="active">
+					<li class="">
 						<a class="nav-item" href="/message-center/message/unread">
 							<i>•</i>
 							未读消息

@@ -57,13 +57,13 @@ navConfig = {
 		navIndexes: {
 			"all": 0,
 			# "detail": 1
-			"feedback": 3
+			"feedback": 3,
 			# "home": 1
-			"read": 2
+			"read": 2,
 			# "read_notice": 1
 			# "success": 1
-			"unread": 1
-			"": 3
+			"unread": 1,
+			"feedback": 3
 		}
 	}
 	serveCenter: {
