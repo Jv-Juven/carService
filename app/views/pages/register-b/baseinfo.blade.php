@@ -61,10 +61,11 @@
 			<!-- <span class="warn-tips">请勾选《平台协议》</span> -->
 		</div>
 		<div class="submin-btn">
-			<a href="javascirpt:">
-				<div class="btn">
+			<a class="btn" href="javascirpt:">
+				<!-- <div class="btn">
 					<span>注册</span>
-				</div>
+				</div> -->
+				注册
 			</a>
 		</div>
 		<div class="info-login">
