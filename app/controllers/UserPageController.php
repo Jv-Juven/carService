@@ -11,8 +11,7 @@ class UserPageController extends BaseController{
 	//B端用户邮箱注册验证通过后跳转到<<<<<<<邮箱激活页面>>>>>>>>
 	public function emailActivePage()
 	{
-		$login_account = Input::get('login_account');
-		return View::make('pages.register-b.email-active')->with(array('login_account'=>$login_account));
+		return View::make('pages.register-b.email-active');
 	}
 
 	//信息登记
