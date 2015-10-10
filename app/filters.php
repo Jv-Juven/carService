@@ -51,10 +51,11 @@ Route::filter('auth.admin', function()
 Route::filter('auth.user.isIn',function()
 {
 	Session_start();
-	$user = User::find('yhxx5617c959d6ee4142025859');//服务器
+	$user = User::where('user_type',1)->first();
+	// $user = User::find('yhxx5617c959d6ee4142025859');//服务器
 	// $user = User::find('yhxx5615ea35b41ca641176860');//本地
 	// dd($user);
-	Sentry::login($user,false);
+	Sentry::login($user,false);	
 	// Sentry::logout();
 	if(!Sentry::check())
 	{
@@ -78,8 +79,8 @@ Route::filter('auth.user.isIn',function()
 				return View::make('pages.register-b.success');//信息审核中
 			case 21:
 				return View::make('pages.register-b.success');//等待用户校验激活
-			default:
-				return View::make('帐号锁定');
+			case 30:
+				return View::make('页面锁定');
 		}
 	}
 });
