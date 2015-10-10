@@ -105,87 +105,7 @@
 					</tr>
 					<tr class="table-blank"></tr>
 					<!-- 单位车辆信息表 未受理 START -->
-					<tr class="info-head">
-						<td colspan="6">
-							<span class="plate">粤X12345</span>
-							下单时间：
-							<span class="date">2015-09-11</span>
-							订单编号：
-							<span>12345677654321</span>
-						</td>
-					</tr>
-					<tr class="table-line" id="deal_status01">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="last-td" rowspan="3"><!-- 接受该项的信息条目数+1（即：总条目数是2，填3） -->
-							未受理
-						</td>
-					</tr>
-
-					<tr class="indent-tr-content">
-						<td>
-							<span>2015-08-15</span>
-							<span>11:52:00</span>
-						</td>
-						<td>
-							<span>[广东省广州市]</span>
-							<span>广州大学城贝岗街</span>
-							<span>[电子眼未处理未交款]</span>
-						</td>
-						<td class="vio-behaviour">
-							机动车违反规定停放、临时停车，妨碍其他车辆、行人通行的
-							<span>[1039]</span>
-						</td>
-						<td class="money">
-							<span>本金：200.0</span>
-							<span>滞纳金：0</span>
-							<span>服务费：20.0</span>
-						</td>
-
-						<td>
-							<span>210</span>
-						</td>
-					</tr>
-					<tr class="indent-tr-content">
-						<td>
-							<span>2015-08-15</span>
-							<span>11:52:00</span>
-						</td>
-						<td>
-							<span>[广东省广州市]</span>
-							<span>广州大学城贝岗街</span>
-							<span>[电子眼未处理未交款]</span>
-						</td>
-						<td class="vio-behaviour">
-							机动车违反规定停放、临时停车，妨碍其他车辆、行人通行的
-							<span>[1039]</span>
-						</td>
-						<td class="money">
-							<span>本金：200.0</span>
-							<span>滞纳金：0</span>
-							<span>服务费：20.0</span>
-						</td>
-
-						<td>
-							<span>210</span>
-						</td>
-					</tr>
-					<tr class="indent-deal">
-						<td colspan="2">
-							<span class="title">应付总额：</span>
-							<span class="money">￥435.0元</span>
-							<span class="express-fee">快递费：15.0元</span>
-						</td>
-						<td class="indent-deal-opration" colspan="4">
-							<span class="deal-btn wait-pay">等待付款</span>
-							<a class="deal-btn cancel-deal" href="javascript:">取消订单</a>
-							<a class="deal-btn atonce-pay" href="javascript:">立即付款</a>
-						</td>
-					</tr>
-					<tr class="table-foot-blank"></tr>
+					
 					<!-- 单位车辆信息表 未受理 END -->
 				</table>
 			</div>
@@ -193,7 +113,7 @@
 		</div>
 	</div>
 	<div class="mask-bg"></div>
-	<div class="mask-wrapper">
+	<div class="mask-wrapper cancel-mask">
 		<div class="warn-box">
 			<div class="warn-title">
 				取消订单
@@ -203,14 +123,14 @@
 				<div class="warn-msg">
 					<span class="content">确定取消订单？</span>
 					<div class="btns">
-						<a class="btn" href="javascript:">确定</a>
-						<a class="btn" href="javascript:">取消</a>
+						<a class="btn sure-btn" href="javascript:">确定</a>
+						<a class="btn cancel-btn" href="javascript:">取消</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="mask-wrapper">
+	<div class="mask-wrapper refund-mask">
 		<div class="warn-box">
 			<div class="warn-title">
 				申请退款
@@ -227,87 +147,109 @@
 		</div>
 	</div>
 	<script type="text/template" id="indent_template">
+	<% for (var i = 0; i < array.length; i ++){ 
+		var rightTd = array[i]["traffic_violation_info"].length + 1;
+		var info = array[i]["traffic_violation_info"]; 
+		var process_status = "",
+			trade_status = "";
+		if (array[i]["process_status"] == 0){
+			process_status = "未处理";
+		}
+		else if (array[i]["process_status"] == 1){
+			process_status = "已受理";
+		}
+		else if (array[i]["process_status"] == 2){
+			process_status = "已受理办理中";
+		}
+		else if (array[i]["process_status"] == 3){
+			process_status = "订单完成";
+		}
+		else{
+			process_status = "订单关闭";
+		}
+
+		if (array[i]["trade_status"] == 0){
+			trade_status = "等待付款";
+		}
+		else if (array[i]["trade_status"] == 1){
+			trade_status = "已付款";
+		}
+		else if (array[i]["trade_status"] == 2){
+			trade_status = "申请退款";
+		}
+		else if (array[i]["trade_status"] == 3){
+			trade_status = "已退款";
+		}
+		else (array[i]["trade_status"] == 4){
+			trade_status = "退款失败";
+		}
+		%>
 		<tr class="info-head">
 			<td colspan="6">
-				<span class="plate">粤X12345</span>
+				<span class="plate"><%- array[i]["car_plate_no"] %></span>
 				下单时间：
-				<span class="date">2015-09-11</span>
+				<span class="date"><%- array[i]["created_at"] %></span>
 				订单编号：
-				<span>12345677654321</span>
+				<span><%- array[i]["order_id"] %></span>
 			</td>
 		</tr>
-		<tr class="table-line" id="deal_status01">
+		<tr class="table-line">
 			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>
-			<td class="last-td" rowspan="3"><!-- 接受该项的信息条目数+1（即：总条目数是2，填3） -->
-				未受理
+			<td class="last-td" rowspan="<%- rightTd %>">
+				
 			</td>
 		</tr>
 
-		<tr class="indent-tr-content">
-			<td>
-				<span>2015-08-15</span>
-				<span>11:52:00</span>
-			</td>
-			<td>
-				<span>[广东省广州市]</span>
-				<span>广州大学城贝岗街</span>
-				<span>[电子眼未处理未交款]</span>
-			</td>
-			<td class="vio-behaviour">
-				机动车违反规定停放、临时停车，妨碍其他车辆、行人通行的
-				<span>[1039]</span>
-			</td>
-			<td class="money">
-				<span>本金：200.0</span>
-				<span>滞纳金：0</span>
-				<span>服务费：20.0</span>
-			</td>
+		<% for(var j = 0; j < info .length; j ++ ){ %>
+			<tr class="indent-tr-content">
+				<td>
+					<span><%- info[i]["rep_event_time"] %></span>
+				</td>
+				<td>
+					// <span>[广东省广州市]</span>
+					<span><%- info[i]["rep_event_addr"] %></span>
+					// <span>[电子眼未处理未交款]</span>
+				</td>
+				<td class="vio-behaviour">
+					<%- info[i]["rep_violation_behavior"] %>
+					<span>[1039]</span>
+				</td>
+				<td class="money">
+					<span>本金：<%- info[i]["rep_priciple_balance"] %></span>
+					<span>滞纳金：<%- info[i]["rep_late_fee"] %></span>
+					<span>服务费：<%- info[i]["rep_service_charge"] %></span>
+				</td>
 
-			<td>
-				<span>210</span>
-			</td>
-		</tr>
-		<tr class="indent-tr-content">
-			<td>
-				<span>2015-08-15</span>
-				<span>11:52:00</span>
-			</td>
-			<td>
-				<span>[广东省广州市]</span>
-				<span>广州大学城贝岗街</span>
-				<span>[电子眼未处理未交款]</span>
-			</td>
-			<td class="vio-behaviour">
-				机动车违反规定停放、临时停车，妨碍其他车辆、行人通行的
-				<span>[1039]</span>
-			</td>
-			<td class="money">
-				<span>本金：200.0</span>
-				<span>滞纳金：0</span>
-				<span>服务费：20.0</span>
-			</td>
-
-			<td>
-				<span>210</span>
-			</td>
-		</tr>
+				<td>
+					<span><%- info[i]["rep_total_fee"] %></span>
+				</td>
+			</tr>
+		<% } %>
 		<tr class="indent-deal">
 			<td colspan="2">
 				<span class="title">应付总额：</span>
-				<span class="money">￥435.0元</span>
-				<span class="express-fee">快递费：15.0元</span>
+				<span class="money">￥<%- array[i]["capital_sum"] %>元</span>
+				<% if (array[i]["express_fee"] !== null){ %>
+					<span class="express-fee">快递费：<%- array[i]["express_fee"] %>元</span>
+				<% } %>
 			</td>
 			<td class="indent-deal-opration" colspan="4">
-				<span class="deal-btn wait-pay">等待付款</span>
-				<a class="deal-btn cancel-deal" href="javascript:">取消订单</a>
-				<a class="deal-btn atonce-pay" href="javascript:">立即付款</a>
+				<span class="deal-btn wait-pay"><%- trade_status %></span>
+				<% if (process_status == 0){ %>
+					<a class="deal-btn cancel-deal" data-num="<%- array[i]['order_id'] %>" href="javascript:">取消订单</a>
+					<a class="deal-btn atonce-pay" href="javascript:">立即付款</a>
+				<% } %>
+				<% if (process_status == 1){ %>
+					<a class="deal-btn atonce-pay refund-btn" data-num="<%- array[i]['order_id'] %>" href="javascript:">申请退款</a>
+				<% } %>
 			</td>
 		</tr>
 		<tr class="table-foot-blank"></tr>
+		<% } %>
 	</script>
 	@section("js")
 		@parent
