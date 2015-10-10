@@ -55,7 +55,10 @@ Route::group(array('prefix'=>'user'), function(){
 		//B端用户－修改运营者信息－保存
 		Route::post('save_operator_info','UserController@saveOperatorInfo');
 
-
+		//审核中
+		Route::get('pending','UserPageController@pending');
+		//信息登记静态页面
+		Route::get('info_register','UserPageController@infomationRegisterPage');
 		//B端用户邮箱注册验证通过后跳转到邮箱激活页面
 		Route::get('b_active','UserPageController@emailActivePage');
 		//打款验证码静态页面

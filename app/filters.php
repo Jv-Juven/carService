@@ -51,7 +51,7 @@ Route::filter('auth.admin', function()
 Route::filter('auth.user.isIn',function()
 {
 	Session_start();
-	$user = User::where( 'user_type', '1' )->first();
+	$user = User::find('yhxx5615ea35a4100178891633');
 	// dd($user);
 	Sentry::login($user,false);
 	// Sentry::logout();
@@ -63,6 +63,22 @@ Route::filter('auth.user.isIn',function()
 		}
 		else{
 			return Redirect::guest('user.login');
+		}
+	}
+	$status = Sentry::getUser()->status;
+	if( $status != 22 )
+	{
+		switch ( $status ) {
+			case 10:
+				return View::make('pages.register-b.email-active');//邮箱激活页面
+			case 11:
+				return View::make('pages.register-b.reg-info');//信息登记
+			case 20:
+				return View::make('pages.register-b.success');//信息审核中
+			case 21:
+				return View::make('pages.register-b.success');//等待用户校验激活
+			default:
+				return View::make('帐号锁定');
 		}
 	}
 });

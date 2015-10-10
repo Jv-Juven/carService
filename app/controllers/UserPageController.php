@@ -24,20 +24,20 @@ class UserPageController extends BaseController{
 	//发到B端用户邮箱后，点击链接验证，通过后去到信息登记页
 	public function isEmailActive()
 	{
-		// $token = Input::get('token');
-		// $user = Cache::get($token);
+		$token = Input::get('token');
+		$user = Cache::get($token);
 
-		// // 验证不通过，过期重新填写，回到邮箱注册页
-		// if(!isset($user))
-		// {
-		// 	return '失败';
-		// 	// return View::make('');
-		// }
+		// 验证不通过，过期重新填写，回到邮箱注册页
+		if(!isset($user))
+		{
+			//登录后发邮件去邮箱验证邮箱
+			return View::make('/');
+		}
 
-		// //将状态信息改成未填写登记信息
-		// Sentry::login($user,false);
-		// $user->status = 11;
-		// $user->save();
+		//将状态信息改成未填写登记信息
+		Sentry::login($user,false);
+		$user->status = 11;
+		$user->save();
 		
 		//验证通过，回到信息登记页
 		// return '成功';
