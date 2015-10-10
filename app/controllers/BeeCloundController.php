@@ -250,7 +250,7 @@ class BeeCloundController extends BaseController{
 		    if ($result->result_code != 0 || $result->result_msg != "OK") 
 		    {
 		      	//此处参数需要打入log中
-				return Response::json(array('errCode'=>23, 'message'=>json_encode($result->err_detail)));
+				return Response::json(array('errCode'=>23, 'message'=>$result->err_detail));
 		    }
 			return Response::json(array('errCode'=>0, 'message'=>'退款成功'));
 
