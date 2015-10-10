@@ -50,8 +50,6 @@ Route::group(array('prefix'=>'user'), function(){
 		Route::post('display_company_info','UserController@displayCompanyRegisterInfo');
 		//B端用户注册/修改运营者信息－运营人员手机验证码
 		Route::get('operational_phone_code','UserController@operationalPhoneCode');
-		//B端用户-修改运营者信息-发送邮箱验证码
-		Route::get('update_operator_code','UserController@updateOperatorCode');
 		//B端用户－修改运营者信息－保存
 		Route::post('save_operator_info','UserController@saveOperatorInfo');
 
@@ -69,10 +67,13 @@ Route::group(array('prefix'=>'user'), function(){
 		Route::post('send_code_to_phone','UserController@sendResetCodeToPhone');
 		//c端用户修改密码－重置密码
 		Route::post('reset_csite_pwd','UserController@resetCustomerSitePassword');
-		//b端用户修改密码－发送验证码到邮箱
-		Route::post('send_code_to_email','UserController@sendResetCodeToEmail');
+		//B端用户-显示企业信息/修改运营者信息/修改密码的获取验证码-不需要邮箱
+		Route::post('send_code_to_email','UserController@sendCodeToEmail');
 		//b端用户修改密码－重置密码
 		Route::post('reset_bsite_pwd', 'UserController@resetBusinessSitePassword');
+		//显示企业信息
+		Route::post('dispaly-com-info','UserController@dispalyComInfo');
+
 		//获取appkey和secretkey
 		Route::get('app', 'UserController@app');
 		//获取token
@@ -392,14 +393,25 @@ Route::group(array('prefix'=>'qiniu','before'=>'auth.user.isIn'),function(){
 	Route::get('/', 'UploadController@getUpToken');
 });
 
+
+
 //beeclound接口
 Route::group(array('prefix'=>'beeclound','before'=>'auth.user.isIn'), function(){
 	//微信充值
-	Route::get('recharge','BeeCloundController@recharge');
+	Route::post('recharge','BeeCloundController@recharge');
 	//微信代办
-	Route::get('order-agency','BeeCloundController@orderAgency');
+	Route::post('order-agency','BeeCloundController@orderAgency');
+	//用户申请退款
+	Route::post('request-refund', 'OrderController@requestRefund');
+	//二维码支付页面
+	Route::get('qrcode','BeeCloundController@qrcode');
+
 	//微信退款
-	Route::get('refund','BeeCloundController@refund');
+	Route::post('refund','BeeCloundController@refund');
+	//退款状态
+	Route::get('refund-status','BeeCloundController@refundStatus');
+	//更新退款状态
+	Route::get('update-refund-status','BeeCloundController@updateRefundStatus');
 });
 	//验证
 	Route::post('beeclound','BeeCloundController@authBeeCloud');

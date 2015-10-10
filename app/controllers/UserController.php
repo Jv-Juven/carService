@@ -65,7 +65,7 @@ class UserController extends BaseController{
 		exit;
 	}
 
-	//C端用户根据手机获取验证码
+	//C端用户注册－根据手机获取验证码－需要手机号
 	public function getPhoneCode()
 	{
 		$login_account 			= Input::get('login_account');
@@ -85,6 +85,110 @@ class UserController extends BaseController{
 
 		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功'));
 	}
+
+	//运营人员手机验证码－需要手机号
+	public function operationalPhoneCode()
+	{
+		$login_account 			= Input::get('telephone');
+		$phone_regex 	= Config::get('regex.telephone');
+		if(!preg_match($phone_regex, $login_account))
+			return Response::json(array('errCode'=>21,'message'=>'手机号码格式不正确'));
+		
+		Session::put('operator_phone',$login_account);
+		//发送验证码
+		$number = $this->messageVerificationCode($login_account);
+		if($number->getData()->errCode != "")
+			return Response::json(array('errCode'=>23, 'message'=>'发送太过频繁，请稍候再试，如不能发送，请及时与客户联系'));
+
+		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功'));
+	}
+
+	//c端用户修改密码－发送验证码到手机
+	public function  sendResetCodeToPhone()
+	{
+		$login_account = Sentry::getUser()->login_account;
+		// $login_account = Input::get('login_account');
+		try{
+			$user = Sentry::login($login_account,fasle);
+			Sentry::logout();
+			//发送验证码
+			$number = $this->messageVerificationCode($login_account);
+			if($number->getData()->errCode != "")
+				return Response::json(array('errCode'=>22, 'message'=>'发送太过频繁，请稍候再试，如不能发送，请及时与客户联系'));
+		}catch(Exception $e){
+			return Response::json(array('errCode'=>23, 'message'=>'该用户不存在'));
+		}
+
+		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功'));
+	}
+
+	//B端用户-显示企业信息/修改运营者信息/修改密码的获取验证码-不需要邮箱
+	public function sendCodeToEmail()
+	{
+		$user = Sentry::getUser();
+		$login_account = $user->login_account;
+		try
+		{	
+		    $user = Sentry::findUserByLogin($login_account);
+		    $reset_code = $user->getResetPasswordCode();
+
+		    //发送邮件
+			Mail::send('emails/resetcode',array('reset_code' => $reset_code),function($message) use ($user)
+			{
+				$message->to($user->login_account,'')->subject('车尚车务系统!');
+			});
+		}
+		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		{
+			return Response::json(array('errCode'=>21,'message'=>'该用户不存在'));
+		}
+
+		return Response::json(array('errCode'=>0, 'message'=>'验证码发送成功'));
+	}
+
+	//显示企业信息
+	public function dispalyComInfo()
+	{
+		//邮箱验证码验证
+		$reset_code = Input::get('email_code');
+		$user = Sentry::getUser();
+		$user = Sentry::findUserById( $user->user_id );
+
+		if( !$user->checkResetPasswordCode($reset_code) )
+			return Response::json(array('errCode'=>21, 'message'=>'邮箱验证码错误'));
+
+		$business_user = BusinessUser::find( $user->user_id );
+
+		return Response::json(array('errCode'=>0, 
+									'business_name'=>$business_user->business_name, 
+									'business_licence_no'=>$business_user->business_licence_no
+									));
+	}
+
+
+	// //b端用户－忘记密码－需要邮箱
+	// public function sendResetCodeToEmail()
+	// {	
+	// 	// $login_account = Sentry::getUser()->login_account;
+	// 	$login_account = Input::get('login_account');
+	// 	try
+	// 	{	
+	// 	    $user = Sentry::findUserByLogin($login_account);
+	// 	    $reset_code = $user->getResetPasswordCode();
+
+	// 	    //发送邮件
+	// 		Mail::send('emails/resetcode',array('reset_code' => $reset_code),function($message) use ($user)
+	// 		{
+	// 			$message->to($user->login_account,'')->subject('车尚车务系统!');
+	// 		});
+	// 	}
+	// 	catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+	// 	{
+	// 		return Response::json(array('errCode'=>22,'message'=>'该用户不存在'));
+	// 	}
+
+	// 	return Response::json(array('errCode'=>0, 'message'=>'验证码发送成功'));
+	// }
 
 	//C端用户注册
 	public function cSiteRegister()
@@ -248,22 +352,7 @@ class UserController extends BaseController{
 		}
 	}
 
-	//运营人员手机验证码
-	public function operationalPhoneCode()
-	{
-		$login_account 			= Input::get('telephone');
-		$phone_regex 	= Config::get('regex.telephone');
-		if(!preg_match($phone_regex, $login_account))
-			return Response::json(array('errCode'=>21,'message'=>'手机号码格式不正确'));
-		
-		Session::put('operator_phone',$login_account);
-		//发送验证码
-		$number = $this->messageVerificationCode($login_account);
-		if($number->getData()->errCode != "")
-			return Response::json(array('errCode'=>23, 'message'=>'发送太过频繁，请稍候再试，如不能发送，请及时与客户联系'));
-
-		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功'));
-	}
+	
 
 	//信息登记
 	public function informationRegister()
@@ -371,31 +460,6 @@ class UserController extends BaseController{
 		}
 	return Response::json(array('errCode'=>0, 'message'=> '注册成功'));
 	}
-
-	//B端用户-修改运营者信息-发送邮箱验证码
-	public function updateOperatorCode()
-	{
-		$user = Sentry::getUser();
-		$login_account = $user->login_account;
-		try
-		{	
-		    $user = Sentry::findUserByLogin($login_account);
-		    $reset_code = $user->getResetPasswordCode();
-
-		    //发送邮件
-			Mail::send('emails/resetcode',array('reset_code' => $reset_code),function($message) use ($user)
-			{
-				$message->to($user->login_account,'')->subject('车尚车务系统!');
-			});
-		}
-		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
-		{
-			return Response::json(array('errCode'=>21,'message'=>'该用户不存在'));
-		}
-
-		return Response::json(array('errCode'=>0, 'message'=>'重置验证码发送成功'));
-	}
-
 
 	//B端用户－修改运营者信息－保存
 	public function saveOperatorInfo()
@@ -574,24 +638,7 @@ class UserController extends BaseController{
 		return Response::json(array('errCode'=>0, 'message'=>'验证码发送成功!'));
 	}
 	
-	//c端用户修改密码－发送验证码到手机/忘记密码
-	public function  sendResetCodeToPhone()
-	{
-
-		$login_account = Input::get('login_account');
-		try{
-			$user = Sentry::login($login_account,fasle);
-			Sentry::logout();
-			//发送验证码
-			$number = $this->messageVerificationCode($login_account);
-			if($number->getData()->errCode != "")
-				return Response::json(array('errCode'=>22, 'message'=>'发送太过频繁，请稍候再试，如不能发送，请及时与客户联系'));
-		}catch(Exception $e){
-			return Response::json(array('errCode'=>23, 'message'=>'该用户不存在'));
-		}
-
-		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功'));
-	}
+	
 
 	//c端用户修改密码/忘记密码－重置密码
 	public function resetCustomerSitePassword()
@@ -655,29 +702,7 @@ class UserController extends BaseController{
 		return Response::json(array('errCode' => 0,'message' => '重置密码成功!'));
 	}
 
-	//b端用户修改密码－发送验证码到邮箱/显示企业信息/忘记密码
-	public function sendResetCodeToEmail()
-	{	
-		$login_account = Sentry::getUser()->login_account;
-		// $login_account = Input::get('login_account');
-		try
-		{	
-		    $user = Sentry::findUserByLogin($login_account);
-		    $reset_code = $user->getResetPasswordCode();
-
-		    //发送邮件
-			Mail::send('emails/resetcode',array('reset_code' => $reset_code),function($message) use ($user)
-			{
-				$message->to($user->login_account,'')->subject('车尚车务系统!');
-			});
-		}
-		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
-		{
-			return Response::json(array('errCode'=>22,'message'=>'该用户不存在'));
-		}
-
-		return Response::json(array('errCode'=>0, 'message'=>'重置验证码发送成功'));
-	}
+	
 
 
 	//b端用户修改密码－重置密码
