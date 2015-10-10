@@ -386,7 +386,8 @@ Route::group(array('prefix' => 'admin'), function() {
 Route::group(array('prefix'=>'beeclound','before'=>'auth.user.isIn'), function(){
 	//微信充值
 	Route::get('recharge','BeeCloundController@recharge');
-
+	//微信代办
+	Route::get('order-agency','BeeCloundController@orderAgency');
 });
 	//验证
 	Route::post('beeclound','BeeCloundController@authBeeCloud');
