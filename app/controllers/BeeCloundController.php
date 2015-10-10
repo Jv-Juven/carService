@@ -91,7 +91,7 @@ class BeeCloundController extends BaseController{
 					    $cost_detail = New CostDetail;
 					    $cost_detail->user_id 		= $msg['optional']['user_id'];
 					    $cost_detail->cost_id 		= $data['total_fee'];
-					    $cost_detail->fee_type_id 	= 0;
+					    $cost_detail->fee_type_id 	= 1;
 						if( !$cost_detail->save() )	
 						 	throw new Exception;
 						
