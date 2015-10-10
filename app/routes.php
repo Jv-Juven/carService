@@ -391,6 +391,8 @@ Route::group(array('prefix'=>'beeclound','before'=>'auth.user.isIn'), function()
 	Route::get('recharge','BeeCloundController@recharge');
 	//微信代办
 	Route::get('order-agency','BeeCloundController@orderAgency');
+	//微信退款
+	Route::get('refund','BeeCloundController@refund');
 });
 	//验证
 	Route::post('beeclound','BeeCloundController@authBeeCloud');
