@@ -14,12 +14,14 @@ dateStart = $("#indent_date_start")
 dateEnd = $("#indent_date_end")
 
 
-submitBtn = $(".btns-wrapper .btn")
+btns = $(".btns-wrapper .btn")
 
 tableBlank = $(".table-blank")
 
 number = $(".indent-number")
 details = $(".indent-details")
+
+submitBtn = $(".indent-btn .indent-submit")
 
 template = $("#indent_template").html()
 
@@ -47,57 +49,60 @@ closeMask = ()->
 #给input选择框绑定日期控件
 init_datepicker = ()->
 
-    # jquery datepicker options
-    datepicker_options = 
-        dateFormat: 'yy-mm-dd'
-        changeYear: true
+	# jquery datepicker options
+	datepicker_options = 
+		dateFormat: 'yy-mm-dd'
+		changeYear: true
 
-    dateStart.datepicker datepicker_options
-    dateEnd.datepicker datepicker_options
+	dateStart.datepicker datepicker_options
+	dateEnd.datepicker datepicker_options
+
 
 #”查询“订单
 submit = ()->
 
-	$.get "/serve-center/order/operation/search", {
+	# console.log(indentNum + "\n" + plate + plateNum + "\n" + status + "\n" + dateStart.val() + "\n" + )
+
+	$.get "/serve-center/order/operation/searchs", {
 			order_id: indentNum,
 			car_plate_no: plate + plateNum,
-			process_status: status.val(),
+			process_status: status,
 			start_date: dateStart.val(),
-			end_date: dateEnd
+			end_date: dateEnd.val()
 		}, (msg)->
-		if msg["errCode"] isnt 0
-			alert msg["message"]
-		else
-			
-			array01 = _.filter msg["orders"], "process_status", "0"
-			array02 = _.filter msg["orders"], "process_status", "1"
-			array03 = _.filter msg["orders"], "process_status", "2"
-			array04 = _.filter msg["orders"], "process_status", "3"
-			array05 = _.filter msg["orders"], "process_status", "4"
+			if msg["errCode"] isnt 0
+				alert msg["message"]
+			else
+				
+				array01 = _.filter msg["orders"], "process_status", "0"
+				array02 = _.filter msg["orders"], "process_status", "1"
+				array03 = _.filter msg["orders"], "process_status", "2"
+				array04 = _.filter msg["orders"], "process_status", "3"
+				array05 = _.filter msg["orders"], "process_status", "4"
 
-			html01 = _.template(template)
-			html02 = _.template(template)
-			html03 = _.template(template)
-			html04 = _.template(template)
-			html05 = _.template(template)
+				html01 = _.template(template)
+				html02 = _.template(template)
+				html03 = _.template(template)
+				html04 = _.template(template)
+				html05 = _.template(template)
 
-			tableBlank.after html01({
-				"array": array01
-				})
-			tableBlank.after html02({
-				"array": array02
-				})
-			tableBlank.after html03({
-				"array": array03
-				})
-			tableBlank.after html04({
-				"array": array04
-				})
-			tableBlank.after html05({
-				"array": array05
-				})
-			#显示搜索框的内容
-			indentTablesWrapper.show()
+				tableBlank.after html01({
+					"array": array01
+					})
+				tableBlank.after html02({
+					"array": array02
+					})
+				tableBlank.after html03({
+					"array": array03
+					})
+				tableBlank.after html04({
+					"array": array04
+					})
+				tableBlank.after html05({
+					"array": array05
+					})
+				#显示搜索框的内容
+				indentTablesWrapper.show()
 
 
 #切换信息填写
@@ -118,7 +123,7 @@ cutInfoInput = (e)->
 cancelDeal = (e)->
 	_this = $(e.currentTarget)
 	order_id = _this.attr "data-num"
-	$.post "/serve-center/order/operation/cancels", {
+	$.post "/serve-center/order/operation/cancel", {
 		order_id: order_id
 	}, (msg)->
 		if	msg["errCode"] isnt 0
