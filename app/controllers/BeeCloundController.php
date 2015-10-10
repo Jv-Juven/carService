@@ -50,7 +50,7 @@ class BeeCloundController extends BaseController{
 			return Response::json(array('errCode'=>21, 'message'=>''));
 		}
 		//验证签名
-		$sign = md5($appId . $appSecret . ($msg['timestamp']*100) );
+		$sign = md5($appId . $appSecret . $msg['timestamp'] );
 		if ( $sign != $msg['sign'] ) 
 		{
 			Log::info( '签名有错' );
