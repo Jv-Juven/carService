@@ -133,8 +133,8 @@ class BeeCloundController extends BaseController{
 		$data = $this->returnDataArray();
 		$data["channel"] = "WX_NATIVE";
 
-		$money = 1;
-		// $money = Input::get('money');
+		// $money = 1;
+		$money = Input::get('money');
 		if( !is_int( $money ) )
 			return Response::json(array('errCode'=>21, 'message'=>'请输入正确的金额'));
 		
@@ -166,8 +166,8 @@ class BeeCloundController extends BaseController{
 	{
 		$data = $this->returnDataArray();
 		$data["channel"] = "WX_NATIVE";
-		$order_id = 'dbdd5617c95a49f19046561652';
-		// $order_id = Input::get('order_id');
+		// $order_id = 'dbdd5617c95a49f19046561652';
+		$order_id = Input::get('order_id');
 		if( !isset($order_id) )
 			return Response::json(array('errCode'=>21, 'message'=>'请输入订单id' ));
 
