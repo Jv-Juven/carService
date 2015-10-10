@@ -238,6 +238,8 @@ class UserController extends BaseController{
 			
 			//储存数据
 			$user = User::where('login_account',$user->login_account)->first();
+			Sentry::login($user,false);
+			
 			Cache::put($token,$user,5);
 			// var_dump($user->user_id);
 			

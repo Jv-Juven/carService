@@ -96,7 +96,7 @@
 						<span class="title">快速查询</span>
 					</div>
 					<div class="quick-check-items">
-						<a href="/">
+						<a href="/serve-center/search/pages/violation">
 							<dl>
 								<dt>
 									<img src="/images/login/icons01.png">
