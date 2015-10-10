@@ -278,7 +278,7 @@ class UserController extends BaseController{
 			'business_licence_no' 			=> Input::get('business_licence_no'),
 			'business_licence_scan_path' 	=> Input::get('business_licence_scan_path'),
 			'bank_account'					=> Input::get('bank_account'),
-			're_bank_account'				=> Input::get('re_bank_account');
+			're_bank_account'				=> Input::get('re_bank_account'),
 			'deposit_bank'					=> Input::get('deposit_bank'),
 			'bank_outlets'					=> Input::get('bank_outlets'),
 			'operational_name'				=> Input::get('operational_name'),
