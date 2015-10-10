@@ -550,3 +550,17 @@ if( Sentry::check() )
 				errCode,					
 				message,
 			}
+
+
+ 七牛token
+ 	请求方式：GET
+ 	请求url：/qiniu
+
+ 	请求参数
+
+ 	返回参数：
+ 			{
+ 			 uptoken, 			token
+ 			}
+
+

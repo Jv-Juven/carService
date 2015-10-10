@@ -387,6 +387,11 @@ Route::group(array('prefix' => 'admin'), function() {
 	});
 });
 
+//七牛
+Route::group(array('prefix'=>'qiniu','before'=>'auth.user.isIn'),function(){
+	Route::get('/', 'UploadController@getUpToken');
+});
+
 //beeclound接口
 Route::group(array('prefix'=>'beeclound','before'=>'auth.user.isIn'), function(){
 	//微信充值
