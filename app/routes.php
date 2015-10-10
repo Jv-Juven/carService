@@ -391,7 +391,20 @@ Route::group(array('prefix'=>'beeclound','before'=>'auth.user.isIn'), function()
 	//验证
 	Route::post('beeclound','BeeCloundController@authBeeCloud');
 
+// Route::get('fee',function(){
+// 		try
+// 	    {
+// 	    	DB::transaction(function() {
 
+// 	    		return 'catch';
+			    
+// 	    	});
+// 	    }catch( \Exception $e )
+// 	    {
+// 	    	return 'catch';
+// 	    }
+// 	    return 'true';
+// });
 
 
 

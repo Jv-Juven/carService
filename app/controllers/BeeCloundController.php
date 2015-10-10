@@ -83,17 +83,28 @@ class BeeCloundController extends BaseController{
 		    
 		    //判断是代办还是充值，有user_id为充值
 		    if( isset($msg['optional']['user_id']) )
-		    {
-			     $cost_detail = New CostDetail;
-			     $cost_detail->user_id 		= $msg['optional']['user_id'];
-			     $cost_detail->cost_id 		= $data['total_fee'];
-			     $cost_detail->fee_type_id 	= FeeType::where( 'category', FeeType::get_recharge_code() )
-									->where( 'item', FeeType::get_recharge_subitem() )
-									->first()->item;
-				if( !$cost_detail->save() )	
-				 	return 'false';
+		    {	
+			    try
+			    {
+			    	DB::transaction(function() use( $data,$msg ) {
 
-				 return 'sucess';
+					    $cost_detail = New CostDetail;
+					    $cost_detail->user_id 		= $msg['optional']['user_id'];
+					    $cost_detail->cost_id 		= $data['total_fee'];
+					    $cost_detail->fee_type_id 	= 0;
+						if( !$cost_detail->save() )	
+						 	throw new Exception;
+						
+						// $result =  BusinessController::recharge($data['total_fee'],$msg['optional']['user_id']);
+						// if( !$result )
+						// 	throw new Exception;
+			    	});
+			    }catch( \Exception $e )
+			    {	
+			    	Log::info( $e->getMessage() );
+			    	return 'false';
+			    }
+			    return 'true';
 		    }else{
 		    	$order = AgencyOrder::find( $data['bill_no'] );
 		    	$order->trade_status = 1; //已付款
@@ -110,8 +121,8 @@ class BeeCloundController extends BaseController{
 	}	
 	/*
 	$recharge_fee_type = FeeType::where( 'category', FeeType::get_recharge_code() )
-							->where( 'item', FeeType::get_rechage_subitem() )
-							->first()
+									->where( 'item', FeeType::get_recharge_subitem() )
+									->first()->item;
 	*/
 
 	/* 微信支付－充值
