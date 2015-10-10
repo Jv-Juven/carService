@@ -90,8 +90,9 @@ class BeeCloundController extends BaseController{
 
 					    $cost_detail = New CostDetail;
 					    $cost_detail->user_id 		= $msg['optional']['user_id'];
-					    $cost_detail->cost_id 		= $data['total_fee'];
+					    $cost_detail->cost_id 		= $data["bill_no"];
 					    $cost_detail->fee_type_id 	= 1;
+					    $cost_detail->number 		= $data['total_fee'];
 						if( !$cost_detail->save() )	
 						 	throw new Exception;
 						
@@ -104,7 +105,7 @@ class BeeCloundController extends BaseController{
 			    	Log::info( 'try错误' );
 			    	return 'false';
 			    }
-			    return 'true';
+			    return 'sucess';
 		    }else{
 		    	$order = AgencyOrder::find( $data['bill_no'] );
 		    	$order->trade_status = 1; //已付款
