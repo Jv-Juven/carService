@@ -515,22 +515,22 @@ class UserController extends BaseController{
             $user = Sentry::authenticate($cred,false);
             if($user)
             {	
-            	if( $user->status != 22)
-            	{
-	            	switch ($user->status) {
-	            		case 10:
-	            			return Response::json(array('errCode'=>10,'message'=>'请激活邮箱'));
-	            		case 11:
-	            			return Response::json(array('errCode'=>11,'message'=>'请填写登记信息'));
-	        			case 20:
-	            			return Response::json(array('errCode'=>20,'message'=>'信息审核中'));
-	        			case 21:
-	            			return Response::json(array('errCode'=>21,'message'=>'请填写备注码'));
-	        			case 30:
-	            			return Response::json(array('errCode'=>30,'message'=>'账户已被锁定'));
-	            		// default:
-	            	}
-	            }
+            // 	if( $user->status != 22)
+            // 	{
+	           //  	switch ($user->status) {
+	           //  		case 10:
+	           //  			return Response::json(array('errCode'=>10,'message'=>'请激活邮箱'));
+	           //  		case 11:
+	           //  			return Response::json(array('errCode'=>11,'message'=>'请填写登记信息'));
+	        			// case 20:
+	           //  			return Response::json(array('errCode'=>20,'message'=>'信息审核中'));
+	        			// case 21:
+	           //  			return Response::json(array('errCode'=>21,'message'=>'请填写备注码'));
+	        			// case 30:
+	           //  			return Response::json(array('errCode'=>30,'message'=>'账户已被锁定'));
+	           //  		// default:
+	           //  	}
+	           //  }
 	            return Response::json(array('errCode'=>0,'message'=>'登录成功'));
             }
         }catch (\Exception $e){
