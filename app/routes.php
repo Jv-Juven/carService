@@ -56,7 +56,7 @@ Route::group(array('prefix'=>'user'), function(){
 		Route::post('save_operator_info','UserController@saveOperatorInfo');
 
 		//登出
-		Route::get('logout','UserController@logout');
+		Route::post('logout','UserController@logout');
 		//审核中
 		Route::get('pending','UserPageController@pending');
 		//信息登记静态页面

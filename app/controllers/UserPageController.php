@@ -39,8 +39,6 @@ class UserPageController extends BaseController{
 		$user->status = 11;
 		$user->save();
 		
-		//验证通过，回到信息登记页
-		// return '成功';
 		return View::make('pages.register-b.reg-info');
 	}
 
