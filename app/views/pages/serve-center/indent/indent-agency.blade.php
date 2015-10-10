@@ -200,7 +200,7 @@
 			<td></td>
 			<td></td>
 			<td class="last-td" rowspan="<%- rightTd %>">
-				
+				<%- process_status %>
 			</td>
 		</tr>
 
