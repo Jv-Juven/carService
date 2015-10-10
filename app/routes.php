@@ -43,7 +43,7 @@ Route::group(array('prefix'=>'user'), function(){
 		//B端用户注册-信息登记
 		Route::post('info_register', 'UserController@informationRegister');
 		//B端用户注册-意外退出后发送验证信息再次发送信息到邮箱
-		Route::get('send_token_to_email','UserController@sendTokenToEmail');
+		Route::post('send_token_to_email','UserController@sendTokenToEmail');
 		//B端用户打款备注码
 		Route::post('money_remark_code','UserController@moneyRemarkCode');
 		//显示企业信息
