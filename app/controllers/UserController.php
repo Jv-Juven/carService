@@ -238,6 +238,8 @@ class UserController extends BaseController{
 			
 			//储存数据
 			$user = User::where('login_account',$user->login_account)->first();
+			Sentry::login($user,false);
+			
 			Cache::put($token,$user,5);
 			// var_dump($user->user_id);
 			
@@ -512,26 +514,40 @@ class UserController extends BaseController{
         {	
             $user = Sentry::authenticate($cred,false);
             if($user)
-            {
-            	switch ($user->status) {
-            		case 10:
-            			return Response::json(array('errCode'=>10,'message'=>'请激活邮箱'));
-            		case 11:
-            			return Response::json(array('errCode'=>11,'message'=>'请填写登记信息'));
-        			case 20:
-            			return Response::json(array('errCode'=>20,'message'=>'信息审核中'));
-        			case 21:
-            			return Response::json(array('errCode'=>21,'message'=>'请填写备注码'));
-        			case 30:
-            			return Response::json(array('errCode'=>30,'message'=>'账户已被锁定'));
-            		default:
-            			return Response::json(array('errCode'=>0,'message'=>'登录成功'));
-            	}
+            {	
+            	if( $user->status != 22)
+            	{
+	            	switch ($user->status) {
+	            		case 10:
+	            			return Response::json(array('errCode'=>10,'message'=>'请激活邮箱'));
+	            		case 11:
+	            			return Response::json(array('errCode'=>11,'message'=>'请填写登记信息'));
+	        			case 20:
+	            			return Response::json(array('errCode'=>20,'message'=>'信息审核中'));
+	        			case 21:
+	            			return Response::json(array('errCode'=>21,'message'=>'请填写备注码'));
+	        			case 30:
+	            			return Response::json(array('errCode'=>30,'message'=>'账户已被锁定'));
+	            		// default:
+	            	}
+	            }
+	            return Response::json(array('errCode'=>0,'message'=>'登录成功'));
             }
         }catch (\Exception $e){
             return Response::json(array('errCode'=>1,'message'=>'账户或密码错误'.$e->getMessage()));
         }
 	}
+
+	//登出
+	public function logout()
+	{
+		if(!Sentry::check())
+			return Response::json(array('errCode'=>1, 'message'=>'用户未登录！'));
+		Sentry::logout();
+		// Session::forget('user_id');
+		return Response::json(array('errCode'=>0, 'message'=>'退出成功！'));
+	}
+
 
 	//意外退出后发送验证信息<<<<<<需要回跳回网站，要上线后测试>>>>>>>
 	public function sendTokenToEmail()

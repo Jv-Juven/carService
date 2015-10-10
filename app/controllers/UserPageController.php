@@ -31,7 +31,7 @@ class UserPageController extends BaseController{
 		if(!isset($user))
 		{
 			//登录后发邮件去邮箱验证邮箱
-			return View::make('/');
+			return View::make('pages.register-b.email-active');
 		}
 
 		//将状态信息改成未填写登记信息
@@ -39,8 +39,6 @@ class UserPageController extends BaseController{
 		$user->status = 11;
 		$user->save();
 		
-		//验证通过，回到信息登记页
-		// return '成功';
 		return View::make('pages.register-b.reg-info');
 	}
 

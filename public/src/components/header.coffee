@@ -1,3 +1,4 @@
+# logout = require "./logout.coffee"
 
 mask = require "./mask/mask.coffee"
 

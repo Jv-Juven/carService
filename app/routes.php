@@ -55,6 +55,8 @@ Route::group(array('prefix'=>'user'), function(){
 		//B端用户－修改运营者信息－保存
 		Route::post('save_operator_info','UserController@saveOperatorInfo');
 
+		//登出
+		Route::post('logout','UserController@logout');
 		//审核中
 		Route::get('pending','UserPageController@pending');
 		//信息登记静态页面
