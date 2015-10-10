@@ -31,19 +31,21 @@
 	</ul>
 
 	<ul class="header-btns-wrapper">
-		<!-- <li>
+		@if( Sentry::check())
+		<li>
 			<a class="bg-block header-user" href="/">
-				<img src="/images/components/avatar.png">
+				<!-- <img src="/images/components/avatar.png"> -->
 				<span class="header-name">
-					LOGIN ALEXDENG
+					{{Sentry::getUser()->login_account}}
 				</span>
 			</a>
-		</li> -->
-		<!-- <li class="header-btns">
-			<a href="/">
+		</li> 
+		<li class="header-btns">
+			<a href="/user/logout">
 				退出
 			</a>
-		</li> -->
+		</li>
+		@else
 		<li>
 			<div class="log-reg-btns">
 				<a class="reg-btn first" href="javascript:" id="header_regbtn">注册</a>
@@ -54,6 +56,7 @@
 				</ul>
 			</div>
 		</li>
+		@endif
 		<li class="header-btns btns-last">
 			<a href="/">
 				帮助中心

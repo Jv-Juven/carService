@@ -31,7 +31,7 @@ class UserPageController extends BaseController{
 		if(!isset($user))
 		{
 			//登录后发邮件去邮箱验证邮箱
-			return View::make('/');
+			return View::make('pages.register-b.email-active');
 		}
 
 		//将状态信息改成未填写登记信息
