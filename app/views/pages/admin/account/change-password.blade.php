@@ -1,4 +1,4 @@
-@extends('pages.admin.admin-account.layout')
+@extends('pages.admin.account.layout')
 
 @section('title')
     客服中心－账户设置
