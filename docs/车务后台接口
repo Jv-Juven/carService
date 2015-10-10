@@ -58,7 +58,7 @@ if( Sentry::check() )
 	 			视图，					验证通过跳到信息登记页
 	 									验证失败跳到邮箱注册页
 
-	1.6 B端用户修改密码－发送验证码到邮箱/显示密码／忘记密码／修改运营者信息
+	1.6 B端用户修改密码－发送验证码到邮箱/显示密码／忘记密码
 	 请求方式:POST
 	 请求url: /user/send_code_to_email
 
@@ -189,6 +189,18 @@ if( Sentry::check() )
 	 请求参数：
 	 		login_account				邮箱或手机
 	 		password 					密码
+
+	 返回参数：
+	 		{
+				errCode,			0返回正常
+ 				message,			错误信息
+			}
+
+	1.14 再次发送邮件
+	 请求方式： POST
+	 请求链接： /user/send_token_to_email
+
+	 请求参数：
 
 	 返回参数：
 	 		{
@@ -538,3 +550,17 @@ if( Sentry::check() )
 				errCode,					
 				message,
 			}
+
+
+ 七牛token
+ 	请求方式：GET
+ 	请求url：/qiniu
+
+ 	请求参数
+
+ 	返回参数：
+ 			{
+ 			 uptoken, 			token
+ 			}
+
+

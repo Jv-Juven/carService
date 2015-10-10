@@ -54,6 +54,7 @@ $ ()->
 				val = url
 				
 		}
+		return val
 
 
 	#“提交按钮”信息提交函数
@@ -108,8 +109,6 @@ $ ()->
 
 	#"提交"按钮事件绑定
 	submitBtn.on "click", submitInfo
-
-	warn.alert "hello word!"
 
 	license = setUploadedPhoto("license", licenseScan)
 	creditFront = setUploadedPhoto("credit_front", creditCardScan01)

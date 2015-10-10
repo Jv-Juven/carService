@@ -97,7 +97,7 @@ userLogin = ()->
 			return
 
 		$.post "/user/login", {
-			email: logEmail.find(".input input").val(),
+			login_account: logEmail.find(".input input").val(),
 			password: password.val()
 		}, (msg)->
 			if msg["errCode"] isnt 0

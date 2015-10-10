@@ -1,7 +1,7 @@
 
 carsInputs = $(".cars-inputs")
 
-plate = carsInputs.find("select").eq(0).find("option:selected").text()
+
 plateNum = carsInputs.find(".plate-num")
 carsType = carsInputs.find("select").eq(1).find("option:selected").val()
 recordId = $(".record-id")
@@ -11,11 +11,17 @@ carsBtn = $(".cars-btn")
 carsRecords = $(".cars-records")
 carsResulte =$(".cars-resulte")
 
+recordPlate = $(".records-plate")
+
 #提交事件
 submit = ()->
-	$.get "/serve-center/search/api/car", {
+
+	plate = carsInputs.find("select").eq(0).find("option:selected").text()
+	licensePlate = plate + plateNum.val()
+
+	$.get "/serve-center/search/api/cars", {
 		engineCode: recordId.val()
-		licensePlate: plate + plateNum.val()
+		licensePlate: licensePlate
 		licenseType: recordId.val()
 	}, (msg)->
 		if msg["errCode"] isnt 0
@@ -25,8 +31,8 @@ submit = ()->
 			result = result {
 				"array": msg["car"]
 				}
-			console.log msg["car"]
-			carsResulte.append(result)
+			recordPlate.text(licensePlate)
+			carsResulte.html(result)
 			carsRecords.show()
 
 $ ()->

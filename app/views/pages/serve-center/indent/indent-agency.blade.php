@@ -180,11 +180,11 @@
 		else if (array[i]["trade_status"] == 3){
 			trade_status = "已退款";
 		}
-		else (array[i]["trade_status"] == 4){
+		else{
 			trade_status = "退款失败";
 		}
 		%>
-		<tr class="info-head">
+		<tr class="indent-tr info-head">
 			<td colspan="6">
 				<span class="plate"><%- array[i]["car_plate_no"] %></span>
 				下单时间：
@@ -193,26 +193,24 @@
 				<span><%- array[i]["order_id"] %></span>
 			</td>
 		</tr>
-		<tr class="table-line">
+		<tr class="indent-tr table-line">
 			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>
 			<td class="last-td" rowspan="<%- rightTd %>">
-				
+				<%- process_status %>
 			</td>
 		</tr>
 
-		<% for(var j = 0; j < info .length; j ++ ){ %>
-			<tr class="indent-tr-content">
+		<% for(var j = 0; j < info.length; j ++ ){ %>
+			<tr class="indent-tr indent-tr-content">
 				<td>
 					<span><%- info[i]["rep_event_time"] %></span>
 				</td>
 				<td>
-					// <span>[广东省广州市]</span>
 					<span><%- info[i]["rep_event_addr"] %></span>
-					// <span>[电子眼未处理未交款]</span>
 				</td>
 				<td class="vio-behaviour">
 					<%- info[i]["rep_violation_behavior"] %>
@@ -229,7 +227,7 @@
 				</td>
 			</tr>
 		<% } %>
-		<tr class="indent-deal">
+		<tr class="indent-tr indent-deal">
 			<td colspan="2">
 				<span class="title">应付总额：</span>
 				<span class="money">￥<%- array[i]["capital_sum"] %>元</span>
@@ -239,16 +237,16 @@
 			</td>
 			<td class="indent-deal-opration" colspan="4">
 				<span class="deal-btn wait-pay"><%- trade_status %></span>
-				<% if (process_status == 0){ %>
+				<% if (array[i]["process_status"] == 0){ %>
 					<a class="deal-btn cancel-deal" data-num="<%- array[i]['order_id'] %>" href="javascript:">取消订单</a>
 					<a class="deal-btn atonce-pay" href="javascript:">立即付款</a>
 				<% } %>
-				<% if (process_status == 1){ %>
+				<% if (array[i]["process_status"] == 1){ %>
 					<a class="deal-btn atonce-pay refund-btn" data-num="<%- array[i]['order_id'] %>" href="javascript:">申请退款</a>
 				<% } %>
 			</td>
 		</tr>
-		<tr class="table-foot-blank"></tr>
+		<tr class="indent-tr table-foot-blank"></tr>
 		<% } %>
 	</script>
 	@section("js")

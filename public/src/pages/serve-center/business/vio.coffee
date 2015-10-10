@@ -17,13 +17,27 @@ vioTips = $(".vio-warn-tips")
 table01 = $(".vio-records-table01")
 table02 = $(".vio-records-table02")
 
+th01 = table01.find(".tb-head")
+th02 = table02.find(".tb-head")
+
 vioRecords = $(".vio-records")
 
-th = table01.html()
-
-dealBtn = $(".deal-btn")
+dealBtn = $(".deal-btn a")
 
 xhArr = []
+
+recordsTotal = $(".records-total")
+
+
+#加载页面检测，触发查询
+loadSubmit = ()->
+	console.log window.name
+	infoData = window.name
+	if !infoData
+		return
+	dataArray = infoData.split("&&&")
+	console.log dataArray
+
 
 #“确定”按钮事件，显示违章查询结果
 submit = ()->
@@ -38,15 +52,19 @@ submit = ()->
 		engineNum.val("").focus()
 		return
 
-	place = plateNumberSelect.eq(0).find("option:checked").text()
-	carType = plateNumberSelect.eq(1).find("option:checked").val()
-
+	placeName = plateNumberSelect.eq(0).find("option:selected").text()
+	carType = plateNumberSelect.eq(1).find("option:selected").val()
+	
 	vioTips.text(" ")
 
-	$.get "/business/api/violation", {
+	licensePlate = placeName + plateNum.val()
 
-		engineCode: engineNum,
-		licensePlate: place + plateNum,
+	window.name = engineNum.val() + "&&&" + licensePlate + "&&&" + carType
+
+	$.get "/serve-center/search/api/violation", {
+
+		engineCode: engineNum.val(),
+		licensePlate: licensePlate,
 		licenseType: carType
 
 		}, (msg)->
@@ -73,26 +91,33 @@ submit = ()->
 				"service_fee": msg["service_fee"]
 				})
 
-			table01.html("").append(th).append(tpl01)
-			table02.html("").append(th).append(tpl02)
+			th01.after tpl01
+			th02.after tpl02
 
 			#修改标题头
-			recordsPlate.text(place + plateNum)
+			recordsPlate.text(licensePlate)
+			recordsTotal.text(msg["violations"].length)
 
-			vioRecords.fadeIn(100)
+			vioRecords.fadeIn 100,()->
+				#"全选"按钮绑定事件
+				allCheck.bindEvent(table01.find(".tb-head input[type='checkbox']"), table01.find(".tb-tr input[type='checkbox']"))
+				allCheck.bindEvent(table02.find(".tb-head input[type='checkbox']"), table02.find(".tb-tr input[type='checkbox']"))
+
+
 
 
 
 #“违章办理”按钮事件
 dealVio = ()->
 	length = table01.find(".tb-tr .checkbox").length
-	table01.find(".tb-tr .checkbox").each (item, index)->
-		_this = item
+	table01.find(".tb-tr .checkbox").each (index, item)->
+		_this = $ item
 		if _this.prop("checked")
 			xhArr.push parseInt(_this.attr("data-xh"))
 		if index is (length - 1)
 			if xhArr.length is 0
 				warn.alert "请选中要办理的违章记录！"
+				return
 			else
 				$.post "/serve-center/agency/business/confirm_violation", {
 					xh: xhArr
@@ -108,14 +133,12 @@ dealVio = ()->
 
 
 $ ()->
+	loadSubmit()
 	#违章查询的“确定”按钮绑定事件
 	vioBtn.on "click", submit
 	#“违章办理”按钮事件绑定
 	dealBtn.on "click", dealVio
-	#"全选"按钮绑定事件
-	allCheck.bindEvent(table01.find("th input[type='checkbox']"), table01.find("tr input[type='checkbox']"))
-	allCheck.bindEvent(table02.find("th input[type='checkbox']"), table02.find("tr input[type='checkbox']"))
-
+	
 
 
 

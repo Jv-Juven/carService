@@ -43,7 +43,7 @@ Route::group(array('prefix'=>'user'), function(){
 		//B端用户注册-信息登记
 		Route::post('info_register', 'UserController@informationRegister');
 		//B端用户注册-意外退出后发送验证信息再次发送信息到邮箱
-		Route::get('send_token_to_email','UserController@sendTokenToEmail');
+		Route::post('send_token_to_email','UserController@sendTokenToEmail');
 		//B端用户打款备注码
 		Route::post('money_remark_code','UserController@moneyRemarkCode');
 		//显示企业信息
@@ -55,7 +55,12 @@ Route::group(array('prefix'=>'user'), function(){
 		//B端用户－修改运营者信息－保存
 		Route::post('save_operator_info','UserController@saveOperatorInfo');
 
-
+		//登出
+		Route::post('logout','UserController@logout');
+		//审核中
+		Route::get('pending','UserPageController@pending');
+		//信息登记静态页面
+		Route::get('info_register','UserPageController@infomationRegisterPage');
 		//B端用户邮箱注册验证通过后跳转到邮箱激活页面
 		Route::get('b_active','UserPageController@emailActivePage');
 		//打款验证码静态页面
@@ -399,12 +404,19 @@ Route::group(array('prefix' => 'admin'), function() {
 	});
 });
 
+//七牛
+Route::group(array('prefix'=>'qiniu','before'=>'auth.user.isIn'),function(){
+	Route::get('/', 'UploadController@getUpToken');
+});
+
 //beeclound接口
 Route::group(array('prefix'=>'beeclound','before'=>'auth.user.isIn'), function(){
 	//微信充值
 	Route::get('recharge','BeeCloundController@recharge');
 	//微信代办
 	Route::get('order-agency','BeeCloundController@orderAgency');
+	//微信退款
+	Route::get('refund','BeeCloundController@refund');
 });
 	//验证
 	Route::post('beeclound','BeeCloundController@authBeeCloud');

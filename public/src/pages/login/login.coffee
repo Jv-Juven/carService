@@ -50,13 +50,24 @@ $ ()->
 				return
 
 			$.post "/user/login", {
-				email: accNum.val(),
+				login_account: accNum.val(),
 				password: psd.val()
 			}, (msg)->
-				if msg["errCode"] isnt 0
-					alert msg["message"]
-				else
+				if msg["errCode"] is 0
 					window.location.href = "/serve-center/search/pages/violation"
+				# else if msg["errCode"] is 10
+				# 	window.location.href = ""
+				# else if msg["errCode"] is 11
+				# 	window.location.href = ""
+				# else if msg["errCode"] is 20
+				# 	window.location.href = ""
+				# else if msg["errCode"] is 21
+				# 	window.location.href = ""
+				# else if msg["errCode"] is 30
+				# 	window.location.href = ""
+				else
+					alert msg["message"]
+				
 
 	#点击显示指定的大图
 	selectPic = (e)->

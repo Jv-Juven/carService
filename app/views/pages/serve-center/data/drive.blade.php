@@ -52,8 +52,8 @@
 					<div class="info-num">2000</div>
 				</div>
 			</div>
-
-			<div class="drive-results">
+			<div style="clear: both;"></div>
+			<div class="drive-results clearfix">
 				本年度，截止至当前时间，您累计已扣分<span class="stress">3分</span>！
 			</div>
 		</div>
