@@ -50,7 +50,7 @@ $ ()->
 				return
 
 			$.post "/user/login", {
-				email: accNum.val(),
+				login_account: accNum.val(),
 				password: psd.val()
 			}, (msg)->
 				if msg["errCode"] isnt 0
