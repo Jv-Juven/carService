@@ -84,6 +84,15 @@
 		        	@endif
 	        	</tr>
 	        	@endforeach
+                <tr>
+                    <td colspan="6">
+                        <span>订单金额：{{ $indent->capital_sum + $indent->service_charge_sum }} 元</span>
+                        <span style="margin-left:20px;">票证快递费：{{{ $indent->express_fee }}} 元</span>
+                        <a href="#" style="margin-left:50px">查看凭证快递信息</a>
+                        <button id="search-btn" type="button" class="btn btn-primary" style="float: right;margin-right: 20px;">办理中</button>
+                        <button id="search-btn" type="button" class="btn btn-primary" style="float: right;margin-right: 20px;">办理完成</button>
+                    </td>
+                </tr>
             @endforeach
 		</table>
 		<nav>
