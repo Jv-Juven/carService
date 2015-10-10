@@ -498,12 +498,11 @@ class UserController extends BaseController{
 	{
 		$login_account 	= Input::get('login_account');
 		$password 		= Input::get('password');
-		// $tele_regex  	= Config::get('regex.telephone');
-		// $email_regex 	= Config::get('regex.email');
 		
 		$login_user = User::where('login_account',$login_account)->first();
+		// dd($login_account);
 		if(!isset($login_user))
-			return Response::json(array('errCode'=>1, 'message'=>'该用户为注册'));
+			return Response::json(array('errCode'=>1, 'message'=>'该用户未注册'));
 		
 		$cred = [
             'login_account'	=> $login_account,
