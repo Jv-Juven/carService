@@ -88,7 +88,7 @@ class BeeCloundController extends BaseController{
 			     $cost_detail->user_id 		= $msg['optional']['user_id'];
 			     $cost_detail->cost_id 		= $data['total_fee'];
 			     $cost_detail->fee_type_id 	= FeeType::where( 'category', FeeType::get_recharge_code() )
-									->where( 'item', FeeType::get_rechage_subitem() )
+									->where( 'item', FeeType::get_recharge_subitem() )
 									->first();
 				if( !$cost_detail->save() )	
 				 	return 'false';
