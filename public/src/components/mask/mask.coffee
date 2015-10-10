@@ -12,6 +12,13 @@ wrapper = $(".log-reg-wrapper, .mask-wrapper")
 floatLayout = $(".mask, #mask")
 regTips = $(".warn-tips input")
 
+loginMask = $(".mask-login")
+
+#显示“登录”框
+showLoginMask = ()->
+	loginMask.show()
+	regMask.show()
+
 #显示“个人注册”框
 showPersReg = ()->
 	$(".log-reg-bg").fadeIn(100)
@@ -48,6 +55,10 @@ mask = {
 
 	closeMask: ()->
 		closeMask()
+
+	showLoginMask: ()->
+		showLoginMask()
+
 }
 
 module.exports = mask
