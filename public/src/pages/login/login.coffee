@@ -55,16 +55,16 @@ $ ()->
 			}, (msg)->
 				if msg["errCode"] is 0
 					window.location.href = "/serve-center/search/pages/violation"
-				else if msg["errCode"] is 10
-					window.location.href = ""
-				else if msg["errCode"] is 11
-					window.location.href = ""
-				else if msg["errCode"] is 20
-					window.location.href = ""
-				else if msg["errCode"] is 21
-					window.location.href = ""
-				else if msg["errCode"] is 30
-					window.location.href = ""
+				# else if msg["errCode"] is 10
+				# 	window.location.href = ""
+				# else if msg["errCode"] is 11
+				# 	window.location.href = ""
+				# else if msg["errCode"] is 20
+				# 	window.location.href = ""
+				# else if msg["errCode"] is 21
+				# 	window.location.href = ""
+				# else if msg["errCode"] is 30
+				# 	window.location.href = ""
 				else
 					alert msg["message"]
 				
