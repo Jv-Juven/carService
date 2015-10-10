@@ -22,7 +22,7 @@
 			</a>
 		</li>
 		<li class="header-btns">
-			<a href="/">
+			<a id="logout_btn" href="javascript:">
 				退出
 			</a>
 		</li>

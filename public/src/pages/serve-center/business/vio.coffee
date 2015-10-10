@@ -28,6 +28,17 @@ xhArr = []
 
 recordsTotal = $(".records-total")
 
+
+#加载页面检测，触发查询
+loadSubmit = ()->
+	console.log window.name
+	infoData = window.name
+	if !infoData
+		return
+	dataArray = infoData.split("&&&")
+	console.log dataArray
+
+
 #“确定”按钮事件，显示违章查询结果
 submit = ()->
 
@@ -47,6 +58,8 @@ submit = ()->
 	vioTips.text(" ")
 
 	licensePlate = placeName + plateNum.val()
+
+	window.name = engineNum.val() + "&&&" + licensePlate + "&&&" + carType
 
 	$.get "/serve-center/search/api/violation", {
 
@@ -120,6 +133,7 @@ dealVio = ()->
 
 
 $ ()->
+	loadSubmit()
 	#违章查询的“确定”按钮绑定事件
 	vioBtn.on "click", submit
 	#“违章办理”按钮事件绑定

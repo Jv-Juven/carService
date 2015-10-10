@@ -23,22 +23,22 @@
 		<div class="email-tips">
 			感谢注册！确认邮件已发送至您的注册邮箱{{Sentry::getUser()->login_account}}。请进入邮箱查看邮件，并激活公众平台账号。
 		</div>
-		<div class="submit-btn">
+		<!-- <div class="submit-btn">
 			<a target="_blank" href="/email-active">登录邮箱</a>
-		</div>
+		</div> -->
 		<div class="email-explain">
 			<table>
 				<tr>
 					<td>没有收到邮件？</td>
 				</tr>
 				<tr>
-					<td>1、请确认邮件地址是否正确，你可以返回<span>重新填写</span>。</td>
+					<td>1、请确认邮件地址是否正确，你可以返回<a href="/user/b_register" class="email-back">重新填写</a>。</td>
 				</tr>
 				<tr>
 					<td>2、确认你的邮件垃圾箱。</td>
 				</tr>
 				<tr>
-					<td>3、若仍未收到确认邮件，请尝试<span>重新发送</span>。</td>
+					<td>3、若仍未收到确认邮件，请尝试<a href="javascript:" class="email-resend">重新发送</a>。</td>
 				</tr>
 			</table>
 		</div>
@@ -46,4 +46,9 @@
 
 </div>
 
+@stop
+
+@section("js")
+	@parent
+	<script type="text/javascript" src="/dist/js/pages/register-b/email-active.js"></script>
 @stop
