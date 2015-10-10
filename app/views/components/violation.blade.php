@@ -3,7 +3,9 @@
 		<!-- 办理进程 START  -->
 		<!-- @include("components.vio-process", array("num" => "1")) -->
 		<!-- 办理进程 END	 -->
-
+		@if(isset($process))
+		@include("components.vio-process", array("num" => "1"))
+		@endif
 		<!-- 查询框 START -->
 		<div class="violation-search">
 			<div class="violation-wrapper">
@@ -31,7 +33,7 @@
 
 		@include("components.violation-info")
 
-		<div class="violation-records vio-records">
+		<div class="violation-records clearfix vio-records">
 			<div class="vio-records-title">
 				车牌号码为<span class="records-plate">XXXXXX</span>的车辆共有<span class="records-total">3</span>笔违章记录
 			</div>
@@ -96,9 +98,7 @@
 				<span class="date"><%- array[i]["wfsj"] %></span>
 			</td>
 			<td>
-				// <span class="city">[广东省 广州市]</span>
 				<span class="block"><%- array[i]["wfdz"] %></span>
-				// <span class="status">[电子眼未处理-未交款]</span>
 			</td>
 			<td>
 				<span class="describe">
