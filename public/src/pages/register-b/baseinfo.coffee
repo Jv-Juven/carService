@@ -47,14 +47,15 @@ $ ()->
 			return
 
 		$.post "/user/b_register", {
-			login_account: email,
-			password: password,
-			re_password: rePassword,
-			captcha: validateCodes
+			login_account: email.val(),
+			password: password.val(),
+			re_password: rePassword.val(),
+			captcha: validateCodes.val()
 		}, (msg)->
 			if msg["errCode"] isnt 0
-				alert msg["errCode"]
+				alert msg["message"]
 			else
+				alert "邮箱注册成功"
 				window.location.href = "/user/b_active"
 
 	#获取验证码
