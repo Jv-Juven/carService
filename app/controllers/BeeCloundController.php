@@ -101,7 +101,7 @@ class BeeCloundController extends BaseController{
 			    	});
 			    }catch( \Exception $e )
 			    {	
-			    	Log::info( $e->getMessage() );
+			    	Log::info( 'try错误' );
 			    	return 'false';
 			    }
 			    return 'true';
