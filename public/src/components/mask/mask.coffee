@@ -17,7 +17,7 @@ loginMask = $(".mask-login")
 #显示“登录”框
 showLoginMask = ()->
 	loginMask.show()
-	regMask.show()
+	bg.show()
 
 #显示“个人注册”框
 showPersReg = ()->
