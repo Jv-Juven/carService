@@ -247,6 +247,7 @@ class BeeCloundController extends BaseController{
 		Cache::put($data["bill_no"],$data,120);
 		try {
 		    $result = BCRESTApi::refund($data);
+		    Log::info( $result );
 		    if ($result->result_code != 0 || $result->result_msg != "OK") 
 		    {
 		      	//此处参数需要打入log中
