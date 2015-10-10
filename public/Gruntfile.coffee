@@ -200,10 +200,17 @@ module.exports = (grunt)->
                     'dist/css/pages/admin/business-center/new-user-list.css':['src/pages/admin/business-center/new-user-list.less']
                     'dist/css/pages/admin/business-center/check-new-user.css':['src/pages/admin/business-center/check-new-user.less']
                     'dist/css/pages/admin/business-center/change-user-status.css':['src/pages/admin/business-center/change-user-status.less']
+                    'dist/css/pages/admin/business-center/search-indent.css':['src/pages/admin/business-center/search-indent.less']
+                    'dist/css/pages/admin/business-center/indent-list.css':['src/pages/admin/business-center/indent-list.less']
                     'dist/css/pages/admin/business-center/change-service-univalence.css':['src/pages/admin/business-center/change-service-univalence.less']
                     'dist/css/pages/admin/business-center/change-query-univalence.css':['src/pages/admin/business-center/change-query-univalence.less']
                     'dist/css/pages/admin/business-center/change-default-service-univalence.css':['src/pages/admin/business-center/change-default-service-univalence.less']
                     'dist/css/pages/admin/business-center/change-default-query-univalence.css':['src/pages/admin/business-center/change-default-query-univalence.less']
+                    'dist/css/pages/admin/business-center/refund-indent-info.css':['src/pages/admin/business-center/refund-indent-info.less']
+                    'dist/css/pages/admin/business-center/express-ticket-info.css':['src/pages/admin/business-center/express-ticket-info.less']
+                    'dist/css/pages/admin/business-center/refund-status.css':['src/pages/admin/business-center/refund-status.less']
+                    'dist/css/pages/admin/business-center/refund-application-list.css':['src/pages/admin/business-center/refund-application-list.less']
+                    'dist/css/pages/admin/business-center/approve-refund-application.css':['src/pages/admin/business-center/approve-refund-application.less']
         cssmin:
             common:
                 files:[

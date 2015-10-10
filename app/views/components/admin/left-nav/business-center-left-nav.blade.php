@@ -22,7 +22,10 @@
         <li role="presentation">
             <ul class="nav nav-pills nav-stacked">
                 <li role="presentation">
-                    <a href="#" class="nav-item">违章代办</a>
+                    <a href="/admin/business-center/search-indent" class="nav-item">订单搜索</a>
+                </li>
+                <li role="presentation">
+                    <a href="/admin/business-center/indent-list" class="nav-item">违章代办</a>
                 </li>
             </ul>
     	</li>

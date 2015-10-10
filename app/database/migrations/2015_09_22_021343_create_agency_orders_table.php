@@ -68,7 +68,7 @@ class CreateAgencyOrdersTable extends Migration {
 			/*
 			 * 号牌种类名称，只存数字编号，
 			 */
-			$table->char('car_type_no',2);
+			$table->char('car_type_no', 2);
 			
 			/*
 			 * 代办订单数量
@@ -99,7 +99,7 @@ class CreateAgencyOrdersTable extends Migration {
 			
 			/*
 			 *  交易状态
-			 * 		0 : 等等付款
+			 * 		0 : 等待付款
 			 * 		1 : 已付款
 			 * 		2 : 申请退款
 			 * 		3 : 已退款
@@ -111,9 +111,9 @@ class CreateAgencyOrdersTable extends Migration {
 			 *  处理状态
 			 * 		0 : 未受理
 			 * 		1 : 已受理//可以办理退款
-			 * 		2 : 已受理办理中
-			 * 		3 : 订单完成
-			 * 		4 : 订单关闭
+			 * 		2 : 办理中
+			 * 		3 : 已完成
+			 * 		4 : 已关闭
 			 */	
 			$table->char('process_status', 2);
 			
