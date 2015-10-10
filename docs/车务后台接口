@@ -196,6 +196,18 @@ if( Sentry::check() )
  				message,			错误信息
 			}
 
+	1.14 再次发送邮件
+	 请求方式： POST
+	 请求链接： /user/send_token_to_email
+
+	 请求参数：
+
+	 返回参数：
+	 		{
+				errCode,			0返回正常
+ 				message,			错误信息
+			}
+
 
 2. C端用户模块
 	1. 注册－获取手机验证码
