@@ -8,7 +8,7 @@ driverLicense = $("#driver_license")
 fileCodes = $("#file_codes")
 driveTips = $(".drive-tips")
 stress = $(".stress")
-driveResult =$(".driveResult")
+driveResult =$(".drive-results")
 
 driveBtn = $(".drive-btn")
 

@@ -1,14 +1,14 @@
 
-indentNum = $("#indent-number").val()
+indentNum = $("#indent-number")
 indentInputs = $(".indent-inputs")
-plate = indentInputs.find("select").eq(0).find("option:selected").text()
-plateNum = $(".plate-num").val()
-carType = indentInputs.find("select").eq(1).find("option:selected").val()
+plate = indentInputs.find("select").eq(0)
+plateNum = $(".plate-num")
+carType = indentInputs.find("select").eq(1)
 
 #违章城市
-city = $(".indent-city option:selected").text()
+city = $(".indent-city")
 #业务状态
-status = $(".indent-status option:selected").val()
+status = $(".indent-status")
 
 dateStart = $("#indent_date_start")
 dateEnd = $("#indent_date_end")
@@ -40,6 +40,8 @@ refundBtn = $(".refund-btn")
 
 tradeStatus = $(".wait-pay")
 
+pagination = $(".paginate-wrap")
+
 #关闭弹窗
 closeMask = ()->
 	maskBg.fadeOut(100)
@@ -61,48 +63,59 @@ init_datepicker = ()->
 #”查询“订单
 submit = ()->
 
-	# console.log(indentNum + "\n" + plate + plateNum + "\n" + status + "\n" + dateStart.val() + "\n" + )
+	# console.log(indentNum + "\n" + plate + plateNum + "\n" + status + "\n" + dateStart.val() + "\n")
 
 	$.get "/serve-center/order/operation/searchs", {
-			order_id: indentNum,
-			car_plate_no: plate + plateNum,
-			process_status: status,
+			order_id: indentNum.val(),
+			car_plate_no: plate.find("option:selected").text() + plateNum.val(),
+			process_status: status.find("option:selected").val(),
 			start_date: dateStart.val(),
 			end_date: dateEnd.val()
 		}, (msg)->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
 			else
-				
 				array01 = _.filter msg["orders"], "process_status", "0"
 				array02 = _.filter msg["orders"], "process_status", "1"
 				array03 = _.filter msg["orders"], "process_status", "2"
 				array04 = _.filter msg["orders"], "process_status", "3"
 				array05 = _.filter msg["orders"], "process_status", "4"
 
-				html01 = _.template(template)
-				html02 = _.template(template)
-				html03 = _.template(template)
-				html04 = _.template(template)
-				html05 = _.template(template)
+				$(".indent-tr").remove()
 
-				tableBlank.after html01({
-					"array": array01
-					})
-				tableBlank.after html02({
-					"array": array02
-					})
-				tableBlank.after html03({
-					"array": array03
-					})
-				tableBlank.after html04({
-					"array": array04
-					})
-				tableBlank.after html05({
-					"array": array05
-					})
+				if array01.length isnt 0
+					html01 = _.template(template)
+					html01 = html01 {
+						"array": array01
+					}
+					tableBlank.after html01
+				if array02.length isnt 0
+					html02 = _.template(template)
+					html02 = html02 {
+						"array": array02
+					}
+					tableBlank.after html02
+				if array03.length isnt 0
+					html03 = _.template(template)
+					html03 = html03 {
+						"array": array03
+					}
+					tableBlank.after html03
+				if array04.length isnt 0
+					html04 = _.template(template)
+					html04 = html04 {
+						"array": array04
+					}
+					tableBlank.after html04
+				if array05.length isnt 0
+					html05 = _.template(template)
+					html05 = html05 {
+						"array": array05
+					}
+					tableBlank.after html05
 				#显示搜索框的内容
 				indentTablesWrapper.show()
+				pagination.show()
 
 
 #切换信息填写

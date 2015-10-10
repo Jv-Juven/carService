@@ -14,7 +14,9 @@
 @stop
 
 @section("right-content")
-	@include("components.violation")
+
+	<!-- @include("components.vio-process", array("num" => "1")) -->
+	@include("components.violation", array("process" => "1" ))
 
 @stop
 @section("js")
