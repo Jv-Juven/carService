@@ -93,8 +93,7 @@ class BeeCloundController extends BaseController{
 					    $cost_detail->cost_id 		= $data["bill_no"];
 					    $cost_detail->fee_type_id 	= 1;
 					    $cost_detail->number 		= $data['total_fee'];
-						if( !$cost_detail->save() )	
-						 	throw new Exception;
+						$cost_detail->save();
 						
 						// $result =  BusinessController::recharge($data['total_fee'],$msg['optional']['user_id']);
 						// if( !$result )
@@ -102,7 +101,7 @@ class BeeCloundController extends BaseController{
 			    	});
 			    }catch( \Exception $e )
 			    {	
-			    	Log::info( 'try错误' );
+			    	// Log::info( 'try错误' );
 			    	return 'false';
 			    }
 			    return 'success';
@@ -144,13 +143,18 @@ class BeeCloundController extends BaseController{
 		$data['title']		= '充值';
 		$data["optional"] 	= json_decode(json_encode(array("user_id"=>Sentry::getUser()->user_id),true),true);
 		Cache::put($data["bill_no"],$data,30);
-		// dd($data["bill_no"]);
-	    $result = BCRESTApi::bill($data);
-	    if ($result->result_code != 0) {
-	        return  json_decode( json_encode($result,true), true);
-	    }
-	    $code_url = $result->code_url;//生成支付链接
-		//根据不同的支付方式返回不同的支付页面
+	    
+		try
+		{
+			$result = BCRESTApi::bill($data);
+		    if ($result->result_code != 0) {
+		        return  Response::json(array('errCode'=>22,'message'=>$result)) ;
+		    }
+		    $code_url = $result->code_url;//生成支付链接
+		}catch (Exception $e) {
+		    return  Response::json(array('errCode'=>23,'message'=>$e->getMessage())) ;
+		}
+
 		return View::make('beeclound.pay')->with(array('bill_no'=>$data['bill_no'], 
 												'code_url'=>$code_url));
 	}
@@ -162,26 +166,31 @@ class BeeCloundController extends BaseController{
 	{
 		$data = $this->returnDataArray();
 		$data["channel"] = "WX_NATIVE";
-
-		$order_id = Input::get('order_id');
+		$order_id = 'dbdd5617c95a49f19046561652';
+		// $order_id = Input::get('order_id');
 		if( !isset($order_id) )
 			return Response::json(array('errCode'=>21, 'message'=>'请输入订单id' ));
 
 		$order = AgencyOrder::find($order_id);
 		if( !isset( $order ) )
-			return Response::json(array('errCode'=>21, 'message'=>'该订单不存在'));
+			return Response::json(array('errCode'=>22, 'message'=>'该订单不存在'));
  
 		$data["bill_no"] 	= $order_id;
-		$data["total_fee"] 	= ($order->capital_sum+$order->service_charge_sum+$order->express_fee)*100;
+		$data["total_fee"] 	= (int)(($order->capital_sum+$order->service_charge_sum+$order->express_fee)*100);
 		$data['title'] 		= '订单代办';
-		Cache::put($order_id,$data,30);
-
-		$result = BCRESTApi::bill($data);
-	    if ($result->result_code != 0) {
-	        return  json_decode( json_encode($result,true), true);
-	    }
-	    $code_url = $result->code_url;//生成支付链接
-		//根据不同的支付方式返回不同的支付页面
+		Cache::put($order_id,$data,1440);
+		// dd( $data["total_fee"] );
+		try
+		{
+			$result = BCRESTApi::bill($data);
+		    if ($result->result_code != 0) {
+		        return  Response::json(array('errCode'=>23,'message'=>$result)) ;
+		    }
+		    $code_url = $result->code_url;//生成支付链接
+		}catch (Exception $e) {
+		    return  Response::json(array('errCode'=>24,'message'=>$e->getMessage())) ;
+		}
+		
 		return View::make('beeclound.pay')->with(array('bill_no'=>$data['bill_no'], 
 												'code_url'=>$code_url));
 	}
