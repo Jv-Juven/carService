@@ -57,12 +57,12 @@ class BeeCloundController extends BaseController{
 		    return Response::json(array( 'errCode'=>22, 'message'=>'验证码不正确' ));
 		}  
 
-		//订单金额
-		if($data['total_fee'] != $msg['transactionFee'])
-		{
-			Log::info( '金额有错有错' );
-		    return Response::json(array( 'errCode'=>23, 'message'=>'金额不不正确' ));
-		}    
+		// //订单金额
+		// if($data['total_fee'] != $msg['transactionFee'])
+		// {
+		// 	Log::info( '金额有错有错' );
+		//     return Response::json(array( 'errCode'=>23, 'message'=>'金额不不正确' ));
+		// }    
 
 		//订单号
 		if($data['bill_no'] != $msg['transactionId'])
@@ -71,10 +71,18 @@ class BeeCloundController extends BaseController{
 		    return Response::json(array( 'errCode'=>24, 'message'=>'订单号' ));
 		}    
 
-		if($msg['transactionType'] == "PAY") {
+		if($msg['transactionType'] == "PAY") 
+		{
 	    
 		    $message_detail =$msg['messageDetail'];
 		    
+		    //订单金额
+			if($data['total_fee'] != $msg['transactionFee'])
+			{
+				Log::info( '金额有错有错' );
+			    return Response::json(array( 'errCode'=>23, 'message'=>'金额不不正确' ));
+			}
+
 	        if( $message_detail['total_fee'] != $data['total_fee'])
 	        {
 	        	Log::info( 'messageDetail中金额有错' );
@@ -115,10 +123,33 @@ class BeeCloundController extends BaseController{
 		    	return 'success';
 		    }
 
-			} else if ($msg['transactionType'] == "REFUND") {
-				//更改退款状态
+		}
+
+		if ($msg['transactionType'] == "REFUND") 
+		{
+			//退款
+			if($data['refund_fee'] != $msg['transactionFee'])
+			{
+				Log::info( '退款金额有错' );
+			    return Response::json(array( 'errCode'=>23, 'message'=>'退款金额有错' ));
+			}
+
+			//退款单号订单号
+			if($data['refund_no'] != $msg['transactionId'])
+			{
+				Log::info( '退款单号有错' );
+			    return Response::json(array( 'errCode'=>24, 'message'=>'退款单号有错' ));
+			} 
+			$order = AgencyOrder::find($data['refund_no']);
+			$order->refund_no = $data['refund_no'];
+			if( !$order->save() )
+				return 'false';
+
+			return 'success';
 		}	
 	}	
+
+
 	/*
 	$recharge_fee_type = FeeType::where( 'category', FeeType::get_recharge_code() )
 									->where( 'item', FeeType::get_recharge_subitem() )
@@ -142,7 +173,7 @@ class BeeCloundController extends BaseController{
 		$data["total_fee"] 	= $money; 
 		$data['title']		= '充值';
 		$data["optional"] 	= json_decode(json_encode(array("user_id"=>Sentry::getUser()->user_id),true),true);
-		Cache::put($data["bill_no"],$data,30);
+		Cache::put($data["bill_no"],$data,120);
 	    
 		try
 		{
@@ -199,30 +230,27 @@ class BeeCloundController extends BaseController{
 	public function refund()
 	{
 		$data = $this->returnDataArray();
-		$order_id = Input::get('order_id');
+		$order_id = 'dbdd5617c95a49f19046561652';
+		// $order_id = Input::get('order_id');
 		$order = AgencyOrder::find($order_id);
 		if( !isset( $order ) )
 			return Response::json(array('errCode'=>21, 'message'=>'该订单不存在'));
-		$data["bill_no"] = $order->bill_no;
+		$data["bill_no"] = $order_id;
 		
-		//生成退款单号
-		$time = date('Ymd',time());
-		$data["refund_no"] = $time.$order->order_id;
-		$order->refund_no = $data['refund_no'];
-		if( !$order->save() )
-			return Response::json(array('errCode'=>22, 'message'=>'退款单号保存失败'));
+		$data["refund_no"] = $order_id;
 		
-		$data["refund_fee"] = ($order->capital_sum+$order->service_charge_sum+$order->express_fee)*100;
+		
+		
+		$data["refund_fee"] = (int)(($order->capital_sum+$order->service_charge_sum+$order->express_fee)*100);
 		$data["channel"] = "WX";
 
+		Cache::put($data["bill_no"],$data,120);
 		try {
 		    $result = BCRESTApi::refund($data);
 		    if ($result->result_code != 0 || $result->result_msg != "OK") 
 		    {
 		      	//此处参数需要打入log中
 				return Response::json(array('errCode'=>23, 'message'=>json_encode($result->err_detail)));
-		        // echo json_encode($result->err_detail);
-		        // exit();
 		    }
 			return Response::json(array('errCode'=>0, 'message'=>'退款成功'));
 
