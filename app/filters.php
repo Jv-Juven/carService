@@ -51,7 +51,7 @@ Route::filter('auth.admin', function()
 Route::filter('auth.user.isIn',function()
 {
 	Session_start();
-	$user = User::find('yhxx5615ea35a4100178891633');
+	$user = User::find('yhxx5617c959d6ee4142025859');
 	// dd($user);
 	Sentry::login($user,false);
 	// Sentry::logout();
