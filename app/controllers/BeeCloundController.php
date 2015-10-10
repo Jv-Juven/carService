@@ -36,8 +36,8 @@ class BeeCloundController extends BaseController{
 	public function authBeeCloud()
 	{		
 		// return 'success';
-		$appId 		= Config::get('beeCloud.app_secret');
-		$appSecret 	= Config::get('beeCloud.app_id');
+		$appId 		= Config::get('beeCloud.app_id');
+		$appSecret 	= Config::get('beeCloud.app_secret');
 		$jsonStr 	= file_get_contents("php://input");
 		$msg 		= json_decode($jsonStr,true);
 		Log::info( $msg );
