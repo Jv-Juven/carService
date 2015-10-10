@@ -237,9 +237,7 @@ class BeeCloundController extends BaseController{
 			return Response::json(array('errCode'=>21, 'message'=>'该订单不存在'));
 		$data["bill_no"] = $order_id;
 		
-		$data["refund_no"] = date('Ymd',time()).$order_id;
-		
-		
+		$data["refund_no"] = date('Ymd',time()).time();
 		
 		$data["refund_fee"] = (int)(($order->capital_sum+$order->service_charge_sum+$order->express_fee)*100);
 		$data["channel"] = "WX";
@@ -249,7 +247,7 @@ class BeeCloundController extends BaseController{
 		    $result = BCRESTApi::refund($data);
 		    if ($result->result_code != 0 || $result->result_msg != "OK") 
 		    {
-		      	//此处参数需要打入log中
+		      	//此处参数需要打入log中	
 				return Response::json(array('errCode'=>23, 'message'=>$result->err_detail));
 		    }
 			return Response::json(array('errCode'=>0, 'message'=>'退款成功'));
