@@ -105,7 +105,7 @@ class BeeCloundController extends BaseController{
 			    	Log::info( 'try错误' );
 			    	return 'false';
 			    }
-			    return 'sucess';
+			    return 'success';
 		    }else{
 		    	$order = AgencyOrder::find( $data['bill_no'] );
 		    	$order->trade_status = 1; //已付款
@@ -113,7 +113,7 @@ class BeeCloundController extends BaseController{
 		    	if( !$order->save() ) 
 		    		return 'false';
 
-		    	return 'sucess';
+		    	return 'success';
 		    }
 
 			} else if ($msg['transactionType'] == "REFUND") {
