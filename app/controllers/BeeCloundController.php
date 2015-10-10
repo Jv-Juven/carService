@@ -237,7 +237,7 @@ class BeeCloundController extends BaseController{
 			return Response::json(array('errCode'=>21, 'message'=>'该订单不存在'));
 		$data["bill_no"] = $order_id;
 		
-		$data["refund_no"] = $order_id;
+		$data["refund_no"] = date('Ymd',time()).$order_id;
 		
 		
 		
