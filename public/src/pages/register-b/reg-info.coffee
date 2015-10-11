@@ -1,6 +1,7 @@
 Uploader = require "./../../common/uploader/index.coffee"
 validate = require "./../../common/validate/validate.coffee"
 warn = require "./../../common/warn/warn.coffee"
+mask = require "./../../components/mask/mask.coffee"
 
 validate = new validate()
 warn = new warn()
@@ -13,8 +14,6 @@ $ ()->
 	companyName02 = $("#company_name02")
 	publicAcc = $("#public_account")
 	rePublicAcc = $("#re_public_acc")
-	bank = $(".bank option:selected")
-	position = $(".position option:selected")
 
 	name = $("#name")
 	creditCard = $("#id_card")
@@ -32,9 +31,9 @@ $ ()->
 	fileConfig = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp','image/JPEG', 'image/PNG', 'image/GIF', 'image/BMP']
 
 	# 文件上传类
-	setUploadedPhoto = (name, val)->
+	setUploadedPhoto = (name)->
 		uploader = new Uploader {
-			domain: "http://7xj0sp.com1.z0.glb.clouddn.com/"	# bucket 域名，下载资源时用到，**必需**
+			# domain: "7xnenz.com1.z0.glb.clouddn.com/"	# bucket 域名，下载资源时用到，**必需**
 			browse_button: name + '_file',       # 上传选择的点选按钮，**必需**
 			container: name + '_wrapper',      
 		}, {
@@ -45,28 +44,40 @@ $ ()->
 					up.removeFile(files[0])
 
 			BeforeUpload: (up, file)->
+				console.log up
+				console.log file
 
 			FileUploaded: (up, file, info)->
+
 				info = $.parseJSON info
 				domain = up.getOption('domain')
 				url = domain + info.key
 
-				val = url
-				
+				#这里可以改成配置文件
+				if name is "license"
+					licenseScan = url
+				if name is "credit_front"
+					creditCardScan01 = url
+				if name is "credit_back"
+					creditCardScan02 = url
+
 		}
-		return val
 
 
 	#“提交按钮”信息提交函数
 	submitInfo = ()->
 
+
+		bank = $(".bank option:selected")
+		position = $(".position option:selected")
+
 		if companyName.val().length is 0 or publicAcc.val().length is 0 or rePublicAcc.val().length is 0 or name.val().length is 0 or creditCard.val().length is 0 or !licensePreg.test(licenseCode.val())
 			regInfoTips.text("*请确保信息填写完整")
 			return
 
-		if $("#license_file").val() is "" or $("#credit_front_file").val() is "" or $("#credit_back_file").val() is ""
-			regInfoTips.text("*请上传相关文件")
-			return
+		# if $("#license_file").val() is "" or $("#credit_front_file").val() is "" or $("#credit_back_file").val() is ""
+		# 	regInfoTips.text("*请上传相关文件")
+		# 	return
 
 		$.post "/user/info_register", {
 
@@ -77,6 +88,8 @@ $ ()->
 			business_licence_scan_path: licenseScan,
 
 			bank_account: publicAcc.val(),
+
+			re_bank_account: rePublicAcc.val(),
 
 			deposit_bank: bank.text(),
 
@@ -110,9 +123,9 @@ $ ()->
 	#"提交"按钮事件绑定
 	submitBtn.on "click", submitInfo
 
-	license = setUploadedPhoto("license", licenseScan)
-	creditFront = setUploadedPhoto("credit_front", creditCardScan01)
-	creditBack = setUploadedPhoto("credit_back", creditCardScan02)
+	setUploadedPhoto("license")
+	setUploadedPhoto("credit_front")
+	setUploadedPhoto("credit_back")
 
 
 

@@ -44,29 +44,35 @@ $ ()->
 			if !validate.email(accNum.val())
 				loginTips.text("*请填写正确的邮箱")
 				return
-
-			if psd.val().length < 6
-				loginTips.text("*请填写不少于6位的密码")
+		else
+			if !validate.mobile(accNum.val())
+				loginTips.text("*请填写正确的手机号码")
 				return
 
-			$.post "/user/login", {
-				login_account: accNum.val(),
-				password: psd.val()
-			}, (msg)->
-				if msg["errCode"] is 0
-					window.location.href = "/serve-center/search/pages/violation"
-				# else if msg["errCode"] is 10
-				# 	window.location.href = ""
-				# else if msg["errCode"] is 11
-				# 	window.location.href = ""
-				# else if msg["errCode"] is 20
-				# 	window.location.href = ""
-				# else if msg["errCode"] is 21
-				# 	window.location.href = ""
-				# else if msg["errCode"] is 30
-				# 	window.location.href = ""
-				else
-					alert msg["message"]
+		if psd.val().length < 6
+			loginTips.text("*请填写不少于6位的密码")
+			return
+
+		loginTips.text(" ")
+
+		$.post "/user/login", {
+			login_account: accNum.val(),
+			password: psd.val()
+		}, (msg)->
+			if msg["errCode"] is 0
+				window.location.href = "/serve-center/search/pages/violation"
+			# else if msg["errCode"] is 10
+			# 	window.location.href = ""
+			# else if msg["errCode"] is 11
+			# 	window.location.href = ""
+			# else if msg["errCode"] is 20
+			# 	window.location.href = ""
+			# else if msg["errCode"] is 21
+			# 	window.location.href = ""
+			# else if msg["errCode"] is 30
+			# 	window.location.href = ""
+			else
+				alert msg["message"]
 				
 
 	#点击显示指定的大图

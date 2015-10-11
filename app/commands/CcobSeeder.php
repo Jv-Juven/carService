@@ -151,9 +151,9 @@ class CcobSeeder extends Command {
             if ( $user->user_type == '1' && !isset( $user->business_info ) ){
                 $business_info = new BusinessUser();
                 $business_info->user_id = $user->user_id;
-                $app_config = BusinessController::get_appkey_appsecret_from_remote( $user->user_id );
-                $business_info->app_key = $app_config['appkey'];
-                $business_info->app_secret = $app_config['secretkey'];
+                //$app_config = BusinessController::get_appkey_appsecret_from_remote( $user->user_id );
+                //$business_info->app_key = $app_config['appkey'];
+                //$business_info->app_secret = $app_config['secretkey'];
                 $business_info->save();
             }
         }
@@ -186,7 +186,16 @@ class CcobSeeder extends Command {
                 $agency_order->capital_sum = (float)( rand( 500, 1000 ) / 10 );
                 $agency_order->late_fee_sum = (float)( rand( 500, 1000 ) / 20 );
                 $agency_order->service_charge_sum = (float)( rand( 500, 1000 ) / 10 );
-                $agency_order->process_status = '3';
+                if($i % 5 == 0)
+                    $agency_order->process_status = '4';
+                else if($i % 5 == 1)
+                    $agency_order->process_status = '3';
+                else if($i % 5 == 2)
+                    $agency_order->process_status = '2';
+                else if($i % 5 == 3)
+                    $agency_order->process_status = '1';
+                else
+                    $agency_order->process_status = '0';
                 $agency_order->car_type_no = '01';
                 $agency_order->agency_no = rand( 1, 3 );
 
@@ -199,7 +208,6 @@ class CcobSeeder extends Command {
                         $traffic_info->car_type_no = 'AAA';
                         $traffic_info->req_car_frame_no = '123123';
                         $traffic_info->rep_event_time = $this->get_random_datetime();
-                        $traffic_info->rep_event_city = '广州';
                         $traffic_info->rep_event_addr = '番禺区大学城';
                         $traffic_info->rep_violation_behavior = 'Fuck a dog';
                         $traffic_info->save();
@@ -226,9 +234,10 @@ class CcobSeeder extends Command {
             $refund_record->user_id = $order->user_id;
             if ( rand( 0, 1 ) ){
                 $refund_record->approval_at = $this->get_random_datetime();
-                $refund_record->comment = 'hhhhhhhhhhhh';
+                $refund_record->comment = '0';
                 $refund_record->status = '2';
             }else{
+                $refund_record->comment = '1';
                 $refund_record->status = '0';
             }
             $refund_record->save();

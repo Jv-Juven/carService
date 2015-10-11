@@ -28,15 +28,35 @@ xhArr = []
 
 recordsTotal = $(".records-total")
 
+#车牌号码
+licensePlate = ""
 
-#加载页面检测，触发查询
+
+#再次加载页面检测，触发查询
 loadSubmit = ()->
-	console.log window.name
+	# console.log window.name
 	infoData = window.name
 	if !infoData
 		return
 	dataArray = infoData.split("&&&")
-	console.log dataArray
+	# console.log dataArray
+	#车牌号码前缀
+	plateNumberSelect.eq(0).find("option").each (index, item)->
+		item = $(item)
+		if item.text() is dataArray[1]
+			item.prop("selected", true)
+			return
+	#车牌号码
+	plateNum.val(dataArray[2])
+	#发动机号码
+	engineNum.val(dataArray[0])
+	#车辆类型填充
+	plateNumberSelect.eq(1).find("option").each (index, item)->
+		item = $(item)
+		if item.text() is dataArray[3]
+			item.prop("selected", true)
+			return
+	submit()
 
 
 #“确定”按钮事件，显示违章查询结果
@@ -59,19 +79,19 @@ submit = ()->
 
 	licensePlate = placeName + plateNum.val()
 
-	window.name = engineNum.val() + "&&&" + licensePlate + "&&&" + carType
+	window.name = engineNum.val() + "&&&" + placeName + "&&&" + plateNum.val() + "&&&" + carType
 
 	$.get "/serve-center/search/api/violation", {
 
-		engineCode: engineNum.val(),
-		licensePlate: licensePlate,
-		licenseType: carType
+			engineCode: engineNum.val(),
+			licensePlate: licensePlate,
+			licenseType: carType
 
 		}, (msg)->
 
 		if msg["errCode"] isnt 0
 
-			warn.alert msg["message"]
+			alert msg["message"]
 
 		else
 
@@ -109,6 +129,7 @@ submit = ()->
 
 #“违章办理”按钮事件
 dealVio = ()->
+	console.log "违章办理"
 	length = table01.find(".tb-tr .checkbox").length
 	table01.find(".tb-tr .checkbox").each (index, item)->
 		_this = $ item
@@ -120,6 +141,7 @@ dealVio = ()->
 				return
 			else
 				$.post "/serve-center/agency/business/confirm_violation", {
+					car_plate_no: licensePlate,
 					xh: xhArr
 				}, (msg)->
 					if msg["errCode"] isnt 0

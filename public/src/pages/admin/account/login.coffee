@@ -1,5 +1,9 @@
 
 $ ()->
+	$("#password").keydown (e)->
+		if(e.keyCode == 13)
+			$("#submit-btn").click();
+
 	$("#submit-btn").click (e)->
 		username = $("#username").val()
 		password = $("#password").val()

@@ -38,23 +38,20 @@ Route::group(array('prefix'=>'user'), function(){
 	Route::post('c_register','UserController@cSiteRegister');
 	
 	Route::group(array('before'=>'auth.user.isIn'),function(){
-		//B端用户注册－填写完注册信息后跳转到邮箱激活页面
-		Route::get('email_active','UserPageController@emailActivePage');
 		//B端用户注册-信息登记
 		Route::post('info_register', 'UserController@informationRegister');
 		//B端用户注册-意外退出后发送验证信息再次发送信息到邮箱
 		Route::post('send_token_to_email','UserController@sendTokenToEmail');
 		//B端用户打款备注码
 		Route::post('money_remark_code','UserController@moneyRemarkCode');
+		//B端用户注册－填写完注册信息后跳转到邮箱激活页面
+		Route::get('email_active','UserPageController@emailActivePage');
 		//显示企业信息
 		Route::post('display_company_info','UserController@displayCompanyRegisterInfo');
 		//B端用户注册/修改运营者信息－运营人员手机验证码
 		Route::get('operational_phone_code','UserController@operationalPhoneCode');
-		//B端用户-修改运营者信息-发送邮箱验证码
-		Route::get('update_operator_code','UserController@updateOperatorCode');
 		//B端用户－修改运营者信息－保存
 		Route::post('save_operator_info','UserController@saveOperatorInfo');
-
 		//登出
 		Route::post('logout','UserController@logout');
 		//审核中
@@ -69,10 +66,14 @@ Route::group(array('prefix'=>'user'), function(){
 		Route::post('send_code_to_phone','UserController@sendResetCodeToPhone');
 		//c端用户修改密码－重置密码
 		Route::post('reset_csite_pwd','UserController@resetCustomerSitePassword');
-		//b端用户修改密码－发送验证码到邮箱
-		Route::post('send_code_to_email','UserController@sendResetCodeToEmail');
+		//B端用户-显示企业信息/修改运营者信息/修改密码的获取验证码-不需要邮箱
+		Route::post('send_code_to_email','UserController@sendCodeToEmail');
 		//b端用户修改密码－重置密码
 		Route::post('reset_bsite_pwd', 'UserController@resetBusinessSitePassword');
+		//显示企业信息
+		Route::post('dispaly-com-info','UserController@dispalyComInfo');
+
+
 		//获取appkey和secretkey
 		Route::get('app', 'UserController@app');
 		//获取token
@@ -287,7 +288,7 @@ Route::group([ 'prefix' => 'finance-center', 'before' => 'auth.user.isIn' ], fun
 // Route::get('tiger',function(){
 	
 // });
-
+/*
 Route::get('test',function(){
 	Sentry::login(User::find('yhxx560214c236150446972440'), false);
 	$user = User::find('yhxx560214c236150446972440');
@@ -297,7 +298,7 @@ Route::get('test',function(){
 	var_dump($user->user_id);
 	// return uniqid('hyxx',true);
 });
-
+*/
 // 后台管理-页面
 Route::group(array('prefix' => 'admin'), function() {
 
@@ -327,6 +328,10 @@ Route::group(array('prefix' => 'admin'), function() {
 		Route::get('/check-new-user', 'AdminBusinessCenterPageController@checkNewUser');
 		// 修改用户状态
 		Route::get('/change-user-status', 'AdminBusinessCenterPageController@changeUserStatus');
+		// 订单搜索
+		Route::get('/search-indent', 'AdminBusinessCenterPageController@searchIndent');
+		// 违章代办订单列表
+		Route::get('/indent-list', 'AdminBusinessCenterPageController@indentList');
 		// 修改用户查询单价
 		Route::get('/change-query-univalence', 'AdminBusinessCenterPageController@changeQueryUnivalence');
 		// 修改用户服务单价
@@ -335,6 +340,16 @@ Route::group(array('prefix' => 'admin'), function() {
 		Route::get('/change-default-query-univalence', 'AdminBusinessCenterPageController@changeDefaultQueryUnivalence');
 		// 修改默认服务单价
 		Route::get('/change-default-service-univalence', 'AdminBusinessCenterPageController@changeDefaultServiceUnivalence');
+		// 退款审批订单列表
+		Route::get('/refund-application-list', 'AdminBusinessCenterPageController@refundApplicationList');
+		// 查看申请退款订单详情
+		Route::get('/refund-indent-info', 'AdminBusinessCenterPageController@refundIndentInfo');
+		// 查看退款状态
+		Route::get('/refund-status', 'AdminBusinessCenterPageController@refundStatus');
+		// 查看办理凭证快递信息
+		Route::get('/express-ticket-info', 'AdminBusinessCenterPageController@expressTicketInfo');
+		// 查看申请退款订单详情
+		Route::get('/approve-refund-application', 'AdminBusinessCenterPageController@approveRefundApplication');
 	});
 
 	// 账户设置
@@ -354,7 +369,16 @@ Route::group(array('prefix' => 'admin'), function() {
 	Route::post('/login', 'AdminController@login');
 
 	Route::group(array('before' => 'auth.admin'), function() {
-		
+
+		// 修改退款申请审批状态
+		Route::post('/change-refund-status', 'AdminController@changeRefundStatus');
+
+		// 修改订单处理状态
+		Route::post('/change-indent-status', 'AdminController@changeIndentStatus');
+
+		// 查询违章代办订单
+		Route::get('/indents', 'AdminController@getIndents');
+
 		// 退出登录
 		Route::post('/logout', 'AdminController@logout');
 
@@ -388,36 +412,36 @@ Route::group(array('prefix' => 'admin'), function() {
 });
 
 //七牛
-Route::group(array('prefix'=>'qiniu','before'=>'auth.user.isIn'),function(){
+Route::group(array('prefix'=>'qiniu','before'=>'auth.isRegister'),function(){
+	//上传
 	Route::get('/', 'UploadController@getUpToken');
+	//下载图片
+	Route::get('download-token','UploadController@downloadToken');
+	//
+	Route::get('front-download-token','UploadController@downloadTokenOfFront');
 });
+
+
 
 //beeclound接口
 Route::group(array('prefix'=>'beeclound','before'=>'auth.user.isIn'), function(){
 	//微信充值
-	Route::get('recharge','BeeCloundController@recharge');
+	Route::post('recharge','BeeCloundController@recharge');
 	//微信代办
-	Route::get('order-agency','BeeCloundController@orderAgency');
+	Route::post('order-agency','BeeCloundController@orderAgency');
+	//用户申请退款
+	Route::post('request-refund', 'OrderController@requestRefund');
+	//二维码支付页面
+	Route::get('qrcode','BeeCloundController@qrcode');
+
 	//微信退款
-	Route::get('refund','BeeCloundController@refund');
+	Route::post('refund','BeeCloundController@refund');
+	//退款状态
+	Route::get('refund-status','BeeCloundController@getRefundStatus');
 });
 	//验证
 	Route::post('beeclound','BeeCloundController@authBeeCloud');
 
-// Route::get('fee',function(){
-// 		try
-// 	    {
-// 	    	DB::transaction(function() {
-
-// 	    		return 'catch';
-			    
-// 	    	});
-// 	    }catch( \Exception $e )
-// 	    {
-// 	    	return 'catch';
-// 	    }
-// 	    return 'true';
-// });
 
 
 

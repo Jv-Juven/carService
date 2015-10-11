@@ -6,8 +6,8 @@
 			<span class="warn-close">×</span>
 		</div>
 		<div class="warn-content">
-			<span class="warn-msg">
-				请选中要办理的违章记录！
+			<span class="warn-msg" id="common_wran_msg">
+				
 			</span>
 		</div>
 	</div>

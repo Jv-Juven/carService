@@ -64,7 +64,7 @@ class OrderController extends BaseController{
         $agency_order = AgencyOrder::find( $order_id );
 
         if ( !isset( $agency_order ) || $agency_order->user_id != Sentry::getUser()->user_id ){
-            return Response::json([ 'errCode' => 3, '无效订单' ])
+            return Response::json([ 'errCode' => 3, '无效订单' ]);
         }
 
         // Todo: 订单处于什么状态下可以删除?
@@ -75,4 +75,40 @@ class OrderController extends BaseController{
 
         return Response::json([ 'errCode' => 0, '删除成功' ]);
     }
+
+    //申请退款
+    public function requestRefund()
+    {
+        $order_id = Input::get('order_id');
+        $order = AgencyOrder::find($order_id);
+
+        if( !isset($order) )
+            return Response::json(array('errCode'=>21, 'message'=>'该订单不存在'));
+        
+        $refund_record = RefundRecord::where('order_id','=',$order_id)->get();
+        
+        if( count($refund_record) != 0 )
+            return Response::json(array('errCode'=>22, 'message'=>'申请已提交'));
+
+        try{
+            DB::transaction( function() use( $order ) {
+                $order->trade_status = 2;
+                $order->process_status = 0;
+                $order->save();
+
+                $refund_record = new RefundRecord;
+                $refund_record->order_id = $order->order_id;
+                $refund_record->user_id = Sentry::getUser()->user_id;
+                $refund_record->save();
+            });
+        }catch( Exception $e)
+        {
+            return Response::json(array('errCode'=>23, 'message'=>'退款申请失败，请重新申请' ));
+        }
+
+        return Response::json(array('errCode'=>0,'message'=>'申请成功'));
+    }
+
+    
+
 }
