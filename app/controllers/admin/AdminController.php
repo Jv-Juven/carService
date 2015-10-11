@@ -2,7 +2,36 @@
 
 use Illuminate\Hashing\BcryptHasher;
 
-class AdminController extends BaseController{
+class AdminController extends BaseController {
+
+	public function getIndents()
+	{
+		$type = Input::get("type");
+
+		$indents = [];
+		if($type == "id")
+		{
+			$indentId = Input::get("indentId");
+
+			$indents = AgencyOrder::where("order_id", "=", $indentId)->get();
+		}
+		else
+		{
+			$licensePlate = Input::get("licensePlate");
+			$startDate = Input::get("startDate");
+			$endDate = Input::get("endDate");
+			$status = Input::get("status", "all");
+
+			$query = AgencyOrder::where("car_plate_no", "=", $licensePlate)->where("created_at", ">", $startDate)->where("created_at", "<", $endDate);
+			
+			if($status != "all") 
+				$query = $query->where("process_status", "=", $status);
+
+			$indents = $query->with("traffic_violation_info")->get();
+		}
+		 
+		return Response::json(array("errCode" => 0, "indents" => $indents));
+	}
 
 	public function login()
 	{

@@ -23,7 +23,7 @@
 		            </div>
 		            <div class="form-group">
 		                <label for="password">密码：</label>
-                		<input type="text" id="password" class="form-control" />
+                		<input type="password" id="password" class="form-control" />
 		            </div>
 		            <div class="form-group">
         				<button id="submit-btn" type="button" class="btn btn-primary">登录</button>

@@ -75,4 +75,23 @@ class OrderController extends BaseController{
 
         return Response::json([ 'errCode' => 0, '删除成功' ]);
     }
+
+    //申请退款
+    public function requestRefund()
+    {
+        $order_id = Input::get('order_id');
+        $order = AgencyOrder::find($order_id);
+
+        if( !isset($order) )
+            return Response::json(array('errCode'=>21, 'message'=>'该订单不存在'));
+        $order->trade_status = 2;
+        $order->process_status = 0;
+        if( !$order->save() )
+            return Response::json(['errCode'=>22, 'message'=>'数据库错误,订单状态修改错误']);
+        
+        return Response::json(array('errCode'=>0,'message'=>'申请成功'));
+    }
+
+    
+
 }

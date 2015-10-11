@@ -84,7 +84,7 @@ class AdminBusinessCenterPageController extends BaseController{
 		]);
 	}
 
-	// 
+	// 修改用户状态
 	public function changeUserStatus()
 	{
 		$userId = Input::get("user_id");
@@ -97,7 +97,42 @@ class AdminBusinessCenterPageController extends BaseController{
 		]);
 	}
 
-	// 
+	public function searchIndent()
+	{
+		$type = Input::get("type", "id");
+
+		return View::make('pages.admin.business-center.search-indent', [
+			"type" => $type
+		]);
+	}
+
+	public function indentList()
+	{
+		$type = Input::get("type", "all");
+
+		$perPage = 15;
+
+		if($type == "untreated")
+			$indents = AgencyOrder::where("process_status", "=", "0")->orderBy("created_at")->with("traffic_violation_info")->paginate($perPage);
+		else if($type == "treated")
+			$indents = AgencyOrder::where("process_status", "=", "1")->orderBy("created_at")->with("traffic_violation_info")->paginate($perPage);
+		else if($type == "treating")
+			$indents = AgencyOrder::where("process_status", "=", "2")->orderBy("created_at")->with("traffic_violation_info")->paginate($perPage);
+		else if($type == "finished")
+			$indents = AgencyOrder::where("process_status", "=", "3")->orderBy("created_at")->with("traffic_violation_info")->paginate($perPage);
+		else if($type == "closed")
+			$indents = AgencyOrder::where("process_status", "=", "4")->orderBy("created_at")->with("traffic_violation_info")->paginate($perPage);
+		else
+			$indents = AgencyOrder::orderBy("created_at")->with("traffic_violation_info")->paginate($perPage);
+
+		return View::make('pages.admin.business-center.indent-list', [
+			"indents" => $indents,
+			"count" => $indents->count(),
+			"totalCount" => $indents->getTotal()
+		]);
+	}
+
+	// 修改特定企业用户查询价格
 	public function changeQueryUnivalence()
 	{
 		$userId = Input::get("user_id");
@@ -126,6 +161,7 @@ class AdminBusinessCenterPageController extends BaseController{
 		]);
 	}
 
+	// 修改特定企业用户服务价格
 	public function changeServiceUnivalence()
 	{
 		$userId = Input::get("user_id");
@@ -147,7 +183,7 @@ class AdminBusinessCenterPageController extends BaseController{
 		]);
 	}
 
-	// 
+	// 修改默认查询价格
 	public function changeDefaultQueryUnivalence()
 	{
 		try 
@@ -167,7 +203,7 @@ class AdminBusinessCenterPageController extends BaseController{
 		]);
 	}
 
-	// 
+	// 修改默认服务价格
 	public function changeDefaultServiceUnivalence()
 	{
 		$companyExpressUnivalence = DB::table('fee_types')->select('number')->where("category", "20")->where("item", "1")->first();
@@ -181,6 +217,40 @@ class AdminBusinessCenterPageController extends BaseController{
 			"companyAgencyUnivalence" => $companyAgencyUnivalence->number,
 			"personAgencyUnivalence" => $personAgencyUnivalence->number
 		]);
+	}
+
+	public function refundIndentInfo()
+	{
+		$indentId = Input::get("indent_id");
+
+		$indent = AgencyOrder::where("order_id", "=", $indentId)->first();
+
+		if(count($indent) == 0)
+			return View::make('errors.refund-indent-missing');
+
+		return View::make('pages.admin.business-center.refund-indent-info', [
+			"indent" => $indent
+		]);
+	}
+
+	public function refundStatus()
+	{
+		return View::make('pages.admin.business-center.refund-status');
+	}
+
+	public function refundApplicationList()
+	{
+		return View::make('pages.admin.business-center.refund-application-list');
+	}
+
+	public function expressTicketInfo()
+	{
+		return View::make('pages.admin.business-center.express-ticket-info');
+	}
+
+	public function approveRefundApplication()
+	{
+		return View::make('pages.admin.business-center.approve-refund-application');
 	}
 }
 
