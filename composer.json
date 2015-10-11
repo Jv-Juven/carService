@@ -8,7 +8,8 @@
 		"laravel/framework": "4.2.*",
 		"cartalyst/sentry": "2.1.*",
 		"gregwar/captcha": "1.*",
-		"guzzlehttp/guzzle": "~6.0"
+		"guzzlehttp/guzzle": "~6.0",
+		"qiniu/php-sdk": "7.*"
 	},
 	"require-dev":{
 		"way/generators": "~2.0"

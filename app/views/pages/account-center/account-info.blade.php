@@ -74,12 +74,12 @@
 						<input class="msg-input psd-email-code" type="text" placeholder="请前往注册邮箱获取验证码"/>
 						<a href="javascript:" class="msg-btn psd-get-email-codes">获取验证码</a>
 					</div>
-					<div class="msg-line">
+					<!-- <div class="msg-line">
 						<span class="msg-title">
 							原密码：
 						</span>
 						<input class="msg-input old-password" type="password" placeholder="请填写账号的原密码"/>
-					</div>
+					</div> -->
 					<div class="msg-line">
 						<span class="msg-title">
 							密码：

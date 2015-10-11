@@ -50,6 +50,16 @@ module.exports = (grunt)->
                 src: ['src/pages/account-center/**/*.coffee']
                 dest: 'dist/js/pages/account-center'
                 ext: '.js'
+            account_status:
+                options:
+                  preBundleCB: (b)->
+                    b.transform(coffeeify)
+                    b.transform(stringify({extensions: ['.hbs', '.html', '.tpl', '.txt']}))
+                expand: true
+                flatten: true
+                src: ['src/pages/account-status/**/*.coffee']
+                dest: 'dist/js/pages/account-status'
+                ext: '.js'
             finance_center:
                 options:
                   preBundleCB: (b)->
@@ -169,6 +179,10 @@ module.exports = (grunt)->
                     'dist/css/pages/account-center/developer-info.css': ['src/pages/account-center/developer-info.less']
                     'dist/css/pages/account-center/account-info.css': ['src/pages/account-center/account-info.less']
 
+                    #accountc-status
+                    'dist/css/pages/account-status/write-codes.css': ['src/pages/account-status/write-codes.less']
+                    # 'dist/css/pages/account-status/account-info.css': ['src/pages/account-status/account-info.less']
+
                     # message-center
                     'dist/css/pages/message-center/feedback/index.css': ['src/pages/message-center/feedback/index.less']
                     'dist/css/pages/message-center/feedback/success.css': ['src/pages/message-center/feedback/success.less']
@@ -186,13 +200,11 @@ module.exports = (grunt)->
                     'dist/css/pages/admin/layout.css':['src/pages/admin/layout.less']
 
                     # admin account
-                    'dist/css/pages/admin/admin-account/admin-account.css':['src/pages/admin/admin-account/admin-account.less']
+                    'dist/css/pages/admin/account/login.css':['src/pages/admin/account/login.less']
+                    'dist/css/pages/admin/account/change-password.css':['src/pages/admin/account/change-password.less']
                     
                     # admin service-center
                     'dist/css/pages/admin/service-center/layout.css':['src/pages/admin/service-center/layout.less']
-                    'dist/css/pages/admin/service-center/all.css':['src/pages/admin/service-center/all.less']
-                    'dist/css/pages/admin/service-center/treated.css':['src/pages/admin/service-center/treated.less']
-                    'dist/css/pages/admin/service-center/untreated.css':['src/pages/admin/service-center/untreated.less']
                     
                     #admin business-center
                     'dist/css/pages/admin/business-center/layout.css':['src/pages/admin/business-center/layout.less']
@@ -202,10 +214,17 @@ module.exports = (grunt)->
                     'dist/css/pages/admin/business-center/new-user-list.css':['src/pages/admin/business-center/new-user-list.less']
                     'dist/css/pages/admin/business-center/check-new-user.css':['src/pages/admin/business-center/check-new-user.less']
                     'dist/css/pages/admin/business-center/change-user-status.css':['src/pages/admin/business-center/change-user-status.less']
+                    'dist/css/pages/admin/business-center/search-indent.css':['src/pages/admin/business-center/search-indent.less']
+                    'dist/css/pages/admin/business-center/indent-list.css':['src/pages/admin/business-center/indent-list.less']
                     'dist/css/pages/admin/business-center/change-service-univalence.css':['src/pages/admin/business-center/change-service-univalence.less']
                     'dist/css/pages/admin/business-center/change-query-univalence.css':['src/pages/admin/business-center/change-query-univalence.less']
                     'dist/css/pages/admin/business-center/change-default-service-univalence.css':['src/pages/admin/business-center/change-default-service-univalence.less']
                     'dist/css/pages/admin/business-center/change-default-query-univalence.css':['src/pages/admin/business-center/change-default-query-univalence.less']
+                    'dist/css/pages/admin/business-center/refund-indent-info.css':['src/pages/admin/business-center/refund-indent-info.less']
+                    'dist/css/pages/admin/business-center/express-ticket-info.css':['src/pages/admin/business-center/express-ticket-info.less']
+                    'dist/css/pages/admin/business-center/refund-status.css':['src/pages/admin/business-center/refund-status.less']
+                    'dist/css/pages/admin/business-center/refund-application-list.css':['src/pages/admin/business-center/refund-application-list.less']
+                    'dist/css/pages/admin/business-center/approve-refund-application.css':['src/pages/admin/business-center/approve-refund-application.less']
         cssmin:
             common:
                 files:[

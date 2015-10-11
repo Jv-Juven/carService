@@ -50,7 +50,25 @@
 			.input{
 				margin: 0px;
 				width: 170px;
+				display: inline-block;
 			}
+		}
+
+		.btns-wrapper{
+			text-align: center;
+			.btn{
+				margin: 0px 20px 10px;
+				background: rgb(255, 255, 255);
+				color: @blue;
+			}
+			.active{
+				background: @blue;
+				color: rgb(255, 255, 255);
+			}
+		}
+
+		.indent-details{
+			display: none;
 		}
 	}
 	.indent-btn{
@@ -79,6 +97,7 @@
 		width: @width;
 		height: auto;
 		margin-top: 20px;
+		display: none;
 		.indent-list-table{
 			width: 100%;
 			height: auto;
@@ -183,6 +202,11 @@
 		}
 	}
 
+}
+
+// 分页类
+.paginate-wrap{
+	display: none;
 }
 
 // 浮层框的基本设置

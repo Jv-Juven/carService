@@ -65,7 +65,7 @@ class UserController extends BaseController{
 		exit;
 	}
 
-	//C端用户根据手机获取验证码
+	//C端用户注册－根据手机获取验证码－需要手机号
 	public function getPhoneCode()
 	{
 		$login_account 			= Input::get('login_account');
@@ -85,6 +85,110 @@ class UserController extends BaseController{
 
 		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功'));
 	}
+
+	//运营人员手机验证码－需要手机号
+	public function operationalPhoneCode()
+	{
+		$login_account 			= Input::get('telephone');
+		$phone_regex 	= Config::get('regex.telephone');
+		if(!preg_match($phone_regex, $login_account))
+			return Response::json(array('errCode'=>21,'message'=>'手机号码格式不正确'));
+		
+		Session::put('operator_phone',$login_account);
+		//发送验证码
+		$number = $this->messageVerificationCode($login_account);
+		if($number->getData()->errCode != "")
+			return Response::json(array('errCode'=>23, 'message'=>'发送太过频繁，请稍候再试，如不能发送，请及时与客户联系'));
+
+		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功'));
+	}
+
+	//c端用户修改密码－发送验证码到手机
+	public function  sendResetCodeToPhone()
+	{
+		$login_account = Sentry::getUser()->login_account;
+		// $login_account = Input::get('login_account');
+		try{
+			$user = Sentry::login($login_account,fasle);
+			Sentry::logout();
+			//发送验证码
+			$number = $this->messageVerificationCode($login_account);
+			if($number->getData()->errCode != "")
+				return Response::json(array('errCode'=>22, 'message'=>'发送太过频繁，请稍候再试，如不能发送，请及时与客户联系'));
+		}catch(Exception $e){
+			return Response::json(array('errCode'=>23, 'message'=>'该用户不存在'));
+		}
+
+		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功'));
+	}
+
+	//B端用户-显示企业信息/修改运营者信息/修改密码的获取验证码-不需要邮箱
+	public function sendCodeToEmail()
+	{
+		$user = Sentry::getUser();
+		$login_account = $user->login_account;
+		try
+		{	
+		    $user = Sentry::findUserByLogin($login_account);
+		    $reset_code = $user->getResetPasswordCode();
+
+		    //发送邮件
+			Mail::send('emails/resetcode',array('reset_code' => $reset_code),function($message) use ($user)
+			{
+				$message->to($user->login_account,'')->subject('车尚车务系统!');
+			});
+		}
+		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		{
+			return Response::json(array('errCode'=>21,'message'=>'该用户不存在'));
+		}
+
+		return Response::json(array('errCode'=>0, 'message'=>'验证码发送成功'));
+	}
+
+	//显示企业信息
+	public function dispalyComInfo()
+	{
+		//邮箱验证码验证
+		$reset_code = Input::get('email_code');
+		$user = Sentry::getUser();
+		$user = Sentry::findUserById( $user->user_id );
+
+		if( !$user->checkResetPasswordCode($reset_code) )
+			return Response::json(array('errCode'=>21, 'message'=>'邮箱验证码错误'));
+
+		$business_user = BusinessUser::find( $user->user_id );
+
+		return Response::json(array('errCode'=>0, 
+									'business_name'=>$business_user->business_name, 
+									'business_licence_no'=>$business_user->business_licence_no
+									));
+	}
+
+
+	// //b端用户－忘记密码－需要邮箱
+	// public function sendResetCodeToEmail()
+	// {	
+	// 	// $login_account = Sentry::getUser()->login_account;
+	// 	$login_account = Input::get('login_account');
+	// 	try
+	// 	{	
+	// 	    $user = Sentry::findUserByLogin($login_account);
+	// 	    $reset_code = $user->getResetPasswordCode();
+
+	// 	    //发送邮件
+	// 		Mail::send('emails/resetcode',array('reset_code' => $reset_code),function($message) use ($user)
+	// 		{
+	// 			$message->to($user->login_account,'')->subject('车尚车务系统!');
+	// 		});
+	// 	}
+	// 	catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+	// 	{
+	// 		return Response::json(array('errCode'=>22,'message'=>'该用户不存在'));
+	// 	}
+
+	// 	return Response::json(array('errCode'=>0, 'message'=>'验证码发送成功'));
+	// }
 
 	//C端用户注册
 	public function cSiteRegister()
@@ -136,6 +240,7 @@ class UserController extends BaseController{
 					return Response::json(array('errCode'=>27,'message'=>'手机验证码位数不对'));
 			}
 		}
+		// return $session_phone_code;
 		if($data['phone_code'] != $session_phone_code)
 			return Response::json(array('errCode'=>26,'message'=>'手机验证码不对，请重新输入'));
 		try
@@ -238,6 +343,8 @@ class UserController extends BaseController{
 			
 			//储存数据
 			$user = User::where('login_account',$user->login_account)->first();
+			Sentry::login($user,false);
+			
 			Cache::put($token,$user,5);
 			// var_dump($user->user_id);
 			
@@ -245,22 +352,7 @@ class UserController extends BaseController{
 		}
 	}
 
-	//运营人员手机验证码
-	public function operationalPhoneCode()
-	{
-		$login_account 			= Input::get('telephone');
-		$phone_regex 	= Config::get('regex.telephone');
-		if(!preg_match($phone_regex, $login_account))
-			return Response::json(array('errCode'=>21,'message'=>'手机号码格式不正确'));
-		
-		Session::put('operator_phone',$login_account);
-		//发送验证码
-		$number = $this->messageVerificationCode($login_account);
-		if($number->getData()->errCode != "")
-			return Response::json(array('errCode'=>23, 'message'=>'发送太过频繁，请稍候再试，如不能发送，请及时与客户联系'));
-
-		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功'));
-	}
+	
 
 	//信息登记
 	public function informationRegister()
@@ -275,6 +367,7 @@ class UserController extends BaseController{
 			'business_licence_no' 			=> Input::get('business_licence_no'),
 			'business_licence_scan_path' 	=> Input::get('business_licence_scan_path'),
 			'bank_account'					=> Input::get('bank_account'),
+			're_bank_account'				=> Input::get('re_bank_account'),
 			'deposit_bank'					=> Input::get('deposit_bank'),
 			'bank_outlets'					=> Input::get('bank_outlets'),
 			'operational_name'				=> Input::get('operational_name'),
@@ -289,6 +382,7 @@ class UserController extends BaseController{
 			'business_licence_no' 			=>  'required',
 			'business_licence_scan_path' 	=>  'required',
 			'bank_account'					=>  'required',
+			're_bank_account'				=>  'required',
 			'deposit_bank'					=>  'required',
 			'bank_outlets'					=>  'required',
 			'operational_name'				=>  'required',
@@ -302,21 +396,24 @@ class UserController extends BaseController{
 		if($validation->fails())
 			return Response::json(array('errCode'=>21, 'message'=>'请填写完整信息'));
 		
+		if( $data['bank_account'] != $data['re_bank_account'] )
+			return Response::json(array( 'errCode'=>22, 'message'=>'对公账户不一致,请准确填写' ));
+
 		if(strlen($data['operational_card_no']) != 15 && strlen($data['operational_card_no']) != 18)
-			return Response::json(array('errCode'=>22,'message'=>'身份证号码填写错误'));
+			return Response::json(array('errCode'=>23,'message'=>'身份证号码填写错误'));
 
 		if(!preg_match(Config::get('regex.telephone'), $data['operational_phone'] ))
-			return Response::json(array('errCode'=>23,'message'=>'手机号码格式不正确'));
+			return Response::json(array('errCode'=>24,'message'=>'手机号码格式不正确'));
 
-		if($checkcode = null)
-			return Response::json(array('errCode'=> 24,'message'=>'手机验证码错误，请重新填写'));
+		if($checkcode = null)	
+			return Response::json(array('errCode'=> 25,'message'=>'手机验证码错误，请重新填写'));
 
 		$operator_phone = Session::get('operator_phone');
 		if($operator_phone != $data['operational_phone'] )
-			return Response::json(array('errCode'=> 25,'message'=>'手机号码错误'));
+			return Response::json(array('errCode'=> 26,'message'=>'手机号码错误'));
 
 		if($checkcode != $phone_code)
-			return Response::json(array('errCode'=> 26,'message'=>'手机验证码错误，请重新填写'));
+			return Response::json(array('errCode'=> 27,'message'=>'手机验证码错误，请重新填写'));
 
 		try
 		{
@@ -363,31 +460,6 @@ class UserController extends BaseController{
 		}
 	return Response::json(array('errCode'=>0, 'message'=> '注册成功'));
 	}
-
-	//B端用户-修改运营者信息-发送邮箱验证码
-	public function updateOperatorCode()
-	{
-		$user = Sentry::getUser();
-		$login_account = $user->login_account;
-		try
-		{	
-		    $user = Sentry::findUserByLogin($login_account);
-		    $reset_code = $user->getResetPasswordCode();
-
-		    //发送邮件
-			Mail::send('emails/resetcode',array('reset_code' => $reset_code),function($message) use ($user)
-			{
-				$message->to($user->login_account,'')->subject('车尚车务系统!');
-			});
-		}
-		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
-		{
-			return Response::json(array('errCode'=>21,'message'=>'该用户不存在'));
-		}
-
-		return Response::json(array('errCode'=>0, 'message'=>'重置验证码发送成功'));
-	}
-
 
 	//B端用户－修改运营者信息－保存
 	public function saveOperatorInfo()
@@ -498,12 +570,11 @@ class UserController extends BaseController{
 	{
 		$login_account 	= Input::get('login_account');
 		$password 		= Input::get('password');
-		// $tele_regex  	= Config::get('regex.telephone');
-		// $email_regex 	= Config::get('regex.email');
 		
 		$login_user = User::where('login_account',$login_account)->first();
+		// dd($login_account);
 		if(!isset($login_user))
-			return Response::json(array('errCode'=>1, 'message'=>'该用户为注册'));
+			return Response::json(array('errCode'=>1, 'message'=>'该用户未注册'));
 		
 		$cred = [
             'login_account'	=> $login_account,
@@ -513,26 +584,30 @@ class UserController extends BaseController{
         {	
             $user = Sentry::authenticate($cred,false);
             if($user)
-            {
-            	switch ($user->status) {
-            		case 10:
-            			return Response::json(array('errCode'=>10,'message'=>'请激活邮箱'));
-            		case 11:
-            			return Response::json(array('errCode'=>11,'message'=>'请填写登记信息'));
-        			case 20:
-            			return Response::json(array('errCode'=>20,'message'=>'信息审核中'));
-        			case 21:
-            			return Response::json(array('errCode'=>21,'message'=>'请填写备注码'));
-        			case 30:
-            			return Response::json(array('errCode'=>30,'message'=>'账户已被锁定'));
-            		default:
-            			return Response::json(array('errCode'=>0,'message'=>'登录成功'));
-            	}
+            {	
+
+            	$message = array('errCode'=>0,'message'=>'登录成功');
+            	if ( Session::has( 'url_before_login' ) ){
+            		$message['url_before_login'] = Session::pull( 'url_before_login' );
+				}
+
+	            return Response::json($message);
             }
         }catch (\Exception $e){
             return Response::json(array('errCode'=>1,'message'=>'账户或密码错误'.$e->getMessage()));
         }
 	}
+
+	//登出
+	public function logout()
+	{
+		if(!Sentry::check())
+			return Response::json(array('errCode'=>1, 'message'=>'用户未登录！'));
+		Sentry::logout();
+		// Session::forget('user_id');
+		return Response::json(array('errCode'=>0, 'message'=>'退出成功！'));
+	}
+
 
 	//意外退出后发送验证信息<<<<<<需要回跳回网站，要上线后测试>>>>>>>
 	public function sendTokenToEmail()
@@ -553,24 +628,7 @@ class UserController extends BaseController{
 		return Response::json(array('errCode'=>0, 'message'=>'验证码发送成功!'));
 	}
 	
-	//c端用户修改密码－发送验证码到手机/忘记密码
-	public function  sendResetCodeToPhone()
-	{
-
-		$login_account = Input::get('login_account');
-		try{
-			$user = Sentry::login($login_account,fasle);
-			Sentry::logout();
-			//发送验证码
-			$number = $this->messageVerificationCode($login_account);
-			if($number->getData()->errCode != "")
-				return Response::json(array('errCode'=>22, 'message'=>'发送太过频繁，请稍候再试，如不能发送，请及时与客户联系'));
-		}catch(Exception $e){
-			return Response::json(array('errCode'=>23, 'message'=>'该用户不存在'));
-		}
-
-		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功'));
-	}
+	
 
 	//c端用户修改密码/忘记密码－重置密码
 	public function resetCustomerSitePassword()
@@ -634,28 +692,7 @@ class UserController extends BaseController{
 		return Response::json(array('errCode' => 0,'message' => '重置密码成功!'));
 	}
 
-	//b端用户修改密码－发送验证码到邮箱/显示企业信息/忘记密码
-	public function sendResetCodeToEmail()
-	{	
-		$login_account = Input::get('login_account');
-		try
-		{	
-		    $user = Sentry::findUserByLogin($login_account);
-		    $reset_code = $user->getResetPasswordCode();
-
-		    //发送邮件
-			Mail::send('emails/resetcode',array('reset_code' => $reset_code),function($message) use ($user)
-			{
-				$message->to($user->login_account,'')->subject('车尚车务系统!');
-			});
-		}
-		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
-		{
-			return Response::json(array('errCode'=>22,'message'=>'该用户不存在'));
-		}
-
-		return Response::json(array('errCode'=>0, 'message'=>'重置验证码发送成功'));
-	}
+	
 
 
 	//b端用户修改密码－重置密码

@@ -1,12 +1,7 @@
-GetQueryString = (name)->
-	reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)")
-	r = window.location.search.substr(1).match(reg)
-	if(r!=null)
-		return  unescape(r[2]); 
-	return null
+Utils = require("../../../common/utils/index.coffee")
 
 $ ()->
-	type = GetQueryString("type")
+	type = Utils.GetQueryString("type")
 
 	$navs = $("#admin-business-center-user-list-header").find("li").removeClass("active")
 

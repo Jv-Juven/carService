@@ -6,13 +6,13 @@
         <li role="presentation">
             <ul class="nav nav-pills nav-stacked">
                 <li role="presentation">
-                    <a href="/admin/service-center/all" class="nav-item">全部</a>
+                    <a href="/admin/service-center/consult" class="nav-item">咨询</a>
                 </li>
                 <li role="presentation">
-                    <a href="/admin/service-center/treated" class="nav-item">已处理</a>
+                    <a href="/admin/service-center/suggestion" class="nav-item">建议</a>
                 </li>
                 <li role="presentation">
-                    <a href="/admin/service-center/untreated" class="nav-item">未处理</a>
+                    <a href="/admin/service-center/complain" class="nav-item">投诉</a>
                 </li>
             </ul>
         </li>

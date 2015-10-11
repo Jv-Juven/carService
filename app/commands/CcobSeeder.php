@@ -186,7 +186,16 @@ class CcobSeeder extends Command {
                 $agency_order->capital_sum = (float)( rand( 500, 1000 ) / 10 );
                 $agency_order->late_fee_sum = (float)( rand( 500, 1000 ) / 20 );
                 $agency_order->service_charge_sum = (float)( rand( 500, 1000 ) / 10 );
-                $agency_order->process_status = '3';
+                if($i % 5 == 0)
+                    $agency_order->process_status = '4';
+                else if($i % 5 == 1)
+                    $agency_order->process_status = '3';
+                else if($i % 5 == 2)
+                    $agency_order->process_status = '2';
+                else if($i % 5 == 3)
+                    $agency_order->process_status = '1';
+                else
+                    $agency_order->process_status = '0';
                 $agency_order->car_type_no = '01';
                 $agency_order->agency_no = rand( 1, 3 );
 
@@ -199,7 +208,6 @@ class CcobSeeder extends Command {
                         $traffic_info->car_type_no = 'AAA';
                         $traffic_info->req_car_frame_no = '123123';
                         $traffic_info->rep_event_time = $this->get_random_datetime();
-                        $traffic_info->rep_event_city = '广州';
                         $traffic_info->rep_event_addr = '番禺区大学城';
                         $traffic_info->rep_violation_behavior = 'Fuck a dog';
                         $traffic_info->save();

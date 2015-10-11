@@ -1,0 +1,8 @@
+<?php
+
+return array(
+		'qiniu'=>array(
+			'accessKey' => '',
+			'secretKey' => ''			
+		)
+);

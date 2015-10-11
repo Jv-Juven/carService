@@ -64,9 +64,9 @@ class FeeType extends Eloquent{
      * 
      * @return string
      */
-    public static function get_recharge_subitem( $user_type ){
+    public static function get_recharge_subitem() {
 
-        return $user_type;
+        return '0';
     }
 
     /**

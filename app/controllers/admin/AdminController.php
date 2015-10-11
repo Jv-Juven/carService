@@ -1,7 +1,115 @@
 <?php
 
-class AdminController extends BaseController{
+use Illuminate\Hashing\BcryptHasher;
+
+class AdminController extends BaseController {
+
+	public function getIndents()
+	{
+		$type = Input::get("type");
+
+		$indents = [];
+		if($type == "id")
+		{
+			$indentId = Input::get("indentId");
+
+			$indents = AgencyOrder::where("order_id", "=", $indentId)->get();
+		}
+		else
+		{
+			$licensePlate = Input::get("licensePlate");
+			$startDate = Input::get("startDate");
+			$endDate = Input::get("endDate");
+			$status = Input::get("status", "all");
+
+			$query = AgencyOrder::where("car_plate_no", "=", $licensePlate)->where("created_at", ">", $startDate)->where("created_at", "<", $endDate);
+			
+			if($status != "all") 
+				$query = $query->where("process_status", "=", $status);
+
+			$indents = $query->with("traffic_violation_info")->get();
+		}
+		 
+		return Response::json(array("errCode" => 0, "indents" => $indents));
+	}
+
+	public function login()
+	{
+		$username = Input::get("username");
+		$password = Input::get("password");
+
+		if(Auth::attempt(array('username' => $username, 'password' => $password)))
+		{
+		    return Response::json(array("errCode" => 0));
+		} 
+		else
+		{
+		    return Response::json(array("errCode" => 1, "errMsg" => "[登陆失败]用户名或密码错误"));
+		}
+	}
+
+	public function logout()
+	{
+		Auth::logout();
+
+		return Response::json(array("errCode" => 0));
+	}
+
+	public function register()
+	{
+		$username = Input::get("username");
+		$password = Input::get("password");
+
+		$hasher = new BcryptHasher();
+
+		$admin = new Admin();//实例化User对象
+	    $admin->username = $username;
+	    $admin->password = $hasher->make($password);
+	    $admin->save();
+		
+		return Response::json(array("errCode" => 0));
+	}
+
+	public function changePassword()
+	{
+		$adminId = Input::get("adminId");
+		$username = Input::get("username");
+		$oldPassword = Input::get("oldPassword");
+		$newPassword = Input::get("newPassword");
+		$newPasswordConfirm = Input::get("newPasswordConfirm");
+
+		$hasher = new BcryptHasher();
+
+		if(Auth::attempt(array('username' => $username, 'password' => $oldPassword)))
+		{
+			$result = Admin::where("admin_id", "=", $adminId)->update(["password" => $hasher->make($newPassword)]);
+			
+			if($result == 0)
+			{
+				return Response::json(array('errCode' => 1, 'errMsg' => "[修改失败]数据库错误"));
+			}
+		} 
+		else
+		{
+			return Response::json(array('errCode' => 1, 'errMsg' => "[修改失败]原密码错误"));
+		}
+
+
+		return Response::json(array('errCode' => 0));
+	}
 	
+	public function feedback()
+	{
+		$feedbackId = Input::get("feedbackId");
+
+		$result = Feedback::where("feedback_id", "=", $feedbackId)->update(["status" => true]);
+	
+		if(!$result)
+			return Response::json(array('errCode' => 1, 'errMsg' => "[数据库错误]找不到该条反馈信息"));
+
+		return Response::json(array('errCode' => 0));
+	}
+
 	// 设置转账备注码
 	public function setRemarkCode()
 	{

@@ -6,7 +6,7 @@
   </head>
 <body>
   <div>
-  		<a href="/user/b_site_active?token={{$token}}">点击这里激活邮箱</a>
+  		<a href="http://112.74.198.95/user/b_site_active?token={{$token}}">点击这里激活邮箱</a>
 
   </div>
 </body>
