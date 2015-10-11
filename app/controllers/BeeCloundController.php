@@ -189,7 +189,9 @@ class BeeCloundController extends BaseController{
 		$qrcode['code_url'] = $code_url;
 		Session::put('qrcode',$qrcode);
 
-		return Response::json(array('errCode'=>0,'message'=>'ok'));
+		return Response::json(array('errCode'=>0,'message'=>'ok'
+												'url'=>'/beeclound/qrcode'
+									));
 	}
 
 	/* 微信支付－代办
@@ -229,7 +231,9 @@ class BeeCloundController extends BaseController{
 		$qrcode['code_url'] = $code_url;
 		Session::put('qrcode',$qrcode);
 
-		return Response::json(array('errCode'=>0,'message'=>'ok'));
+		return Response::json(array('errCode'=>0,'message'=>'ok',
+											'url'=>'/beeclound/qrcode'
+								));
 	}
 
 	//支付页面
@@ -342,21 +346,7 @@ class BeeCloundController extends BaseController{
 	    }
 
         $refunds = $result->refunds;
-        if( !isset( $refunds ))
-        	return 'false';
-        foreach ( $refunds as $refund )
-        {	
-        	// dd($refund->bill_no);
-        	$user = AgencyOrder::find( $refund->bill_no )->user;
-        	$user_type = $user->user_type;
-        	if( $user_type == 0)
-        	{
-	        	$refund->user =  $user->login_account;
-        	}else{
-        		$refund->user =  BusinessController::find($user->user_id)->business_name;
-        	}
-        	// dd($refund->user);
-        }
+       
         return Response::json(array('errCode'=>0, 'refunds'=> $refunds));
 	}
 }
