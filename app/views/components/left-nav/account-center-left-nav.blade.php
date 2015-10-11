@@ -1,6 +1,7 @@
 <div class="left-nav" id="account-center-left-nav">
 	<div class="nav">
 		<ul class="nav-first">
+			@if(Sentry::getUser()->user_type == 1)
 			<li class="li">
 				<a href="javascript:">
 					<i class="nav-icon">
@@ -20,6 +21,7 @@
 					</li>
 				</ul>
 			</li>
+			@endif
 			<li class="li">
 				<a href="javascript:">
 					<i class="nav-icon">

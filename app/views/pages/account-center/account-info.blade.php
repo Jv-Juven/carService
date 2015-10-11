@@ -74,12 +74,12 @@
 						<input class="msg-input psd-email-code" type="text" placeholder="请前往注册邮箱获取验证码"/>
 						<a href="javascript:" class="msg-btn psd-get-email-codes">获取验证码</a>
 					</div>
-					<div class="msg-line">
+					<!-- <div class="msg-line">
 						<span class="msg-title">
 							原密码：
 						</span>
 						<input class="msg-input old-password" type="password" placeholder="请填写账号的原密码"/>
-					</div>
+					</div> -->
 					<div class="msg-line">
 						<span class="msg-title">
 							密码：
@@ -133,8 +133,8 @@
 						</tr>
 						<tr>
 							<td class="tr-title">身份证正面扫描件：</td>
-							<td class="tr-content content">
-								<input type="file" id="upload_btn" />
+							<td class="tr-content content" id="front_wrapper">
+								<input type="file" id="front_file" />
 							</td>
 							<td class="tr-tips">
 								<span class="example">
@@ -145,8 +145,8 @@
 						</tr>
 						<tr>
 							<td class="tr-title">身份证反面扫描件：</td>
-							<td class="tr-content content">
-								<input type="file" id="upload_btn" />
+							<td class="tr-content content" id="back_wrapper">
+								<input type="file" id="back_file" />
 							</td>
 							<td class="tr-tips">
 								<span class="example">
@@ -187,5 +187,7 @@
 
 @section("js")
 	@parent
+	<script type="text/javascript" src="/lib/js/plupload.full.min.js"></script>
+	<script type="text/javascript" src="/lib/js/qiniu.min.js"></script>
 	<script type="text/javascript" src="/dist/js/pages/account-center/account-info.js"></script>
 @stop

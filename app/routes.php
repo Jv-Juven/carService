@@ -288,7 +288,7 @@ Route::group([ 'prefix' => 'finance-center', 'before' => 'auth.user.isIn' ], fun
 // Route::get('tiger',function(){
 	
 // });
-
+/*
 Route::get('test',function(){
 	Sentry::login(User::find('yhxx560214c236150446972440'), false);
 	$user = User::find('yhxx560214c236150446972440');
@@ -298,7 +298,7 @@ Route::get('test',function(){
 	var_dump($user->user_id);
 	// return uniqid('hyxx',true);
 });
-
+*/
 // 后台管理-页面
 Route::group(array('prefix' => 'admin'), function() {
 
@@ -413,7 +413,10 @@ Route::group(array('prefix' => 'admin'), function() {
 
 //七牛
 Route::group(array('prefix'=>'qiniu','before'=>'auth.user.isIn'),function(){
+	//上传
 	Route::get('/', 'UploadController@getUpToken');
+	//下载图片
+	Route::get('download-token','UploadController@downloadToken');
 });
 
 
@@ -432,27 +435,11 @@ Route::group(array('prefix'=>'beeclound','before'=>'auth.user.isIn'), function()
 	//微信退款
 	Route::post('refund','BeeCloundController@refund');
 	//退款状态
-	Route::get('refund-status','BeeCloundController@refundStatus');
-	//更新退款状态
-	Route::get('update-refund-status','BeeCloundController@updateRefundStatus');
+	Route::get('refund-status','BeeCloundController@getRefundStatus');
 });
 	//验证
 	Route::post('beeclound','BeeCloundController@authBeeCloud');
 
-// Route::get('fee',function(){
-// 		try
-// 	    {
-// 	    	DB::transaction(function() {
-
-// 	    		return 'catch';
-			    
-// 	    	});
-// 	    }catch( \Exception $e )
-// 	    {
-// 	    	return 'catch';
-// 	    }
-// 	    return 'true';
-// });
 
 
 

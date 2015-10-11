@@ -151,9 +151,9 @@ class CcobSeeder extends Command {
             if ( $user->user_type == '1' && !isset( $user->business_info ) ){
                 $business_info = new BusinessUser();
                 $business_info->user_id = $user->user_id;
-                $app_config = BusinessController::get_appkey_appsecret_from_remote( $user->user_id );
-                $business_info->app_key = $app_config['appkey'];
-                $business_info->app_secret = $app_config['secretkey'];
+                //$app_config = BusinessController::get_appkey_appsecret_from_remote( $user->user_id );
+                //$business_info->app_key = $app_config['appkey'];
+                //$business_info->app_secret = $app_config['secretkey'];
                 $business_info->save();
             }
         }

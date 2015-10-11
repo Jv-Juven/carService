@@ -51,10 +51,10 @@ Route::filter('auth.admin', function()
 Route::filter('auth.user.isIn',function()
 {
 	Session_start();
-	$user = User::where('user_type',1)->first();
+	// $user = User::where('user_type',1)->first();
 	// $user = User::find('yhxx5617c959d6ee4142025859');//服务器
 	// $user = User::find('yhxx5618cf8d0fc96281790280');//本地
-	Sentry::login($user,false);	
+	// Sentry::login($user,false);	
 	// Sentry::logout();
 	if(!Sentry::check())
 	{
@@ -63,7 +63,8 @@ Route::filter('auth.user.isIn',function()
 			return Response::json(array('errCode' => 10,'message' => '请登陆！'));
 		}
 		else{
-			return Redirect::guest('user.login');
+			Session::put( 'url_before_login', Request::url() );
+			return Redirect::guest('/');
 		}
 	}
 	$status = Sentry::getUser()->status;

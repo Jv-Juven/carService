@@ -25,7 +25,7 @@ regTips = $(".warn-tips input")
 regPassword = $(".reg-password")
 regRePassword = $(".reg-repassword")
 regBtn = $(".personal-reg-btn")
-cancelBtn = $(".personal-cancel-btn")
+regCancelBtn = $(".personal-cancel-btn")
 fotgetPsd = $(".forget-tips")
 
 ###
@@ -50,7 +50,7 @@ phoneCodes = $(".phone-codes")
 newPsd = $(".new-password")
 renewPsd = $(".re-new-password")
 
-saveBtn = $(".save-btn")
+saveBtn = $(".log-reg-save-btn")
 cancelBtn =$(".cancel-btn")
 
 warnTips = $(".find-psd-tips input")
@@ -85,7 +85,7 @@ cutUserType =  (e)->
 		logEmail.hide()
 		logPhone.show()
 
-#企业用户登录
+#企业和个人用户登录
 userLogin = ()->
 
 	if userType is 0
@@ -117,7 +117,8 @@ userLogin = ()->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
 			else
-				closeMask
+				# closeMask
+				window.location.href = window.location.href
 
 #切换到个人用户注册
 personal = ()->
@@ -185,7 +186,7 @@ submitBtn.on "click", userLogin
 #"注册"按钮绑定事件
 regBtn.on "click", personalReg
 
-#"取消"按钮绑定事件
+#登录"取消"按钮绑定事件
 cancelBtn.on "click", closeMask
 
 
@@ -213,11 +214,16 @@ closeReg = ()->
 	maskResPsd.fadeOut(100)
 	warnTips.val(" ")
 
-#修改密码
+#忘记密码
 resetPsd = ()->
 
-	if userType is 0
+	if changeEmail.css("display") is "block"
+		userType = 0
+	else
+		userType = 1
 
+	if userType is 0
+		
 		if !validate.charCodes(emailCodes.val())
 			warnTips.val("*请正确填写邮箱验证码")
 			emailCodes.focus()
@@ -237,9 +243,9 @@ resetPsd = ()->
 			re_password: renewPsd.val()
 		}, (msg)->
 			if msg["errCode"] isnt 0
-				warn.alert msg["message"]
+				alert msg["message"]
 	else
-
+		
 		if !validate.mobile(phoneInput.val())
 			warnTips.val("*请填写手机号码")
 			phoneInput.focus()
@@ -260,11 +266,11 @@ resetPsd = ()->
 		$.post "/user/reset_csite_pwd", {
 			login_account: phoneInput.val(),
 			phone_code: phoneCodes.val(),
-			password: newPsd,
-			re_password: renewPsd
+			password: newPsd.val(),
+			re_password: renewPsd.val()
 		}, (msg)->
 			if msg["errCode"] isnt 0
-				warn.alert msg["message"]
+				alert msg["message"]
 			else
 				closeMask()
 
@@ -301,7 +307,8 @@ phoneCodesBtn.off().on "click", ()->
 saveBtn.on "click", resetPsd
 
 #"取消"按钮事件绑定
-cancelBtn.on "click", closeReg
+regCancelBtn.on "click", closeMask
+
 
 #"忘记密码"框关闭按钮事件绑定
 resetClose.on "click", closeReg
