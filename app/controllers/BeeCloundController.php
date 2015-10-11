@@ -301,8 +301,30 @@ class BeeCloundController extends BaseController{
 		return Response::json(array('errCode'=>0, 'message'=>'退款已提交'));
 	}	
 
-	//更新退款状态
-	public function updateRefundStatus()
+	//退款状态
+	public function refundStatus()
+	{
+		$data = $this->returnDataArray();
+		$data["channel"] = "WX";
+
+	    try {
+        	$result = BCRESTApi::refunds($data);
+	        if ($result->result_code != 0 || $result->result_msg != "OK") {
+				
+				return Response::json(array('errCode'=>24, 'message'=>json_encode($result->err_detail)));
+	    	}
+	    } catch (Exception $e) {
+	        return Response::json(array('errCode'=>25, 'message'=>$e->getMessage()));
+	    }
+
+        $refunds = $result->refunds;
+       	
+       	return $refunds;
+        
+	}
+
+	//更新退款状态并获取
+	public function getRefundStatus()
 	{	
 		$data = $this->returnDataArray();
 		$refund_id =  Input::get('refund_id');
@@ -316,37 +338,18 @@ class BeeCloundController extends BaseController{
 		    $result = BCRESTApi::refundStatus($data);
 		    if ($result->result_code != 0 || $result->result_msg != "OK") {
 			
-			    return Response::json(array('errCode'=>21, 'message'=>json_encode($result->err_detail)));
+			    return Response::json(array('errCode'=>22, 'message'=>json_encode($result->err_detail)));
 		    }
 		    return Response::json(array('errCode'=>0,'refund_status'=>$result->refund_status));
 
 		} catch (Exception $e) {
 		   
-		    return Response::json(['errCode'=>22, 'message'=>$e->getMessage()]);
+		    return Response::json(['errCode'=>23, 'message'=>$e->getMessage()]);
 		}
+
+		$result = $this->refundStatus;
+
 	}
 
-	//退款状态--不需要
-	public function refundStatus()
-	{
-		$data = $this->returnDataArray();
-		$data["channel"] = "WX";
-
-		if( $data["channel"] != 'WX' || $data["channel"] != 'ALI' )
-			return  Response::json(array('errCode'=>21,'message'=>'WX或ALI两种方式'));
-
-	    try {
-        	$result = BCRESTApi::refunds($data);
-	        if ($result->result_code != 0 || $result->result_msg != "OK") {
-				
-				return Response::json(array('errCode'=>22, 'message'=>json_encode($result->err_detail)));
-	    	}
-	    } catch (Exception $e) {
-	        return Response::json(array('errCode'=>23, 'message'=>$e->getMessage()));
-	    }
-
-        $refunds = $result->refunds;
-       
-        return Response::json(array('errCode'=>0, 'refunds'=> $refunds));
-	}
+	
 }
