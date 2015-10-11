@@ -38,21 +38,20 @@ Route::group(array('prefix'=>'user'), function(){
 	Route::post('c_register','UserController@cSiteRegister');
 	
 	Route::group(array('before'=>'auth.user.isIn'),function(){
-		//B端用户注册－填写完注册信息后跳转到邮箱激活页面
-		Route::get('email_active','UserPageController@emailActivePage');
 		//B端用户注册-信息登记
 		Route::post('info_register', 'UserController@informationRegister');
 		//B端用户注册-意外退出后发送验证信息再次发送信息到邮箱
 		Route::post('send_token_to_email','UserController@sendTokenToEmail');
 		//B端用户打款备注码
 		Route::post('money_remark_code','UserController@moneyRemarkCode');
+		//B端用户注册－填写完注册信息后跳转到邮箱激活页面
+		Route::get('email_active','UserPageController@emailActivePage');
 		//显示企业信息
 		Route::post('display_company_info','UserController@displayCompanyRegisterInfo');
 		//B端用户注册/修改运营者信息－运营人员手机验证码
 		Route::get('operational_phone_code','UserController@operationalPhoneCode');
 		//B端用户－修改运营者信息－保存
 		Route::post('save_operator_info','UserController@saveOperatorInfo');
-
 		//登出
 		Route::post('logout','UserController@logout');
 		//审核中
@@ -73,6 +72,7 @@ Route::group(array('prefix'=>'user'), function(){
 		Route::post('reset_bsite_pwd', 'UserController@resetBusinessSitePassword');
 		//显示企业信息
 		Route::post('dispaly-com-info','UserController@dispalyComInfo');
+
 
 		//获取appkey和secretkey
 		Route::get('app', 'UserController@app');
@@ -406,7 +406,7 @@ Route::group(array('prefix' => 'admin'), function() {
 });
 
 //七牛
-Route::group(array('prefix'=>'qiniu','before'=>'auth.user.isIn'),function(){
+Route::group(array('prefix'=>'qiniu','before'=>'auth.isRegister'),function(){
 	//上传
 	Route::get('/', 'UploadController@getUpToken');
 	//下载图片
