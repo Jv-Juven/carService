@@ -59,7 +59,7 @@ psdCancelBtn =$(".psd-cancel-btn")
 fileConfig = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp','image/JPEG', 'image/PNG', 'image/GIF', 'image/BMP']
 
 # 文件上传函数
-setUploadedPhoto = (name, val)->
+setUploadedPhoto = (name)->
 	uploader = new Uploader {
 		# domain: "7xnenz.com1.z0.glb.clouddn.com/"	# bucket 域名，下载资源时用到，**必需**
 		browse_button: name + '_file',       # 上传选择的点选按钮，**必需**
@@ -78,10 +78,15 @@ setUploadedPhoto = (name, val)->
 			domain = up.getOption('domain')
 			url = domain + info.key
 
-			val = url
-			
+			#如果需要上传的地方多于两个，这里可以弄成配置文件
+			if name is "front"
+				creditScanFront = url
+			if name is "back"
+				creditScanBack = url
+
+			# console.log("方法里图片链接：" + name + url)
+			# console.log creditScanFront
 	}
-	return val
 
 
 show = {
@@ -240,8 +245,8 @@ $ ()->
 	psdCancelBtn.on "click", mask.closeMask
 
 	#为上传按钮绑定上传事件
-	creditScanFront = setUploadedPhoto("front", creditScanFront)
-	creditScanBack = setUploadedPhoto("back", creditScanBack)
+	creditScanFront = setUploadedPhoto("front")
+	creditScanBack = setUploadedPhoto("back")
 
 
 

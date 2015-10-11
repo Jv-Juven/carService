@@ -31,7 +31,7 @@ $ ()->
 	fileConfig = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp','image/JPEG', 'image/PNG', 'image/GIF', 'image/BMP']
 
 	# 文件上传类
-	setUploadedPhoto = (name, val)->
+	setUploadedPhoto = (name)->
 		uploader = new Uploader {
 			# domain: "7xnenz.com1.z0.glb.clouddn.com/"	# bucket 域名，下载资源时用到，**必需**
 			browse_button: name + '_file',       # 上传选择的点选按钮，**必需**
@@ -50,10 +50,15 @@ $ ()->
 				domain = up.getOption('domain')
 				url = domain + info.key
 
-				val = url
-				
+				#这里可以改成配置文件
+				if name is "license"
+					licenseScan = url
+				if name is "credit_front"
+					creditCardScan01 = url
+				if name is "credit_back"
+					creditCardScan02 = url
+
 		}
-		return val
 
 
 	#“提交按钮”信息提交函数
@@ -115,9 +120,9 @@ $ ()->
 	#"提交"按钮事件绑定
 	submitBtn.on "click", submitInfo
 
-	licenseScan = setUploadedPhoto("license", licenseScan)
-	creditCardScan01 = setUploadedPhoto("credit_front", creditCardScan01)
-	creditCardScan02 = setUploadedPhoto("credit_back", creditCardScan02)
+	setUploadedPhoto("license")
+	setUploadedPhoto("credit_front")
+	setUploadedPhoto("credit_back")
 
 
 

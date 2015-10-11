@@ -146,7 +146,7 @@
 						<tr>
 							<td class="tr-title">身份证反面扫描件：</td>
 							<td class="tr-content content" id="back_wrapper">
-								<input type="file" id="upload_btn" id="back_file" />
+								<input type="file" id="back_file" />
 							</td>
 							<td class="tr-tips">
 								<span class="example">
