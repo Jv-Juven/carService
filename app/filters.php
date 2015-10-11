@@ -51,10 +51,10 @@ Route::filter('auth.admin', function()
 Route::filter('auth.user.isIn',function()
 {
 	Session_start();
-	// $user = User::where('user_type',1)->first();
+	$user = User::where('user_type',1)->first();
 	// $user = User::find('yhxx5617c959d6ee4142025859');//服务器
-	// $user = User::find('yhxx5618cf8d0fc96281790280');//本地
-	// Sentry::login($user,false);	
+	// $user = User::find('yhxx5619f0abb12a0394156728');//本地
+	Sentry::login($user,false);	
 	// Sentry::logout();
 	if(!Sentry::check())
 	{
@@ -67,20 +67,37 @@ Route::filter('auth.user.isIn',function()
 			return Redirect::guest('/');
 		}
 	}
-	$status = Sentry::getUser()->status;
-	if( $status != 22 )
+	// $status = Sentry::getUser()->status;
+	// if( $status != 22 )
+	// {
+	// 	switch ( $status ) {
+	// 		case 10:
+	// 			return View::make('pages.register-b.email-active');//邮箱激活页面
+	// 		case 11:
+	// 			return View::make('pages.register-b.reg-info');//信息登记
+	// 		case 20:
+	// 			return View::make('pages.register-b.success');//信息审核中
+	// 		case 21:
+	// 			return View::make('pages.register-b.success');//等待用户校验激活
+	// 		case 30:
+	// 			return View::make('errors.lock');//帐号锁定页面
+	// 	}
+	// }
+});
+
+
+Route::filter('auth.isRegister', function()
+{
+	Session_start();
+	if (Auth::check())
 	{
-		switch ( $status ) {
-			case 10:
-				return View::make('pages.register-b.email-active');//邮箱激活页面
-			case 11:
-				return View::make('pages.register-b.reg-info');//信息登记
-			case 20:
-				return View::make('pages.register-b.success');//信息审核中
-			case 21:
-				return View::make('pages.register-b.success');//等待用户校验激活
-			case 30:
-				return View::make('errors.lock');//帐号锁定页面
+		if (Request::ajax())
+		{
+			return Response::json(array('errCode' => 10,'message' => '请登陆！'));
+		}
+		else
+		{
+			return Redirect::guest('/');
 		}
 	}
 });
