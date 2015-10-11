@@ -72,7 +72,8 @@ Route::group(array('prefix'=>'user'), function(){
 		Route::post('reset_bsite_pwd', 'UserController@resetBusinessSitePassword');
 		//显示企业信息
 		Route::post('dispaly-com-info','UserController@dispalyComInfo');
-
+		//锁定页面
+		Route::get('lock', 'UserController@lock');
 
 		//获取appkey和secretkey
 		Route::get('app', 'UserController@app');
