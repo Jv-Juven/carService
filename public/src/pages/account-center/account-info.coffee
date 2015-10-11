@@ -2,7 +2,7 @@
 Uploader = require "./../../common/uploader/index.coffee"
 validate = require "./../../common/validate/validate.coffee"
 warn = require "./../../common/warn/warn.coffee"
-mask = require "./../../components/log-reg-mask.coffee"
+mask = require "./../../components//mask/mask.coffee"
 
 validate = new validate()
 warn = new warn()
@@ -121,38 +121,49 @@ info = {
 	submitInfo: ()->
 
 		if !validate.charCodes(emailCodes.val())
+			emailCodes.focus()
 			accTips.text "*请正确填写邮箱验证码" 
 			return
+
 		if infoName.val().length is 0
+			infoName.focus()
 			accTips.text "*请填写运营者姓名"
 			return
+
 		if !validate.creditCard(infoCreditNum.val())
+			infoCreditNum.focus()
 			accTips.text "*请正确填写运营者身份证号码"
 			return
+
 		if creditScanFront.length is 0
 			accTips.text "*请上传身份证正面扫描件"
 			return
+
 		if creditScanBack.length is 0
 			accTips.text "*请上传身份证反面扫描件"
 			return
+
 		if !validate.mobile(infoPhone.val())
+			infoPhone.focus()
 			accTips.text "*请正确填写运营者手机号码"
 			return
+
 		if !validate.charCodes(infoPhoneCodes.val())
+			infoPhoneCodes.focus()
 			accTips.text "*请正确填写运营者手机短信验证码"
 			return
 
 		$.post "/user/save_operator_info", {
 				#邮箱验证码
-				email_code: emailCodes,
+				email_code: emailCodes.val(),
 				#手机号码
-				operational_phone: infoPhone,
+				operational_phone: infoPhone.val(),
 				#手机验证码
-				phone_code: infoPhoneCodes,
+				phone_code: infoPhoneCodes.val(),
 				#运营者姓名
-				operational_name: infoName,
+				operational_name: infoName.val(),
 				#运营者身份证号码
-				operational_card_no: infoCreditNum,
+				operational_card_no: infoCreditNum.val(),
 				#身份证正面扫描件
 				id_card_front_scan_path: creditScanFront,
 				#身份证反面扫描件
@@ -178,12 +189,15 @@ psd = {
 	savePsd: ()->
 
 		if !validate.charCodes(psdEmailCode.val())
+			psdEmailCode.focus()
 			psdTips.text("*请正确输入验证码")
 			return
 		if password.val().length < 6
+			password.focus()
 			psdTips.text("*请输入不少于六位的密码")
 			return
 		if rePassword.val().length < 6
+			rePassword.focus()
 			psdTips.text("*请再次输入密码")
 			return
 		

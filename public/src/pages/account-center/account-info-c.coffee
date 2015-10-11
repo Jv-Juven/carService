@@ -1,7 +1,7 @@
 
 validate = require "./../../common/validate/validate.coffee"
 warn = require "./../../common/warn/warn.coffee"
-mask = require "./../../components/log-reg-mask.coffee"
+mask = require "./../../components/mask/mask.coffee"
 
 validate = new validate()
 warn = new warn()
@@ -52,9 +52,7 @@ psd = {
 
 	#获取邮箱验证码
 	getPhoneCodes: ()->
-		$.post "/user/operational_phone_code", {
-			
-			}, (msg)->
+		$.post "/user/operational_phone_code", {}, (msg)->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
 
@@ -62,18 +60,21 @@ psd = {
 	savePsd: ()->
 
 		if !validate.charCodes(psdPhoneCode.val())
+			psdPhoneCode.focus()
 			psdTips.text("*请正确输入验证码")
 			return
 		if password.val().length < 6
+			password.focus()
 			psdTips.text("*请输入不少于六位的密码")
 			return
 		if rePassword.val().length < 6
+			rePassword.focus()
 			psdTips.text("*请再次输入密码")
 			return
 		
-		$.post "/", {
+		$.post "/user/reset_csite_pwd", {
 			#验证码
-			reset_code: psdPhoneCode.val(),
+			phone_code: psdPhoneCode.val(),
 			#密码
 			password: password.val(),
 			#确认密码
