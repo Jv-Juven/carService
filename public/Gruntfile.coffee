@@ -50,6 +50,16 @@ module.exports = (grunt)->
                 src: ['src/pages/account-center/**/*.coffee']
                 dest: 'dist/js/pages/account-center'
                 ext: '.js'
+            account_status:
+                options:
+                  preBundleCB: (b)->
+                    b.transform(coffeeify)
+                    b.transform(stringify({extensions: ['.hbs', '.html', '.tpl', '.txt']}))
+                expand: true
+                flatten: true
+                src: ['src/pages/account-status/**/*.coffee']
+                dest: 'dist/js/pages/account-status'
+                ext: '.js'
             finance_center:
                 options:
                   preBundleCB: (b)->
@@ -168,6 +178,10 @@ module.exports = (grunt)->
                     #accountc-center
                     'dist/css/pages/account-center/developer-info.css': ['src/pages/account-center/developer-info.less']
                     'dist/css/pages/account-center/account-info.css': ['src/pages/account-center/account-info.less']
+
+                    #accountc-status
+                    'dist/css/pages/account-status/write-codes.css': ['src/pages/account-status/write-codes.less']
+                    # 'dist/css/pages/account-status/account-info.css': ['src/pages/account-status/account-info.less']
 
                     # message-center
                     'dist/css/pages/message-center/feedback/index.css': ['src/pages/message-center/feedback/index.less']
