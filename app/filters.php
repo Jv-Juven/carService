@@ -63,7 +63,8 @@ Route::filter('auth.user.isIn',function()
 			return Response::json(array('errCode' => 10,'message' => '请登陆！'));
 		}
 		else{
-			return Redirect::guest('user.login');
+			Session::put( 'url_before_login', Request::url() );
+			return Redirect::guest('user/login');
 		}
 	}
 	$status = Sentry::getUser()->status;

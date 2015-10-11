@@ -182,6 +182,7 @@ if( Sentry::check() )
 	 		{
 				errCode,			0返回正常
  				message,			错误信息
+ 				url_before_login 	有就跳到对应的界面
 			}
 
 	1.14 再次发送邮件

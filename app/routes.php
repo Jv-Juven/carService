@@ -288,7 +288,7 @@ Route::group([ 'prefix' => 'finance-center', 'before' => 'auth.user.isIn' ], fun
 // Route::get('tiger',function(){
 	
 // });
-
+/*
 Route::get('test',function(){
 	Sentry::login(User::find('yhxx560214c236150446972440'), false);
 	$user = User::find('yhxx560214c236150446972440');
@@ -298,7 +298,7 @@ Route::get('test',function(){
 	var_dump($user->user_id);
 	// return uniqid('hyxx',true);
 });
-
+*/
 // 后台管理-页面
 Route::group(array('prefix' => 'admin'), function() {
 
@@ -433,20 +433,6 @@ Route::group(array('prefix'=>'beeclound','before'=>'auth.user.isIn'), function()
 	//验证
 	Route::post('beeclound','BeeCloundController@authBeeCloud');
 
-// Route::get('fee',function(){
-// 		try
-// 	    {
-// 	    	DB::transaction(function() {
-
-// 	    		return 'catch';
-			    
-// 	    	});
-// 	    }catch( \Exception $e )
-// 	    {
-// 	    	return 'catch';
-// 	    }
-// 	    return 'true';
-// });
 
 
 
