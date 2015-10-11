@@ -50,7 +50,7 @@ phoneCodes = $(".phone-codes")
 newPsd = $(".new-password")
 renewPsd = $(".re-new-password")
 
-saveBtn = $(".save-btn")
+saveBtn = $(".log-reg-save-btn")
 cancelBtn =$(".cancel-btn")
 
 warnTips = $(".find-psd-tips input")
