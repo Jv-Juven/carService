@@ -201,7 +201,7 @@ class BeeCloundController extends BaseController{
 	{
 		$data = $this->returnDataArray();
 		$data["channel"] = "WX_NATIVE";
-		$order_id = 'dbdd5617c95a48d75575926400';
+		$order_id = 'dbdd5617c95a4840d721873877';
 		// $order_id = Input::get('order_id');
 		if( !isset($order_id) )
 			return Response::json(array('errCode'=>21, 'message'=>'请输入订单id' ));
