@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label>车辆类型：</label>
-                <span>{{{ $indent->car_type_no }}}</span>
+                <span>{{{ $indent->car_type }}}</span>
             </div>
             <div class="form-group">
                 <label>应付总额：</label>
@@ -34,9 +34,50 @@
                 <label>凭证快递费用：</label>
                 <span>{{{ $indent->express_fee }}} 元</span>
             </div>
+            <div class="form-group">
+                <label>订单状态：</label>
+                @if($indent->process_status == 0)
+                <span>未受理</span>
+                @elseif($indent->process_status == 1)
+                <span>已受理</span>
+                @elseif($indent->process_status == 2)
+                <span>办理中</span>
+                @elseif($indent->process_status == 3)
+                <span>已完成</span>
+                @else
+                <span>已关闭</span>
+                @endif
+            </div>
         </form>
 
-        <button id="submit-btn" type="button" class="btn btn-primary">退款审批</button>
+        <hr />
+
+        <table id="user-list" class="table table-striped table-bordered table-hover">
+            <tr>
+                <th>违章时间</th>
+                <th>违章地点</th>
+                <th>违章行为</th>
+                <th>扣分分值</th>
+                <th>本金</th>
+                <th>服务费</th>
+            </tr>
+            @foreach($indent->traffic_violation_info as $info)
+            <tr>
+                <td>{{{ $info->rep_event_time }}}</td>
+                <td>{{{ $info->rep_event_addr }}}</td>
+                <td>{{{ $info->rep_violation_behavior }}}</td>
+                <td>{{{ $info->rep_point_no }}}</td>
+                <td>{{{ $info->rep_priciple_balance }}}</td>
+                <td>{{{ $info->rep_service_charge }}}</td>
+            </tr>
+            @endforeach
+        </table>
+
+        @if($indent->process_status == 1 && $indent->trade_status == 2)
+        <a href="/admin/business-center/approve-refund-application?indent_id={{{ $indent->order_id }}}" target="_blank">
+            <button id="submit-btn" type="button" class="btn btn-primary">退款审批</button>
+        </a>
+        @endif
     </div>
 @stop
 

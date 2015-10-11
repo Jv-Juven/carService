@@ -370,6 +370,12 @@ Route::group(array('prefix' => 'admin'), function() {
 
 	Route::group(array('before' => 'auth.admin'), function() {
 
+		// 修改退款申请审批状态
+		Route::post('/change-refund-status', 'AdminController@changeRefundStatus');
+
+		// 修改订单处理状态
+		Route::post('/change-indent-status', 'AdminController@changeIndentStatus');
+
 		// 查询违章代办订单
 		Route::get('/indents', 'AdminController@getIndents');
 

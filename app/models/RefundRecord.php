@@ -48,4 +48,11 @@ class RefundRecord extends BaseModel{
 
         return $this->belongsTo( 'User', 'user_id', 'user_id' );
     }
+
+    /*
+     * 获取所属用户信息
+     */
+    public function user_info(){
+        return $this->belongsTo( 'BusinessUser', 'user_id', 'user_id' );
+    }
 }
