@@ -214,11 +214,16 @@ closeReg = ()->
 	maskResPsd.fadeOut(100)
 	warnTips.val(" ")
 
-#修改密码
+#忘记密码
 resetPsd = ()->
 
-	if userType is 0
+	if changeEmail.css("display") is "block"
+		userType = 0
+	else
+		userType = 1
 
+	if userType is 0
+		
 		if !validate.charCodes(emailCodes.val())
 			warnTips.val("*请正确填写邮箱验证码")
 			emailCodes.focus()
@@ -238,9 +243,9 @@ resetPsd = ()->
 			re_password: renewPsd.val()
 		}, (msg)->
 			if msg["errCode"] isnt 0
-				warn.alert msg["message"]
+				alert msg["message"]
 	else
-
+		
 		if !validate.mobile(phoneInput.val())
 			warnTips.val("*请填写手机号码")
 			phoneInput.focus()
@@ -261,11 +266,11 @@ resetPsd = ()->
 		$.post "/user/reset_csite_pwd", {
 			login_account: phoneInput.val(),
 			phone_code: phoneCodes.val(),
-			password: newPsd,
-			re_password: renewPsd
+			password: newPsd.val(),
+			re_password: renewPsd.val()
 		}, (msg)->
 			if msg["errCode"] isnt 0
-				warn.alert msg["message"]
+				alert msg["message"]
 			else
 				closeMask()
 
