@@ -24,6 +24,7 @@ showPersReg = ()->
 	$(".log-reg-bg").fadeIn(100)
 	$(".mask-register").fadeIn(100)
 
+
 #显示”忘记密码“框
 showResetPannel = (userType)->
 	

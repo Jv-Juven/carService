@@ -38,7 +38,7 @@ class UploadController extends \BaseController {
 		$baseUrl = Config::get('qiniu.domain').$addr;
 		
 		return Response::json(array('errCode'=> 21, 
-									'message'=>
+									'message'=> 'ok',
 									'downloadtoken'=> $auth->privateDownloadUrl($baseUrl)
 									));
 	}

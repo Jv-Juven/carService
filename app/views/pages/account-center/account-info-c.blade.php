@@ -23,7 +23,7 @@
 			</div>
 			<div class="developer-tr">
 				<div class="tr tr-title">手机号码：</div>
-				<div class="tr tr-content">***********</div>
+				<div class="tr tr-content" id="phone_num">18827654321</div>
 				<a class="change-psd" href="javascript:">修改密码</a>
 			</div>
 
