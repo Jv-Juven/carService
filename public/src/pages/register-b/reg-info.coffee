@@ -115,9 +115,9 @@ $ ()->
 	#"提交"按钮事件绑定
 	submitBtn.on "click", submitInfo
 
-	license = setUploadedPhoto("license", licenseScan)
-	creditFront = setUploadedPhoto("credit_front", creditCardScan01)
-	creditBack = setUploadedPhoto("credit_back", creditCardScan02)
+	licenseScan = setUploadedPhoto("license", licenseScan)
+	creditCardScan01 = setUploadedPhoto("credit_front", creditCardScan01)
+	creditCardScan02 = setUploadedPhoto("credit_back", creditCardScan02)
 
 
 

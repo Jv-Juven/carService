@@ -27,7 +27,7 @@ _defaultConfig =
 	runtimes: 'html5,flash,html4',    # 上传模式,依次退化
 	browse_button: 'click-file',       # 上传选择的点选按钮，**必需**
 	uptoken_url: '/qiniu',            # Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
-	domain: "http://7xnenz.com1.z0.glb.clouddn.com/"	# bucket 域名，下载资源时用到，**必需**
+	domain: "http://7xnenz.com1.z0.glb.clouddn.com"	# bucket 域名，下载资源时用到，**必需**
 	container: 'container',           # 上传区域DOM ID，默认是browser_button的父元素，
 	max_file_size: '5mb',           # 最大文件体积限制
 	flash_swf_url: '/lib/plupload/Moxie.swf',  # 引入flash,相对路径

@@ -2,6 +2,7 @@
 validate = require "./../../common/validate/validate.coffee"
 warn = require "./../../common/warn/warn.coffee"
 mask = require "./../../components/mask/mask.coffee"
+strMask = require "./../../common/strMask/str-mask.coffee"
 
 validate = new validate()
 warn = new warn()
@@ -9,6 +10,8 @@ warn = new warn()
 
 changeInfoBtn = $(".change-info")
 changePsdBtn = $(".change-psd")
+
+phone = $("#phone_num")
 
 maskBg = $(".mask-bg")
 changePassword = $(".change-password")
@@ -47,6 +50,8 @@ show = {
 		maskBg.fadeIn(100)
 		changeInfomation.fadeIn(100)
 }
+
+
 
 psd = {
 
@@ -91,6 +96,7 @@ psd = {
 
 
 $ ()->
+	phone.text strMask(phone.text(), 4, 8, "*")
 	#“修改密码”按钮绑定事件
 	changePsdBtn.on "click", show.showChangePsd
 	#修改密码的"获取手机验证码"按钮绑定事件

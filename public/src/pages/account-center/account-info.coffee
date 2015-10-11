@@ -63,7 +63,7 @@ setUploadedPhoto = (name, val)->
 	uploader = new Uploader {
 		# domain: "7xnenz.com1.z0.glb.clouddn.com/"	# bucket 域名，下载资源时用到，**必需**
 		browse_button: name + '_file',       # 上传选择的点选按钮，**必需**
-		container: name + '_wrapper',      
+		container: name + '_wrapper'      
 	}, {
 		FilesAdded: (up, files)->
 			# console.log files[0].type
