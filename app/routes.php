@@ -411,6 +411,8 @@ Route::group(array('prefix'=>'qiniu','before'=>'auth.user.isIn'),function(){
 	Route::get('/', 'UploadController@getUpToken');
 	//下载图片
 	Route::get('download-token','UploadController@downloadToken');
+	//
+	Route::get('front-download-token','UploadController@downloadTokenOfFront');
 });
 
 

@@ -564,9 +564,20 @@ if( Sentry::check() )
 
      返回参数：
  			{
- 			 uptoken, 			token
+ 			 	uptoken, 			token
  			}
+ 	下载图片：
+ 	 请求方式：GET
+ 	 请求url：/qiniu/front-download-token
 
+ 	 请求参数
+ 	 			addr 					图片地址
+     返回参数：
+ 			{
+ 				errCode,
+ 				message,
+ 			 	downloadtoken, 			token
+ 			}
 
 支付模块
 	1.充值
