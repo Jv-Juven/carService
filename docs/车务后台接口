@@ -573,6 +573,7 @@ if( Sentry::check() )
 
 		请求参数：
 				money 			充值金额(单位：元)
+				channel  		支付方式:  WX(现在只有微信支付)
 
 		返回参数：
 				{
@@ -586,6 +587,7 @@ if( Sentry::check() )
 
 		请求参数：
 				order_id 			订单id
+				channel  		支付方式:  WX(现在只有微信支付)
 
 		返回参数：
 				{
@@ -628,6 +630,17 @@ if( Sentry::check() )
 					errCode,
 					message
 				}
+
+	6.更新退款
+		请求方式：GET
+		请求url：	/beeclound/update-refund-status
+
+		请求参数：	
+				refund_id  			退款记录表id
+
+		返回参数：
+				
+
 
 
 	6.退款状态
