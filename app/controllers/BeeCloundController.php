@@ -145,7 +145,8 @@ class BeeCloundController extends BaseController{
 					$order->save();
 				});
 			}catch( Exception $e )
-			{
+			{	
+				Log::info( $e->getMessage() );
 				return 'false';
 			}
 
@@ -322,8 +323,8 @@ class BeeCloundController extends BaseController{
 		$data = $this->returnDataArray();
 		$data["channel"] = "WX";
 
-		// $refund_id = 'tkjl5619f0ad456df960288866';
-		$refund_id =  Input::get('refund_id');
+		$refund_id = 'tkjl5617c95a522b4685036243';
+		// $refund_id =  Input::get('refund_id');
 		$refund = RefundRecord::find( $refund_id );
 		if( !isset($refund) )
 			return Response::json(array('errCode'=>21, 'message'=>'该订单不存在'));
