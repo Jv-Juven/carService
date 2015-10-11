@@ -556,15 +556,17 @@ if( Sentry::check() )
 
 
  七牛token
- 	请求方式：GET
- 	请求url：/qiniu
+ 	上传：
+ 	 请求方式：GET
+ 	 请求url：/qiniu
 
- 	请求参数
+ 	 请求参数
 
- 	返回参数：
+     返回参数：
  			{
  			 uptoken, 			token
  			}
+
 
 支付模块
 	1.充值
