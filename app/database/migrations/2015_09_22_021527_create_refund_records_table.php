@@ -58,12 +58,7 @@ class CreateRefundRecordsTable extends Migration {
 			 *		3 : 审核不通过
 			 *		4 : 退款失败
 			 */
-			$table->char('status',2)->default('0');
-
-			/*
-			 * 审核备注
-			 */
-			$table->string('comment')->nullable();
+			$table->char('status', 2)->default('0');
 
 			/*
 			 * 订单流水号

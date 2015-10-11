@@ -158,7 +158,7 @@
 				</div>
 			</div>
 			<div class="account-btns">
-				<a class="account-btn save-btn" href="javascript:">保存</a>
+				<a class="account-btn log-reg-save-btn" href="javascript:">保存</a>
 				<a class="account-btn cancel-btn" href="javascript:">取消</a>
 			</div>
 		</div>

@@ -9,8 +9,11 @@ navConfig = {
 			"search-user": 2,
 			"search-indent": 3,
 			"indent-list": 4,
-			"change-default-service-univalence": 5
-			"change-default-query-univalence": 5
+			"change-default-service-univalence": 5,
+			"change-default-query-univalence": 5,
+			"refund-application-list": 6,
+			"refund-indent-info": 6,
+			"refund-status": 6
 		}
 	}
 	adminServiceCenter: {

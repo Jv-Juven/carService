@@ -110,7 +110,7 @@ class CreateAgencyOrdersTable extends Migration {
 			/*
 			 *  处理状态
 			 * 		0 : 未受理
-			 * 		1 : 已受理//可以办理退款
+			 * 		1 : 已受理 //可以办理退款
 			 * 		2 : 办理中
 			 * 		3 : 已完成
 			 * 		4 : 已关闭

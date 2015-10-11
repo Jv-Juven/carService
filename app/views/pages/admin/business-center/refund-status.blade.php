@@ -15,7 +15,11 @@
         <hr />
         <form class="form-inline">
             <div class="form-group">
-                <label>返回状态码：</label>
+                <label>订单号：</label>
+                <span>{{{ $indent->order_id }}}</span>
+            </div>
+            <div class="form-group">
+                <label>退款金额：</label>
                 <span>Success</span>
             </div>
             <div class="form-group">

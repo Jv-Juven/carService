@@ -234,9 +234,10 @@ class CcobSeeder extends Command {
             $refund_record->user_id = $order->user_id;
             if ( rand( 0, 1 ) ){
                 $refund_record->approval_at = $this->get_random_datetime();
-                $refund_record->comment = 'hhhhhhhhhhhh';
+                $refund_record->comment = '0';
                 $refund_record->status = '2';
             }else{
+                $refund_record->comment = '1';
                 $refund_record->status = '0';
             }
             $refund_record->save();

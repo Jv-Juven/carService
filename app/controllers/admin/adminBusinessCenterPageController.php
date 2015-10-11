@@ -113,17 +113,19 @@ class AdminBusinessCenterPageController extends BaseController{
 		$perPage = 15;
 
 		if($type == "untreated")
-			$indents = AgencyOrder::where("process_status", "=", "0")->orderBy("created_at")->with("traffic_violation_info")->paginate($perPage);
+			$indents = AgencyOrder::where("process_status", "=", "0")->orderBy("created_at", "desc")->with("traffic_violation_info")->paginate($perPage);
 		else if($type == "treated")
-			$indents = AgencyOrder::where("process_status", "=", "1")->orderBy("created_at")->with("traffic_violation_info")->paginate($perPage);
+			$indents = AgencyOrder::where("process_status", "=", "1")->orderBy("created_at", "desc")->with("traffic_violation_info")->paginate($perPage);
 		else if($type == "treating")
-			$indents = AgencyOrder::where("process_status", "=", "2")->orderBy("created_at")->with("traffic_violation_info")->paginate($perPage);
+			$indents = AgencyOrder::where("process_status", "=", "2")->orderBy("created_at", "desc")->with("traffic_violation_info")->paginate($perPage);
 		else if($type == "finished")
-			$indents = AgencyOrder::where("process_status", "=", "3")->orderBy("created_at")->with("traffic_violation_info")->paginate($perPage);
+			$indents = AgencyOrder::where("process_status", "=", "3")->orderBy("created_at", "desc")->with("traffic_violation_info")->paginate($perPage);
 		else if($type == "closed")
-			$indents = AgencyOrder::where("process_status", "=", "4")->orderBy("created_at")->with("traffic_violation_info")->paginate($perPage);
+			$indents = AgencyOrder::where("process_status", "=", "4")->orderBy("created_at", "desc")->with("traffic_violation_info")->paginate($perPage);
 		else
-			$indents = AgencyOrder::orderBy("created_at")->with("traffic_violation_info")->paginate($perPage);
+			$indents = AgencyOrder::orderBy("created_at", "desc")->with("traffic_violation_info")->paginate($perPage);
+
+		$indents->addQuery( 'type', $type );
 
 		return View::make('pages.admin.business-center.indent-list', [
 			"indents" => $indents,
@@ -223,7 +225,9 @@ class AdminBusinessCenterPageController extends BaseController{
 	{
 		$indentId = Input::get("indent_id");
 
-		$indent = AgencyOrder::where("order_id", "=", $indentId)->first();
+		$indent = AgencyOrder::where("order_id", "=", $indentId)->with("traffic_violation_info")->first();
+
+		$indent->car_type = Config::get("carType." . $indent->car_type_no);
 
 		if(count($indent) == 0)
 			return View::make('errors.refund-indent-missing');
@@ -235,12 +239,28 @@ class AdminBusinessCenterPageController extends BaseController{
 
 	public function refundStatus()
 	{
-		return View::make('pages.admin.business-center.refund-status');
+		$indentId = Input::get("indent_id");
+
+		$indent = AgencyOrder::where("order_id", "=", $indentId)->first();
+
+		if(!isset($indent))
+			return View::make('errors.page-error', ["errMsg" => "订单未找到，请检查订单号是否正确"]);
+
+		return View::make('pages.admin.business-center.refund-status', [ 
+			"indent" => $indent
+		]);
 	}
 
 	public function refundApplicationList()
 	{
-		return View::make('pages.admin.business-center.refund-application-list');
+		$perPage = 15;
+		$refundIndents = RefundRecord::orderBy("created_at", "desc")->with(["order", "user_info"])->paginate($perPage);
+
+		return View::make('pages.admin.business-center.refund-application-list', [
+			"refundIndents" => $refundIndents,
+			"count" => $refundIndents->count(),
+			"totalCount" => $refundIndents->getTotal()
+		]);
 	}
 
 	public function expressTicketInfo()
@@ -250,7 +270,16 @@ class AdminBusinessCenterPageController extends BaseController{
 
 	public function approveRefundApplication()
 	{
-		return View::make('pages.admin.business-center.approve-refund-application');
+		$indentId = Input::get("indent_id");
+
+		$indent = AgencyOrder::where("order_id", "=", $indentId)->with("refund_record", "traffic_violation_info")->first();
+
+		if(!isset($indent))
+			return View::make('errors.page-error', ["errMsg" => "订单未找到，请检查订单号是否正确"]);
+
+		return View::make('pages.admin.business-center.approve-refund-application', [
+			"indent" => $indent
+		]);
 	}
 }
 

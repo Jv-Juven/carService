@@ -16,7 +16,7 @@ class Warn
 		if !bg
 			bg = $(".mask, #mask")
 		if !box
-			box = $(".warn-msg")
+			box = $("#common_wran_msg")
 		bg.fadeIn(200)
 		box.text(text).fadeIn(200)
 

@@ -4,6 +4,39 @@ use Illuminate\Hashing\BcryptHasher;
 
 class AdminController extends BaseController {
 
+	public function changeRefundStatus()
+	{
+		$indentId = Input::get("indentId");
+		$status = Input::get("status");
+
+		if($status == "1")
+		{
+			$result = DB::table('refund_records')
+						->where("refund_records.order_id", "=", $indentId)
+						->where("agency_orders.order_id", "=", $indentId)
+						->join('agency_orders', 'agency_orders.order_id', '=', 'refund_records.order_id')
+						->update(["refund_records.status" => $status, "agency_orders.trade_status" => "3", "process_status" => "4"]);
+
+			if($result == 0)
+				return Response::json(array("errCode" => 1, "errMsg" => "订单未找到，请检查订单号是否正确"));
+
+			return Response::json(array("errCode" => 0));
+		}
+	}
+
+	public function changeIndentStatus()
+	{
+		$indentId = Input::get("indentId");
+		$status = Input::get("status");
+
+		$result = AgencyOrder::where("order_id", "=", $indentId)->update(["process_status" => 2]);
+		
+		if($result == 0)
+			return Response::json(array("errCode" => 1, "errMsg" => "订单未找到，请检查订单号是否正确"));
+
+		return Response::json(array("errCode" => 0));
+	}
+
 	public function getIndents()
 	{
 		$type = Input::get("type");
