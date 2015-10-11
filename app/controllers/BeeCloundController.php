@@ -147,7 +147,7 @@ class BeeCloundController extends BaseController{
 					$refund->save();
 
 					$order->trade_status = 3;
-					$order->process_status = 4;
+					$order->process_status = 3;
 					$order->save();
 				});
 			}catch( Exception $e )

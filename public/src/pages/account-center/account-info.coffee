@@ -73,15 +73,19 @@ info = {
 
 	#获取邮箱验证码
 	getEmailCodes: ()->
-		$.post "/user/send_code_to_email", {}, (msg)->
+		$.post "/user/update_operator_code", {}, (msg)->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
+			else
+				alert "验证码已成功发送"
 
 	#获取手机验证码
 	getPhoneCodes: ()->
-		$.post "/", {}, (msg)->
+		$.post "/user/operational_phone_code", {}, (msg)->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
+			else
+				alert "验证码已成功发送"
 
 	#提交修改后的运营者信息
 	submitInfo: ()->
@@ -95,12 +99,12 @@ info = {
 		if !validate.creditCard(infoCreditNum.val())
 			accTips.text "*请正确填写运营者身份证号码"
 			return
-		if creditScanFront.length is 0
-			accTips.text "*请上传身份证正面扫描件"
-			return
-		if creditScanBack.length is 0
-			accTips.text "*请上传身份证反面扫描件"
-			return
+		# if creditScanFront.length is 0
+		# 	accTips.text "*请上传身份证正面扫描件"
+		# 	return
+		# if creditScanBack.length is 0
+		# 	accTips.text "*请上传身份证反面扫描件"
+		# 	return
 		if !validate.mobile(infoPhone.val())
 			accTips.text "*请正确填写运营者手机号码"
 			return
@@ -108,7 +112,23 @@ info = {
 			accTips.text "*请正确填写运营者手机短信验证码"
 			return
 
-		$.post "", {}, (msg)->
+		$.post "/user/save_operator_info", {
+				#邮箱验证码
+				email_code: emailCodes,
+				#手机号码
+				operational_phone: infoPhone,
+				#手机验证码
+				phone_code: infoPhoneCodes,
+				#运营者姓名
+				operational_name: infoName,
+				#运营者身份证号码
+				operational_card_no: infoCreditNum,
+				#身份证正面扫描件
+				id_card_front_scan_path: creditScanFront,
+				#身份证反面扫描件
+				id_card_back_scan_path: creditScanBack
+
+			}, (msg)->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
 			else
@@ -119,7 +139,8 @@ psd = {
 
 	#获取邮箱验证码
 	getEmailCodes: ()->
-		$.post "/user/send_code_to_email", {}, (msg)->
+		$.post "/user/send_code_to_email", {
+			}, (msg)->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
 
@@ -129,7 +150,7 @@ psd = {
 		if !validate.charCodes(psdEmailCode.val())
 			psdTips.text("*请正确输入验证码")
 			return
-		if (oldPassword.val().length < 6) || (password.val().length < 6)
+		if password.val().length < 6
 			psdTips.text("*请输入不少于六位的密码")
 			return
 		if rePassword.val().length < 6
@@ -137,6 +158,12 @@ psd = {
 			return
 		
 		$.post "/", {
+			#验证码
+			reset_code: psdEmailCode.val(),
+			#密码
+			password: password.val(),
+			#确认密码
+			re_password: rePassword.val()
 
 			}, (msg)->
 				if msg["errCode"] isnt 0

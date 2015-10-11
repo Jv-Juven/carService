@@ -13,8 +13,6 @@ $ ()->
 	companyName02 = $("#company_name02")
 	publicAcc = $("#public_account")
 	rePublicAcc = $("#re_public_acc")
-	bank = $(".bank option:selected")
-	position = $(".position option:selected")
 
 	name = $("#name")
 	creditCard = $("#id_card")
@@ -34,7 +32,7 @@ $ ()->
 	# 文件上传类
 	setUploadedPhoto = (name, val)->
 		uploader = new Uploader {
-			domain: "http://7xj0sp.com1.z0.glb.clouddn.com/"	# bucket 域名，下载资源时用到，**必需**
+			# domain: "7xnenz.com1.z0.glb.clouddn.com/"	# bucket 域名，下载资源时用到，**必需**
 			browse_button: name + '_file',       # 上传选择的点选按钮，**必需**
 			container: name + '_wrapper',      
 		}, {
@@ -60,13 +58,17 @@ $ ()->
 	#“提交按钮”信息提交函数
 	submitInfo = ()->
 
+
+		bank = $(".bank option:selected")
+		position = $(".position option:selected")
+
 		if companyName.val().length is 0 or publicAcc.val().length is 0 or rePublicAcc.val().length is 0 or name.val().length is 0 or creditCard.val().length is 0 or !licensePreg.test(licenseCode.val())
 			regInfoTips.text("*请确保信息填写完整")
 			return
 
-		if $("#license_file").val() is "" or $("#credit_front_file").val() is "" or $("#credit_back_file").val() is ""
-			regInfoTips.text("*请上传相关文件")
-			return
+		# if $("#license_file").val() is "" or $("#credit_front_file").val() is "" or $("#credit_back_file").val() is ""
+		# 	regInfoTips.text("*请上传相关文件")
+		# 	return
 
 		$.post "/user/info_register", {
 
@@ -77,6 +79,8 @@ $ ()->
 			business_licence_scan_path: licenseScan,
 
 			bank_account: publicAcc.val(),
+
+			re_bank_account: rePublicAcc.val(),
 
 			deposit_bank: bank.text(),
 

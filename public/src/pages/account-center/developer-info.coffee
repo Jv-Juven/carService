@@ -26,6 +26,8 @@ getCodes = ()->
 	$.post "/user/send_code_to_email", {}, (msg)->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
+		else
+			alert "验证码已成功发送"
 
 #提交信息
 submitMsg = ()->
