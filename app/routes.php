@@ -426,9 +426,7 @@ Route::group(array('prefix'=>'beeclound','before'=>'auth.user.isIn'), function()
 	//微信退款
 	Route::post('refund','BeeCloundController@refund');
 	//退款状态
-	Route::get('refund-status','BeeCloundController@refundStatus');
-	//更新退款状态
-	Route::get('update-refund-status','BeeCloundController@updateRefundStatus');
+	Route::get('refund-status','BeeCloundController@getRefundStatus');
 });
 	//验证
 	Route::post('beeclound','BeeCloundController@authBeeCloud');
