@@ -133,8 +133,8 @@
 						</tr>
 						<tr>
 							<td class="tr-title">身份证正面扫描件：</td>
-							<td class="tr-content content">
-								<input type="file" id="upload_btn" />
+							<td class="tr-content content" id="front_wrapper">
+								<input type="file" id="front_file" />
 							</td>
 							<td class="tr-tips">
 								<span class="example">
@@ -145,8 +145,8 @@
 						</tr>
 						<tr>
 							<td class="tr-title">身份证反面扫描件：</td>
-							<td class="tr-content content">
-								<input type="file" id="upload_btn" />
+							<td class="tr-content content" id="back_wrapper">
+								<input type="file" id="upload_btn" id="back_file" />
 							</td>
 							<td class="tr-tips">
 								<span class="example">
@@ -187,5 +187,7 @@
 
 @section("js")
 	@parent
+	<script type="text/javascript" src="/lib/js/plupload.full.min.js"></script>
+	<script type="text/javascript" src="/lib/js/qiniu.min.js"></script>
 	<script type="text/javascript" src="/dist/js/pages/account-center/account-info.js"></script>
 @stop

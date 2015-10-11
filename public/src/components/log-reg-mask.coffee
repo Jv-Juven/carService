@@ -25,7 +25,7 @@ regTips = $(".warn-tips input")
 regPassword = $(".reg-password")
 regRePassword = $(".reg-repassword")
 regBtn = $(".personal-reg-btn")
-cancelBtn = $(".personal-cancel-btn")
+regCancelBtn = $(".personal-cancel-btn")
 fotgetPsd = $(".forget-tips")
 
 ###
@@ -85,7 +85,7 @@ cutUserType =  (e)->
 		logEmail.hide()
 		logPhone.show()
 
-#企业用户登录
+#企业和个人用户登录
 userLogin = ()->
 
 	if userType is 0
@@ -117,7 +117,8 @@ userLogin = ()->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
 			else
-				closeMask
+				# closeMask
+				window.location.href = window.location.href
 
 #切换到个人用户注册
 personal = ()->
@@ -185,7 +186,7 @@ submitBtn.on "click", userLogin
 #"注册"按钮绑定事件
 regBtn.on "click", personalReg
 
-#"取消"按钮绑定事件
+#登录"取消"按钮绑定事件
 cancelBtn.on "click", closeMask
 
 
@@ -301,7 +302,8 @@ phoneCodesBtn.off().on "click", ()->
 saveBtn.on "click", resetPsd
 
 #"取消"按钮事件绑定
-cancelBtn.on "click", closeReg
+regCancelBtn.on "click", closeMask
+
 
 #"忘记密码"框关闭按钮事件绑定
 resetClose.on "click", closeReg

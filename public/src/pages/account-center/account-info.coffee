@@ -2,7 +2,7 @@
 Uploader = require "./../../common/uploader/index.coffee"
 validate = require "./../../common/validate/validate.coffee"
 warn = require "./../../common/warn/warn.coffee"
-mask = require "./../../components/log-reg-mask.coffee"
+mask = require "./../../components//mask/mask.coffee"
 
 validate = new validate()
 warn = new warn()
@@ -54,6 +54,36 @@ psdTips = $(".psd-tips")
 psdSaveBtn =$(".psd-save-btn")
 psdCancelBtn =$(".psd-cancel-btn")
 
+
+# 文件格式
+fileConfig = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp','image/JPEG', 'image/PNG', 'image/GIF', 'image/BMP']
+
+# 文件上传函数
+setUploadedPhoto = (name, val)->
+	uploader = new Uploader {
+		# domain: "7xnenz.com1.z0.glb.clouddn.com/"	# bucket 域名，下载资源时用到，**必需**
+		browse_button: name + '_file',       # 上传选择的点选按钮，**必需**
+		container: name + '_wrapper',      
+	}, {
+		FilesAdded: (up, files)->
+			# console.log files[0].type
+			if not (files[0].type in fileConfig)
+				warn.alert '请上传"jpg"或"jefg"或"png"或"gif"格式的图片'
+				up.removeFile(files[0])
+
+		BeforeUpload: (up, file)->
+
+		FileUploaded: (up, file, info)->
+			info = $.parseJSON info
+			domain = up.getOption('domain')
+			url = domain + info.key
+
+			val = url
+			
+	}
+	return val
+
+
 show = {
 
 	#显示“修改密码”框
@@ -91,38 +121,49 @@ info = {
 	submitInfo: ()->
 
 		if !validate.charCodes(emailCodes.val())
+			emailCodes.focus()
 			accTips.text "*请正确填写邮箱验证码" 
 			return
+
 		if infoName.val().length is 0
+			infoName.focus()
 			accTips.text "*请填写运营者姓名"
 			return
+
 		if !validate.creditCard(infoCreditNum.val())
+			infoCreditNum.focus()
 			accTips.text "*请正确填写运营者身份证号码"
 			return
-		# if creditScanFront.length is 0
-		# 	accTips.text "*请上传身份证正面扫描件"
-		# 	return
-		# if creditScanBack.length is 0
-		# 	accTips.text "*请上传身份证反面扫描件"
-		# 	return
+
+		if creditScanFront.length is 0
+			accTips.text "*请上传身份证正面扫描件"
+			return
+
+		if creditScanBack.length is 0
+			accTips.text "*请上传身份证反面扫描件"
+			return
+
 		if !validate.mobile(infoPhone.val())
+			infoPhone.focus()
 			accTips.text "*请正确填写运营者手机号码"
 			return
+
 		if !validate.charCodes(infoPhoneCodes.val())
+			infoPhoneCodes.focus()
 			accTips.text "*请正确填写运营者手机短信验证码"
 			return
 
 		$.post "/user/save_operator_info", {
 				#邮箱验证码
-				email_code: emailCodes,
+				email_code: emailCodes.val(),
 				#手机号码
-				operational_phone: infoPhone,
+				operational_phone: infoPhone.val(),
 				#手机验证码
-				phone_code: infoPhoneCodes,
+				phone_code: infoPhoneCodes.val(),
 				#运营者姓名
-				operational_name: infoName,
+				operational_name: infoName.val(),
 				#运营者身份证号码
-				operational_card_no: infoCreditNum,
+				operational_card_no: infoCreditNum.val(),
 				#身份证正面扫描件
 				id_card_front_scan_path: creditScanFront,
 				#身份证反面扫描件
@@ -148,12 +189,15 @@ psd = {
 	savePsd: ()->
 
 		if !validate.charCodes(psdEmailCode.val())
+			psdEmailCode.focus()
 			psdTips.text("*请正确输入验证码")
 			return
 		if password.val().length < 6
+			password.focus()
 			psdTips.text("*请输入不少于六位的密码")
 			return
 		if rePassword.val().length < 6
+			rePassword.focus()
 			psdTips.text("*请再次输入密码")
 			return
 		
@@ -194,6 +238,11 @@ $ ()->
 	psdSaveBtn.on "click", psd.savePsd
 	#修改密码"取消"按钮绑定事件
 	psdCancelBtn.on "click", mask.closeMask
+
+	#为上传按钮绑定上传事件
+	creditScanFront = setUploadedPhoto("front", creditScanFront)
+	creditScanBack = setUploadedPhoto("back", creditScanBack)
+
 
 
 

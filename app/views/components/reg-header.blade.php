@@ -29,12 +29,12 @@
 		@else
 		<li>
 			<div class="log-reg-btns">
-				<a class="reg-btn first" href="javascript:" id="header_regbtn">注册</a>
-				<a class="reg-btn" href="javascript:">登录</a>
-				<ul class="reg-dropdown-list">
+				<!-- <a class="reg-btn first" href="javascript:" id="header_regbtn">注册</a> -->
+				<a class="reg-btn" href="/">登录</a>
+				<!-- <ul class="reg-dropdown-list">
 					<li class="reg-li first"><a href="javascript:">个人用户注册</a></li>
 					<li class="reg-li"><a href="/">企业用户注册</a></li>
-				</ul>
+				</ul> -->
 			</div>
 		</li>
 		<li class="header-btns btns-last">

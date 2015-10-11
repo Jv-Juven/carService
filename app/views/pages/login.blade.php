@@ -107,7 +107,7 @@
 								</dd>
 							</dl>
 						</a>
-						<a href="/">
+						<a href="javascript:">
 							<dl>
 								<dt>
 									<img src="/images/login/icons01.png">
@@ -117,7 +117,7 @@
 									凭有效的检测合格报告，在市公安交通管理局车辆管理所，以及台山、新会、恩平、开平
 								</dd>
 							</dl>
-						</a><a href="/">
+						</a><a href="javascript:">
 							<dl>
 								<dt>
 									<img src="/images/login/icons01.png">

@@ -28,6 +28,9 @@ xhArr = []
 
 recordsTotal = $(".records-total")
 
+#车牌号码
+licensePlate = ""
+
 
 #再次加载页面检测，触发查询
 loadSubmit = ()->
@@ -138,6 +141,7 @@ dealVio = ()->
 				return
 			else
 				$.post "/serve-center/agency/business/confirm_violation", {
+					car_plate_no: licensePlate,
 					xh: xhArr
 				}, (msg)->
 					if msg["errCode"] isnt 0
