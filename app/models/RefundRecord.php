@@ -12,6 +12,7 @@ class RefundRecord extends BaseModel{
         'user_id',
         'approval_at',
         'status',
+        'refund_no',
         'comment'
     ];
 

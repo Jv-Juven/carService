@@ -66,6 +66,11 @@ class CreateRefundRecordsTable extends Migration {
 			$table->string('comment')->nullable();
 
 			/*
+			 * 订单流水号
+			*/
+			$table->string('refund_no')->nullable();
+
+			/*
 			 * Laravel自动维护
 			 * created_at: 创建时间 即申请退款时间
 			 * updated_at: 修改时间
