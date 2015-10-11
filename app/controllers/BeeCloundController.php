@@ -98,9 +98,9 @@ class BeeCloundController extends BaseController{
 					    $cost_detail->number 		= $data['total_fee'];
 						$cost_detail->save();
 						
-						$result =  BusinessController::recharge($data['total_fee'],$msg['optional']['user_id']);
-						if( !$result )
-							throw new Exception;
+						// $result =  BusinessController::recharge($data['total_fee'],$msg['optional']['user_id']);
+						// if( !$result )
+						// 	throw new Exception;
 			    	});
 			    }catch( \Exception $e )
 			    {	
