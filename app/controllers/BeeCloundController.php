@@ -163,8 +163,8 @@ class BeeCloundController extends BaseController{
 		$data = $this->returnDataArray();
 		$data["channel"] = "WX_NATIVE";
 
-		// $money = 1;
-		$money = Input::get('money');
+		$money = 1;
+		// $money = Input::get('money');
 		if( !is_int( $money ) )
 			return Response::json(array('errCode'=>21, 'message'=>'请输入正确的金额'));
 		
@@ -201,8 +201,8 @@ class BeeCloundController extends BaseController{
 	{
 		$data = $this->returnDataArray();
 		$data["channel"] = "WX_NATIVE";
-		// $order_id = 'dbdd5619f0ad08548343937978';
-		$order_id = Input::get('order_id');
+		$order_id = 'dbdd5617c95a48d75575926400';
+		// $order_id = Input::get('order_id');
 		if( !isset($order_id) )
 			return Response::json(array('errCode'=>21, 'message'=>'请输入订单id' ));
 
@@ -252,8 +252,8 @@ class BeeCloundController extends BaseController{
 	{
 		$data = $this->returnDataArray();
 		
-		// $refund_id = 'tkjl5619f0ad456df960288866';
-		$refund_id = Input::get('refund_id');
+		$refund_id = 'tkjl5617c95a522b4685036243';
+		// $refund_id = Input::get('refund_id');
 		$refund = RefundRecord::find( $refund_id );
 		if( !isset( $refund) )
 			return Response::json(array('errCode'=>21, 'message'=>'该订单不存在'));
