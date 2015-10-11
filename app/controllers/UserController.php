@@ -639,14 +639,14 @@ class UserController extends BaseController{
 		if( $phone_code != $session_phone_code)
 			return Response::json(array('errCode'=>21,'message'=>'验证码不正确'));
 
-		//验证手机
-		$login_account 	= Input::get('login_account');
-		try{
-			$user = Sentry::login($login_account);
-			Sentry::logout();
-		}catch(Exception $e){
-			return Response::json(array('errCode'=>22,'message'=>'手机号码不正确，请重新输入'));
-		}
+		// //验证手机
+		// $login_account 	= Input::get('login_account');
+		// try{
+		// 	$user = Sentry::login($login_account);
+		// 	Sentry::logout();
+		// }catch(Exception $e){
+		// 	return Response::json(array('errCode'=>22,'message'=>'手机号码不正确，请重新输入'));
+		// }
 
 		$data = array(
 			'password' 	   => Input::get('password'),

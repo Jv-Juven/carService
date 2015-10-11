@@ -302,11 +302,11 @@ class BeeCloundController extends BaseController{
 	}	
 
 	//退款状态
-	public function refundStatus()
+	public function refundStatus( $refund_no )
 	{
 		$data = $this->returnDataArray();
 		$data["channel"] = "WX";
-
+		$data["refund_no"] = $refund_no;
 	    try {
         	$result = BCRESTApi::refunds($data);
 	        if ($result->result_code != 0 || $result->result_msg != "OK") {
@@ -316,10 +316,12 @@ class BeeCloundController extends BaseController{
 	    } catch (Exception $e) {
 	        return Response::json(array('errCode'=>25, 'message'=>$e->getMessage()));
 	    }
-
-        $refunds = $result->refunds;
        	
-       	return $refunds;
+       	return Response::json(array('errCode'=>0, 
+									'message'=>'ok', 
+									'result'=>$result->result,
+									'finish'->$result->finish
+							));
         
 	}
 
@@ -327,6 +329,8 @@ class BeeCloundController extends BaseController{
 	public function getRefundStatus()
 	{	
 		$data = $this->returnDataArray();
+		$data["channel"] = "WX";
+
 		$refund_id =  Input::get('refund_id');
 		$refund = RefundRecord::find( $refund_id );
 		if( !isset($refund) )
@@ -347,7 +351,9 @@ class BeeCloundController extends BaseController{
 		    return Response::json(['errCode'=>23, 'message'=>$e->getMessage()]);
 		}
 
-		$result = $this->refundStatus;
+		$result = $this->refundStatus($data["refund_no"]);
+
+		return $result;
 
 	}
 
