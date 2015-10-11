@@ -328,6 +328,10 @@ Route::group(array('prefix' => 'admin'), function() {
 		Route::get('/check-new-user', 'AdminBusinessCenterPageController@checkNewUser');
 		// 修改用户状态
 		Route::get('/change-user-status', 'AdminBusinessCenterPageController@changeUserStatus');
+		// 订单搜索
+		Route::get('/search-indent', 'AdminBusinessCenterPageController@searchIndent');
+		// 违章代办订单列表
+		Route::get('/indent-list', 'AdminBusinessCenterPageController@indentList');
 		// 修改用户查询单价
 		Route::get('/change-query-univalence', 'AdminBusinessCenterPageController@changeQueryUnivalence');
 		// 修改用户服务单价
@@ -336,6 +340,16 @@ Route::group(array('prefix' => 'admin'), function() {
 		Route::get('/change-default-query-univalence', 'AdminBusinessCenterPageController@changeDefaultQueryUnivalence');
 		// 修改默认服务单价
 		Route::get('/change-default-service-univalence', 'AdminBusinessCenterPageController@changeDefaultServiceUnivalence');
+		// 退款审批订单列表
+		Route::get('/refund-application-list', 'AdminBusinessCenterPageController@refundApplicationList');
+		// 查看申请退款订单详情
+		Route::get('/refund-indent-info', 'AdminBusinessCenterPageController@refundIndentInfo');
+		// 查看退款状态
+		Route::get('/refund-status', 'AdminBusinessCenterPageController@refundStatus');
+		// 查看办理凭证快递信息
+		Route::get('/express-ticket-info', 'AdminBusinessCenterPageController@expressTicketInfo');
+		// 查看申请退款订单详情
+		Route::get('/approve-refund-application', 'AdminBusinessCenterPageController@approveRefundApplication');
 	});
 
 	// 账户设置
@@ -355,7 +369,10 @@ Route::group(array('prefix' => 'admin'), function() {
 	Route::post('/login', 'AdminController@login');
 
 	Route::group(array('before' => 'auth.admin'), function() {
-		
+
+		// 查询违章代办订单
+		Route::get('/indents', 'AdminController@getIndents');
+
 		// 退出登录
 		Route::post('/logout', 'AdminController@logout');
 

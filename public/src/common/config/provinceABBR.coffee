@@ -1,0 +1,36 @@
+
+provinceABBR = [
+	{name: "粤", pinyin: "guangdong"},
+	{name: "京", pinyin: "beijing"},
+	{name: "津", pinyin: "tianjing"},
+	{name: "沪", pinyin: "shanghai"},
+	{name: "渝", pinyin: "chongqing"},
+	{name: "冀", pinyin: "hebei"},
+	{name: "豫", pinyin: "henan"},
+	{name: "云", pinyin: "yunnan"},
+	{name: "辽", pinyin: "liaoning"},
+	{name: "黑", pinyin: "heilongjiang"},
+	{name: "湘", pinyin: "hunan"},
+	{name: "皖", pinyin: "anhui"},
+	{name: "鲁", pinyin: "shandong"},
+	{name: "新", pinyin: "xinjiang"},
+	{name: "苏", pinyin: "jiangsu"},
+	{name: "浙", pinyin: "zhejiang"},
+	{name: "赣", pinyin: "jiangxi"},
+	{name: "鄂", pinyin: "hubei"},
+	{name: "桂", pinyin: "guangxi"},
+	{name: "甘", pinyin: "gansu"},
+	{name: "晋", pinyin: "shanxi"},
+	{name: "蒙", pinyin: "neimenggu"},
+	{name: "陕", pinyin: "shan3xi"},
+	{name: "吉", pinyin: "jilin"},
+	{name: "闽", pinyin: "fujian"},
+	{name: "贵", pinyin: "guizhou"},
+	{name: "川", pinyin: "sichuan"},
+	{name: "青", pinyin: "qinghai"},
+	{name: "藏", pinyin: "xizang"},
+	{name: "琼", pinyin: "hainan"},
+	{name: "宁", pinyin: "ningxia"}
+];	
+
+module.exports = provinceABBR;
