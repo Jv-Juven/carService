@@ -407,7 +407,10 @@ Route::group(array('prefix' => 'admin'), function() {
 
 //七牛
 Route::group(array('prefix'=>'qiniu','before'=>'auth.user.isIn'),function(){
+	//上传
 	Route::get('/', 'UploadController@getUpToken');
+	//下载图片
+	Route::get('download-token','UploadController@downloadToken');
 });
 
 
