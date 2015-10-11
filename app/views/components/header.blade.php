@@ -16,6 +16,7 @@
 			<a href="/serve-center/search/pages/violation">服务中心</a>
 			<div class="item-underline"></div>
 		</li>
+		@if( Sentry::check())
 		<li class="header-menu-item nav-item">
 			<a href="/finance-center/cost-manage/overview">商务中心</a>
 			<div class="item-underline"></div>
@@ -28,6 +29,7 @@
 			<a href="/account-center/account-info">账户设置</a>
 			<div class="item-underline"></div>
 		</li>
+		@endif
 	</ul>
 
 	<ul class="header-btns-wrapper">
