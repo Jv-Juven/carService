@@ -18,6 +18,7 @@
 							<img src="/images/components/nav_arrow.png">
 						</i>
 					</li>
+					@if(Sentry::getUser()->user_type == 1)
 					<li class="">
 						<a class="nav-item" href="/serve-center/search/pages/license">
 							<i>•</i>
@@ -36,8 +37,10 @@
 							<img src="/images/components/nav_arrow.png">
 						</i>
 					</li>
+					@endif
 				</ul>
 			</li>
+			@if( Sentry::check() )
 			<li class="li">
 				<a href="javascript:">
 					<i class="nav-icon">
@@ -76,6 +79,7 @@
 					</li>
 				</ul>
 			</li>
+			@endif
 		</ul>
 	</div>
 </div>
