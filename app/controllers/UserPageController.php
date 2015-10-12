@@ -34,10 +34,9 @@ class UserPageController extends BaseController{
 		}
 
 		//将状态信息改成未填写登记信息
+		Sentry::login($user,false);
 		$user->status = 11;
-		$login_user = $user;
 		$user->save();
-		Sentry::login($login_user,false);
 		
 		return View::make('pages.register-b.reg-info');
 	}
