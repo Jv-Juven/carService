@@ -16,7 +16,7 @@
 @section("right-content")
 	<div class="right-content">
 		<div class="content-box">
-			<a href="/">
+			<a href="/serve-center/search/pages/violation">
 				<dl>
 					<dt>
 						<img src="/images/serve/serve_icon01.png">
@@ -27,7 +27,7 @@
 					</dd>
 				</dl>
 			</a>
-			<a href="/">
+			<a href="/serve-center/search/pages/license">
 				<dl>
 					<dt>
 						<img src="/images/serve/serve_icon02.png">
@@ -37,7 +37,7 @@
 						凭有效的检测合格报告，在市公安交通管理局车辆管理所，以及台山、新会、恩平、开平
 					</dd>
 				</dl>
-			</a><a href="/">
+			</a><a href="/serve-center/search/pages/car">
 				<dl>
 					<dt>
 						<img src="/images/serve/serve_icon03.png">

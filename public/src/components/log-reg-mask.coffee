@@ -1,5 +1,6 @@
 validate = require "./../common/validate/validate.coffee"
 warn = require "./../common/warn/warn.coffee"
+redirection = require "./../components/redirection/redirection.coffee"
 
 validate = new validate()
 warn = new warn()
@@ -100,8 +101,8 @@ userLogin = ()->
 			login_account: logEmail.find(".input input").val(),
 			password: password.val()
 		}, (msg)->
-			if msg["errCode"] isnt 0
-				alert msg["message"]
+			#用户登录之后的页面重定向
+			redirection msg
 	else
 		if !validate.mobile(logPhone.find(".input input").val())
 			inputTips.text("*请输入正确的手机号码")
@@ -114,11 +115,9 @@ userLogin = ()->
 			email: logPhone.find(".input input").val(),
 			password: password.val()
 		}, (msg)->
-			if msg["errCode"] isnt 0
-				alert msg["message"]
-			else
-				# closeMask
-				window.location.href = window.location.href
+			#用户登录之后的页面重定向
+			redirection msg
+
 
 #切换到个人用户注册
 personal = ()->

@@ -79,7 +79,38 @@
 									<td class="cont-content">
 										<select class="bank">
 											<option value="">中国工商银行</option>
+											<option value="">中国农业银行</option>
 											<option value="">中国银行</option>
+											<option value="">中国建设银行</option>
+											<option value="">交通银行</option>
+											<option value="">招商银行</option>
+											<option value="">中信银行</option>
+											<option value="">光大银行</option>
+											<option value="">华夏银行</option>
+											<option value="">中国民生银行</option>
+											<option value="">广东发展银行</option>
+											<option value="">深圳平安银行</option>
+											<option value="">上海浦东发展银行</option>
+											<option value="">国家开发银行</option>
+											<option value="">中国进出口银行</option>
+											<option value="">中国农业发展银行</option>
+											<option value="">深圳发展银行</option>
+											<option value="">兴业银行股份有限公司</option>
+											<option value="">广州商业银行</option>
+											<option value="">广东华兴银行股份公司</option>
+											<option value="">东莞银行</option>
+											<option value="">广东南粤银行</option>
+											<option value="">广州农村商业银行</option>
+											<option value="">广东惠东农村商业银行</option>
+											<option value="">深圳农村商业银行</option>
+											<option value="">珠海农村商业银行</option>
+											<option value="">佛山顺德农村商业银行</option>
+											<option value="">广东博罗农村商业银行</option>
+											<option value="">广东南海农村商业银行</option>
+											<option value="">佛山农村商业银行</option>
+											<option value="">农村合作银行</option>
+											<option value="">渤海银行</option>
+											<option value="">广州市农商行</option>
 										</select>
 									</td>
 								</tr>

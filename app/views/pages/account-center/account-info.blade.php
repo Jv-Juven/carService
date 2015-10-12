@@ -27,7 +27,7 @@
 			</div>
 			<div class="developer-tr">
 				<div class="tr tr-title">营业执照注册号：</div>
-				<div class="tr tr-content">1234567890946342628495060</div>
+				<div class="tr tr-content" id="account_license_key">1234567890946342628495060</div>
 			</div>
 
 			<div class="title">
@@ -35,16 +35,16 @@
 			</div>
 			<div class="developer-tr">
 				<div class="tr tr-title">运营者身份证姓名：</div>
-				<div class="tr tr-content">卢**</div>
+				<div class="tr tr-content" id="account_name">卢某某</div>
 				<a class="change-info" href="javascript:">修改运营者信息</a>
 			</div>
 			<div class="developer-tr">
 				<div class="tr tr-title">运营者身份证号码：</div>
-				<div class="tr tr-content">4405**********9507</div>
+				<div class="tr tr-content" id="account_creditcard">440582197909179507</div>
 			</div>
 			<div class="developer-tr">
 				<div class="tr tr-title">运营者手机号码：</div>
-				<div class="tr tr-content">189*****325</div>
+				<div class="tr tr-content" id="account_phone">18967520325</div>
 			</div>
 
 			<div class="title">
