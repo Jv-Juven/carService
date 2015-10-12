@@ -27,13 +27,13 @@
                 @else
                 <td colspan="2" style="border-left:none;border-right:none;">支付方式：支付宝</td>
                 @endif
-                <td style="border-left:none;">已付总额：¥{{ $refundIndent->order->capital_sum + $refundIndent->order->service_charge_sum }} 元</td>
+                <td style="border-left:none;">已付总额：¥{{ $refundIndent->order->capital_sum + $refundIndent->order->service_charge_sum + $refundIndent->order->express_fee }} 元</td>
             </tr>
             <tr>
                 <td>{{{ $refundIndent->user_info->business_name }}}</td>
                 <td>{{{ $refundIndent->created_at }}}</td>
                 <td>{{{ $refundIndent->approval_at }}}</td>
-                <td>{{ $refundIndent->order->capital_sum + $refundIndent->order->service_charge_sum }} 元</td>
+                <td>{{ $refundIndent->order->capital_sum + $refundIndent->order->service_charge_sum + $refundIndent->order->express_fee }} 元</td>
                 @if($refundIndent->comment == "0")
                 <td>审核中</td>
                 @elseif($refundIndent->comment == "1")

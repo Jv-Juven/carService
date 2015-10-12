@@ -265,7 +265,14 @@ class AdminBusinessCenterPageController extends BaseController{
 
 	public function expressTicketInfo()
 	{
-		return View::make('pages.admin.business-center.express-ticket-info');
+		$indentId = Input::get("indent_id");
+
+		$indent = AgencyOrder::where("order_id", "=", $indentId)->first();
+
+		if(!isset($indent))
+			return View::make('errors.page-error', ["errMsg" => "订单未找到，请检查订单号是否正确"]);
+
+		return View::make('pages.admin.business-center.express-ticket-info', ["indent" => $indent]);
 	}
 
 	public function approveRefundApplication()

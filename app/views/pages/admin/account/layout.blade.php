@@ -11,7 +11,7 @@
     	</div>
 
     	<div id="right-content">
-	       	@yield('account-center-content')
+	       	@yield('admin-account-content')
     	</div>
 
         <div class="clear"></div>

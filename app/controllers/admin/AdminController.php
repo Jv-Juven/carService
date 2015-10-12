@@ -9,6 +9,7 @@ class AdminController extends BaseController {
 		$indentId = Input::get("indentId");
 		$status = Input::get("status");
 
+		// 退款请求审批通过，订单处理状态变为<已关闭>，退款申请的审核状态变为<审核通过退款中>，订单交易状态变为<已退款>
 		if($status == "1")
 		{
 			$result = DB::table('refund_records')
@@ -17,11 +18,29 @@ class AdminController extends BaseController {
 						->join('agency_orders', 'agency_orders.order_id', '=', 'refund_records.order_id')
 						->update(["refund_records.status" => $status, "agency_orders.trade_status" => "3", "process_status" => "4"]);
 
+			// todo...
+
 			if($result == 0)
 				return Response::json(array("errCode" => 1, "errMsg" => "订单未找到，请检查订单号是否正确"));
 
 			return Response::json(array("errCode" => 0));
 		}
+		// 退款请求审批未通过，订单处理状态不变，订单交易状态还原为<已付款>，退款申请的审核状态变为<审核不通过>
+		if($status == "3")
+		{
+			$result = DB::table('refund_records')
+						->where("refund_records.order_id", "=", $indentId)
+						->where("agency_orders.order_id", "=", $indentId)
+						->join('agency_orders', 'agency_orders.order_id', '=', 'refund_records.order_id')
+						->update(["refund_records.status" => $status, "agency_orders.trade_status" => "1"]);
+			
+			if($result == 0)
+				return Response::json(array("errCode" => 1, "errMsg" => "订单未找到，请检查订单号是否正确"));
+			
+			return Response::json(array("errCode" => 0));
+		}
+
+		return Response::json(array("errCode" => 1, "errMsg" => "状态参数错误"));
 	}
 
 	public function changeIndentStatus()

@@ -116,7 +116,7 @@ class CcobSeeder extends Command {
     public function fire()
     {
         DB::transaction(function(){
-            $this->create_users();
+            // $this->create_users();
             $this->create_agency_orders();
             $this->create_refund_records();
             $this->create_fee_types();
@@ -179,6 +179,9 @@ class CcobSeeder extends Command {
                 $agency_order = new AgencyOrder();
                 $agency_order->order_id = $order_id;
                 $agency_order->user_id = $user->user_id;
+                $agency_order->recipient_name = "cyrilzhao";
+                $agency_order->recipient_phone = "13911111111";
+                $agency_order->recipient_addr = "国王十字车站九又四分之三站台";
                 $agency_order->pay_platform = rand( 0, 1 ) ? '0': '1';
                 $agency_order->pay_time = $this->get_random_datetime();
                 $agency_order->pay_trade_no = uniqid( 'ptn', true );
@@ -234,10 +237,8 @@ class CcobSeeder extends Command {
             $refund_record->user_id = $order->user_id;
             if ( rand( 0, 1 ) ){
                 $refund_record->approval_at = $this->get_random_datetime();
-                $refund_record->comment = '0';
                 $refund_record->status = '2';
             }else{
-                $refund_record->comment = '1';
                 $refund_record->status = '0';
             }
             $refund_record->save();

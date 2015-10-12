@@ -16,23 +16,19 @@
         <form class="form-inline">
             <div class="form-group">
                 <label>订单编号：</label>
-                <span>12354242653768484795689876</span>
+                <span>{{{ $indent->order_id }}}</span>
             </div>
             <div class="form-group">
                 <label>收件人姓名：</label>
-                <span>黄生</span>
+                <span>{{{ $indent->recipient_name }}}</span>
             </div>
             <div class="form-group">
                 <label>收件人手机：</label>
-                <span>18911111111</span>
+                <span>{{{ $indent->recipient_phone }}}</span>
             </div>
             <div class="form-group">
                 <label>收件人地址：</label>
-                <span>广东省广州市大学城外环西路100号</span>
-            </div>
-            <div class="form-group">
-                <label>发动机后4位：</label>
-                <span>Q123</span>
+                <span>{{{ $indent->recipient_addr }}}</span>
             </div>
         </form>
     </div>
