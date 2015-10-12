@@ -255,8 +255,8 @@ $ ()->
 	saveBtn.on "click", info.submitInfo
 	#修改运营者信息"取消"按钮事件绑定
 	cancelBtn.on "click", mask.closeMask
-	#"获取邮箱验证码"按钮绑定事件
-	getEmailCodesBtn.on "click", info.getEmailCodes
+	#修改运营者信息的"获取邮箱验证码"按钮绑定事件
+	getEmailCodesBtn.on "click", psd.getEmailCodes
 	#"获取手机验证码"按钮绑定事件
 	getPhoneCodesBtn.on "click", info.getPhoneCodes
 	#修改密码的"获取邮箱验证码"按钮绑定事件
