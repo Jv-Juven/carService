@@ -32,10 +32,11 @@ submit = ()->
 		recordID: fileCodes.val()
 	}, (msg)->
 		if msg["errCode"] is 0
+			fillData(msg["account"]["balance"], msg["account"]["unit"])
 			stress.text(msg["message"] + "分")
 			driveResult.show()
 		else
-			warn.alert msg["message"]
+			alert msg["message"]
 
 
 $ ()->

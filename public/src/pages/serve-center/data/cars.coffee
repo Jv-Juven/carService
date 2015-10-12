@@ -28,6 +28,7 @@ submit = ()->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
 		else
+			fillData(msg["account"]["balance"], msg["account"]["unit"])
 			result = _.template $("#cars_template").html()
 			result = result {
 				"array": msg["car"]
