@@ -1,6 +1,20 @@
 <?php
 
 class AgencyController extends BaseController{
+
+    public static $AGENCY_STATUS_SEARCHED    = 0;
+    public static $AGENCY_STATUS_CONFIRMED   = 1;
+
+    protected static function get_total_fee( $violations ){
+
+        $total_fee = 0;
+
+        foreach ( $violations as $violation ){
+            $total_fee += (int)$violation[ 'fkje' ];
+        }
+
+        return $total_fee;
+    }
     
     public function confirm_violation(){
 
@@ -11,40 +25,70 @@ class AgencyController extends BaseController{
         $sequences = Input::get( 'xh' );
 
         if ( empty( $sequences ) ){
-            return Response::json([ 'errCode' => 2, 'message' => '请选择需要办理的订单' ])
+            return Response::json([ 'errCode' => 2, 'message' => '请选择需要办理的订单' ]);
         }
 
-        if ( !( $sequences instanceof array ) ){
+        if ( !is_array( $sequences ) ){
             return Response::json([ 'errCode' => 3, 'message' => '参数错误' ]);
         }
 
         $violations = Session::get( 'violations' );
 
+        $sign = Input::get( 'sign' );
+
+        // 检测sign值
+        if ( !array_key_exists( $sign, $violations ) ){
+
+            return Response::json([ 'errCode' => 3, 'message' => '参数错误' ]);
+        }
+
+        // 判断状态码
+        if ( $violations[ $sign ][ 'info' ][ 'status' ] == static::$AGENCY_STATUS_CONFIRMED ){
+
+            return Response::json([ 'errCode' => 4, 'message' => '您已确认办理' ]);
+        }
+
         // 根据违章序号过滤出需要代办的记录
-        $violations_to_process = array_filter( $violations['result'], function( $violation ){
+        $violations_to_process = array_filter( $violations[ $sign ]['results'], function( $violation ) use ( $sequences ){
 
             return in_array( $violation['xh'], $sequences );
         });
 
         // 检查是否为空
-        if ( empty( $violations_to_process ) ){
+        if ( !count( $violations_to_process ) ){
             return Response::json([ 'errCode' => 3, 'message' => '参数错误' ]);
         }
 
         // 保存到session
-        $violations['result'] = $violations_to_process;
+        $violations[ $sign ][ 'info' ][ 'status' ] = static::$AGENCY_STATUS_CONFIRMED;
+        $violations[ $sign ][ 'info' ][ 'count' ] = count( $violations_to_process );
+        $violations[ $sign ][ 'info' ][ 'total_fee' ] = static::get_total_fee( $violations_to_process );
+        $violations[ $sign ][ 'results' ] = $violations_to_process;
+
         Session::put( 'violations', $violations );
 
-        return Response::json([ 'errCode' => 0, 'message' => 'ok' ]);
+        return Response::json([ 'errCode' => 0, 'message' => 'ok', 'sign' => $sign ]);
     }
 
     public function submit_order(){
 
-        if ( !( Session::has( 'violations' ) && Session::has( 'agency_info' ) ) ){
-            return Response::json([ 'errCode' => 1, 'message' => '请先查询并确认代办' ]);
+        if ( !Session::has( 'violations' ) ){
+            return Response::json([ 'errCode' => 2, 'message' => '请先查询并确认代办' ]);
         }
 
-        if ( Input::has( 'is_delivered' ) && ( $is_delivered = Input::get( 'is_delivered' ) ) == true ){
+        $violations = Session::get( 'violations' );
+
+        $sign = Input::get( 'sign' );
+
+        if ( !array_key_exists( $sign, $violations ) ){
+            return Response::json([ 'errCode' => 3, 'message' => '参数错误' ]);
+        }
+
+        if ( $violations[ $sign ][ 'info' ][ 'status' ] != static::$AGENCY_STATUS_CONFIRMED ){
+            return Response::json([ 'errCode' => 2, 'message' => '请先确认' ]);
+        }
+
+        if ( ( $is_delivered = Input::get( 'is_delivered' ) ) == true ){
             $params = Input::all();
             $rules  = [
                 'recipient_name'    => 'required',
@@ -58,37 +102,39 @@ class AgencyController extends BaseController{
             ];
             $attributes = [
                 'recipient_name'    => '收件人姓名',
-                'recipient_addr'    => '收件人地址'
+                'recipient_addr'    => '收件人地址',
                 'recipient_phone'   => '收件人手机'
             ];
 
             $validator = Validator::make( $params, $rules, $message, $attributes );
 
             if ( $validator->fails() ){
-                return Response::json( 'errCode' => 2,'messages' => $validator->messages()->all() );
+                return Response::json([ 'errCode' => 4, 'message' => $validator->messages()->first() ]);
             }
         }
 
-        $violations = Session::get( 'violations' );
-        $agency_info = Session::get( 'agency_info' );
+        $violation = $violations[ $sign ];
 
         try{
             DB::beginTransaction();
+
             $order_id                           = AgencyOrder::get_unique_id();
             $agency_order                       = new AgencyOrder();
             $agency_order->order_id             = $order_id;
             $agency_order->user_id              = Sentry::getUser()->user_id;
-            $agency_order->capital_sum          = $violations['info']['total_fee'];
-            $agency_order->car_type_no          = $violations['info']['car_type_no'];
-            $agency_order->car_plate_no         = $violations['info']['car_plate_no'];
-            $agency_order->car_engine_no        = $violations['info']['car_engine_no'];
-            $agency_order->service_charge_sum   = $agency_info['service_fee'];
+            $agency_order->agency_no            = $violation['info']['count'];
+            $agency_order->capital_sum          = $violation['info']['total_fee'];
+            $agency_order->car_type_no          = $violation['info']['car_type_no'];
+            $agency_order->car_plate_no         = $violation['info']['car_plate_no'];
+            $agency_order->car_engine_no        = $violation['info']['car_engine_no'];
+            $agency_order->service_charge_sum   = $violation['info']['service_fee'];
+            $agency_order->late_fee_sum         = 0.00;
             $agency_order->trade_status         = 0;
             $agency_order->process_status       = 0;
 
             if ( $is_delivered ){
                 $agency_order->is_delivered     = true;
-                $agency_order->express_fee      = $agency_info['express_fee'];
+                $agency_order->express_fee      = $violation['info']['express_fee'];
                 $agency_order->recipient_name   = $params['recipient_name'];
                 $agency_order->recipient_addr   = $params['recipient_addr'];
                 $agency_order->recipient_phone  = $params['recipient_phone'];
@@ -96,18 +142,19 @@ class AgencyController extends BaseController{
 
             $agency_order->save();
 
-            foreach ( $violations['result'] as $violation_result ){
+            foreach ( $violation['results'] as $violation_result ){
                 $violation_info = new TrafficViolationInfo();
                 $violation_info->order_id               = $order_id;
-                $violation_info->req_car_plate_no       = $violation['hphm'];   //车牌号码
-                $violation_info->req_car_engine_no      = $violation['fdjh'];   //发动机号后六位
-                $violation_info->car_type_no            = $violation['hpzl'];   //号牌种类
-                $violation_info->rep_event_time         = $violation['wfsj'];   //违法时间
-                $violation_info->rep_event_addr         = $violation['wfdz'];   //违法地址
-                $violation_info->rep_violation_behavior = $violation['wfxwzt']; //违法行为
-                $violation_info->rep_point_no           = $violation['wfjfs'];  //违法记分数
-                $violation_info->rep_priciple_balance   = $violation['fkje'];   //罚款金额
-                $violation_info->rep_service_charge     = $agency_info['service_fee'];
+                $violation_info->req_car_frame_no       = '';
+                $violation_info->req_car_plate_no       = $violation_result['hphm'];   //车牌号码
+                $violation_info->req_car_engine_no      = $violation_result['fdjh'];   //发动机号后六位
+                $violation_info->car_type_no            = $violation_result['hpzl'];   //号牌种类
+                $violation_info->rep_event_time         = $violation_result['wfsj'];   //违法时间
+                $violation_info->rep_event_addr         = $violation_result['wfdz'];   //违法地址
+                $violation_info->rep_violation_behavior = $violation_result['wfxwzt']; //违法行为
+                $violation_info->rep_point_no           = $violation_result['wfjfs'];  //违法记分数
+                $violation_info->rep_priciple_balance   = $violation_result['fkje'];   //罚款金额
+                $violation_info->rep_service_charge     = $violation['info']['service_fee'];
                 $violation_info->save();
             }
 
@@ -117,32 +164,13 @@ class AgencyController extends BaseController{
 
             DB::rollback();
 
-            return Response::json([ 'errCode' => 3, 'message' => '订单处理失败' ]);
-        }
-        
-        Session::forget( 'violations' );
-        Session::forget( 'agency_order' );
+            throw $e;
 
-        $result = [
-            'order_id'              => $order_id,
-            'agency_no'             => $violations['info']['count'],
-            'capital_sum'           => $violations['info']['total_fee'],
-            'car_plate_no'          => $violations['info']['car_plate_no'],
-            'service_charge_sum'    => $agency_order['service_fee']
-        ];
-
-        if ( $is_delivered ){
-            $result['recipient_name']   => $params['recipient_name'];
-            $result['recipient_addr']   => $params['recipient_addr'];
-            $result['recipient_phone']  => $params['recipient_phone'];
+            return Response::json([ 'errCode' => 1, 'message' => '订单处理失败' ]);
         }
 
-        Session::flash( 'order_info', $result );
+        unset( $violations[ $sign ] );
 
-        return Response::json([
-            'errCode'       => 0,
-            'message'       => 'ok',
-            'order'         => $result
-        ]);
+        return Response::json([ 'errCode' => 0, 'message' => 'ok', 'order_id' => $order_id ]);
     }
 }
