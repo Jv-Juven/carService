@@ -30,3 +30,7 @@
     <button class="ss-cfm">确定</button> -->
 </div>
 @stop
+
+@section("js")
+    @parent
+@stop

@@ -25,6 +25,9 @@ $ ()->
 	submitBtn = $(".reg-info-btn")
 	regInfoTips = $(".reg-info-tips")
 
+	#获取手机验证码按钮
+	getCodeBtn = $(".reg-info-get-code")
+
 	licensePreg = /[a-zA-Z0-9]{15}|[a-zA-Z0-9]{18}/
 
 	# 文件格式
@@ -63,10 +66,21 @@ $ ()->
 
 		}
 
+	#获取手机短信验证码
+	getPhoneCode = ()->
+		if !validate.mobile(phone.val())
+			regInfoTips.text "请输入手机号码"
+			return
+		$.get "/user/operational_phone_code", {
+			telephone: phone.val()
+		}, (msg)->
+			if msg["errCode"] is 0
+				alert msg["message"]
+			else
+				alert msg["message"]
 
 	#“提交按钮”信息提交函数
 	submitInfo = ()->
-
 
 		bank = $(".bank option:selected")
 		position = $(".position option:selected")
@@ -75,9 +89,19 @@ $ ()->
 			regInfoTips.text("*请确保信息填写完整")
 			return
 
-		# if $("#license_file").val() is "" or $("#credit_front_file").val() is "" or $("#credit_back_file").val() is ""
-		# 	regInfoTips.text("*请上传相关文件")
-		# 	return
+		if licenseScan is ""
+			regInfoTips.text("*请上传营业执照扫描件")
+			return
+
+		if creditCardScan01 is ""
+			regInfoTips.text("*请上传身份证正面扫描件")
+			return
+
+		if creditCardScan02 is ""
+			regInfoTips.text("*请上传身份证反面扫描件")
+			return
+
+		regInfoTips.text(" ")
 
 		$.post "/user/info_register", {
 
@@ -109,16 +133,18 @@ $ ()->
 
 		}, (msg)->
 			if msg["errCode"] isnt 0
-				warn.alert msg["errCode"]
-
+				alert msg["errCode"]
 			else
-				window.location.href = ""
+				window.location.href = "/user/pending"
 
 
 	#保持企业名称和户名一致
 	companyName.on "change input", ()->
 		_val = $(this).val()
 		companyName02.val(_val)
+
+	#"获取手机验证码"按钮事件绑定
+	getCodeBtn.on "click", getPhoneCode
 
 	#"提交"按钮事件绑定
 	submitBtn.on "click", submitInfo

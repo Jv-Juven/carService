@@ -40,6 +40,7 @@ navConfig = {
 		},
 		navIndexes: {
 			"account-info": 0,
+			"account-info-c": 0,
 			"developer-info": 1
 		}
 	}

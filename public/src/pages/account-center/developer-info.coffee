@@ -27,7 +27,7 @@ getCodes = ()->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
 		else
-			alert "验证码已成功发送"
+			alert msg["message"]
 
 #提交信息
 submitMsg = ()->
