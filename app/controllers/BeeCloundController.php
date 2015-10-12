@@ -111,7 +111,7 @@ class BeeCloundController extends BaseController{
 		    }else{
 		    	$order = AgencyOrder::find( $data['bill_no'] );
 		    	$order->trade_status = 1; //已付款
-		    	$order->process_status = 1; //未处理
+		    	$order->process_status = 1; //已受理
 		    	if( !$order->save() ) 
 		    		return 'false';
 
