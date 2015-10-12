@@ -73,6 +73,7 @@
             @endforeach
         </table>
 
+        <!-- 订单处理状态为<已受理>且交易状态为<申请退款>时才显示退款审批按钮 -->
         @if($indent->process_status == 1 && $indent->trade_status == 2)
         <a href="/admin/business-center/approve-refund-application?indent_id={{{ $indent->order_id }}}" target="_blank">
             <button id="submit-btn" type="button" class="btn btn-primary">退款审批</button>

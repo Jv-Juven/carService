@@ -21,12 +21,8 @@
             </div>
             <div class="form-group">
                 <label>总笔数：</label>
-                <span>{{ count($indent->traffic_violation_info) }}</span>
+                <span>{{{ $indent->agency_no }}}</span>
             </div>
-            <!-- <div class="form-group">
-                <label>微信订单号：</label>
-                <span>455afdafa123342526626</span>
-            </div> -->
             <div class="form-group">
                 <label>总金额：</label>
                 <span>{{ $indent->capital_sum + $indent->service_charge_sum + $indent->express_fee}}</span>
