@@ -68,7 +68,7 @@ submit = ()->
 
 	# console.log(indentNum + "\n" + plate + plateNum + "\n" + status + "\n" + dateStart.val() + "\n")
 
-	$.get "/serve-center/order/operation/search", {
+	$.get "/serve-center/order/operation/searchs", {
 			order_id: indentNum.val(),
 			car_plate_no: plate.find("option:selected").text() + plateNum.val(),
 			process_status: status.find("option:selected").val(),

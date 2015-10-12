@@ -1,7 +1,7 @@
 validate = require "./../../../common/validate/validate.coffee"
 warn = require "./../../../common/warn/warn.coffee"
 allCheck = require "./../../../common/allcheckbox/all-checkbox.coffee"
-fillData = require "./../../../components/violation-info.coffee"
+info = require "./../../../components/violation-info.coffee"
 
 validate = new validate()
 warn = new warn()
@@ -98,8 +98,10 @@ submit = ()->
 			alert msg["message"]
 
 		else
-
-			fillData(msg["account"]["balance"], msg["account"]["unit"])
+			if msg["remain_serach_count"]
+				info.fillTimes msg["remain_serach_count"]
+			else
+				info.fillData(msg["account"]["balance"], msg["account"]["unit"])
 
 			sign.val msg["sign"]
 
@@ -118,7 +120,7 @@ submit = ()->
 				"array": array02,
 				"service_fee": msg["service_fee"]
 				})
-			
+
 			$(".tb-tr").remove()
 
 			th01.after tpl01

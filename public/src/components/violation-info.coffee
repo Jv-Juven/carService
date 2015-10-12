@@ -5,10 +5,15 @@ infoTimes = $("#info_times")
 
 
 #数据填充
-fillData = (balance, unit)->
-	times = parseInt(balance) / parseInt(unit)
+info = {
 
-	infoBalance.text balance
-	infoTimes.text times
+	fillData = (balance, unit)->
+		times = parseInt(balance) / parseInt(unit)
 
-module.exports = fillData
+		infoBalance.text balance
+		infoTimes.text times
+	fillTimes = (times)->
+		infoTimes.text times
+}
+
+module.exports = info
