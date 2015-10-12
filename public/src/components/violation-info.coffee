@@ -5,8 +5,9 @@ infoTimes = $("#info_times")
 
 
 #数据填充
-fillData = (balance, times)->
+fillData = (balance, unit)->
+	times = balance / unit
 	infoBalance.text balance
-	infoTimes.text infoTimes
+	infoTimes.text times
 
 module.exports = fillData

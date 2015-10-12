@@ -99,6 +99,8 @@ submit = ()->
 
 		else
 
+			fillData(msg["account"]["balance"], msg["account"]["unit"])
+
 			sign.val msg["sign"]
 
 			array01 = _.filter msg["violations"], "wfjfs", "0"

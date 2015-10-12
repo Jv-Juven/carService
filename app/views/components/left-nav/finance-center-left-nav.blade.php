@@ -47,7 +47,7 @@
                 </a>
                 <ul class="nav-sec">
                     <li>
-                        <a class="nav-item" href="/finance-center/index">
+                        <a class="nav-item" href="/finance-center/recharge/index">
                             <i>•</i>
                             充值
                         </a>
