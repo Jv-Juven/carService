@@ -27,11 +27,11 @@
                     </ul>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="company-name-wrapper">
                 <label for="company-name">企业名称：</label>
                 <input type="text" id="company-name" class="form-control"/>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="license-code-wrapper" style="display:none;">
                 <label for="company-name">营业执照：</label>
                 <input type="text" id="license-code" class="form-control"/>
             </div>

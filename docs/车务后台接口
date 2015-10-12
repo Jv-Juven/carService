@@ -634,7 +634,7 @@ if( Sentry::check() )
 
 	5.退款(后台操作)
 
-		BeeCloundController::refund( $refund_id )
+		BeeCloudController::refund( $refund_id )
 
 		请求参数：
 				$refund_id 退款信息表id
@@ -649,7 +649,7 @@ if( Sentry::check() )
 
 	6.退款状态
 
-		BeeCloundController::getRefundStatus( $refund_id )
+		BeeCloudController::getRefundStatus( $refund_id )
 
 		请求参数：	
 					$refund_id 退款信息表id
@@ -659,7 +659,7 @@ if( Sentry::check() )
 				{
 					 errCode, 
 					 messsage,		
-				 	 finish,		退款是否完成
-				 	 result			退款是否成功
+				 	 finish,		退款是否完成 boolean
+				 	 result			退款是否成功 boolean
 				}
 

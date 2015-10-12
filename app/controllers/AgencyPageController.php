@@ -7,40 +7,23 @@ class AgencyPageController extends BaseController{
         return View::make( 'pages.serve-center.business.vio' );
     }
 
-    protected function get_total_fee( $violations ){
-
-        $total_fee = 0;
-
-        foreach ( $violations as $violation ){
-            $total_fee += (int)$violation[ 'fkje' ];
-        }
-
-        return $total_fee;
-    }
-
     public function agency(){
 
-        if ( !Session::has( 'violations_to_process' ) ){
+        if ( !Session::has( 'violations' ) ){
 
             return Redirect::to( '/serve-center/agency/pages/search_violation' );
         }
 
         $violations = Session::get( 'violations' );
-        $violations['info'][ 'count' ] = count( $violations['results'] );
-        $violations['info'][ 'total_fee' ] = $this->get_total_fee( $violations['results'] );
 
-        $agency_info = [
-            'service_fee'   => BusinessController::getServiceFee() * $violations_info['count'],
-            'express_fee'   => BusinessController::getExpressFee()
-        ];
+        $sign = Input::get( 'sign' );
 
-        Session::put( 'violations', $violations );
-        Session::put( 'agency_info', $agency_info );
+        if ( !array_key_exists( Input::get( 'sign' ), $violations ) ){
 
-        return View::make( 'pages.serve-center.business.agency', [
-            'violations_info'       => $violations_info,
-            'agency_info'           => $agency_info
-        ]);
+            return Response::make( '参数错误' );
+        }
+
+        return View::make( 'pages.serve-center.business.agency', [ 'violations_info' => $$violation[ $sign ]['info'] ]);
     }
 
     public function pay(){

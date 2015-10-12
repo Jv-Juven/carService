@@ -48,7 +48,10 @@ class AdminController extends BaseController {
 		$indentId = Input::get("indentId");
 		$status = Input::get("status");
 
-		$result = AgencyOrder::where("order_id", "=", $indentId)->update(["process_status" => 2]);
+		if($status != "2" && $status != "3")
+			return Response::json(array("errCode" => 1, "errMsg" => "[参数错误]非法的状态值"));
+
+		$result = AgencyOrder::where("order_id", "=", $indentId)->update(["process_status" => $status]);
 		
 		if($result == 0)
 			return Response::json(array("errCode" => 1, "errMsg" => "订单未找到，请检查订单号是否正确"));

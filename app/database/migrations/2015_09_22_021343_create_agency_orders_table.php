@@ -71,7 +71,7 @@ class CreateAgencyOrdersTable extends Migration {
 			$table->char('car_type_no', 2);
 			
 			/*
-			 * 代办订单数量
+			 * 违章信息数量
 			 */
 			$table->integer('agency_no');
 			
@@ -103,17 +103,16 @@ class CreateAgencyOrdersTable extends Migration {
 			 * 		1 : 已付款
 			 * 		2 : 申请退款
 			 * 		3 : 已退款
-			 * 		4 : 退款失败
 			 */
 			$table->char('trade_status', 2)->default('0');
 			
 			/*
 			 *  处理状态
 			 * 		0 : 未受理
-			 * 		1 : 已受理 //可以办理退款
+			 * 		1 : 已受理 // 可以办理退款
 			 * 		2 : 办理中
 			 * 		3 : 已完成
-			 * 		4 : 已关闭
+			 * 		4 : 已关闭 // 两种情况下会关闭订单：1、用户下单后24小时内未付款；2、用户发起退款申请审批通过
 			 */	
 			$table->char('process_status', 2);
 			

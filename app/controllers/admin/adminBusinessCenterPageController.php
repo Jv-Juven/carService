@@ -113,15 +113,15 @@ class AdminBusinessCenterPageController extends BaseController{
 		$perPage = 15;
 
 		if($type == "untreated")
-			$indents = AgencyOrder::where("process_status", "=", "0")->orderBy("created_at", "desc")->with("traffic_violation_info")->paginate($perPage);
+			$indents = AgencyOrder::where("process_status", "=", "0")->orderBy("updated_at", "desc")->with("traffic_violation_info")->paginate($perPage);
 		else if($type == "treated")
-			$indents = AgencyOrder::where("process_status", "=", "1")->orderBy("created_at", "desc")->with("traffic_violation_info")->paginate($perPage);
+			$indents = AgencyOrder::where("process_status", "=", "1")->orderBy("updated_at", "desc")->with("traffic_violation_info")->paginate($perPage);
 		else if($type == "treating")
-			$indents = AgencyOrder::where("process_status", "=", "2")->orderBy("created_at", "desc")->with("traffic_violation_info")->paginate($perPage);
+			$indents = AgencyOrder::where("process_status", "=", "2")->orderBy("updated_at", "desc")->with("traffic_violation_info")->paginate($perPage);
 		else if($type == "finished")
-			$indents = AgencyOrder::where("process_status", "=", "3")->orderBy("created_at", "desc")->with("traffic_violation_info")->paginate($perPage);
+			$indents = AgencyOrder::where("process_status", "=", "3")->orderBy("updated_at", "desc")->with("traffic_violation_info")->paginate($perPage);
 		else if($type == "closed")
-			$indents = AgencyOrder::where("process_status", "=", "4")->orderBy("created_at", "desc")->with("traffic_violation_info")->paginate($perPage);
+			$indents = AgencyOrder::where("process_status", "=", "4")->orderBy("updated_at", "desc")->with("traffic_violation_info")->paginate($perPage);
 		else
 			$indents = AgencyOrder::orderBy("created_at", "desc")->with("traffic_violation_info")->paginate($perPage);
 
@@ -197,7 +197,6 @@ class AdminBusinessCenterPageController extends BaseController{
 			return View::make('errors.page-error');
 		}		
 
-
 		return View::make('pages.admin.business-center.change-default-query-univalence', [
 			"violationUnivalence" => $result["violation"],
 			"licenseUnivalence" => $result["license"],
@@ -241,20 +240,48 @@ class AdminBusinessCenterPageController extends BaseController{
 	{
 		$indentId = Input::get("indent_id");
 
-		$indent = AgencyOrder::where("order_id", "=", $indentId)->first();
+		$result = DB::table('agency_orders')
+						->where("agency_orders.order_id", "=", $indentId)
+						->where("refund_records.order_id", "=", $indentId)
+						->join('refund_records', 'agency_orders.order_id', '=', 'refund_records.order_id')
+						->first();
+
+		if(!isset($result))
+			return View::make('errors.page-error', ["errMsg" => "订单未找到，请检查订单号是否正确"]);
+
+		try {
+
+			$resp = BeeCloudController::refund($result->refund_id);
+
+			var_dump($resp);
+			exit;
+
+		} catch (Exception $e) {
+
+		}
 
 		if(!isset($indent))
 			return View::make('errors.page-error', ["errMsg" => "订单未找到，请检查订单号是否正确"]);
 
-		return View::make('pages.admin.business-center.refund-status', [ 
-			"indent" => $indent
-		]);
+		// return View::make('pages.admin.business-center.refund-status', [ 
+		// 	"indent" => $indent
+		// ]);
 	}
 
 	public function refundApplicationList()
 	{
+		$type = Input::get("type", "all");
 		$perPage = 15;
-		$refundIndents = RefundRecord::orderBy("created_at", "desc")->with(["order", "user_info"])->paginate($perPage);
+
+		if($type == "approving") {
+			$refundIndents = RefundRecord::where("status", "=", "0")->orderBy("updated_at", "desc")->with(["order", "user_info"])->paginate($perPage);
+		} else if($type == "pass") {
+			$refundIndents = RefundRecord::where("status", "=", "1")->orWhere("status", "=", "2")->orWhere("status", "=", "4")->orderBy("updated_at", "desc")->with(["order", "user_info"])->paginate($perPage);
+		} else if($type == "unpass") {
+			$refundIndents = RefundRecord::where("status", "=", "3")->orderBy("updated_at", "desc")->with(["order", "user_info"])->paginate($perPage);
+		} else {
+			$refundIndents = RefundRecord::orderBy("created_at", "desc")->with(["order", "user_info"])->paginate($perPage);
+		}
 
 		return View::make('pages.admin.business-center.refund-application-list', [
 			"refundIndents" => $refundIndents,

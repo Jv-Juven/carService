@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label>退款金额：</label>
-                <span>Success</span>
+                <span>{{ $indent->capital_sum + $indent->service_charge_sum + $indent->express_fee }}</span>
             </div>
             <div class="form-group">
                 <label>业务结果：</label>
