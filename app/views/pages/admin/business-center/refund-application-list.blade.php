@@ -52,14 +52,10 @@
                 <td>{{ $refundIndent->order->capital_sum + $refundIndent->order->service_charge_sum + $refundIndent->order->express_fee }} 元</td>
                 @if($refundIndent->status == "0")
                 <td>审核中</td>
-                @elseif($refundIndent->status == "1")
-                <td>审核通过退款中</td>
-                @elseif($refundIndent->status == "2")
-                <td>退款成功</td>
+                @elseif($refundIndent->status == "1" || $refundIndent->status == "2" || $refundIndent->status == "4")
+                <td>同意退款</td>
                 @elseif($refundIndent->status == "3")
-                <td>审核未通过</td>
-                @else
-                <td>退款失败</td>
+                <td>拒绝退款 </td>
                 @endif
             </tr>
             <tr>
@@ -68,14 +64,14 @@
                     <a href="/admin/business-center/refund-indent-info?indent_id={{{ $refundIndent->order_id }}}" target="_blank">
                         <button type="button" class="btn btn-primary" style="float: right;margin-right: 20px;">查看订单详情</button>
                     </a>
-                    @elseif($refundIndent->status == "1" || $refundIndent->status == "2")
+                    @elseif($refundIndent->status == "1" || $refundIndent->status == "2" || $refundIndent->status == "4")
                     <a href="/admin/business-center/refund-status?indent_id={{{ $refundIndent->order_id }}}" target="_blank">
                         <button type="button" class="btn btn-primary" style="float: right;margin-right: 20px;">查看退款状态</button>
                     </a>
                     <a href="/admin/business-center/refund-indent-info?indent_id={{{ $refundIndent->order_id }}}" target="_blank">
                         <button type="button" class="btn btn-primary" style="float: right;margin-right: 20px;">查看订单详情</button>
                     </a>
-                    @elseif($refundIndent->status == "3" || $refundIndent->status == "4")
+                    @elseif($refundIndent->status == "3")
                     <a href="/admin/business-center/refund-indent-info?indent_id={{{ $refundIndent->order_id }}}" target="_blank">
                         <button type="button" class="btn btn-primary" style="float: right;margin-right: 20px;">查看订单详情</button>
                     </a>         
