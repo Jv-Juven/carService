@@ -249,12 +249,12 @@ class BeeCloundController extends BaseController{
 
 
 	//退款
-	public function refund()
+	public static function refund( $refund_id )
 	{
 		$data = $this->returnDataArray();
 		
 		// $refund_id = 'tkjl5617c95a522b4685036243';
-		$refund_id = Input::get('refund_id');
+		// $refund_id = Input::get('refund_id');
 		$refund = RefundRecord::find( $refund_id );
 		if( !isset( $refund) )
 			return Response::json(array('errCode'=>21, 'message'=>'该订单不存在'));
@@ -272,19 +272,15 @@ class BeeCloundController extends BaseController{
 		Cache::put($data["bill_no"],$data,120);
 
 		try{
-			DB::transaction( function() use( $order,$refund,$data ) {
-				
 				$result = BCRESTApi::refund($data);	
 				if ($result->result_code != 0 || $result->result_msg != "OK") 
-			    	throw new Exception($result->err_detail);
+					return Response::json(array('errCode'=>24, 'message'=>json_encode($result->err_detail)));
+				// $order->process_status = 2;
+				// $order->save();
 
-				$order->process_status = 2;
-				$order->save();
-
-				$refund->refund_no = $data["refund_no"];
-				$refund->status = 1; 
-				$refund->save();
-			});
+				// $refund->refund_no = $data["refund_no"];
+				// $refund->status = 1; 
+				// $refund->save();
 		}catch( Exception $e)
 		{
 			return Response::json(array('errCode'=>24, 'message'=>$e->getMessage() ));
@@ -318,13 +314,13 @@ class BeeCloundController extends BaseController{
 	}
 
 	//更新退款状态并获取
-	public function getRefundStatus()
+	public static function getRefundStatus( $refund_id )
 	{	
 		$data = $this->returnDataArray();
 		$data["channel"] = "WX";
 
 		// $refund_id = 'tkjl5617c95a522b4685036243';
-		$refund_id =  Input::get('refund_id');
+		// $refund_id =  Input::get('refund_id');
 		$refund = RefundRecord::find( $refund_id );
 		if( !isset($refund) )
 			return Response::json(array('errCode'=>21, 'message'=>'该订单不存在'));
