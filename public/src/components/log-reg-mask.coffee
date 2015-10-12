@@ -273,7 +273,7 @@ resetPsd = ()->
 			renewPsd.focus()
 			return
 
-		$.post "/user/reset_csite_pwd", {
+		$.post "/user/reset-csite-fotgetpwd", {
 			login_account: phoneInput.val(),
 			phone_code: phoneCodes.val(),
 			password: newPsd.val(),
