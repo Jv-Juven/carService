@@ -659,7 +659,7 @@ if( Sentry::check() )
 				{
 					 errCode, 
 					 messsage,		
-				 	 finish,		退款是否完成
-				 	 result			退款是否成功
+				 	 finish,		退款是否完成 boolean
+				 	 result			退款是否成功 boolean
 				}
 

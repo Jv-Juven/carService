@@ -74,6 +74,10 @@ Route::group(array('prefix'=>'user'), function(){
 		Route::post('dispaly-com-info','UserController@dispalyComInfo');
 		//锁定页面
 		Route::get('lock', 'UserController@lock');
+		//审核不通过页面
+		Route::get('no-pass','UserPageController@noPass');
+		//打款验证码
+		Route::get('write-code','UserPageController@writeCode');
 
 		//获取appkey和secretkey
 		Route::get('app', 'UserController@app');
