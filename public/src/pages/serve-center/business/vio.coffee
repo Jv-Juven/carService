@@ -1,6 +1,7 @@
 validate = require "./../../../common/validate/validate.coffee"
 warn = require "./../../../common/warn/warn.coffee"
 allCheck = require "./../../../common/allcheckbox/all-checkbox.coffee"
+fillData = require "./../../../components/violation-info.coffee"
 
 validate = new validate()
 warn = new warn()
@@ -30,6 +31,9 @@ recordsTotal = $(".records-total")
 
 #车牌号码
 licensePlate = ""
+
+#sign字段
+sign = $("#sign")
 
 
 #再次加载页面检测，触发查询
@@ -95,6 +99,8 @@ submit = ()->
 
 		else
 
+			sign.val msg["sign"]
+
 			array01 = _.filter msg["violations"], "wfjfs", "0"
 			array02 = _.filter msg["violations"], (subArr)->
 				return subArr["wfjfs"] > 0
@@ -141,11 +147,15 @@ dealVio = ()->
 				return
 			else
 				$.post "/serve-center/agency/business/confirm_violation", {
-					car_plate_no: licensePlate,
+					sign: sign.va(),
 					xh: xhArr
 				}, (msg)->
 					if msg["errCode"] isnt 0
 						alert msg["message"]
+					else
+						if !sign.val()
+							return
+						window.location.href = "/serve-center/agency/agency?sign=" + sign.val()
 					
 
 

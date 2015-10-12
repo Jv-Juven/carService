@@ -1,5 +1,6 @@
 validate = require "./../../../common/validate/validate.coffee"
 warn = require "./../../../common/warn/warn.coffee"
+fillData = require "./../../../components/violation-info.coffee"
 
 validate = new validate()
 warn = new warn()
