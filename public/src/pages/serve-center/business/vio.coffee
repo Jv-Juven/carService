@@ -60,7 +60,7 @@ loadSubmit = ()->
 		if item.text() is dataArray[3]
 			item.prop("selected", true)
 			return
-	submit()
+	# submit()
 
 
 #“确定”按钮事件，显示违章查询结果

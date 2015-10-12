@@ -284,7 +284,7 @@ emailCodesBtn.on "click", ()->
 		emailInput.focus()
 		return
 
-	$.post "/user/send_code_to_email", {
+	$.post "/user/send-resetcode-to-email", {
 		login_account: emailInput.val()
 	}, (msg)->
 		if msg["errCode"] isnt 0
