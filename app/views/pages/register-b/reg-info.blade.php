@@ -205,7 +205,7 @@
 						<input id="phone" class="text-input short-input" type="text" placeholder="请输入您的手机号码" />
 					</td>
 					<td class="tr-tips">
-						<a class="get-code-btn" href="javascript:">获取验证码</a>
+						<a class="get-code-btn reg-info-get-code" href="javascript:">获取验证码</a>
 					</td>
 				</tr>
 				<tr>

@@ -176,8 +176,9 @@ getCodes.on "click", ()->
 		login_account: regPhone.val()
 	}, (msg)->
 		if msg["errCode"] isnt 0
-			regTips.val(msg["message"])
-			return
+			alert msg["message"]
+		else
+			alert msg["message"]
 
 #"登录"按钮绑定事件
 submitBtn.on "click", userLogin
@@ -286,7 +287,9 @@ emailCodesBtn.off().on "click", ()->
 		login_account: emailInput.val()
 	}, (msg)->
 		if msg["errCode"] isnt 0
-			warn.alert msg["message"]
+			alert msg["message"]
+		else
+			alert msg["message"]
 
 #手机获取验证码
 phoneCodesBtn.off().on "click", ()->
@@ -300,7 +303,9 @@ phoneCodesBtn.off().on "click", ()->
 		login_account: phoneInput.val()
 	}, (msg)->
 		if msg["errCode"] isnt 0
-			warn.alert msg["message"]
+			alert msg["message"]
+		else
+			alert msg["message"]
 
 #修改密码
 saveBtn.on "click", resetPsd
