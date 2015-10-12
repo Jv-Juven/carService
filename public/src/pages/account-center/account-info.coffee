@@ -4,6 +4,7 @@ validate = require "./../../common/validate/validate.coffee"
 warn = require "./../../common/warn/warn.coffee"
 strMask = require "./../../common/strMask/str-mask.coffee"
 mask = require "./../../components//mask/mask.coffee"
+showFileName = require "./../../common/showUploadFileName/showUploadFileName.coffee"
 
 validate = new validate()
 warn = new warn()
@@ -97,8 +98,10 @@ setUploadedPhoto = (name)->
 
 			#如果需要上传的地方多于两个，这里可以弄成配置文件
 			if name is "front"
+				showFileName($("#front_file"), file.name)
 				creditScanFront = url
 			if name is "back"
+				showFileName($("#back_file"), file.name)
 				creditScanBack = url
 
 			# console.log("方法里图片链接：" + name + url)
@@ -198,6 +201,7 @@ info = {
 					alert msg["message"]
 				else
 					warn.alert "保存成功"
+					location.reload()
 }
 
 psd = {
@@ -240,6 +244,7 @@ psd = {
 					alert msg["message"]
 				else
 					warn.alert "保存成功"
+					location.reload()
 
 
 }
