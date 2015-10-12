@@ -154,6 +154,7 @@ personalReg = ()->
 		if msg["errCode"] isnt 0
 			regTips.val(msg["message"])
 		else
+			alert "注册成功"
 			closeMask()
 
 
@@ -276,7 +277,7 @@ resetPsd = ()->
 
 
 #邮箱获取验证码
-emailCodesBtn.off().on "click", ()->
+emailCodesBtn.on "click", ()->
 
 	if !validate.email(emailInput.val())
 		warnTips.val("*请正确填写邮箱")
@@ -292,7 +293,7 @@ emailCodesBtn.off().on "click", ()->
 			alert msg["message"]
 
 #手机获取验证码
-phoneCodesBtn.off().on "click", ()->
+phoneCodesBtn.on "click", ()->
 
 	if !validate.mobile(phoneInput.val())
 		warnTips.val("*请正确填写手机号码")

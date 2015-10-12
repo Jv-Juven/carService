@@ -42,6 +42,7 @@ submitMsg = ()->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
 		else
+			alert msg["message"]
 			companyName.text(msg["business_name"])
 			license.text(msg["business_licence_no"])
 
