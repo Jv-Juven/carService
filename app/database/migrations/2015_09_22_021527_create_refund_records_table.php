@@ -53,10 +53,8 @@ class CreateRefundRecordsTable extends Migration {
 			/*
 			 * 退款状态: 默认状态审核中
 			 *		0 : 审核中
-			 *		1 : 审核通过退款中
-			 *		2 : 退款成功
+			 *		1 : 审核通过-退款中
 			 *		3 : 审核不通过
-			 *		4 : 退款失败
 			 */
 			$table->char('status', 2)->default('0');
 

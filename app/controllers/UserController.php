@@ -477,13 +477,11 @@ class UserController extends BaseController{
 		$session_operational_phone = Session::get('operator_phone');
 		if($operational_phone != $session_operational_phone)
 			return Response::json(array('errCode'=>22, 'message'=>'手机号码错误'));
-
 		//手机验证码验证
 		$phone_code 				= Input::get('phone_code');
 		$session_phone_code 		= Session::get('phone_code');
 		if($phone_code != $session_phone_code)
 			return Response::json(array('errCode'=>22, 'message'=>'手机验证码错误'));
-
 
 		$data = array(
 			'operational_name'				=> Input::get('operational_name'),
@@ -502,7 +500,6 @@ class UserController extends BaseController{
 
 		if( $validation->fails())
 			return Response::json(array('errCode'=>23, 'message'=>'参数填写不完整'));
-
 		$business_user = BusinessUser::find($user->user_id);
 		$business_user->operational_phone 	= $operational_phone;
 		$business_user->operational_name  	= $data['operational_name'];

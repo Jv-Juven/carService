@@ -433,21 +433,21 @@ Route::group(array('prefix'=>'qiniu','before'=>'auth.isRegister'),function(){
 //beeclound接口
 Route::group(array('prefix'=>'beeclound','before'=>'auth.user.isIn'), function(){
 	//微信充值
-	Route::post('recharge','BeeCloundController@recharge');
+	Route::post('recharge','BeeCloudController@recharge');
 	//微信代办
-	Route::post('order-agency','BeeCloundController@orderAgency');
+	Route::post('order-agency','BeeCloudController@orderAgency');
 	//用户申请退款
 	Route::post('request-refund', 'OrderController@requestRefund');
 	//二维码支付页面
-	Route::get('qrcode','BeeCloundController@qrcode');
+	Route::get('qrcode','BeeCloudController@qrcode');
 
 	//微信退款
-	Route::post('refund','BeeCloundController@refund');
+	Route::post('refund','BeeCloudController@refund');
 	//退款状态
-	Route::get('refund-status','BeeCloundController@getRefundStatus');
+	Route::get('refund-status','BeeCloudController@getRefundStatus');
 });
 	//验证
-	Route::post('beeclound','BeeCloundController@authBeeCloud');
+	Route::post('beeclound','BeeCloudController@authBeeCloud');
 
 
 

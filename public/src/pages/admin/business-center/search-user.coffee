@@ -25,9 +25,13 @@ $ ()->
 	$("#company-name-select").click (e)->
 		type = "companyName"
 		$("#dropdown-show").html("企业名称")
+		$("#company-name-wrapper").show();
+		$("#license-code-wrapper").hide();
 
 	$("#license-code-select").click (e)->
 		type = "licenseCode"
 		$("#dropdown-show").html("营业执照")
+		$("#company-name-wrapper").hide();
+		$("#license-code-wrapper").show();
 
 
