@@ -90,6 +90,8 @@ Route::group(array('prefix'=>'account-center'),function(){
 	Route::get('account-info','AccountPageController@accountInfo');
 	//开发者中心
 	Route::get('developer-info','AccountPageController@developerInfo');
+	//账户信息－C端
+	Route::get('account-info-c','AccountPageController@developerInfoOfC');
 });
 
 //服务中心
