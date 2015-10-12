@@ -127,7 +127,7 @@ info = {
 			if msg["errCode"] isnt 0
 				alert msg["message"]
 			else
-				alert "验证码已成功发送"
+				alert msg["message"]
 
 	#获取手机验证码
 	getPhoneCodes: ()->
@@ -137,7 +137,7 @@ info = {
 			if msg["errCode"] isnt 0
 				alert msg["message"]
 			else
-				alert "验证码已成功发送"
+				alert msg["message"]
 
 	#提交修改后的运营者信息
 	submitInfo: ()->
@@ -205,6 +205,8 @@ psd = {
 		$.post "/user/send_code_to_email", {
 			}, (msg)->
 			if msg["errCode"] isnt 0
+				alert msg["message"]
+			else
 				alert msg["message"]
 
 	#保存修改的密码
