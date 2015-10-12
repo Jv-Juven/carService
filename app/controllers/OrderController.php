@@ -49,7 +49,7 @@ class OrderController extends BaseController{
             $agency_order = $paginator->getCollection();
         }
 
-        return Response::json([ 'errCode', 'orders' => $agency_order ]); 
+        return Response::json([ 'errCode' => 0, 'orders' => $agency_order ]); 
     }
 
     public function cancel(){
@@ -58,22 +58,24 @@ class OrderController extends BaseController{
         
 
         if ( empty( $order_id ) ){
-            return Response::json([ 'errCode' => 2, '无效参数' ]);
+            return Response::json([ 'errCode' => 2, 'message' => '无效参数' ]);
         }
 
         $agency_order = AgencyOrder::find( $order_id );
 
         if ( !isset( $agency_order ) || $agency_order->user_id != Sentry::getUser()->user_id ){
-            return Response::json([ 'errCode' => 3, '无效订单' ]);
+            return Response::json([ 'errCode' => 3, 'message' => '无效订单' ]);
         }
 
-        // Todo: 订单处于什么状态下可以删除?
+        if ( !( $agency_order->trade_status == '0' && $agency_order->process_status == '0' ) ){
+            return Response::json([ 'errCode' => 4, 'message' => '无法删除该订单' ]);
+        }
 
         if ( !$agency_order->delete() ){
-            return Response::json([ 'errCode' => 1, '删除失败' ]);
+            return Response::json([ 'errCode' => 1, 'message' => '删除失败' ]);
         }
 
-        return Response::json([ 'errCode' => 0, '删除成功' ]);
+        return Response::json([ 'errCode' => 0, 'message' => '删除成功' ]);
     }
 
     //申请退款

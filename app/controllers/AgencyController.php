@@ -170,6 +170,7 @@ class AgencyController extends BaseController{
         }
 
         unset( $violations[ $sign ] );
+        Session::put( 'violations', $violations );
 
         return Response::json([ 'errCode' => 0, 'message' => 'ok', 'order_id' => $order_id ]);
     }
