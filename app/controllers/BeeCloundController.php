@@ -257,7 +257,7 @@ class BeeCloundController extends BaseController{
 		// $refund_id = Input::get('refund_id');
 		$refund = RefundRecord::find( $refund_id );
 		if( !isset( $refund) )
-			return Response::json(array('errCode'=>21, 'message'=>'该订单不存在'));
+			return (array('errCode'=>21, 'message'=>'该订单不存在');
 
 		$order = AgencyOrder::find( $refund->order_id );
 		$data["bill_no"] = $order->order_id;
@@ -274,7 +274,7 @@ class BeeCloundController extends BaseController{
 		try{
 				$result = BCRESTApi::refund($data);	
 				if ($result->result_code != 0 || $result->result_msg != "OK") 
-					return Response::json(array('errCode'=>24, 'message'=>json_encode($result->err_detail)));
+					return array('errCode'=>24, 'message'=>json_encode($result->err_detail));
 				// $order->process_status = 2;
 				// $order->save();
 
@@ -283,10 +283,10 @@ class BeeCloundController extends BaseController{
 				// $refund->save();
 		}catch( Exception $e)
 		{
-			return Response::json(array('errCode'=>24, 'message'=>$e->getMessage() ));
+			return array('errCode'=>24, 'message'=>$e->getMessage() );
 		}
 
-		return Response::json(array('errCode'=>0, 'message'=>'退款已提交'));
+		return array('errCode'=>0, 'message'=>'退款已提交');
 	}	
 
 	//退款状态
@@ -299,17 +299,17 @@ class BeeCloundController extends BaseController{
         	$result = BCRESTApi::refunds($data);
 	        if ($result->result_code != 0 || $result->result_msg != "OK") {
 				
-				return Response::json(array('errCode'=>24, 'message'=>json_encode($result->err_detail)));
+				return array('errCode'=>24, 'message'=>json_encode($result->err_detail));
 	    	}
 	    } catch (Exception $e) {
-	        return Response::json(array('errCode'=>25, 'message'=>$e->getMessage()));
+	        return array('errCode'=>25, 'message'=>$e->getMessage());
 	    }
        	
-       	return Response::json(array('errCode'=>0, 
-									'message'=>'ok', 
-									'result'=>$result->refunds[0]->result,
-									'finish'=>$result->refunds[0]->finish
-							));
+       	return array('errCode'=>0, 
+						'message'=>'ok', 
+						'result'=>$result->refunds[0]->result,
+						'finish'=>$result->refunds[0]->finish
+							);
         
 	}
 
@@ -323,7 +323,7 @@ class BeeCloundController extends BaseController{
 		// $refund_id =  Input::get('refund_id');
 		$refund = RefundRecord::find( $refund_id );
 		if( !isset($refund) )
-			return Response::json(array('errCode'=>21, 'message'=>'该订单不存在'));
+			return array('errCode'=>21, 'message'=>'该订单不存在');
 
 		$data["refund_no"] = $refund->refund_no;
 
@@ -331,12 +331,12 @@ class BeeCloundController extends BaseController{
 		    $result = BCRESTApi::refundStatus($data);
 		    if ($result->result_code != 0 || $result->result_msg != "OK") {
 			
-			    return Response::json(array('errCode'=>22, 'message'=>$result->err_detail));
+			    return array('errCode'=>22, 'message'=>$result->err_detail);
 		    }
 
 		} catch (Exception $e) {
 		   
-		    return Response::json(['errCode'=>23, 'message'=>$e->getMessage()]);
+		    return ['errCode'=>23, 'message'=>$e->getMessage()];
 		}
 
 		$results = $this->refundStatus($data["refund_no"]);
