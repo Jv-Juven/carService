@@ -155,7 +155,7 @@ personalReg = ()->
 			regTips.val(msg["message"])
 		else
 			alert "注册成功"
-			closeMask()
+			window.location.href = "/serve-center/search/pages/violation"
 
 
 

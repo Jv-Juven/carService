@@ -2,6 +2,7 @@ Uploader = require "./../../common/uploader/index.coffee"
 validate = require "./../../common/validate/validate.coffee"
 warn = require "./../../common/warn/warn.coffee"
 mask = require "./../../components/mask/mask.coffee"
+showFileName = require "./../../common/showUploadFileName/showUploadFileName.coffee"
 
 validate = new validate()
 warn = new warn()
@@ -58,10 +59,13 @@ $ ()->
 
 				#这里可以改成配置文件
 				if name is "license"
+					showFileName($("#license_file"), file.name)
 					licenseScan = url
 				if name is "credit_front"
+					showFileName($("#credit_front_wrapper"), file.name)
 					creditCardScan01 = url
 				if name is "credit_back"
+					showFileName($("#credit_back_wrapper"), file.name)
 					creditCardScan02 = url
 
 		}

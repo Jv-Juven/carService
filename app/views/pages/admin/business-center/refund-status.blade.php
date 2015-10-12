@@ -23,10 +23,6 @@
                 <span>{{ $indent->capital_sum + $indent->service_charge_sum + $indent->express_fee }}</span>
             </div>
             <div class="form-group">
-                <label>业务结果：</label>
-                <span>SUCCESS退款申请接收成功，结果通过退款查询接口查询</span>
-            </div>
-            <div class="form-group">
                 <label>退款状态：</label>
                 <span>退款处理中</span>
             </div>
