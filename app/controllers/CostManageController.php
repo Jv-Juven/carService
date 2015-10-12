@@ -7,6 +7,7 @@ class CostManageController extends BaseController{
     public function overview(){
 
         return View::make( 'pages.finance-center.cost-manage.overview', [
+            
             'account_info' => BusinessController::accountInfo()
         ]);
     }
