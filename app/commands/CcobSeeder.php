@@ -116,7 +116,7 @@ class CcobSeeder extends Command {
     public function fire()
     {
         DB::transaction(function(){
-            $this->create_users();
+            // $this->create_users();
             $this->create_agency_orders();
             $this->create_refund_records();
             $this->create_fee_types();
@@ -133,7 +133,7 @@ class CcobSeeder extends Command {
      */
     protected function create_users( $total = 20 ){
 
-        echo 'Creating users'.PHP_EOL;
+        echo 'Creating users...';
 
         for ( $i = 0; $i < $total; ++$i ){
             Sentry::createUser([
@@ -151,14 +151,14 @@ class CcobSeeder extends Command {
             if ( $user->user_type == '1' && !isset( $user->business_info ) ){
                 $business_info = new BusinessUser();
                 $business_info->user_id = $user->user_id;
-                //$app_config = BusinessController::get_appkey_appsecret_from_remote( $user->user_id );
-                //$business_info->app_key = $app_config['appkey'];
-                //$business_info->app_secret = $app_config['secretkey'];
+                // $app_config = BusinessController::get_appkey_appsecret_from_remote( $user->user_id );
+                // $business_info->app_key = $app_config['appkey'];
+                // $business_info->app_secret = $app_config['secretkey'];
                 $business_info->save();
             }
         }
 
-        echo 'Users created'.PHP_EOL;
+        echo 'Done'.PHP_EOL;
     }
 
     /**
@@ -166,7 +166,7 @@ class CcobSeeder extends Command {
      */
     protected function create_agency_orders( $total = 200 ){
 
-        echo 'Creating agency_orders'.PHP_EOL;
+        echo 'Creating agency_orders...';
 
         $users = User::all();
 
@@ -179,6 +179,9 @@ class CcobSeeder extends Command {
                 $agency_order = new AgencyOrder();
                 $agency_order->order_id = $order_id;
                 $agency_order->user_id = $user->user_id;
+                $agency_order->recipient_name = "cyrilzhao";
+                $agency_order->recipient_phone = "13911111111";
+                $agency_order->recipient_addr = "国王十字车站九又四分之三站台";
                 $agency_order->pay_platform = rand( 0, 1 ) ? '0': '1';
                 $agency_order->pay_time = $this->get_random_datetime();
                 $agency_order->pay_trade_no = uniqid( 'ptn', true );
@@ -216,7 +219,7 @@ class CcobSeeder extends Command {
             //});
         }
 
-        echo 'Agency_orders created'.PHP_EOL;
+        echo 'Done'.PHP_EOL;
     }
 
     /**
@@ -224,7 +227,7 @@ class CcobSeeder extends Command {
      */
     protected function create_refund_records( $total = 50 ){
 
-        echo 'Creating refund_records'.PHP_EOL;
+        echo 'Creating refund_records...';
 
         $orders = AgencyOrder::limit( $total )->get();
 
@@ -234,7 +237,6 @@ class CcobSeeder extends Command {
             $refund_record->user_id = $order->user_id;
             if ( rand( 0, 1 ) ){
                 $refund_record->approval_at = $this->get_random_datetime();
-                $refund_record->comment = 'hhhhhhhhhhhh';
                 $refund_record->status = '2';
             }else{
                 $refund_record->status = '0';
@@ -242,7 +244,7 @@ class CcobSeeder extends Command {
             $refund_record->save();
         }
 
-        echo 'Refund_records created'.PHP_EOL;
+        echo 'Done'.PHP_EOL;
     }
 
     /**
@@ -253,14 +255,14 @@ class CcobSeeder extends Command {
         if ( FeeType::all()->count() == 0 ){
             FeeType::create([
                 'category' => '10',
-                'item'  => '1',
+                'item'  => '0',
                 'number' => 15,
                 'flow_direction' => 1,
                 'user_type' => 0
             ]);
             FeeType::create([
                 'category' => '20',
-                'item'  => '1',
+                'item'  => '0',
                 'number' => 15,
                 'flow_direction' => 1,
                 'user_type' => 0
@@ -268,7 +270,7 @@ class CcobSeeder extends Command {
 
             FeeType::create([
                 'category' => '20',
-                'item'  => '2',
+                'item'  => '1',
                 'number' => 20,
                 'flow_direction' => 1,
                 'user_type' => 1
@@ -276,7 +278,7 @@ class CcobSeeder extends Command {
 
             FeeType::create([
                 'category' => '30',
-                'item'  => '2',
+                'item'  => '0',
                 'number' => 15,
                 'flow_direction' => 1,
                 'user_type' => 0
@@ -304,7 +306,7 @@ class CcobSeeder extends Command {
      */
     protected function create_cost_details( $total = 300 ){
         
-        echo 'Creating cost_details'.PHP_EOL;
+        echo 'Creating cost_details...';
 
         $c_user_fee = FeeType::whereIn( 'user_type', ['0', '1'] )->get();
         $b_user_fee = FeeType::where( 'user_type', '1' )->get();
@@ -325,9 +327,8 @@ class CcobSeeder extends Command {
                 $cost_detail->save();
             }
         }
-            
 
-        echo 'Cost_details created'.PHP_EOL;
+        echo 'Done'.PHP_EOL;
     }
 
     /**
@@ -335,7 +336,7 @@ class CcobSeeder extends Command {
      */
     protected function create_notices( $total = 50 ){
 
-        echo 'Creating notices'.PHP_EOL;
+        echo 'Creating notices...';
 
         for ( $i = 0; $i < 50; ++$i ){
             $notice = new Notice();
@@ -345,7 +346,7 @@ class CcobSeeder extends Command {
             $notice->save();
         }
 
-        echo 'Notices created'.PHP_EOL;
+        echo 'Done'.PHP_EOL;
     }
 
     /**
@@ -353,7 +354,7 @@ class CcobSeeder extends Command {
      */
     protected function create_user_read_notice(){
 
-        echo 'Creating user_read_notice'.PHP_EOL;
+        echo 'Creating user_read_notice...';
 
         $users = User::all();
         $notices = Notice::all();
@@ -369,7 +370,7 @@ class CcobSeeder extends Command {
             }
         }
 
-        echo 'User_read_notice created'.PHP_EOL;
+        echo 'Done'.PHP_EOL;
     }
 
     /**

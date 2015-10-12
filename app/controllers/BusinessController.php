@@ -29,8 +29,8 @@ class BusinessController extends BaseController{
 	 * @return 	string
 	 */
 	public static function get_appkey( $user_id = null ){
-
 		if ( $user_id ){
+
 			$business_user = BusinessUser::find( $user_id );
 		}else{
 			$business_user = BusinessUser::find( Sentry::getUser()->user_id );
@@ -362,7 +362,7 @@ class BusinessController extends BaseController{
 		$search_result = json_decode( static::send_request( $http_params, 'data' ), true );
 		$search_result['returnCode'] = (int)( $search_result['returnCode'] );
 
-		if ( (int)( $search_result['returnCode'] ) == 1 ){
+		if ( $search_result['returnCode'] == 1 ){
 
 			foreach ( $search_result[ 'body' ] as $key => $value ){
 
@@ -400,12 +400,10 @@ class BusinessController extends BaseController{
 			]
 		];
 
-		return static::send_request( $http_params );
-
 		$search_result = json_decode( static::send_request( $http_params, 'data' ), true );
 		$search_result['returnCode'] = (int)( $search_result['returnCode'] );
 
-		if ( (int)( $search_result['returnCode'] ) == 1 ){
+		if ( $search_result['returnCode'] == 1 ){
 
 			return $search_result[ 'body' ];
 

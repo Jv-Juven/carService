@@ -44,8 +44,11 @@ $ ()->
 					up.removeFile(files[0])
 
 			BeforeUpload: (up, file)->
+				console.log up
+				console.log file
 
 			FileUploaded: (up, file, info)->
+
 				info = $.parseJSON info
 				domain = up.getOption('domain')
 				url = domain + info.key

@@ -42,6 +42,13 @@ class AgencyOrder extends BaseModel{
     }
 
     /*
+     * 获取所属用户信息
+     */
+    public function user_info(){
+        return $this->belongsTo( 'BusinessUser', 'user_id', 'user_id' );
+    }
+
+    /*
      * 获取该订单代办的违章信息
      */
     public function traffic_violation_info(){

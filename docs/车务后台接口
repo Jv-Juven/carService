@@ -434,17 +434,15 @@ if( Sentry::check() )
 					{
 					    "errCode": 0,			
 					    "message": "车辆信息",
-					    "car": [
-					        {
-					            "fdjh": "80307709",					// 发动机号后八位
-					            "yxqz": "2015-11-30 00:00:00",		// 检验合格状态
-					            "qzbfqz": "2099-12-31 00:00:00",	// 强制报废日期
-					            "zt": "G",							// 状态代号
-					            "cllx": "K33",						// 车辆类型代号
-					            "ztmc": "违法未处理",					// 状态名称
-					            "cllxmc": "小型轿车"					// 车辆类型名称
-					        }
-					    ]
+					    "car": {
+					        "fdjh": "80307709",					// 发动机号后八位
+					        "yxqz": "2015-11-30 00:00:00",		// 检验合格状态
+					        "qzbfqz": "2099-12-31 00:00:00",	// 强制报废日期
+					        "zt": "G",							// 状态代号
+					        "cllx": "K33",						// 车辆类型代号
+					        "ztmc": "违法未处理",					// 状态名称
+					        "cllxmc": "小型轿车"					// 车辆类型名称
+					    }
 					}
 
     4.2 办理违章模块
@@ -455,6 +453,7 @@ if( Sentry::check() )
     		请求url: /serve-center/agency/business/confirm_violation
 
     		请求参数:
+    					car_plate_no 				车牌号码
     					xh: [ '123', '234' ]		违章序号，数组形式
     		返回参数:
     					{
@@ -564,9 +563,20 @@ if( Sentry::check() )
 
      返回参数：
  			{
- 			 uptoken, 			token
+ 			 	uptoken, 			token
  			}
+ 	下载图片：
+ 	 请求方式：GET
+ 	 请求url：/qiniu/front-download-token
 
+ 	 请求参数
+ 	 			addr 					图片地址
+     返回参数：
+ 			{
+ 				errCode,
+ 				message,
+ 			 	downloadtoken, 			token
+ 			}
 
 支付模块
 	1.充值
@@ -623,26 +633,28 @@ if( Sentry::check() )
 				}
 
 	5.退款(后台操作)
-		请求方式：POST
-		请求url：/beeclound/refund
+
+		BeeCloundController::refund( $refund_id )
 
 		请求参数：
-				order_id 			订单id
+				$refund_id 退款信息表id
 
 		返回参数：
+					通过getData()获取
+			
 				{
 					errCode,
 					message
 				}
 
-	6.更新退款
-		请求方式：GET
-		请求url：	/beeclound/refund-status
+	6.退款状态
+
+		BeeCloundController::getRefundStatus( $refund_id )
 
 		请求参数：	
-				refund_id  			退款记录表id
-
-		返回参数：
+					$refund_id 退款信息表id
+		返回参数：	
+					通过getData()获取
 
 				{
 					 errCode, 

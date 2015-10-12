@@ -12,7 +12,7 @@
 @section('business-center-content')
     <div class="business-center-content" id="indent-list-content">
         <ul class="nav nav-pills" id="admin-business-center-indent-list-header">
-            <li class="nav active">
+            <li class="nav">
                 <a href="/admin/business-center/indent-list?type=all" id="all">全部</a>
             </li>
             <li class="nav">
@@ -44,19 +44,22 @@
         	</tr>
             @foreach($indents as $indent)
         	<tr class="info">
-        		<td>{{{ $indent->car_plate_no }}}</td>
-        		<td colspan="2">订单编号：{{{ $indent->order_id }}}</td>
-        		<td colspan="2">下单时间：{{{ $indent->created_at }}}</td>
+                <td style="display:none;">
+                    <input type="hidden" class="indent-id" value="{{{$indent->order_id}}}" />
+                </td>
+        		<td style="border-right:none;">{{{ $indent->car_plate_no }}}</td>
+        		<td colspan="2" style="border-left:none;border-right:none;">订单编号：{{{ $indent->order_id }}}</td>
+        		<td colspan="2" style="border-left:none;border-right:none;">下单时间：{{{ $indent->created_at }}}</td>
         		@if($indent->process_status == "0")
-        		<td>处理状态：未受理</td>
+        		<td style="border-left:none;">处理状态：未受理</td>
         		@elseif($indent->process_status == "1")
-        		<td>处理状态：已受理</td>
+        		<td style="border-left:none;">处理状态：已受理</td>
         		@elseif($indent->process_status == "2")
-        		<td>处理状态：办理中</td>
+        		<td style="border-left:none;">处理状态：办理中</td>
         		@elseif($indent->process_status == "3")
-        		<td>处理状态：已完成</td>
+        		<td style="border-left:none;">处理状态：已完成</td>
         		@elseif($indent->process_status == "4")
-        		<td>处理状态：已关闭</td>
+        		<td style="border-left:none;">处理状态：已关闭</td>
         		@endif
         	</tr>
 	        	@foreach($indent->traffic_violation_info as $traffic_violation_info)
@@ -88,9 +91,19 @@
                     <td colspan="6">
                         <span>订单金额：{{ $indent->capital_sum + $indent->service_charge_sum }} 元</span>
                         <span style="margin-left:20px;">票证快递费：{{{ $indent->express_fee }}} 元</span>
-                        <a href="#" style="margin-left:50px">查看凭证快递信息</a>
-                        <button id="search-btn" type="button" class="btn btn-primary" style="float: right;margin-right: 20px;">办理中</button>
-                        <button id="search-btn" type="button" class="btn btn-primary" style="float: right;margin-right: 20px;">办理完成</button>
+                        <a href="/admin/business-center/express-ticket-info?indent_id={{{ $indent->order_id }}}" style="margin-left:50px" target="_blank">查看凭证快递信息</a>
+                        @if($indent->process_status == "1")
+                        @if($indent->trade_status == "2")
+                        <a href="/admin/business-center/approve-refund-application?indent_id={{{ $indent->order_id }}}" target="_blank">
+                            <button type="button" class="btn btn-primary refund-btn" style="float: right;margin-right: 20px;">退款审批</button>
+                        </a>
+                        @else
+                        <button type="button" class="btn btn-primary treating-btn" style="float: right;margin-right: 20px;">办理中</button>
+                        <button type="button" class="btn btn-primary finished-btn" style="float: right;margin-right: 20px;">办理完成</button>
+                        @endif
+                        @elseif($indent->process_status == "2")
+                        <button type="button" class="btn btn-primary finished-btn" style="float: right;margin-right: 20px;">办理完成</button>
+                        @endif
                     </td>
                 </tr>
             @endforeach
