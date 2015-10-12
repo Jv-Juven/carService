@@ -1,5 +1,3 @@
-# logout = require "./logout.coffee"
-
 mask = require "./mask/mask.coffee"
 
 regBtn = $("#header_regbtn")
@@ -10,9 +8,6 @@ menu = $(".reg-dropdown-list")
 #显示与隐藏”注册“的下拉菜单
 menuToggle = (e)->
 	menu.slideToggle(200)
-
-
-
 
 
 $ ()->

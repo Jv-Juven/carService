@@ -21,7 +21,7 @@
 			<!-- 办理进程 END	 -->
 
 			<div class="pay-tips">
-				<span>订单提交成功，请您尽快付款！订单号： 10062142155</span>
+				<span>订单提交成功，请您尽快付款！订单号： <span id="order_id">10062142155</span> </span>
 				<span>请您在提交订单后24小时之内完成支付，否则订单会自动取消。</span>
 			</div>
 
@@ -89,7 +89,7 @@
 			</div>
 			<div class="pay-btns">
 				<div class="btn">
-					<a href="/">
+					<a target="_blank" href="javascript:" id="pay_wechat">
 						<img src="/images/serve/wechat.png">
 						<span class="btn-name">
 							微信支付
@@ -97,7 +97,7 @@
 					</a>
 				</div>
 				<div class="btn" style="margin-left: 30px;">
-					<a href="/">
+					<a target="_blank" href="javascript:" id="pay_paypal">
 						<img src="/images/serve/zhifubao.png">
 						<span class="btn-name">
 							支付宝支付

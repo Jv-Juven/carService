@@ -24,9 +24,9 @@
     <p class="ss-msg">
         我们将在一个工作日内完成审核，请在3天内让贵公司的财务单位与我们沟通获得打款验证码，以激活账号
     </p>
-    <p class="ss-notice">
+    <!-- <p class="ss-notice">
         将在<span class="count-down">5秒</span>内跳转
     </p>
-    <button class="ss-cfm">确定</button>
+    <button class="ss-cfm">确定</button> -->
 </div>
 @stop
