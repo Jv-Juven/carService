@@ -137,7 +137,7 @@ $ ()->
 
 		}, (msg)->
 			if msg["errCode"] isnt 0
-				alert msg["errCode"]
+				alert msg["message"]
 			else
 				window.location.href = "/user/pending"
 
