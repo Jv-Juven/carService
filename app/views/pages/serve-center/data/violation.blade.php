@@ -14,7 +14,7 @@
 @stop
 
 @section("right-content")
-	@include("components.violation")
+	@include("components.violation", [ 'account' => $account ])
 
 @stop
 @section("js")

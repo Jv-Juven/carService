@@ -384,7 +384,11 @@ if( Sentry::check() )
 					{
 					    "errCode": 0,
 					    "message": "获取车辆违章信息",
-					    "service_fee": 123
+					    "service_fee": 123,
+					    account: {
+							unit: 0.5
+							balance: 0				// 账户余额
+						}
 			    		"violations": [
 						    {
 						        "hphm": "粤X10N07",						//车牌号码
@@ -419,6 +423,10 @@ if( Sentry::check() )
 						"errCode": 0,
 					    "message": "驾驶证扣分分数",
 					    "number": "0"					正确时返回number
+					    "account": {
+							unit: 0.5
+							balance: 0				// 账户余额
+						}
 					}
 
 		4.1.3 车辆查询
@@ -443,6 +451,10 @@ if( Sentry::check() )
 					        "ztmc": "违法未处理",					// 状态名称
 					        "cllxmc": "小型轿车"					// 车辆类型名称
 					    }
+					    "account": {
+							unit: 0.5
+							balance: 0				// 账户余额
+						}
 					}
 
     4.2 办理违章模块
