@@ -1,3 +1,4 @@
+fillData = require "./../../../components/violation-info.coffee"
 
 carsInputs = $(".cars-inputs")
 

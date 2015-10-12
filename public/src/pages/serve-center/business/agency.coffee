@@ -19,6 +19,8 @@ express_fee = $("#express_fee")
 agencyWarnTips = $(".agency-warn-tips")
 agencyBtn = $(".agency-btn a")
 
+#sign字段
+sign = $("#sign")
 
 submit = ()->
 
@@ -43,15 +45,20 @@ submit = ()->
 	agencyWarnTips.text(" ")
 
 	$.post "/serve-center/agency/business/", {
+		sign: sign.val(),
 		is_delivered: express.prop("checked"),
 		recipient_name: name.val(),
 		recipient_addr: phone.val(),
-		recipient_phone: address.val(),
+		recipient_phone: address.val()
 	}, (msg)->
 
 		if msg["errCode"] isnt 0 
-
-			warn.alert msg["message"]
+			alert msg["message"]
+		else
+			if !msg["order_id"]
+				return
+			window.location.href = "/serve-center/agency/pay?order_id=" + msg["order_id"].val()
+			
 
 
 $ ()->
