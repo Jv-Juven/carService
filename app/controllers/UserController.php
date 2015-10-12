@@ -345,7 +345,7 @@ class UserController extends BaseController{
 			$user = User::where('login_account',$user->login_account)->first();
 			Sentry::login($user,false);
 			
-			Cache::put($token,$user,5);
+			Cache::put($token,$user,30);
 			// var_dump($user->user_id);
 			
 			return Response::json(array('errCode'=>0, 'message'=>'验证码发送成功!'));
