@@ -6,7 +6,7 @@ infoTimes = $("#info_times")
 
 #数据填充
 fillData = (balance, unit)->
-	times = balance / unit
+	times = parseInt(balance) // parseInt(unit)
 	infoBalance.text balance
 	infoTimes.text times
 

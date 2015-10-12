@@ -118,6 +118,8 @@ submit = ()->
 				"array": array02,
 				"service_fee": msg["service_fee"]
 				})
+			
+			$(".tb-tr").remove()
 
 			th01.after tpl01
 			th02.after tpl02
