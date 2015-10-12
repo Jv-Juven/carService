@@ -131,7 +131,7 @@ info = {
 
 	#获取手机验证码
 	getPhoneCodes: ()->
-		$.post "/user/operational_phone_code", {}, (msg)->
+		$.get "/user/operational_phone_code", {}, (msg)->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
 			else
