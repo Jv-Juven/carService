@@ -385,10 +385,16 @@ if( Sentry::check() )
 					    "errCode": 0,
 					    "message": "获取车辆违章信息",
 					    "service_fee": 123,
-					    account: {
+
+					    // 普通用户返回剩余查询次数remain_search_count
+					    // 企业用户返回账户信息balance
+					    "remain_search_count": 
+					    "account": {
 							unit: 0.5
 							balance: 0				// 账户余额
 						}
+
+
 			    		"violations": [
 						    {
 						        "hphm": "粤X10N07",						//车牌号码

@@ -16,7 +16,7 @@
 @section("right-content")
 
 	<!-- @include("components.vio-process", array("num" => "1")) -->
-	@include("components.violation", array("process" => "1" ))
+	@include("components.violation", [ 'process' => '1', 'account' => $account ])
 
 @stop
 @section("js")
