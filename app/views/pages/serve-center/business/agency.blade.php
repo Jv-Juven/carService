@@ -148,6 +148,7 @@
 			<div class="tips-words agency-warn-tips"></div>
 			<div class="submit-btn agency-btn">
 				<a href="javascript:">提交订单</a>
+				<input id="sign" type="hidden" value=""/>
 			</div>
 			<!-- 提交按钮 END -->
 		</div>

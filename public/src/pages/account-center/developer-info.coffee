@@ -27,7 +27,7 @@ getCodes = ()->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
 		else
-			alert "验证码已成功发送"
+			alert msg["message"]
 
 #提交信息
 submitMsg = ()->
@@ -42,6 +42,7 @@ submitMsg = ()->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
 		else
+			alert msg["message"]
 			companyName.text(msg["business_name"])
 			license.text(msg["business_licence_no"])
 

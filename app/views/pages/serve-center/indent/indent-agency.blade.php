@@ -140,7 +140,7 @@
 				<div class="warn-msg">
 					<span class="content">我们已收到您的退款申请，请等待工作人员审批！</span>
 					<div class="btns">
-						<a class="btn" href="javascript:">确定</a>
+						<a class="btn" id="refund_btn" href="javascript:">确定</a>
 					</div>
 				</div>
 			</div>

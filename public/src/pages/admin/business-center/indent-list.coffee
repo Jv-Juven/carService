@@ -20,7 +20,30 @@ $ ()->
 	$(".treating-btn").click (e)->
 		if confirm("该订单状态将变更为[办理中]，请及时处理该订单！")
 			$elem = $(e.currentTarget)
-			indentId = $elem.parent().parent().parent().find(".indent-id").val()
+			$td = $elem.parent()
+			indentId = $td.find(".indent-id").val()
 
 			$.post "/admin/change-indent-status", {status: 2, indentId: indentId}, (res)->
-				$elem.addClass("disabled")
+				if res.errCode == 0
+					$elem.hide()
+					$td.parent().parent().find("." + indentId + " .process-status").html("办理中")
+					$td.find(".finished-btn").show()
+				else
+					alert res.errMsg
+
+	$(".finished-btn").click (e)->
+		if confirm("该订单状态将变更为[已办理]")
+			$elem = $(e.currentTarget)
+			$td = $elem.parent()
+			indentId = $td.find(".indent-id").val()
+
+			$.post "/admin/change-indent-status", {status: 3, indentId: indentId}, (res)->
+				if res.errCode == 0
+					$elem.hide()
+					$td.parent().parent().find("." + indentId + " .process-status").html("已完成")
+				else
+					alert res.errMsg
+
+
+
+

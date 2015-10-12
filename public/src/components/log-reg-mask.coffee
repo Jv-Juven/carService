@@ -1,5 +1,6 @@
 validate = require "./../common/validate/validate.coffee"
 warn = require "./../common/warn/warn.coffee"
+redirection = require "./../components/redirection/redirection.coffee"
 
 validate = new validate()
 warn = new warn()
@@ -100,8 +101,8 @@ userLogin = ()->
 			login_account: logEmail.find(".input input").val(),
 			password: password.val()
 		}, (msg)->
-			if msg["errCode"] isnt 0
-				alert msg["message"]
+			#用户登录之后的页面重定向
+			redirection msg
 	else
 		if !validate.mobile(logPhone.find(".input input").val())
 			inputTips.text("*请输入正确的手机号码")
@@ -114,11 +115,9 @@ userLogin = ()->
 			email: logPhone.find(".input input").val(),
 			password: password.val()
 		}, (msg)->
-			if msg["errCode"] isnt 0
-				alert msg["message"]
-			else
-				# closeMask
-				window.location.href = window.location.href
+			#用户登录之后的页面重定向
+			redirection msg
+
 
 #切换到个人用户注册
 personal = ()->
@@ -155,7 +154,8 @@ personalReg = ()->
 		if msg["errCode"] isnt 0
 			regTips.val(msg["message"])
 		else
-			closeMask()
+			alert "注册成功"
+			window.location.href = "/serve-center/search/pages/violation"
 
 
 
@@ -177,8 +177,9 @@ getCodes.on "click", ()->
 		login_account: regPhone.val()
 	}, (msg)->
 		if msg["errCode"] isnt 0
-			regTips.val(msg["message"])
-			return
+			alert msg["message"]
+		else
+			alert msg["message"]
 
 #"登录"按钮绑定事件
 submitBtn.on "click", userLogin
@@ -276,7 +277,7 @@ resetPsd = ()->
 
 
 #邮箱获取验证码
-emailCodesBtn.off().on "click", ()->
+emailCodesBtn.on "click", ()->
 
 	if !validate.email(emailInput.val())
 		warnTips.val("*请正确填写邮箱")
@@ -287,10 +288,12 @@ emailCodesBtn.off().on "click", ()->
 		login_account: emailInput.val()
 	}, (msg)->
 		if msg["errCode"] isnt 0
-			warn.alert msg["message"]
+			alert msg["message"]
+		else
+			alert msg["message"]
 
 #手机获取验证码
-phoneCodesBtn.off().on "click", ()->
+phoneCodesBtn.on "click", ()->
 
 	if !validate.mobile(phoneInput.val())
 		warnTips.val("*请正确填写手机号码")
@@ -301,7 +304,9 @@ phoneCodesBtn.off().on "click", ()->
 		login_account: phoneInput.val()
 	}, (msg)->
 		if msg["errCode"] isnt 0
-			warn.alert msg["message"]
+			alert msg["message"]
+		else
+			alert msg["message"]
 
 #修改密码
 saveBtn.on "click", resetPsd

@@ -55,9 +55,9 @@ show = {
 
 psd = {
 
-	#获取邮箱验证码
+	#获取手机验证码
 	getPhoneCodes: ()->
-		$.post "/user/operational_phone_code", {}, (msg)->
+		$.post "/user/send_code_to_phone", {}, (msg)->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
 
@@ -90,6 +90,7 @@ psd = {
 					alert msg["message"]
 				else
 					warn.alert "保存成功"
+					location.reload()
 
 
 }

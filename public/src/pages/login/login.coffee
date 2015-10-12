@@ -1,6 +1,7 @@
 validate = require "./../../common/validate/validate.coffee"
 warn = require "./../../common/warn/warn.coffee"
 mask = require "./../../components/mask/mask.coffee"
+redirection = require "./../../components/redirection/redirection.coffee"
 
 validate = new validate()
 warn = new warn()
@@ -59,8 +60,9 @@ $ ()->
 			login_account: accNum.val(),
 			password: psd.val()
 		}, (msg)->
-			if msg["errCode"] is 0
-				window.location.href = "/serve-center/search/pages/violation"
+			redirection msg
+			# if msg["errCode"] is 0
+			# 	window.location.href = "/serve-center/search/pages/violation"
 			# else if msg["errCode"] is 10
 			# 	window.location.href = ""
 			# else if msg["errCode"] is 11
@@ -71,8 +73,8 @@ $ ()->
 			# 	window.location.href = ""
 			# else if msg["errCode"] is 30
 			# 	window.location.href = ""
-			else
-				alert msg["message"]
+			# else
+			# 	alert msg["message"]
 				
 
 	#点击显示指定的大图

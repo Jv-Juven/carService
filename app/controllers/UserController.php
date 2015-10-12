@@ -245,7 +245,7 @@ class UserController extends BaseController{
 			return Response::json(array('errCode'=>26,'message'=>'手机验证码不对，请重新输入'));
 		try
 			{
-				$user = Sentry::createUser(array(
+				$user = Sentry::register(array(
 			        'login_account'     => $data['login_account'],
 			        'password'  		=> $data['password'],
 			        // 'user_id'			=> 'yhxx'.uniqid(),
@@ -477,13 +477,11 @@ class UserController extends BaseController{
 		$session_operational_phone = Session::get('operator_phone');
 		if($operational_phone != $session_operational_phone)
 			return Response::json(array('errCode'=>22, 'message'=>'手机号码错误'));
-
 		//手机验证码验证
 		$phone_code 				= Input::get('phone_code');
 		$session_phone_code 		= Session::get('phone_code');
 		if($phone_code != $session_phone_code)
 			return Response::json(array('errCode'=>22, 'message'=>'手机验证码错误'));
-
 
 		$data = array(
 			'operational_name'				=> Input::get('operational_name'),
@@ -502,7 +500,6 @@ class UserController extends BaseController{
 
 		if( $validation->fails())
 			return Response::json(array('errCode'=>23, 'message'=>'参数填写不完整'));
-
 		$business_user = BusinessUser::find($user->user_id);
 		$business_user->operational_phone 	= $operational_phone;
 		$business_user->operational_name  	= $data['operational_name'];
@@ -590,20 +587,20 @@ class UserController extends BaseController{
             	if ( Session::has( 'url_before_login' ) ){
             		$message['url_before_login'] = Session::pull( 'url_before_login' );
 				}
-				$status = $user()->status;
+				$status = $user->status;
 				if( $status != 22 )
 				{
 					switch ( $status ) {
 						case 10:
-							return Response::josn(array('errCode'=>10,'message'=>'ok'));//邮箱激活页面
+							return Response::json(array('errCode'=>10,'message'=>'10-ok'));//邮箱激活页面
 						case 11:
-							return Response::josn(array('errCode'=>11,'message'=>'ok'));//信息登记
+							return Response::json(array('errCode'=>11,'message'=>'11-ok'));//信息登记
 						case 20:
-							return Response::josn(array('errCode'=>20,'message'=>'ok'));//信息审核中
+							return Response::json(array('errCode'=>20,'message'=>'20-ok'));//信息审核中
 						case 21:
-							return Response::josn(array('errCode'=>21,'message'=>'ok'));//等待用户校验激活
+							return Response::json(array('errCode'=>21,'message'=>'21-ok'));//等待用户校验激活
 						case 30:
-							return Response::josn(array('errCode'=>30,'message'=>'ok'));//帐号锁定页面
+							return Response::json(array('errCode'=>30,'message'=>'30-ok'));//帐号锁定页面
 					}
 				}
 	            return Response::json($message);

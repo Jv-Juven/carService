@@ -2,7 +2,9 @@
 Uploader = require "./../../common/uploader/index.coffee"
 validate = require "./../../common/validate/validate.coffee"
 warn = require "./../../common/warn/warn.coffee"
+strMask = require "./../../common/strMask/str-mask.coffee"
 mask = require "./../../components//mask/mask.coffee"
+showFileName = require "./../../common/showUploadFileName/showUploadFileName.coffee"
 
 validate = new validate()
 warn = new warn()
@@ -48,6 +50,22 @@ rePassword = $(".psd-repassword")
 # 修改密码表单信息 END
 ###
 
+
+
+###
+# 掩码信息 START
+###
+
+licenseKey = $("#account_license_key")
+accountName = $("#account_name")
+accountCreditCard = $("#account_creditcard")
+accountPhone = $("#account_phone")
+
+###
+# 掩码信息 END
+###
+
+
 accTips = $(".account-tips")
 psdTips = $(".psd-tips")
 
@@ -80,8 +98,10 @@ setUploadedPhoto = (name)->
 
 			#如果需要上传的地方多于两个，这里可以弄成配置文件
 			if name is "front"
+				showFileName($("#front_file"), file.name)
 				creditScanFront = url
 			if name is "back"
+				showFileName($("#back_file"), file.name)
 				creditScanBack = url
 
 			# console.log("方法里图片链接：" + name + url)
@@ -112,15 +132,17 @@ info = {
 			if msg["errCode"] isnt 0
 				alert msg["message"]
 			else
-				alert "验证码已成功发送"
+				alert msg["message"]
 
 	#获取手机验证码
 	getPhoneCodes: ()->
-		$.post "/user/operational_phone_code", {}, (msg)->
-			if msg["errCode"] isnt 0
-				alert msg["message"]
-			else
-				alert "验证码已成功发送"
+		$.get "/user/operational_phone_code", {
+				telephone: infoPhone.val()
+			}, (msg)->
+				if msg["errCode"] isnt 0
+					alert msg["message"]
+				else
+					alert msg["message"]
 
 	#提交修改后的运营者信息
 	submitInfo: ()->
@@ -175,10 +197,11 @@ info = {
 				id_card_back_scan_path: creditScanBack
 
 			}, (msg)->
-			if msg["errCode"] isnt 0
-				alert msg["message"]
-			else
-				warn.alert "保存成功"
+				if msg["errCode"] isnt 0
+					alert msg["message"]
+				else
+					warn.alert "保存成功"
+					location.reload()
 }
 
 psd = {
@@ -187,8 +210,10 @@ psd = {
 	getEmailCodes: ()->
 		$.post "/user/send_code_to_email", {
 			}, (msg)->
-			if msg["errCode"] isnt 0
-				alert msg["message"]
+				if msg["errCode"] isnt 0
+					alert msg["message"]
+				else
+					alert msg["message"]
 
 	#保存修改的密码
 	savePsd: ()->
@@ -206,7 +231,7 @@ psd = {
 			psdTips.text("*请再次输入密码")
 			return
 		
-		$.post "/", {
+		$.post "/user/reset_bsite_pwd", {
 			#验证码
 			reset_code: psdEmailCode.val(),
 			#密码
@@ -219,12 +244,20 @@ psd = {
 					alert msg["message"]
 				else
 					warn.alert "保存成功"
+					location.reload()
 
 
 }
 
 
 $ ()->
+
+	#设置相关信息的掩码
+	licenseKey.text strMask(licenseKey.text(), 5, 11,"*")
+	accountName.text strMask(accountName.text(), 2, 3,"*")
+	accountCreditCard.text strMask(accountCreditCard.text(), 5, 15,"*")
+	accountPhone.text strMask(accountPhone.text(), 4, 8,"*")
+
 	#“修改运营者信息”按钮绑定事件
 	changeInfoBtn.on "click", show.showChangeInfo
 	#“修改密码”按钮绑定事件
@@ -233,8 +266,8 @@ $ ()->
 	saveBtn.on "click", info.submitInfo
 	#修改运营者信息"取消"按钮事件绑定
 	cancelBtn.on "click", mask.closeMask
-	#"获取邮箱验证码"按钮绑定事件
-	getEmailCodesBtn.on "click", info.getEmailCodes
+	#修改运营者信息的"获取邮箱验证码"按钮绑定事件
+	getEmailCodesBtn.on "click", psd.getEmailCodes
 	#"获取手机验证码"按钮绑定事件
 	getPhoneCodesBtn.on "click", info.getPhoneCodes
 	#修改密码的"获取邮箱验证码"按钮绑定事件

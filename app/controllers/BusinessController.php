@@ -29,8 +29,8 @@ class BusinessController extends BaseController{
 	 * @return 	string
 	 */
 	public static function get_appkey( $user_id = null ){
-
 		if ( $user_id ){
+
 			$business_user = BusinessUser::find( $user_id );
 		}else{
 			$business_user = BusinessUser::find( Sentry::getUser()->user_id );

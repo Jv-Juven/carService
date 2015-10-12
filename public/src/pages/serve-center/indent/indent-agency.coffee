@@ -42,6 +42,9 @@ tradeStatus = $(".wait-pay")
 
 pagination = $(".paginate-wrap")
 
+#退款“确定”按钮
+refundCloseBtn = $("#refund_btn")
+
 #关闭弹窗
 closeMask = ()->
 	maskBg.fadeOut(100)
@@ -155,12 +158,16 @@ cancelMaskShow = ()->
 refundMaskShow = ()->
 	maskBg.fadeIn(100)
 	refundMask.fadeIn(100)
+#关闭“取消”订单弹窗
+refundMaskClose = ()->
+	maskBg.fadeOut(100)
+	refundMask.fadeOut(100)
 
 #申请退款
 refund = (e)->
 	_this = $(e.currentTarget)
 	order_id = _this.attr "data-num"
-	$.post "/serve-center/order/operation/refund", {
+	$.post "/beeclound/request-refund", {
 		order_id: order_id
 	}, (msg)->
 		if	msg["errCode"] isnt 0
@@ -188,6 +195,8 @@ $ ()->
 	cancelBtn.on "click", closeMask
 	#”申请退款“按钮事件绑定
 	refundBtn.on "click", refund
+	#"申请退款"弹窗“确定”按钮
+	refundCloseBtn.on "click", refundMaskClose
 
 
 

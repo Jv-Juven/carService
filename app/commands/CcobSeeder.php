@@ -116,7 +116,7 @@ class CcobSeeder extends Command {
     public function fire()
     {
         DB::transaction(function(){
-            $this->create_users();
+            // $this->create_users();
             $this->create_agency_orders();
             $this->create_refund_records();
             $this->create_fee_types();
@@ -179,6 +179,9 @@ class CcobSeeder extends Command {
                 $agency_order = new AgencyOrder();
                 $agency_order->order_id = $order_id;
                 $agency_order->user_id = $user->user_id;
+                $agency_order->recipient_name = "cyrilzhao";
+                $agency_order->recipient_phone = "13911111111";
+                $agency_order->recipient_addr = "国王十字车站九又四分之三站台";
                 $agency_order->pay_platform = rand( 0, 1 ) ? '0': '1';
                 $agency_order->pay_time = $this->get_random_datetime();
                 $agency_order->pay_trade_no = uniqid( 'ptn', true );
@@ -187,16 +190,38 @@ class CcobSeeder extends Command {
                 $agency_order->late_fee_sum = (float)( rand( 500, 1000 ) / 20 );
                 $agency_order->service_charge_sum = (float)( rand( 500, 1000 ) / 10 );
                 if($i % 5 == 0)
-                    $agency_order->process_status = '4';
+                {
+                    $agency_order->process_status = '4'; // 已关闭
+                    $agency_order->trade_status = '3'; // 已退款
+                }
                 else if($i % 5 == 1)
-                    $agency_order->process_status = '3';
+                {
+                    $agency_order->process_status = '3'; // 已完成
+                    $agency_order->trade_status = '1'; // 已付款
+                }
                 else if($i % 5 == 2)
-                    $agency_order->process_status = '2';
+                {
+                    $agency_order->process_status = '2'; // 办理中
+                    $agency_order->trade_status = '1'; // 已付款
+                }
                 else if($i % 5 == 3)
-                    $agency_order->process_status = '1';
+                {
+                    $agency_order->process_status = '1'; // 已受理
+                    if(rand( 0, 1 ))
+                    {
+                        $agency_order->trade_status = '1'; // 已付款
+                    }
+                    else
+                    {
+                        $agency_order->trade_status = '2'; // 申请退款
+                    }
+                }
                 else
-                    $agency_order->process_status = '0';
-                $agency_order->car_type_no = '01';
+                {
+                    $agency_order->process_status = '0'; // 未受理
+                    $agency_order->trade_status = '0'; // 等待付款
+                }
+                $agency_order->car_type_no = '02';
                 $agency_order->agency_no = rand( 1, 3 );
 
                 if ( $agency_order->save() ){
@@ -226,21 +251,39 @@ class CcobSeeder extends Command {
 
         echo 'Creating refund_records...';
 
-        $orders = AgencyOrder::limit( $total )->get();
+        $orders = AgencyOrder::all();
 
         foreach( $orders as $order ){
-            $refund_record = new RefundRecord();
-            $refund_record->order_id = $order->order_id;
-            $refund_record->user_id = $order->user_id;
-            if ( rand( 0, 1 ) ){
-                $refund_record->approval_at = $this->get_random_datetime();
-                $refund_record->comment = '0';
-                $refund_record->status = '2';
-            }else{
-                $refund_record->comment = '1';
-                $refund_record->status = '0';
+            if ($order->process_status == "1" && $order->trade_status == "2") { // 已受理且申请退款
+                $refund_record = new RefundRecord();
+                $refund_record->order_id = $order->order_id;
+                $refund_record->user_id = $order->user_id;
+                $flag = rand( 0, 1 );
+                if($flag == 0) {
+                    $refund_record->status = '0'; // 审核中
+                    $refund_record->approval_at = $this->get_random_datetime();
+                } else {
+                    $refund_record->status = '3'; // 审核不通过
+                    $refund_record->approval_at = $this->get_random_datetime();
+                }
+                $refund_record->save();
+            } else if($order->process_status == "4") { // 已关闭
+                $refund_record = new RefundRecord();
+                $refund_record->order_id = $order->order_id;
+                $refund_record->user_id = $order->user_id;
+                $refund_flag = rand(0, 2);
+                if($refund_flag == 0) {
+                    $refund_record->status = '1'; // 审核退款通过
+                    $refund_record->approval_at = $this->get_random_datetime();
+                } else if ($refund_flag == 1){
+                    $refund_record->status = '2'; // 退款成功
+                    $refund_record->approval_at = $this->get_random_datetime();
+                } else {
+                    $refund_record->status = '4'; // 退款失败
+                    $refund_record->approval_at = $this->get_random_datetime();
+                }
+                $refund_record->save();
             }
-            $refund_record->save();
         }
 
         echo 'Done'.PHP_EOL;

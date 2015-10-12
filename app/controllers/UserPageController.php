@@ -58,4 +58,17 @@ class UserPageController extends BaseController{
 	{
 		return View::make('errors.lock');
 	}
+
+	//审核不通过
+	public function noPass()
+	{
+		return View::make('pages.account-status.no-pass');
+	}
+
+	//打款验证码
+	public function writeCode()
+	{
+		return View::make('pages.account-status.write-codes');
+	}
+
 }

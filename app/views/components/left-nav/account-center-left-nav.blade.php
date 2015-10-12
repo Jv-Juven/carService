@@ -31,7 +31,11 @@
 				</a>
 				<ul class="nav-sec">
 					<li>
+						@if(Sentry::getUser()->user_type == 1)
 						<a class="nav-item" href="/account-center/developer-info">
+						@else
+						<a class="nav-item" href="/account-center/account-info-c">
+						@endif
 							<i>•</i>
 							开发者信息
 						</a>
