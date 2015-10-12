@@ -37,6 +37,15 @@
 							<img src="/images/components/nav_arrow.png">
 						</i>
 					</li>
+					@else
+					<li class="">
+						<a class="nav-item">
+						</a>
+					</li>
+					<li>
+						<a class="nav-item">
+						</a>
+					</li>
 					@endif
 				</ul>
 			</li>

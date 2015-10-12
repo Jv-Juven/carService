@@ -26,7 +26,11 @@
 			<div class="item-underline"></div>
 		</li>
 		<li class="header-menu-item nav-item">
+			@if(Sentry::getUser()->user_type == 1)
 			<a href="/account-center/account-info">账户设置</a>
+			@else
+			<a href="/account-center/account-info-c">账户设置</a>
+			@endif
 			<div class="item-underline"></div>
 		</li>
 		@endif
