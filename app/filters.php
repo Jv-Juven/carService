@@ -51,10 +51,10 @@ Route::filter('auth.admin', function()
 Route::filter('auth.user.isIn',function()
 {
 	Session_start();
-	$user = User::where('user_type',1)->first();
+	// $user = User::where('user_type',1)->first();
 	// $user = User::find('yhxx5617c959d6ee4142025859');//服务器
 	// $user = User::find('yhxx5619f0abb12a0394156728');//本地
-	Sentry::login($user,false);	
+	// Sentry::login($user,false);	
 	// Sentry::logout();
 	if(!Sentry::check())
 	{

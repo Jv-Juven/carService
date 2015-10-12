@@ -590,20 +590,20 @@ class UserController extends BaseController{
             	if ( Session::has( 'url_before_login' ) ){
             		$message['url_before_login'] = Session::pull( 'url_before_login' );
 				}
-				$status = $user()->status;
+				$status = $user->status;
 				if( $status != 22 )
 				{
 					switch ( $status ) {
 						case 10:
-							return Response::josn(array('errCode'=>10,'message'=>'ok'));//邮箱激活页面
+							return Response::json(array('errCode'=>10,'message'=>'10-ok'));//邮箱激活页面
 						case 11:
-							return Response::josn(array('errCode'=>11,'message'=>'ok'));//信息登记
+							return Response::json(array('errCode'=>11,'message'=>'11-ok'));//信息登记
 						case 20:
-							return Response::josn(array('errCode'=>20,'message'=>'ok'));//信息审核中
+							return Response::json(array('errCode'=>20,'message'=>'20-ok'));//信息审核中
 						case 21:
-							return Response::josn(array('errCode'=>21,'message'=>'ok'));//等待用户校验激活
+							return Response::json(array('errCode'=>21,'message'=>'21-ok'));//等待用户校验激活
 						case 30:
-							return Response::josn(array('errCode'=>30,'message'=>'ok'));//帐号锁定页面
+							return Response::json(array('errCode'=>30,'message'=>'30-ok'));//帐号锁定页面
 					}
 				}
 	            return Response::json($message);
