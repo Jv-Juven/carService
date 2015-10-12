@@ -245,7 +245,7 @@ class UserController extends BaseController{
 			return Response::json(array('errCode'=>26,'message'=>'手机验证码不对，请重新输入'));
 		try
 			{
-				$user = Sentry::createUser(array(
+				$user = Sentry::register(array(
 			        'login_account'     => $data['login_account'],
 			        'password'  		=> $data['password'],
 			        // 'user_id'			=> 'yhxx'.uniqid(),
