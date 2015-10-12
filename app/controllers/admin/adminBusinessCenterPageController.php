@@ -249,23 +249,24 @@ class AdminBusinessCenterPageController extends BaseController{
 		if(!isset($result))
 			return View::make('errors.page-error', ["errMsg" => "订单未找到，请检查订单号是否正确"]);
 
-		try {
+		$resp = BeeCloudController::getRefundStatus($result->refund_id);
 
-			$resp = BeeCloudController::refund($result->refund_id);
+		if($resp["errCode"] == 0) {
+			if($resp["result"]) {
+				RefundRecord::where("order_id", "=", $indentId)->update(["status" => "2"]);
+				AgencyOrder::where("order_id", "=", $indentId)->update(["process_status" => "4"]);
+			} else {
+				RefundRecord::where("order_id", "=", $indentId)->update(["status" => "4"]);
+				AgencyOrder::where("order_id", "=", $indentId)->update(["process_status" => "4", "trade_status" => "3"]);
+			}
 
-			var_dump($resp);
-			exit;
-
-		} catch (Exception $e) {
-
+			return View::make('pages.admin.business-center.refund-status', [ 
+				"indent" => $result,
+				"result" => $resp["result"]
+			]);
+		} else {
+			return View::make('errors.page-error', ["errMsg" => $resp["message"]]);
 		}
-
-		if(!isset($indent))
-			return View::make('errors.page-error', ["errMsg" => "订单未找到，请检查订单号是否正确"]);
-
-		// return View::make('pages.admin.business-center.refund-status', [ 
-		// 	"indent" => $indent
-		// ]);
 	}
 
 	public function refundApplicationList()

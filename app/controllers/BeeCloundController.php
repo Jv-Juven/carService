@@ -22,7 +22,7 @@
 */
 class BeeCloudController extends BaseController{
 
-	public function returnDataArray()
+	public static function returnDataArray()
 	{
 		$data = array();
 		$appSecret = Config::get('beeCloud.app_secret');
@@ -45,7 +45,7 @@ class BeeCloudController extends BaseController{
 		$info = OrderAuthInfo::find( $msg['transactionId'] );
 		if( !isset( $info ))
 		{
-			Log::info('无此数据')
+			Log::info('无此数据');
 			return 'false';
 		}
 		Log::info( $info );
@@ -174,7 +174,7 @@ class BeeCloudController extends BaseController{
 	 */
 	public function recharge()
 	{	
-		$data = $this->returnDataArray();
+		$data = static::returnDataArray();
 		
 		// $channel = Input::get('channel');
 		// if( $channel != 'WX_NATIVE' || $channel != 'ALI_QRCODE' );
@@ -225,7 +225,7 @@ class BeeCloudController extends BaseController{
 	 */
 	public function orderAgency()
 	{
-		$data = $this->returnDataArray();
+		$data = static::returnDataArray();
 		
 		// $channel = Input::get('channel');
 		// if( $channel != 'WX_NATIVE' || $channel != 'ALI_QRCODE' );
@@ -289,13 +289,11 @@ class BeeCloudController extends BaseController{
 	//退款
 	public static function refund( $refund_id, $channel = 'WX' )
 	{
-		$data = $this->returnDataArray();
+		$data = static::returnDataArray();
 		
-		// $refund_id = 'tkjl5617c95a522b4685036243';
-		// $refund_id = Input::get('refund_id');
 		$refund = RefundRecord::find( $refund_id );
 		if( !isset( $refund) )
-			return (array('errCode'=>21, 'message'=>'该订单不存在');
+			return (array('errCode'=>21, 'message'=>'该订单不存在'));
 
 		$order = AgencyOrder::find( $refund->order_id );
 		$data["bill_no"] = $order->order_id;
@@ -304,9 +302,6 @@ class BeeCloudController extends BaseController{
 		
 		$data["refund_fee"] = (int)(($order->capital_sum+$order->service_charge_sum+$order->express_fee)*100);
 		
-		// if( $channel != 'WX' || $channel != 'ALI' );
-		// 	return Response::json(array( 'errCode'=>21, 'message'=>'支付方式只能选去微信或支付宝') );
-	
 		$data["channel"] = $channel;
 		$data["optional"] 	= json_decode(json_encode(array("refund_id"=>$refund_id),true),true);
 
@@ -314,20 +309,12 @@ class BeeCloudController extends BaseController{
 		$order_auth_info->transactionId =  $data["refund_no"];//交易单号
 		$order_auth_info->transactionFee = $data["refund_fee"];//费用
 		if( !$order_auth_info->save() )
-			return Response::json(array('errCode'=>22, 'message'=>'数据库保存错误' ));
-
-		//Cache::put($data["bill_no"],$data,120);
+			return array('errCode'=>22, 'message'=>'数据库保存错误' );
 
 		try{
 				$result = BCRESTApi::refund($data);	
 				if ($result->result_code != 0 || $result->result_msg != "OK") 
 					return array('errCode'=>24, 'message'=>json_encode($result->err_detail));
-				// $order->process_status = 2;
-				// $order->save();
-
-				// $refund->refund_no = $data["refund_no"];
-				// $refund->status = 1; 
-				// $refund->save();
 		}catch( Exception $e)
 		{
 			return array('errCode'=>24, 'message'=>$e->getMessage() );
@@ -339,7 +326,7 @@ class BeeCloudController extends BaseController{
 	//退款状态
 	public function refundStatus( $refund_no ,$channel = 'WX' )
 	{
-		$data = $this->returnDataArray();
+		$data = static::returnDataArray();
 		
 		$data["channel"] = $channel;
 		$data["refund_no"] = $refund_no;
@@ -364,14 +351,12 @@ class BeeCloudController extends BaseController{
 	//更新退款状态并获取
 	public static function getRefundStatus( $refund_id,$channel = 'WX' )
 	{	
-		$data = $this->returnDataArray();
+		$data = static::returnDataArray();
 		
 		// if( $channel != 'WX' || $channel != 'ALI' );
 		// 	return Response::json(array( 'errCode'=>21, 'message'=>'支付方式只能选去微信或支付宝') );
 
 		$data["channel"] = $channel;
-		// $refund_id = 'tkjl5617c95a522b4685036243';
-		// $refund_id =  Input::get('refund_id');
 		$refund = RefundRecord::find( $refund_id );
 		if( !isset($refund) )
 			return array('errCode'=>21, 'message'=>'该订单不存在');
