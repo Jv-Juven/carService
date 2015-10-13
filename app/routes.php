@@ -76,8 +76,10 @@ Route::group(array('prefix'=>'user'), function(){
 		Route::get('lock', 'UserController@lock');
 		//审核不通过页面
 		Route::get('no-pass','UserPageController@noPass');
-		//打款验证码
+		//打款验证码静态页面
 		Route::get('write-code','UserPageController@writeCode');
+		//填写打款验证码
+		Route::post('money_remark_code','UserController@moneyRemarkCode');
 
 		//获取appkey和secretkey
 		Route::get('app', 'UserController@app');

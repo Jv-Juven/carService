@@ -530,7 +530,7 @@ class UserController extends BaseController{
 		if($remark_code != $database_remark_code )
 		{	
 			if($user->status == 30 )//先判断其是否已被锁定
-				return Response::json(array('errCode'=>22, 'message'=>'帐号已锁定'));
+				return Response::json(array('errCode'=>30, 'message'=>'帐号已锁定'));
 
 			//计算输入错误次数
 			if( Session::get('remain_time') != null )
@@ -544,7 +544,7 @@ class UserController extends BaseController{
 						//连续超过5次，锁定帐号
 						$user->status = 30;
 						if( !$user->save() )
-							return Response::json(array('errCode'=> 23 ,'message'=> '数据库错误，保存失败'));
+							return Response::json(array('errCode'=> 30 ,'message'=> '数据库错误，保存失败'));
 					
 					return Response::json(array('errCode'=> 24 ,'message'=> '错误次数超过5次，账号已锁定'));
 					}
@@ -554,12 +554,30 @@ class UserController extends BaseController{
 			}
 			//首次输入错误
 			Session::put('remain_time',4);
-			return Response::json(array('errCode'=> 26,'message'=> '打款码不正确，你还有'.Session::get('remain_time').'次机会输入打款码'));
+			return Response::json(array('errCode'=> 25,'message'=> '打款码不正确，你还有'.Session::get('remain_time').'次机会输入打款码'));
 		}
 
-		$user->status = 22;
-		if( !$user->save() )
-			return Response::json(array('errCode'=> 27,'message'=> '数据库错误，保存失败'));
+		try
+		{
+			DB::transaction( function() use( $user ) {
+				try{
+					$app_config = BusinessController::get_appkey_appsecret_from_remote( $user->user_id );
+ 					$business_user = BusinessUser::find( $user->user_id);
+ 					$business_user->app_key = $app_config['appkey'];
+ 					$business_user->app_secret = $app_config['secretkey'];
+					$business_user->save();
+				}
+				catch( Exception $e )
+				{
+					throw $e;
+				}
+				$user->status = 22;
+				$user->save();
+			});
+		}catch( Exception $e )
+		{
+			return Response::json(array('errCode'=>26, 'message'=>$e->getMessage()));
+		}
 
 		return Response::json(array('errCode'=>0, 'message'=> '账号已激活'));
 	}
