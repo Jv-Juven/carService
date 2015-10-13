@@ -10,7 +10,7 @@ class AgencyPageController extends BaseController{
         if ( $user->is_common_user() ){
             
             $account_to_render = [
-                'balance'   => SearchController::get_search_count_remain( $user->user_id, 'violation' )
+                'remain_search'   => SearchController::get_search_count_remain( $user->user_id, 'violation' )
             ];
         }
         // 企业用户根据余额
