@@ -94,6 +94,12 @@ $ ()->
 		_this.siblings().removeClass("active").end().addClass "active"
 		bigPics.hide().eq(_index).show()
 
+	
+	#点击“驾驶证查询”和“车辆查询”的提示信息
+	console.log $(".click-no-jump").text()
+	$(".click-no-jump").on "click", ()->
+		alert "当前，该功能只面向企业用户开放。企业用户请先登录，在服务中心中进行操作。"
+
 
 
 	#“登录”按钮事件绑定

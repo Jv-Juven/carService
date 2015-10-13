@@ -103,28 +103,29 @@
 									违章查询
 								</dt>
 								<dd>
-									凭有效的检测合格报告，在市公安交通管理局车辆管理所，以及台山、新会、恩平、开平
+									提供交通违章实时查询服务
 								</dd>
 							</dl>
 						</a>
-						<a href="javascript:">
+						<a href="javascript:" class="click-no-jump">
 							<dl>
 								<dt>
 									<img src="/images/login/icons01.png">
-									违章查询
+									驾驶证查询
 								</dt>
 								<dd>
-									凭有效的检测合格报告，在市公安交通管理局车辆管理所，以及台山、新会、恩平、开平
+									提与供驾驶证相关的数据查询服务
 								</dd>
 							</dl>
-						</a><a href="javascript:">
+						</a>
+						<a href="javascript:" class="click-no-jump">
 							<dl>
 								<dt>
 									<img src="/images/login/icons01.png">
-									违章查询
+									车辆查询
 								</dt>
 								<dd>
-									凭有效的检测合格报告，在市公安交通管理局车辆管理所，以及台山、新会、恩平、开平
+									提供与机动车信息相关的数据查询服务
 								</dd>
 							</dl>
 						</a>
