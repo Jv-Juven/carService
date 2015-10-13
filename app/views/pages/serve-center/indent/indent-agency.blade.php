@@ -33,6 +33,7 @@
 					</tr>
 					<tr class="indent-number"></tr>
 					<tr class="indent-number"></tr>
+					<tr class="indent-number"></tr>
 					<tr class="indent-details">
 						<td class="indent-table-title">车牌号码：</td>
 						<td class="indent-table-content indent-inputs">

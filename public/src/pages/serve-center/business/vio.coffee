@@ -167,7 +167,7 @@ dealVio = ()->
 				return
 			else
 				$.post "/serve-center/agency/business/confirm_violation", {
-					sign: sign.va(),
+					sign: sign.val(),
 					xh: xhArr
 				}, (msg)->
 					if msg["errCode"] isnt 0

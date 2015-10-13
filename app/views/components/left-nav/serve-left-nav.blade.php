@@ -39,11 +39,11 @@
 					</li>
 					@else
 					<li class="">
-						<a class="nav-item">
+						<a class="blank-a nav-item">
 						</a>
 					</li>
 					<li>
-						<a class="nav-item">
+						<a class="blank-a nav-item">
 						</a>
 					</li>
 					@endif
