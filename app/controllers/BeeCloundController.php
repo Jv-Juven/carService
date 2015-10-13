@@ -42,7 +42,8 @@ class BeeCloudController extends BaseController{
 		$msg 		= json_decode($jsonStr,true);
 		
 		Log::info( $msg );
-		$info = OrderAuthInfo::find( $msg['transactionId'] );
+		Log::info( $msg['transactionId'] );
+		$info = OrderAuthInfo::where('transactionId', $msg['transactionId'] )->first();
 		if( !isset( $info ))
 		{
 			Log::info('无此数据');
@@ -98,10 +99,11 @@ class BeeCloudController extends BaseController{
 																->first()->id;
 					    $cost_detail->number 		= $info->transactionFee;
 						$cost_detail->save();
-						
-						// $result =  BusinessController::recharge($data['total_fee'],$msg['optional']['user_id']);
-						// if( !$result )
-						// 	throw new Exception;
+						Log::info( $info->transactionFee );
+						Log::info( $msg['optional']['user_id'] );
+						$result =  BusinessController::recharge($info->transactionFee,$msg['optional']['user_id']);
+						if( !$result )
+							throw new Exception;
 			    	});
 			    }catch( \Exception $e )
 			    {	
@@ -182,11 +184,11 @@ class BeeCloudController extends BaseController{
 		// $data["channel"] = $channel;
 		
 		$data["channel"] = "WX_NATIVE";
-		// $money = 1;
-		$money = Input::get('money');
+		$money = 1;
+		// $money = Input::get('money');
 		
 		$data["bill_no"] 	= CostDetail::get_unique_id();
-		$data["total_fee"] 	= (int)$money;//单位换算成分 
+		$data["total_fee"] 	= $money;//单位换算成分 $money*100
 		$data['title']		= '充值';
 		$data["optional"] 	= json_decode(json_encode(array("user_id"=>Sentry::getUser()->user_id),true),true);
 		
