@@ -100,9 +100,9 @@ class BeeCloudController extends BaseController{
 					    $cost_detail->number 		= $info->transactionFee;
 						$cost_detail->save();
 						
-						// $result =  BusinessController::recharge($data['total_fee'],$msg['optional']['user_id']);
-						// if( !$result )
-						// 	throw new Exception;
+						$result =  BusinessController::recharge($info->transactionFee,$msg['optional']['user_id']);
+						if( !$result )
+							throw new Exception;
 			    	});
 			    }catch( \Exception $e )
 			    {	
