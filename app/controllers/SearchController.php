@@ -77,6 +77,11 @@ class SearchController extends BaseController{
     
     public function violation(){
 
+        if ( !Sentry::check() ){
+
+            return Response::json([ 'errCode' => 10, 'message' => '请登录' ]);
+        }
+
         $current_user = Sentry::getUser();
 
         if ( $current_user->is_common_user() && static::is_reach_search_limit( $current_user->user_id, 'violation' ) ){

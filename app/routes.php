@@ -17,9 +17,7 @@ try{
 	
 }
 
-Route::get('/',function(){
-	return View::make('pages.login');
-});
+Route::get('/', 'HomeController@home');
 
 Route::group(array('prefix'=>'user'), function(){
 	//B端用户邮箱注册页
@@ -100,71 +98,32 @@ Route::group(array('prefix'=>'account-center'),function(){
 	Route::get('account-info-c','AccountPageController@developerInfoOfC');
 });
 
-//服务中心
-/*
-Route::group(array('prefix'=>'serve-center'),function(){
-	//违章查询
-	Route::get('violation','ServerCenterPageController@violation');
-	//驾驶证查询
-	Route::get('drive','ServerCenterPageController@drive');
-	//车辆查询
-	Route::get('cars','ServerCenterPageController@cars');
-	//违章办理
-	Route::get('vio','ServerCenterPageController@vio');
-	//违章代办
-	Route::get('indent-agency','ServerCenterPageController@indentAgency');
-});
-*/
-
-//业务逻辑
-/*
-Route::group(array('prefix'=>'business','before'=>'auth.user.isIn'),function(){
-	//校验充值的token接口
-	Route::get('auth','BusinessController@authToken');
-	//充值
-	Route::post('recharge','BusinessController@recharge');
-	//获取账户信息
-	Route::get('account','BusinessController@accountInfo');
-	//获取访问次数信息
-	Route::get('account/count', 'BusinessController@count');
-	//修改业务单价
-	Route::post('account/univalence', 'BusinessController@univalence');
-	//违章查询
-	Route::post('api/violation','BusinessController@violation');
-	//查询驾驶证扣分信息
-	Route::get('api/license', 'BusinessController@license');
-	//查询车辆信息
-	Route::get('api/car', 'BusinessController@car');
-	//提交订单
-	Route::post('submit_order', 'BusinessController@submitOrder');
-	//查看违章代办信息
-	Route::get('violation_info','BusinessController@trafficViolationInfo');
-});
-*/
-
 Route::get( 'business/auth_request_token', 'BusinessController@auth_request_token' );
 
 // 服务中心
-Route::group([ 'prefix' => 'serve-center', 'before' => 'auth.user.isIn' ], function(){
+Route::group([ 'prefix' => 'serve-center' ], function(){
 
 	// 数据查询模块
 	Route::group([ 'prefix' => 'search' ], function(){
 
 		// 查询相关
-		Route::group([ 'prefix' => 'pages'], function(){
+		Route::group([ 'prefix' => 'pages' ], function(){
 
 			// 违章查询页面
 			Route::get( 'violation', 'SearchPageController@violation' );
 
-			// 驾驶证查询页面
-			Route::get( 'license', 'SearchPageController@license' );
+			Route::group([ 'before' => 'auth.user.isIn' ], function(){
+				
+				// 驾驶证查询页面
+				Route::get( 'license', 'SearchPageController@license' );
 
-			// 车辆查询页面
-			Route::get( 'car', 'SearchPageController@car' );
+				// 车辆查询页面
+				Route::get( 'car', 'SearchPageController@car' );
+			});
 		});
 
 		// 查询ajax接口
-		Route::group([ 'prefix' => 'api' ], function(){
+		Route::group([ 'prefix' => 'api', 'before' => 'auth.user.isIn' ], function(){
 
 			// 违章查询
 			Route::get( 'violation', 'SearchController@violation' );
@@ -178,7 +137,7 @@ Route::group([ 'prefix' => 'serve-center', 'before' => 'auth.user.isIn' ], funct
 	});
 
 	// 违章代办模块
-	Route::group([ 'prefix' => 'agency' ], function(){
+	Route::group([ 'prefix' => 'agency', 'before' => 'auth.user.isIn' ], function(){
 
 		// 页面路由
 		Route::group([ 'prefix' => 'pages' ], function(){
@@ -208,7 +167,7 @@ Route::group([ 'prefix' => 'serve-center', 'before' => 'auth.user.isIn' ], funct
 	});
 
 	// 订单管理模块
-	Route::group([ 'prefix' => 'order' ], function(){
+	Route::group([ 'prefix' => 'order', 'before' => 'auth.user.isIn' ], function(){
 
 		// 查询违章代办订单页面
 		Route::group([ 'prefix' => 'pages' ], function(){

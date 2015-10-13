@@ -9,13 +9,17 @@ class NoticePageController extends BaseController{
 	 * 
 	 * @return Collection
 	 */
-	protected function get_paginated_notice(){
+	protected function get_paginated_notice( $user_id = null ){
 
 		return  Notice::select( 'id', 'title', 'created_at' )
 					  	->with([
-							'users_read_id' => function( $query ){
-								$query->select( 'notice_id' )
-									  ->where( 'user_id', Sentry::getUser()->user_id );
+							'users_read_id' => function( $query ) use ( $user_id ){
+
+								if ( is_null( $user_id ) ){
+									$query->where( 'user_id', $user_id );
+								}
+
+								$query->select( 'notice_id' );
 							}
 					 	])
 					 	->orderBy( 'created_at' )
@@ -27,7 +31,7 @@ class NoticePageController extends BaseController{
 
 		$paginator = $this->get_paginated_notice();
 
-		return View::make( 'pages.message-center.message-center.home', [
+		return View::make( 'pages.message-center.message.home', [
 			'notices'		=> $paginator->getCollection(),
 			'paginator'		=> $paginator
 		]);
@@ -37,7 +41,7 @@ class NoticePageController extends BaseController{
 	public function all(){
 
 		// 获取notices
-		$paginator = $this->get_paginated_notice();
+		$paginator = $this->get_paginated_notice( Sentry::getUser()->user_id );
 
 		$notices = $paginator->getCollection();
 		$notices->each(function( $notice ){

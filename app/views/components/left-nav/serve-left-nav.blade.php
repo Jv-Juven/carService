@@ -18,7 +18,7 @@
 							<img src="/images/components/nav_arrow.png">
 						</i>
 					</li>
-					@if(Sentry::getUser()->user_type == 1)
+					@if( Sentry::check() && Sentry::getUser()->is_business_user() )
 					<li class="">
 						<a class="nav-item" href="/serve-center/search/pages/license">
 							<i>•</i>

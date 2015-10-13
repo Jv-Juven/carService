@@ -14,7 +14,11 @@
 @stop
 
 @section("right-content")
-	@include("components.violation", [ 'account' => $account ])
+    @if ( isset( $account ) )
+	    @include("components.violation", [ 'account' => $account ])
+    @else
+        @include("components.violation")
+    @endif
 
 @stop
 @section("js")
