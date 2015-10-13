@@ -2,6 +2,7 @@
 
 use GuzzleHttp\Client as httpClient;
 use GuzzleHttp\Exception\ClientException as ClientException;
+use GuzzleHttp\Exception\ConnectException as ConnectException;
 
 class BusinessController extends BaseController{
 
@@ -115,7 +116,7 @@ class BusinessController extends BaseController{
 			$method = strtoupper( $http_params['method'] );
 
 			if( $method == 'GET' ) {
-
+				
 				$query_params = [ 'query' => $http_params['query'] ];
 			}
 			else if ( $method == 'POST' ){
@@ -162,15 +163,21 @@ class BusinessController extends BaseController{
 				$error_message = '操作失败';
 			}
 
-			$error_message = '操作失败';
+			// $error_message = '操作失败';
 
 			throw new OperationException( $error_message, $response_content['errCode'] );
 		}
 		catch( ClientException $e ){
-
-			throw new Exception( "请求失败", 41 );
+				
+			throw $e;
+			throw new Exception( "服务器出错", 41 );
 		}
-		// 查询出错
+		catch( ConnectException $e ){
+
+			throw $e;
+			throw new Exception("请求失败", 42);
+		} 
+		// 操作出错
 		catch( OperationException $e ){
 
 			throw $e;
@@ -178,6 +185,7 @@ class BusinessController extends BaseController{
 		// 其他错误
 		catch( Exception $e ){
 
+			throw $e;
 			throw new Exception( '服务器出错', 51 );
 		}
 
@@ -397,6 +405,8 @@ class BusinessController extends BaseController{
         $search_result = static::send_request( $http_params );
 
         $search_result['data'] = json_decode( $search_result['data'], true );
+
+		$search_result['data']['body'] = json_decode( $search_result['data']['body'], true  );
 
         return [ 'data' => $search_result['data'], 'account' => $search_result['account'] ];
 

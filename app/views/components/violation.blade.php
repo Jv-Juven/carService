@@ -4,7 +4,7 @@
 		<!-- @include("components.vio-process", array("num" => "1")) -->
 		<!-- 办理进程 END	 -->
 		@if(isset($process))
-		@include("components.vio-process", array("num" => "1"))
+			@include("components.vio-process", array("num" => "1"))
 		@endif
 		<!-- 查询框 START -->
 		<div class="violation-search">

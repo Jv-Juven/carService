@@ -1,17 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>微信扫码支付</title>
-</head>
-<body>
-	<div align="center" id="qrcode" >
-	    </div>
-	    <div align="center">
-	        <p>订单号：<?php echo $bill_no; ?></p>
-	    </div>
-	    <br>
-	</body>
+@extends('layouts.submaster')
+
+@section('title')
+    充值 --- 微信支付
+@stop
+
+@section('css')
+@parent
+<link rel="stylesheet" type="text/css" href="/dist/css/common/pay/wechat.css">
+@stop
+
+@section('js')
+@parent
 <script src="/lib/js/qrcode.js"></script>
 <script>
 
@@ -26,4 +25,21 @@
         element.appendChild(canvas);
     }
 </script>
-</html>
+@stop
+
+@section('right-content')
+<div class="pay-wrap">
+    <div class="pay-body">
+        <div class="pay-qrcode notice">
+            <!--<img src="/images/common/qrcode.png">-->
+            <div align="center" id="qrcode" >
+            </div>
+            <div align="center">
+                <p>订单号：<?php echo $bill_no; ?></p>
+            </div>
+            </body>
+            <p>请使用微信扫一扫完成支付</p>
+        </div>
+    </div>
+</div>
+@stop

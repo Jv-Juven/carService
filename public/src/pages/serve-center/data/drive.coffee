@@ -33,8 +33,11 @@ submit = ()->
 	}, (msg)->
 		if msg["errCode"] is 0
 			info.fillData(msg["account"]["balance"], msg["account"]["unit"])
-			stress.text(msg["message"] + "分")
+			stress.text(msg["number"] + "分")
 			driveResult.show()
+		else if msg["errCode"] is 32
+			info.fillData(msg["account"]["balance"], msg["account"]["unit"])
+			alert msg["message"]
 		else
 			alert msg["message"]
 

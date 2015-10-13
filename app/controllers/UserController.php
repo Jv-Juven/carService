@@ -3,6 +3,19 @@ use Gregwar\Captcha\CaptchaBuilder;
 
 class UserController extends BaseController{
 
+	//生成验证码(congcong网)
+	public function captcha()
+	{	
+		session_start();
+		$builder = new CaptchaBuilder;
+		$builder->build();
+		$_SESSION['phrase'] = $builder->getPhrase();
+		header("Cache-Control: no-cache, must-revalidate");
+		header('Content-Type: image/jpeg');
+		$builder->output();
+		exit;
+	}
+	
 	//判断是否禁止发送
 	public static function isPhoneCodeSendLimit( $phone )	
 	{		
@@ -50,7 +63,7 @@ class UserController extends BaseController{
 		$username = Config::get('domain.phone.username');
 		$password = Config::get('domain.phone.password');
 		
-		$text_number = rand(000000,999999);
+		$text_number = rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9);
 		$text = urlencode( iconv('UTF-8', 'GBK','车尚服务验证码:'.$text_number));
 		// dd($text);
 		Session::put('phone_code',$text_number);
@@ -80,18 +93,7 @@ class UserController extends BaseController{
 		}
 	}
 
-	//生成验证码(congcong网)
-	public function captcha()
-	{	
-		session_start();
-		$builder = new CaptchaBuilder;
-		$builder->build();
-		$_SESSION['phrase'] = $builder->getPhrase();
-		header("Cache-Control: no-cache, must-revalidate");
-		header('Content-Type: image/jpeg');
-		$builder->output();
-		exit;
-	}
+	
 
 	//C端用户注册－根据手机获取验证码－需要手机号
 	public function getPhoneCode()

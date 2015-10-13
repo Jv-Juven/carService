@@ -46,6 +46,7 @@ phoneInput = $(".change-phone .phone-input")
 
 emailCodesBtn = $(".get-email-codes")
 emailCodes = $(".email-codes")
+#"忘记密码"框
 phoneCodesBtn = $(".get-phone-codes")
 phoneCodes = $(".phone-codes")
 
@@ -328,7 +329,6 @@ getEmaiCodes = (e)->
 emailCodesBtn.on "click", getEmaiCodes
 
 #手机获取验证码
-
 getPhoneCodes = (e)->
 
 	_this = $(e.currentTarget)
@@ -340,7 +340,7 @@ getPhoneCodes = (e)->
 
 	warnTips.val " "
 
-	$.post "/user/phone_code", {
+	$.post "/user/send-resetcode-to-cell", {
 		login_account: phoneInput.val()
 	}, (msg)->
 		if msg["errCode"] isnt 0

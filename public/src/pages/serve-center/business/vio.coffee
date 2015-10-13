@@ -95,11 +95,7 @@ submit = ()->
 
 		}, (msg)->
 
-		if msg["errCode"] isnt 0
-
-			alert msg["message"]
-
-		else
+		if msg["errCode"] is 0
 
 			#剩余次数和余额 START
 			if msg["remain_serach_count"]
@@ -144,8 +140,20 @@ submit = ()->
 			noResulte.hide()
 			vioRecords.fadeIn 100,()->
 				#"全选"按钮绑定事件
-				allCheck.bindEvent(table01.find(".tb-head input[type='checkbox']"), table01.find(".tb-tr input[type='checkbox']"))
-				allCheck.bindEvent(table02.find(".tb-head input[type='checkbox']"), table02.find(".tb-tr input[type='checkbox']"))
+				if array01.length > 0
+					table01.show()
+					allCheck.bindEvent(table01.find(".tb-head input[type='checkbox']"), table01.find(".tb-tr input[type='checkbox']"))
+				if array02.length > 0
+					table02.show()
+					allCheck.bindEvent(table02.find(".tb-head input[type='checkbox']"), table02.find(".tb-tr input[type='checkbox']"))
+		else if msg["errCode"] is 32
+			info.fillData(msg["account"]["balance"], msg["account"]["unit"])
+			alert msg["message"]
+		else
+			alert msg["message"]
+
+	.error (xhr,errorText,errorType)->
+		alert "提交失败，请重试"
 
 
 
@@ -165,7 +173,7 @@ dealVio = ()->
 				return
 			else
 				$.post "/serve-center/agency/business/confirm_violation", {
-					sign: sign.va(),
+					sign: sign.val(),
 					xh: xhArr
 				}, (msg)->
 					if msg["errCode"] isnt 0
