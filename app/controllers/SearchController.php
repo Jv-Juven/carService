@@ -383,4 +383,10 @@ class SearchController extends BaseController{
 
         return Response::json([ 'errCode' => 0, 'car' => $search_result['data']['body'][0], 'account' => $account ]);
     }
+
+    //获取用户访问次数
+    public function count()
+    {
+        return BusinessController::count( Sentry::getUser()->user_id );
+    }
 }
