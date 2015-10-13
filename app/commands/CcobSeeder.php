@@ -117,14 +117,14 @@ class CcobSeeder extends Command {
     {
         DB::transaction(function(){
             // $this->create_users();
-            // $this->create_agency_orders();
-            // $this->create_refund_records();
+            $this->create_agency_orders();
+            $this->create_refund_records();
             $this->create_fee_types();
-            // $this->create_user_fee();
-            // $this->create_cost_details();
-            // $this->create_notices();
-            // $this->create_user_read_notice();
-            // $this->create_feedbacks();
+            $this->create_user_fee();
+            $this->create_cost_details();
+            $this->create_notices();
+            $this->create_user_read_notice();
+            $this->create_feedbacks();
         });
     }
 
