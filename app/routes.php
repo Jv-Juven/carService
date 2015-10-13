@@ -48,8 +48,6 @@ Route::group(array('prefix'=>'user'), function(){
 		Route::post('info_register', 'UserController@informationRegister');
 		//B端用户注册-意外退出后发送验证信息再次发送信息到邮箱
 		Route::post('send_token_to_email','UserController@sendTokenToEmail');
-		//B端用户打款备注码
-		Route::post('money_remark_code','UserController@moneyRemarkCode');
 		//B端用户注册－填写完注册信息后跳转到邮箱激活页面
 		Route::get('email_active','UserPageController@emailActivePage');
 		//显示企业信息
@@ -66,8 +64,6 @@ Route::group(array('prefix'=>'user'), function(){
 		Route::get('info_register','UserPageController@infomationRegisterPage');
 		//B端用户邮箱注册验证通过后跳转到邮箱激活页面
 		Route::get('b_active','UserPageController@emailActivePage');
-		//打款验证码静态页面
-		Route::get('remark_code','UserPageController@remarkCode');
 		//c端用户修改密码－发送验证码到手机
 		Route::post('send_code_to_phone','UserController@sendResetCodeToPhone');
 		//c端用户修改密码－重置密码

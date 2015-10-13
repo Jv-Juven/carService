@@ -7,7 +7,7 @@
 @section("css")
 @parent
 <link rel="stylesheet" type="text/css" href="/dist/css/pages/register-b/email-active.css">
-<link rel="stylesheet" type="text/css" href="dist/css/pages/account-status/write-codes.css">
+<link rel="stylesheet" type="text/css" href="/dist/css/pages/account-status/write-codes.css">
 @stop
 
 @section("body")

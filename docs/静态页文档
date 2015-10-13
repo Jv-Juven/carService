@@ -22,7 +22,12 @@
 	1.帐号信息
 	url：/account-center/account-info 
 
-
 	2.开发者中心
 	url：/account-center/developer-info 
-	
+
+	3.信息审核中页面
+	url：/user/pending
+
+	4.打款验证码页面
+	url：/user/write-code
+

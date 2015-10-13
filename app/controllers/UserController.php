@@ -599,7 +599,7 @@ class UserController extends BaseController{
 						case 11:
 							return Response::json(array('errCode'=>11,'message'=>'11-ok'));//信息登记
 						case 20:
-							return Response::json(array('errCode'=>20,'message'=>'20-ok'));//信息审核中
+							return Response::json(array('errCode'=>20,'message'=>'20-ok'));//打款备注码页面
 						case 21:
 							return Response::json(array('errCode'=>21,'message'=>'21-ok'));//等待用户校验激活
 						case 30:
