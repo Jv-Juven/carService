@@ -3,6 +3,7 @@ validate = require "./../../common/validate/validate.coffee"
 warn = require "./../../common/warn/warn.coffee"
 mask = require "./../../components/mask/mask.coffee"
 strMask = require "./../../common/strMask/str-mask.coffee"
+timing =require "./../../common/settimeout/settimeout.coffee"
 
 validate = new validate()
 warn = new warn()
@@ -56,9 +57,15 @@ show = {
 psd = {
 
 	#获取手机验证码
-	getPhoneCodes: ()->
+	getPhoneCodes: (e)->
+		_this = $(e.currentTarget)
 		$.post "/user/send_code_to_phone", {}, (msg)->
 			if msg["errCode"] isnt 0
+				alert msg["message"]
+			else
+				timing(_this, 60, ()->
+					_this.on "click", psd.getPhoneCodes
+				)
 				alert msg["message"]
 
 	#保存修改的密码

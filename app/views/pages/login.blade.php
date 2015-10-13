@@ -83,7 +83,7 @@
 						<a href="{{{ $message_url }}}">查看更多 > </a>
 					</dd>
 				</dl>
-				<div class="login-quick-check">
+				<div class="login-quick-check clearfix">
 					<div class="wrapper-title quick-check-title">
 						<i>•</i>
 						<span class="title">快速查询</span>
@@ -122,8 +122,9 @@
 								</dd>
 							</dl>
 						</a>
+						<div style="clear:both"></div>
 					</div>
-					<div class="login-cases">
+					<div class="login-cases clearfix">
 						<div class="wrapper-title">
 							<i>•</i>
 							<span class="title">成功案例</span>
@@ -131,56 +132,11 @@
 						<ul class="cases-wrapper clearfix">
 							<li class="case active">
 								<div class="case-img">
-									<img class="nocol-cover" src="/images/login/cases01.png">
-									<img class="col-cover" src="/images/login/cases01_col.png">
+									<img class="nocol-cover" src="/images/login/case01.png">
+									<img class="col-cover" src="/images/login/case01_col.png">
 								</div>
 								<span class="case-title">
-									观达地产
-								</span>
-							</li>
-							<li class="case">
-								<div class="case-img">
-									<img class="nocol-cover" src="/images/login/cases01.png">
-									<img class="col-cover" src="/images/login/cases01_col.png">
-								</div>
-								<span class="case-title">
-									观达地产
-								</span>
-							</li>
-							<li class="case">
-								<div class="case-img">
-									<img class="nocol-cover" src="/images/login/cases01.png">
-									<img class="col-cover" src="/images/login/cases01_col.png">
-								</div>
-								<span class="case-title">
-									观达地产
-								</span>
-							</li>
-							<li class="case">
-								<div class="case-img">
-									<img class="nocol-cover" src="/images/login/cases01.png">
-									<img class="col-cover" src="/images/login/cases01_col.png">
-								</div>
-								<span class="case-title">
-									观达地产
-								</span>
-							</li>
-							<li class="case">
-								<div class="case-img">
-									<img class="nocol-cover" src="/images/login/cases01.png">
-									<img class="col-cover" src="/images/login/cases01_col.png">
-								</div>
-								<span class="case-title">
-									观达地产
-								</span>
-							</li>
-							<li class="case">
-								<div class="case-img">
-									<img class="nocol-cover" src="/images/login/cases01.png">
-									<img class="col-cover" src="/images/login/cases01_col.png">
-								</div>
-								<span class="case-title">
-									观达地产
+									政捷车务管家
 								</span>
 							</li>
 						</ul>

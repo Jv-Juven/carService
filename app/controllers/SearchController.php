@@ -91,8 +91,8 @@ class SearchController extends BaseController{
         $params = Input::all();
 
         $rules = [
-            'engineCode' => 'required|size:6',
-            'licensePlate'  => 'required|size:7',
+            'engineCode'        => 'required|size:6',
+            'licensePlate'      => 'required|size:7',
             'licenseType'       => 'required|size:2'
         ];
 
@@ -102,8 +102,8 @@ class SearchController extends BaseController{
         ];
 
         $attributes = [
-            'engineCode' => '发动机号',
-            'licensePlate'  => '车牌号码',
+            'engineCode'        => '发动机号',
+            'licensePlate'      => '车牌号码',
             'licenseType'       => '车辆类型'
         ];
 
@@ -228,9 +228,11 @@ class SearchController extends BaseController{
                 Session::put( 'violations', $violations );
             }
         }
-        catch( \Exception $e ){
+        catch( OperationException $e ){
 
-            throw $e;
+            return Response::json( static::process_error( $e->getCode(), '查询失败' ) );
+        }
+        catch( \Exception $e ){
 
             return Response::json( static::process_error( $e->getCode(), $e->getMessage() ) );
         }
@@ -311,9 +313,11 @@ class SearchController extends BaseController{
                 throw new SearchException( '查询失败', 32 );
             }
         }
-        catch( \Exception $e ){
+        catch( OperationException $e ){
 
-            throw $e;
+            return Response::json( static::process_error( $e->getCode(), '查询失败' ) );
+        }
+        catch( \Exception $e ){
 
             return Response::json( static::process_error( $e->getCode(), $e->getMessage() ) );
         }
@@ -372,9 +376,11 @@ class SearchController extends BaseController{
                 throw new SearchException( '查询失败', 32 );
             }
         }
-        catch( \Exception $e ){
+        catch( OperationException $e ){
 
-            throw $e;
+            return Response::json( static::process_error( $e->getCode(), '查询失败' ) );
+        }
+        catch( \Exception $e ){
 
             return Response::json( static::process_error( $e->getCode(), $e->getMessage() ) );
         }

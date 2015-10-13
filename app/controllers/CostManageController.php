@@ -6,10 +6,19 @@ class CostManageController extends BaseController{
 
     public function overview(){
 
-        return View::make( 'pages.finance-center.cost-manage.overview', [
-            
-            'account_info' => BusinessController::accountInfo()
-        ]);
+        if ( Sentry::getUser()->is_common_user() ){
+
+            return View::make( 'pages.finance-center.cost-manage.overview' );
+
+        }else if ( Sentry::getUser()->is_business_user() ){
+
+            return View::make( 'pages.finance-center.cost-manage.overview', [
+                
+                'account_info' => BusinessController::accountInfo()
+            ]);
+        }
+
+        return 'Error';
     }
 
     public function cost_detail(){

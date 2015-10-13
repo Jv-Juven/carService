@@ -75,9 +75,9 @@
 	</div>
 </div>
 @include("components.warn-mask")
+@stop
+
 @section("js")
 	@parent
 	<script type="text/javascript" src="/dist/js/pages/register-b/baseinfo.js"></script>
-@stop
-
 @stop

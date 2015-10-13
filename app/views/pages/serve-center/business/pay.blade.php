@@ -109,6 +109,7 @@
 			</div>
 		</div>
 	</div>
+	<input type="hidden" id="order-id" value="{{{ $order->order_id }}}">
 @stop
 
 @section("js")

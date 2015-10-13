@@ -81,6 +81,7 @@ $ ()->
 	selectPic = (e)->
 		_this = $(e.currentTarget)
 		_index = _this.index()
+		console.log _index
 
 		img01 = _this.find(".case-img .nocol-cover")
 		img02 = _this.find(".case-img .col-cover")
@@ -94,7 +95,7 @@ $ ()->
 		_this.siblings().removeClass("active").end().addClass "active"
 		bigPics.hide().eq(_index).show()
 
-	
+
 	#点击“驾驶证查询”和“车辆查询”的提示信息
 	console.log $(".click-no-jump").text()
 	$(".click-no-jump").on "click", ()->
@@ -114,11 +115,13 @@ $ ()->
 	#"忘记密码"链接按钮事件绑定
 	tipsBtn.on "click", ()->
 		mask.showResetPannel(userType)
-
-	#页面底部icons事件绑定
-	caseIcon.on "click", selectPic
+		
 	#隐藏所有彩色icon
 	colImg.hide()
+
+	#页面底部icons事件绑定
+	caseIcon.on "click mouseenter", selectPic
+	caseIcon.eq(0).trigger "click"
 
 
 

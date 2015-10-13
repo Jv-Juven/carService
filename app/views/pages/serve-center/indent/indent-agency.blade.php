@@ -150,6 +150,7 @@
 	<% for (var i = 0; i < array.length; i ++){ 
 		var rightTd = array[i]["traffic_violation_info"].length + 1;
 		var info = array[i]["traffic_violation_info"]; 
+		var total_sum = array[i]["capital_sum"] + parseInt(array[i]["express_fee"] + 0) + array[i]["service_charge_sum"]
 		var process_status = "",
 			trade_status = "";
 		if (array[i]["process_status"] == 0){
@@ -207,30 +208,30 @@
 		<% for(var j = 0; j < info.length; j ++ ){ %>
 			<tr class="indent-tr indent-tr-content">
 				<td>
-					<span><%- info[i]["rep_event_time"] %></span>
+					<span><%- info[j]["rep_event_time"] %></span>
 				</td>
 				<td>
-					<span><%- info[i]["rep_event_addr"] %></span>
+					<span><%- info[j]["rep_event_addr"] %></span>
 				</td>
 				<td class="vio-behaviour">
-					<%- info[i]["rep_violation_behavior"] %>
+					<%- info[j]["rep_violation_behavior"] %>
 					<span>[1039]</span>
 				</td>
 				<td class="money">
-					<span>本金：<%- info[i]["rep_priciple_balance"] %></span>
-					<span>滞纳金：<%- info[i]["rep_late_fee"] %></span>
-					<span>服务费：<%- info[i]["rep_service_charge"] %></span>
+					<span>本金：<%- info[j]["rep_priciple_balance"] %></span>
+					<span>滞纳金：<%- info[j]["rep_late_fee"] %></span>
+					<span>服务费：<%- info[j]["rep_service_charge"] %></span>
 				</td>
 
 				<td>
-					<span><%- info[i]["rep_total_fee"] %></span>
+					<span><%- info[j]["rep_total_fee"] %></span>
 				</td>
 			</tr>
 		<% } %>
 		<tr class="indent-tr indent-deal">
 			<td colspan="2">
 				<span class="title">应付总额：</span>
-				<span class="money">￥<%- array[i]["capital_sum"] %>元</span>
+				<span class="money">￥<%- total_sum %>元</span>
 				<% if (array[i]["express_fee"] !== null){ %>
 					<span class="express-fee">快递费：<%- array[i]["express_fee"] %>元</span>
 				<% } %>
