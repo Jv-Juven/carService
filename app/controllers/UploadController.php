@@ -20,7 +20,7 @@ class UploadController extends \BaseController {
 		$accessKey = Config::get('qiniu.qiniu.accessKey');
 		$secretKey = Config::get('qiniu.qiniu.secretKey');
 		$auth = new Auth($accessKey, $secretKey);
-		$baseUrl = Config::get('qiniu.domain').$addr;
+		$baseUrl = Config::get('qiniu.qiniu.domain').$addr;
 
 		return  $auth->privateDownloadUrl($baseUrl);
 	}
