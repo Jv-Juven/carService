@@ -212,6 +212,36 @@ if( Sentry::check() )
 	 		   	business_licence_no		企业营业执照		正确时返回
 	 		}
 
+	1.16 b端用户－忘记密码－需要邮箱
+	 请求方式：POST
+	 请求url：/user/send-resetcode-to-email
+
+	 请求参数：
+	 		 login_account 				邮箱
+
+	 返回参数：
+	 		{
+	 			errCode,
+	 			message,
+	 		}
+
+	1.17 B端用户忘记密码-重置密码
+	 请求方式:POST
+	 请求url: /user/reset-bsite-forgetpwd
+
+	 请求参数：	
+	 			login_account 			邮箱
+	 			reset_code,				验证码
+	 			password,				密码
+	 			re_password,			确认密码
+
+	 返回参数:
+	 			{
+	 				errCode,			0返回正常
+	 				message,			错误信息
+	 			}
+
+
 2. C端用户模块
 	1. 注册－获取手机验证码
 	 请求方式: POST
@@ -255,9 +285,25 @@ if( Sentry::check() )
 	 				message,			错误信息
 	 			}
 
-	4. C端用户修改密码/忘记密码－重置密码
+	4. C端用户修改密码
 	 请求方式: POST
 	 请求url: /user/reset_csite_pwd
+
+	 请求参数:	
+	 			phone_code				手机验证码
+	 			password 				密码
+	 			re_password				重置密码
+
+
+	 返回参数:	
+	 			{
+	 				errCode,			0返回正常
+	 				message,			错误信息
+	 			}
+
+	5. c端用户忘记密码－重置密码
+	 请求方式: POST
+	 请求url: /user/reset-csite-forgetpwd
 
 	 请求参数:	
 	 			login_account			手机号

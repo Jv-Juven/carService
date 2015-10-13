@@ -32,11 +32,17 @@ Route::group(array('prefix'=>'user'), function(){
 	Route::post('b_register','UserController@bSiteRegister');
 	//B,C端登录
 	Route::post('login','UserController@login');
+	//b端用户－忘记密码－需要邮箱
+	Route::post('send-resetcode-to-email','UserController@sendResetCodeToEmail');
 	//C端用户注册-获取手机验证码
 	Route::post('phone_code','UserController@getPhoneCode');
 	//C端用户注册－密码页
 	Route::post('c_register','UserController@cSiteRegister');
-	
+	//b端用户忘记密码密码－重置密码
+	Route::post('reset-bsite-forgetpwd','UserController@resetForgetPassword');
+	//c端用户忘记密码－重置密码
+	Route::post('reset-csite-forgetpwd','UserController@resetCForgetPassword');
+
 	Route::group(array('before'=>'auth.user.isIn'),function(){
 		//B端用户注册-信息登记
 		Route::post('info_register', 'UserController@informationRegister');
