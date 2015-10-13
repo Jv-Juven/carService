@@ -4,7 +4,6 @@ carsInputs = $(".cars-inputs")
 
 
 plateNum = carsInputs.find(".plate-num")
-carsType = carsInputs.find("select").eq(1).find("option:selected").val()
 recordId = $(".record-id")
 
 carsBtn = $(".cars-btn")
@@ -16,14 +15,16 @@ recordPlate = $(".records-plate")
 
 #提交事件
 submit = ()->
+	
+	carsType = carsInputs.find("select").eq(1).find("option:selected").val()
 
 	plate = carsInputs.find("select").eq(0).find("option:selected").text()
 	licensePlate = plate + plateNum.val()
 
-	$.get "/serve-center/search/api/cars", {
-		engineCode: recordId.val()
-		licensePlate: licensePlate
-		licenseType: recordId.val()
+	$.get "/serve-center/search/api/car", {
+		engineCode: recordId.val(),
+		licensePlate: licensePlate,
+		licenseType: carsType
 	}, (msg)->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
