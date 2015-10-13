@@ -66,14 +66,23 @@ init_datepicker = ()->
 #”查询“订单
 submit = ()->
 
+	plateNo = plate.find("option:selected").text() + plateNum.val()
+	dateStartValue = dateStart.val()
+	dateEndValue = dateEnd.val()
+
 	# console.log(indentNum + "\n" + plate + plateNum + "\n" + status + "\n" + dateStart.val() + "\n")
+	if indentNum.val().length isnt 0
+		plateNo = ""
+		dateStartValue = ""
+		dateEndValue = ""
+
 
 	$.get "/serve-center/order/operation/search", {
 			order_id: indentNum.val(),
-			car_plate_no: plate.find("option:selected").text() + plateNum.val(),
+			car_plate_no: plateNo,
 			process_status: status.find("option:selected").val(),
-			start_date: dateStart.val(),
-			end_date: dateEnd.val()
+			start_date: dateStartValue,
+			end_date: dateEndValue
 		}, (msg)->
 			if msg["errCode"] isnt 0
 				alert msg["message"]

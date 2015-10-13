@@ -122,7 +122,7 @@
 											<option value="02">安徽省</option>
 											<option value="03">重庆市</option>
 											<option value="04">福建省</option>
-											<option value="05">广东省</option>
+											<option value="05" selected="true">广东省</option>
 											<option value="06">甘肃省</option>
 											<option value="07">广西壮族自治区</option>
 											<option value="08">贵州省</option>
