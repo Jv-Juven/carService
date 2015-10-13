@@ -344,6 +344,9 @@ Route::group(array('prefix' => 'admin'), function() {
 
 	Route::group(array('before' => 'auth.admin'), function() {
 
+		// 获取用户访问次数统计
+		Route::get('/get-count', 'AdminController@getCount');
+
 		// 修改退款申请审批状态
 		Route::post('/change-refund-status', 'AdminController@changeRefundStatus');
 
@@ -394,8 +397,6 @@ Route::group(array('prefix'=>'qiniu','before'=>'auth.isRegister'),function(){
 	//
 	Route::get('front-download-token','UploadController@downloadTokenOfFront');
 });
-
-
 
 //beeclound接口
 Route::group(array('prefix'=>'beeclound','before'=>'auth.user.isIn'), function(){
