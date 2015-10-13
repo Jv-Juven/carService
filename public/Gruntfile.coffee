@@ -69,6 +69,7 @@ module.exports = (grunt)->
                 flatten: true
                 files: {
                     'dist/js/pages/finance-center/cost-manage/cost-detail.js': ['src/pages/finance-center/cost-manage/cost-detail.coffee']
+                    'dist/js/pages/finance-center/recharge/index.js': ['src/pages/finance-center/recharge/index.coffee']
                 }
             message_center:
                 options:

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.login-master')
 
 @section('title')
     信息反馈

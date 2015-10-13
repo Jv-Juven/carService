@@ -226,11 +226,13 @@
 	</div>
 </div>
 @include("components.warn-mask")
+
+@stop
+
+
 @section("js")
 	@parent
 	<script type="text/javascript" src="/lib/js/plupload.full.min.js"></script>
 	<script type="text/javascript" src="/lib/js/qiniu.min.js"></script>
 	<script type="text/javascript" src="/dist/js/pages/register-b/reg-info.js"></script>
-@stop
-
 @stop
