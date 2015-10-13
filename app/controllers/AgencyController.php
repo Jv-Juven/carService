@@ -127,7 +127,7 @@ class AgencyController extends BaseController{
             $agency_order->car_type_no          = $violation['info']['car_type_no'];
             $agency_order->car_plate_no         = $violation['info']['car_plate_no'];
             $agency_order->car_engine_no        = $violation['info']['car_engine_no'];
-            $agency_order->service_charge_sum   = $violation['info']['service_fee'];
+            $agency_order->service_charge_sum   = $violation['info']['service_fee'] * $violation['info']['count'];
             $agency_order->late_fee_sum         = 0.00;
             $agency_order->trade_status         = 0;
             $agency_order->process_status       = 0;

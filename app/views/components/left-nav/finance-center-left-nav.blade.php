@@ -9,6 +9,7 @@
                     费用管理
                 </a>
                 <ul class="nav-sec">
+                    @if( Sentry::getUser()->is_business_user() )
                     <li>
                         <a class="nav-item" href="/finance-center/cost-manage/overview">
                             <i>•</i>
@@ -27,6 +28,7 @@
                             <img src="/images/components/nav_arrow.png">
                         </i>
                     </li>
+                    @endif
                     <li>
                         <a class="nav-item" href="/finance-center/cost-manage/refund-record">
                             <i>•</i>
@@ -38,6 +40,7 @@
                     </li>
                 </ul>
             </li>
+            @if( Sentry::getUser()->is_business_user() )
             <li class="li">
                 <a href="javascript:">
                     <i class="nav-icon">
@@ -57,6 +60,7 @@
                     </li>
                 </ul>
             </li>
+            @endif
         </ul>
     </div>
 </div>

@@ -91,8 +91,8 @@ class SearchController extends BaseController{
         $params = Input::all();
 
         $rules = [
-            'engineCode' => 'required|size:6',
-            'licensePlate'  => 'required|size:7',
+            'engineCode'        => 'required|size:6',
+            'licensePlate'      => 'required|size:7',
             'licenseType'       => 'required|size:2'
         ];
 
@@ -102,8 +102,8 @@ class SearchController extends BaseController{
         ];
 
         $attributes = [
-            'engineCode' => '发动机号',
-            'licensePlate'  => '车牌号码',
+            'engineCode'        => '发动机号',
+            'licensePlate'      => '车牌号码',
             'licenseType'       => '车辆类型'
         ];
 
