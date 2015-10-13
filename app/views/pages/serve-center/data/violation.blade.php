@@ -19,7 +19,8 @@
     @else
         @include("components.violation")
     @endif
-
+    
+	@include("components.log-reg-mask")
 @stop
 @section("js")
 	@parent

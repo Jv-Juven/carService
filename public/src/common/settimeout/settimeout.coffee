@@ -11,17 +11,17 @@ settimeout = (ele, count, callback)->
 
 	oldText = ele.text()
 
-	start = 0
+	start = count
 	ele.text(start + "后重发")
 	timeout = setInterval ()->
-		if start is count
+		if start is 0
 			clearTimeout timeout
 			#计时完成后执行的回调函数
 			ele.removeClass("btn-disabled")
 			callback()
 			ele.text oldText
 			return
-		start += 1
+		start -= 1
 		ele.text(start + "秒后重发")
 	,1000
 

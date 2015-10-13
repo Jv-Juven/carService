@@ -8,7 +8,7 @@ infoTimes = $("#info_times")
 info = {
 
 	fillData: (balance, unit)->
-		times = parseInt(balance) / parseInt(unit)
+		times = balance / unit
 
 		infoBalance.text balance
 		infoTimes.text times

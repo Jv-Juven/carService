@@ -146,6 +146,8 @@ submit = ()->
 				#"全选"按钮绑定事件
 				allCheck.bindEvent(table01.find(".tb-head input[type='checkbox']"), table01.find(".tb-tr input[type='checkbox']"))
 				allCheck.bindEvent(table02.find(".tb-head input[type='checkbox']"), table02.find(".tb-tr input[type='checkbox']"))
+	.error (xhr,errorText,errorType)->
+		alert "提交失败，请重试"
 
 
 
@@ -165,7 +167,7 @@ dealVio = ()->
 				return
 			else
 				$.post "/serve-center/agency/business/confirm_violation", {
-					sign: sign.va(),
+					sign: sign.val(),
 					xh: xhArr
 				}, (msg)->
 					if msg["errCode"] isnt 0
