@@ -9,7 +9,7 @@ strMask = (str,begin,end,char)->
 	fstStr = str.substring 0,begin
 	scdStr =str.substring begin,end
 	lstStr = str.substring end,str.length
-	matchExp = /[\w\d]/g;
+	matchExp = /[\w\d]|[\u4E00-\u9FA5\uF900-\uFA2D]/g;
 	return (fstStr + scdStr.replace(matchExp,char) + lstStr)
 
 

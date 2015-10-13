@@ -10,6 +10,7 @@
 @stop
 
 @section('js')
+@parent
 @stop
 
 @section('left-nav')
@@ -24,7 +25,7 @@
                 <span class="label">账户余额</span>
                 <span class="balance">{{{ $account_info['balance'] }}}</span>
                 <span class="desc">账户余额仅可以抵扣数据查询费用</span>
-                <button class="recharge-btn"><a href="/finance-center/recharge">充值</a></button>
+                <button class="recharge-btn"><a href="/finance-center/recharge/index">充值</a></button>
             </div>
         </div>
 
@@ -39,8 +40,8 @@
                 <tr class="fee-tb-tr">
                     <td class="fee-tb-it fee-tb-th">费用</td>
                     <td class="fee-tb-it fee-tb-ct">{{{ $account_info['violationUnit'] }}}</td>
-                    <td class="fee-tb-it fee-tb-ct">{{{ $account_info['lisenceUnit'] }}}</td>
-                    <td class="fee-tb-it fee-tb-ct">{{{ $account_info['carUnit'] }}</td>
+                    <td class="fee-tb-it fee-tb-ct">{{{ $account_info['licenseUnit'] }}}</td>
+                    <td class="fee-tb-it fee-tb-ct">{{{ $account_info['carUnit'] }}}</td>
                 </tr>
             </table>
         </div>

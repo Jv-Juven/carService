@@ -26,8 +26,10 @@
     </p>
     <!-- <p class="ss-notice">
         将在<span class="count-down">5秒</span>内跳转
-    </p>
-    <button class="ss-cfm">确定</button> -->
+    </p> -->
+    <!-- <button class="ss-cfm"> -->
+        <a class="btn" href="/user/write-code">填写打款码</a>
+    <!-- </button> -->
 </div>
 @stop
 

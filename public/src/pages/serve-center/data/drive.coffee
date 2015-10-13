@@ -1,6 +1,6 @@
 validate = require "./../../../common/validate/validate.coffee"
 warn = require "./../../../common/warn/warn.coffee"
-fillData = require "./../../../components/violation-info.coffee"
+info = require "./../../../components/violation-info.coffee"
 
 validate = new validate()
 warn = new warn()
@@ -32,10 +32,11 @@ submit = ()->
 		recordID: fileCodes.val()
 	}, (msg)->
 		if msg["errCode"] is 0
+			info.fillData(msg["account"]["balance"], msg["account"]["unit"])
 			stress.text(msg["message"] + "分")
 			driveResult.show()
 		else
-			warn.alert msg["message"]
+			alert msg["message"]
 
 
 $ ()->

@@ -1,4 +1,4 @@
-fillData = require "./../../../components/violation-info.coffee"
+info = require "./../../../components/violation-info.coffee"
 
 carsInputs = $(".cars-inputs")
 
@@ -28,6 +28,7 @@ submit = ()->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
 		else
+			info.fillData(msg["account"]["balance"], msg["account"]["unit"])
 			result = _.template $("#cars_template").html()
 			result = result {
 				"array": msg["car"]

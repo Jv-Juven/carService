@@ -42,7 +42,7 @@
 			</div>
 			<!-- 查询框 END -->
 
-			@include("components.violation-info")
+			@include("components.violation-info", [ 'account' => $account ])
 
 			<div class="violation-records clearfix cars-records">
 				<div class="vio-records-title">

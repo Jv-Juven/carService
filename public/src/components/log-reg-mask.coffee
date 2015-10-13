@@ -224,6 +224,11 @@ resetPsd = ()->
 		userType = 1
 
 	if userType is 0
+
+		if !validate.email(emailInput.val())
+			warnTips.val("*请正确填写邮箱")
+			emailInput.focus()
+			return
 		
 		if !validate.charCodes(emailCodes.val())
 			warnTips.val("*请正确填写邮箱验证码")
@@ -238,13 +243,17 @@ resetPsd = ()->
 			renewPsd.focus()
 			return
 
-		$.post "/user/reset_bsite_pwd", {
+		$.post "/user/reset-bsite-forgetpwd", {
+			login_account: emailInput.val(),
 			reset_code: emailCodes.val(),
 			password: newPsd.val(),
 			re_password: renewPsd.val()
 		}, (msg)->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
+			else
+				alert msg["message"]
+				closeMask()
 	else
 		
 		if !validate.mobile(phoneInput.val())
@@ -264,7 +273,7 @@ resetPsd = ()->
 			renewPsd.focus()
 			return
 
-		$.post "/user/reset_csite_pwd", {
+		$.post "/user/reset-csite-forgetpwd", {
 			login_account: phoneInput.val(),
 			phone_code: phoneCodes.val(),
 			password: newPsd.val(),
@@ -273,6 +282,7 @@ resetPsd = ()->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
 			else
+				alert msg["message"]
 				closeMask()
 
 
@@ -284,7 +294,7 @@ emailCodesBtn.on "click", ()->
 		emailInput.focus()
 		return
 
-	$.post "/user/send_code_to_email", {
+	$.post "/user/send-resetcode-to-email", {
 		login_account: emailInput.val()
 	}, (msg)->
 		if msg["errCode"] isnt 0

@@ -47,11 +47,6 @@ class UserPageController extends BaseController{
 		return View::make('pages.register-b.success');
 	}
 
-	//打款码填写静态页面
-	public function remarkCode()
-	{
-		return View::make('');
-	}
 
 	//锁定页面
 	public function lock()

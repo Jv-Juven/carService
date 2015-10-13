@@ -48,8 +48,8 @@ $ ()->
 					up.removeFile(files[0])
 
 			BeforeUpload: (up, file)->
-				console.log up
-				console.log file
+				# console.log up
+				# console.log file
 
 			FileUploaded: (up, file, info)->
 
@@ -62,10 +62,10 @@ $ ()->
 					showFileName($("#license_file"), file.name)
 					licenseScan = url
 				if name is "credit_front"
-					showFileName($("#credit_front_wrapper"), file.name)
+					showFileName($("#credit_front_file"), file.name)
 					creditCardScan01 = url
 				if name is "credit_back"
-					showFileName($("#credit_back_wrapper"), file.name)
+					showFileName($("#credit_back_file"), file.name)
 					creditCardScan02 = url
 
 		}
@@ -137,8 +137,9 @@ $ ()->
 
 		}, (msg)->
 			if msg["errCode"] isnt 0
-				alert msg["errCode"]
+				alert msg["message"]
 			else
+				alert msg["message"]
 				window.location.href = "/user/pending"
 
 

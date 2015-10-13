@@ -11,6 +11,7 @@
 @stop
 
 @section('js')
+@parent
 @stop
 
 @section('left-nav')
@@ -22,7 +23,7 @@
     <div class="recharge-body">
         <p class="balance-wrap">
             <span class="label">账户余额:</span>
-            <span class="balance">100</span>
+            <span class="balance">{{{ $account_info['balance'] }}}</span>
             <span class="desc">账户余额仅可以抵扣数据查询费用</span>
         </p>
         <p class="amount-wrap">
