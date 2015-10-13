@@ -31,7 +31,6 @@ class BusinessController extends BaseController{
 	 */
 	public static function get_appkey( $user_id = null ){
 		if ( $user_id ){
-
 			$business_user = BusinessUser::find( $user_id );
 		}else{
 			$business_user = BusinessUser::find( Sentry::getUser()->user_id );
@@ -311,7 +310,7 @@ class BusinessController extends BaseController{
 	 * @param 	$user_id 	string
 	 * @return 	array
 	 */
-	public static function count( $user_id = null ){
+	public static function count( $user_id = null, $startDate = null, $endDate = null ){
 
 		$http_params = [
 			'method'	=> 'GET',
@@ -321,6 +320,12 @@ class BusinessController extends BaseController{
 				'token'		=> static::create_request_token()
 			]
 		];
+
+		if($startDate)
+			$http_params['query']['startDate'] = $startDate;
+
+		if($endDate)
+			$http_params['query']['endDate'] = $endDate;
 
 		return static::send_request( $http_params, 'data' );
 	}
