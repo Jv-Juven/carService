@@ -11,7 +11,7 @@
 
 @section('business-center-content')
     <div class="business-center-content" id="change-user-status-content">
-        <h4>企业用户审核</h4>
+        <h4>设置/重置打款验证码</h4>
         <hr />
         <form class="form-inline">
             <input type="hidden" id="user-id" value="{{{ $user->user_id }}}">
@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label for="transfer-code">打款备注码：</label>
-                <input type="text" id="remark-code" class="form-control" placeholder="请输入六位打款验证码"/>
+                <input style="width:250px;" type="text" id="remark-code" class="form-control" placeholder="请输入六位数字打款验证码"/>
             </div>
             <div class="form-group">
                 <label for="company-name">说明：</label>

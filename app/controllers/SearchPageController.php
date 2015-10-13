@@ -4,31 +4,34 @@ class SearchPageController extends BaseController{
     
     public function violation(){
 
-        $user = Sentry::getUser();
-
-        // 普通用户每天只能查询两次
-        if ( $user->is_common_user() ){
+        if ( Sentry::check() ){
             
-            $account_to_render = [
-                'remain_search'   => SearchController::get_search_count_remain( $user->user_id, 'violation' )
-            ];
-        }
-        // 企业用户根据余额
-        else if( $user->is_business_user() ){
+            $user = Sentry::getUser();
 
-            $account = BusinessController::accountInfo( $user->user_id );
-            
-            $account_to_render = [
-                'unit'      => $account[ 'violationUnit' ],
-                'balance'   => $account[ 'balance' ]
-            ];
+            // 普通用户每天只能查询两次
+            if ( $user->is_common_user() ){
+                
+                $account_to_render = [
+                    'remain_search'   => SearchController::get_search_count_remain( $user->user_id, 'violation' )
+                ];
+            }
+            // 企业用户根据余额
+            else if( $user->is_business_user() ){
+
+                $account = BusinessController::accountInfo( $user->user_id );
+                
+                $account_to_render = [
+                    'unit'      => $account[ 'violationUnit' ],
+                    'balance'   => $account[ 'balance' ]
+                ];
+            }
+
+            return View::make( 'pages.serve-center.data.violation', [ 'account' => $account_to_render ] );
         }
         else{
 
-            return View::make( 'Unkown error' );
-        }
-
-        return View::make( 'pages.serve-center.data.violation', [ 'account' => $account_to_render ] );
+            return View::make( 'pages.serve-center.data.violation' );
+        }        
     }
 
     public function license(){

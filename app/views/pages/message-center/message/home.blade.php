@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    全部消息
+    系统公告
 @stop
 
 @section('css')

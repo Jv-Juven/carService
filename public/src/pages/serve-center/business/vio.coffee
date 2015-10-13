@@ -35,6 +35,8 @@ licensePlate = ""
 #sign字段
 sign = $("#sign")
 
+noResulte = $("#no_resulte")
+
 
 #再次加载页面检测，触发查询
 loadSubmit = ()->
@@ -98,10 +100,19 @@ submit = ()->
 			alert msg["message"]
 
 		else
+
+			#剩余次数和余额 START
 			if msg["remain_serach_count"]
 				info.fillTimes msg["remain_serach_count"]
 			else
 				info.fillData(msg["account"]["balance"], msg["account"]["unit"])
+			#剩余次数和余额 END
+
+			if msg["violations"].length is 0
+				recordsPlate.text(licensePlate)
+				noResulte.show()
+				vioRecords.hide()
+				return
 
 			sign.val msg["sign"]
 
@@ -130,6 +141,7 @@ submit = ()->
 			recordsPlate.text(licensePlate)
 			recordsTotal.text(msg["violations"].length)
 
+			noResulte.hide()
 			vioRecords.fadeIn 100,()->
 				#"全选"按钮绑定事件
 				allCheck.bindEvent(table01.find(".tb-head input[type='checkbox']"), table01.find(".tb-tr input[type='checkbox']"))

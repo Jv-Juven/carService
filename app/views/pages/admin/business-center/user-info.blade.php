@@ -37,14 +37,18 @@
             </div>
             <div class="form-group">
                 <label for="company-name">打款备注码：</label>
+                @if(isset($user->remark_code))
+                <span>{{{ $user->remark_code }}}</span>
+                <a style="float:right;margin-right:100px;" href="/admin/business-center/check-new-user?user_id={{{ $user->user_id }}}">重置</a>
+                @else
                 <span>该企业用户信息未审核，未设置打款备注码</span>
                 <a style="float:right;margin-right:100px;" href="/admin/business-center/check-new-user?user_id={{{ $user->user_id }}}">设置</a>
+                @endif
             </div>
             <div class="form-group">
                 <label for="company-name">费用设置：</label>
-                <span>默认为统一费用</span>
-                <a style="float:right;margin-right:100px;" href="/admin/business-center/change-default-service-univalence">查看/修改默认费用</a>
-                <a style="float:right;margin-right:20px;" href="/admin/business-center/change-service-univalence?user_id={{{ $user->user_id }}}">查看/修改费用</a>
+                <a href="/admin/business-center/change-service-univalence?user_id={{{ $user->user_id }}}">查看/修改费用</a>
+                <a style="margin-left:50px;" href="/admin/business-center/change-default-service-univalence">查看/修改默认费用</a>
             </div>
             <div class="form-group">
                 <label for="company-name">注册时间：</label>

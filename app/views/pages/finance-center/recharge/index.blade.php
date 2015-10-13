@@ -11,6 +11,7 @@
 @stop
 
 @section('js')
+@parent
 @stop
 
 @section('left-nav')

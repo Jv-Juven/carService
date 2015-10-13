@@ -253,10 +253,10 @@ psd = {
 $ ()->
 
 	#设置相关信息的掩码
-	licenseKey.text strMask(licenseKey.text(), 5, 11,"*")
-	accountName.text strMask(accountName.text(), 2, 3,"*")
-	accountCreditCard.text strMask(accountCreditCard.text(), 5, 15,"*")
-	accountPhone.text strMask(accountPhone.text(), 4, 8,"*")
+	licenseKey.text strMask(licenseKey.text(), 5, 11, "*")
+	accountName.text strMask(accountName.text(), 1, 4, "*")
+	accountCreditCard.text strMask(accountCreditCard.text(), 5, 15, "*")
+	accountPhone.text strMask(accountPhone.text(), 4, 8, "*")
 
 	#“修改运营者信息”按钮绑定事件
 	changeInfoBtn.on "click", show.showChangeInfo
