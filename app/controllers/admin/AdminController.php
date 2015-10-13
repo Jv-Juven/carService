@@ -4,6 +4,24 @@ use Illuminate\Hashing\BcryptHasher;
 
 class AdminController extends BaseController {
 
+	public function publishNotice()
+	{
+		$title = Input::get("title");
+		$content = Input::get("content");
+
+		if(!$title || !$content) 
+			return Response::json(array("errCode" => 1, "errMsg" => "[参数错误]请填写要发布公告的标题和内容"));
+
+		$notice = new Notice;
+		$notice->title = $title;
+		$notice->content = $content;
+
+		if(!$notice->save()) 
+			return Response::json(array("errCode" => 1, "errMsg" => "[数据库错误]发布失败"));
+			
+		return Response::json(array("errCode" => 0));
+	}
+
 	public function getCount()
 	{
 		$startDate = Input::get("startDate");

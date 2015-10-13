@@ -284,6 +284,10 @@ Route::group(array('prefix' => 'admin'), function() {
 		Route::get('/suggestion', 'AdminServiceCenterPageController@suggestion');
 		// 投诉
 		Route::get('/complain', 'AdminServiceCenterPageController@complain');
+		// 发布系统公告
+		Route::get('/publish-notice', 'AdminServiceCenterPageController@publishNotice');
+		// 系统公告列表
+		Route::get('/notice-list', 'AdminServiceCenterPageController@noticeList');
 	});
 
 	// 操作中心
@@ -343,6 +347,9 @@ Route::group(array('prefix' => 'admin'), function() {
 	Route::post('/login', 'AdminController@login');
 
 	Route::group(array('before' => 'auth.admin'), function() {
+
+		// 发布系统公告
+		Route::post('/publish-notice', 'AdminController@publishNotice');
 
 		// 获取用户访问次数统计
 		Route::get('/get-count', 'AdminController@getCount');

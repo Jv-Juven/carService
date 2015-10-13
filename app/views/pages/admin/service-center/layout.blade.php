@@ -11,7 +11,6 @@
     	</div>
 
     	<div id="right-content">
-	       	@include('components.admin.service-center-header')
 	       	@yield('service-center-content')
     	</div>
 

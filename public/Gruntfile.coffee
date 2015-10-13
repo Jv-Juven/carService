@@ -206,6 +206,8 @@ module.exports = (grunt)->
                     
                     # admin service-center
                     'dist/css/pages/admin/service-center/layout.css':['src/pages/admin/service-center/layout.less']
+                    'dist/css/pages/admin/service-center/publish-notice.css':['src/pages/admin/service-center/publish-notice.less']
+                    'dist/css/pages/admin/service-center/notice-list.css':['src/pages/admin/service-center/notice-list.less']
                     
                     #admin business-center
                     'dist/css/pages/admin/business-center/layout.css':['src/pages/admin/business-center/layout.less']

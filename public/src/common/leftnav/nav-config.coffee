@@ -25,7 +25,9 @@ navConfig = {
 		navIndexes: {
 			"consult": 0,
 			"suggestion": 1,
-			"complain": 2
+			"complain": 2,
+			"publish-notice": 3,
+			"notice-list": 4
 		}
 	}
 	adminAccount: {

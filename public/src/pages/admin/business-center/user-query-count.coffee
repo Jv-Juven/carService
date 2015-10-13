@@ -11,6 +11,8 @@ init = (appkey)->
 			else 
 				alert res.errMsg
 
+$startDatePicker = $("#start-date-picker");
+$endDatePicker = $("#end-date-picker");
 
 $ ()->
 	console.log "enter page"
@@ -29,12 +31,18 @@ $ ()->
 		forceParse: 0
 	});
 
-	$("#search-btn").click (res)->
+	$("#search-btn").click (e)->
+		startDate = moment($startDatePicker.val(), "YYYY-MM-DD").startOf('day').format("x")
+		endDate = moment($endDatePicker.val(), "YYYY-MM-DD").startOf('day').format("x")
+
 		params = 
 			appkey: appkey
+			endDate: endDate
+			startDate: startDate
 
-		if(res.errCode == 0)
-			alert "查询成功"
-		else
-			alert res.errMsg
+		$.get "/admin/get-count", params, (res)->
+			if(res.errCode == 0)
+				alert "查询成功"
+			else
+				alert res.errMsg
 
