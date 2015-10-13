@@ -21,7 +21,7 @@
 			<!-- 办理进程 END	 -->
 
 			<div class="pay-tips">
-				<span>订单提交成功，请您尽快付款！订单号： <span id="order_id">10062142155</span> </span>
+				<span>订单提交成功，请您尽快付款！订单号： <span id="order_id">{{{ $order->order_id }}}</span> </span>
 				<span>请您在提交订单后24小时之内完成支付，否则订单会自动取消。</span>
 			</div>
 
@@ -36,31 +36,33 @@
 					<tr class="pay-table-tr">
 						<td class="tr-title">车牌号码：</td>
 						<td class="tr-content">
-							粤X12345 <span class="plate-col">蓝牌</span>
+							{{{ $order->car_plate_no }}} <span class="plate-col">{{{ Config::get( 'carType' )[ $order->car_type_no ] }}}</span>
 						</td>
 					</tr>
+					@if ( $order->is_delivered )
 					<tr class="pay-table-tr">
 						<td class="tr-title">收件人姓名：</td>
 						<td class="tr-content">
-							张三
+							{{{ $order->recipient_name }}}
 						</td>
 					</tr>
 					<tr class="pay-table-tr">
 						<td class="tr-title">收件人手机号码：</td>
 						<td class="tr-content">
-							13411111111
+							{{{ $order->recipient_phone }}}
 						</td>
 					</tr>
 					<tr class="pay-table-tr">
 						<td class="tr-title">收件人地址：</td>
 						<td class="tr-content">
-							大学城小谷围派出所
+							{{{ $order->recipient_addr }}}
 						</td>
 					</tr>
+					@endif
 					<tr class="pay-table-tr">
 						<td class="tr-title">费用总计：</td>
 						<td class="tr-content">
-							￥ 400.0 元
+							{{{ $order->service_charge_sum + $order->capital_sum + (int)$order->express_fee }}}
 						</td>
 					</tr>
 					<tr class="pay-table-tr">
@@ -75,11 +77,11 @@
 									<td>票证邮寄费用</td>
 								</tr>
 								<tr>
-									<td>2</td>
-									<td>400</td>
-									<td>0</td>
-									<td>20</td>
-									<td>0</td>
+									<td>{{{ $order->agency_no }}}</td>
+									<td>{{{ $order->capital_sum }}}</td>
+									<td>{{{ $order->late_fee_sum  }}}</td>
+									<td>{{{ $order->service_charge_sum }}}</td>
+									<td>{{{ (int)$order->express_fee }}}</td>
 								</tr>
 							</table>
 						</td>
