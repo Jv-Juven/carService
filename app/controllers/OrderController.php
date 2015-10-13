@@ -6,8 +6,8 @@ class OrderController extends BaseController{
 
         if ( Input::has( 'order_id' ) ){
 
-            $agency_order = AgencyOrder::with( 'traffic_violation_info' )
-                                       ->find( Input::get( 'order_id' ) );
+            $agency_order = [ AgencyOrder::with( 'traffic_violation_info' )
+                                       ->find( Input::get( 'order_id' ) ) ];
         }else{
 
             $query = AgencyOrder::select( '*' );

@@ -363,7 +363,7 @@ class BusinessController extends BaseController{
 
         $search_result['data'] = json_decode( $search_result['data'], true );
 
-        return [ 'data' => $search_result['data'], 'account' => $search_result['account'] ];
+        //return [ 'data' => $search_result['data'], 'account' => $search_result['account'] ];
 
         $account = $search_result['account'];
 

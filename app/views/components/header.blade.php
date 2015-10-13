@@ -18,7 +18,11 @@
 		</li>
 		@if( Sentry::check())
 		<li class="header-menu-item nav-item">
+			@if ( Sentry::getUser()->is_business_user() )
 			<a href="/finance-center/cost-manage/overview">商务中心</a>
+			@else
+			<a href="/finance-center/cost-manage/refund-record">商务中心</a>
+			@endif
 			<div class="item-underline"></div>
 		</li>
 		<li class="header-menu-item nav-item">
