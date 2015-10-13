@@ -162,11 +162,12 @@ class BusinessController extends BaseController{
 				$error_message = '操作失败';
 			}
 
+			$error_message = '操作失败';
+
 			throw new OperationException( $error_message, $response_content['errCode'] );
 		}
 		catch( ClientException $e ){
 
-			throw $e;
 			throw new Exception( "请求失败", 41 );
 		}
 		// 查询出错
@@ -177,7 +178,6 @@ class BusinessController extends BaseController{
 		// 其他错误
 		catch( Exception $e ){
 
-			throw $e;
 			throw new Exception( '服务器出错', 51 );
 		}
 
@@ -363,7 +363,7 @@ class BusinessController extends BaseController{
 
         $search_result['data'] = json_decode( $search_result['data'], true );
 
-        //return [ 'data' => $search_result['data'], 'account' => $search_result['account'] ];
+        return [ 'data' => $search_result['data'], 'account' => $search_result['account'] ];
 
         $account = $search_result['account'];
 
