@@ -10,7 +10,7 @@ class AgencyPageController extends BaseController{
         if ( $user->is_common_user() ){
             
             $account_to_render = [
-                'balance'   => SearchController::get_search_count_remain( $user->user_id, 'violation' )
+                'remain_search'   => SearchController::get_search_count_remain( $user->user_id, 'violation' )
             ];
         }
         // 企业用户根据余额
@@ -51,18 +51,18 @@ class AgencyPageController extends BaseController{
     }
 
     public function pay(){
-
+/*
         if ( Session::has( 'order_info' ) ){
 
             return View::make( 'pages.serve-center.business.pay', Session::get( 'order_info' ) );
         }
-
+*/
         $agency_order = AgencyOrder::find( Input::get( 'order_id' ) );
 
         if ( !isset( $agency_order ) ){
             return Response::make( '无效order_id' );
         }
 
-        return View::make( 'pages.serve-center.business.pay', $agency_order );
+        return View::make( 'pages.serve-center.business.pay', [ 'order' => $agency_order ]);
     }
 }

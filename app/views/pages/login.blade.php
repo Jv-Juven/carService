@@ -68,26 +68,19 @@
 			<div class="login-content">
 				<dl class="notices-title clearfix">
 					<dt>系统公告</dt>
+					@foreach( $notices as $notice )
 					<dd>
 						<i>•</i>
-						<a href="/">
-							驾驶证超期后，可能会出现这三种状态
+						<a href="/message-center/message/detail?notice_id={{{ $notice->id }}}">
+							{{{ $notice->title }}}
 						</a>
 						<i>
 							<img class="new" src="/images/login/new_icon.png">
 						</i>
 					</dd>
-					<dd>
-						<i>•</i>
-						<a href="/">
-							驾驶证超期后，可能会出现这三种状态
-						</a>
-						<i>
-							<img class="new" src="/images/login/new_icon.png">
-						</i>
-					</dd>
+					@endforeach
 					<dd class="notices-more">
-						<a href="/message-center/message/home">查看更多 > </a>
+						<a href="{{{ $message_url }}}">查看更多 > </a>
 					</dd>
 				</dl>
 				<div class="login-quick-check clearfix">
