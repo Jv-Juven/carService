@@ -31,8 +31,11 @@
 		</div>
 		<!-- 查询框 END -->
 
-		@include("components.violation-info", [ 'account', $account ])
+		@if ( isset( $account ) )
+			@include("components.violation-info", [ 'account', $account ])
+		@endif
 
+		<div class="violation-noresulte-tips" id="no_resulte">暂无车辆<span class="records-plate">XXXXXX</span>的违章信息</div>
 		<div class="violation-records clearfix vio-records">
 			<input id="sign" type="hidden" value=""/>
 			<div class="vio-records-title">

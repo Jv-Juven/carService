@@ -69,6 +69,18 @@ class AdminBusinessCenterPageController extends BaseController{
 		return View::make('pages.admin.business-center.search-user');
 	}
 
+	// 获取企业用户访问次数
+	public function userQueryCount()
+	{
+		$appkey = Input::get("appkey");
+		$startDate = Input::get("start_date");
+		$endDate = Input::get("end_date");
+
+		return View::make('pages.admin.business-center.user-query-count', [
+			"appkey" => $appkey
+		]);
+	}
+
 	// 审核企业用户
 	public function checkNewUser()
 	{

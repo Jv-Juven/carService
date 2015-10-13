@@ -14,6 +14,9 @@
                 <li role="presentation">
                     <a href="/admin/business-center/search-user" class="nav-item">企业用户查询</a>
                 </li>
+                <li role="presentation">
+                    <a href="/admin/business-center/user-query-count" class="nav-item">用户查询统计</a>
+                </li>
             </ul>
     	</li>
     	<li role="presentation" class="disabled">
