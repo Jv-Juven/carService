@@ -272,9 +272,9 @@ if( Sentry::check() )
 	 				message,			错误信息
 	 			}
 
-	3. C端用户修改密码/忘记密码－发送验证码到手机
+	3. C端用户修改密码－发送验证码到手机
 	 请求方式: POST
-	 请求url: /user/4
+	 请求url: /user/send_code_to_phone
 
 	 请求参数:
 	 			
@@ -300,8 +300,21 @@ if( Sentry::check() )
 	 				errCode,			0返回正常
 	 				message,			错误信息
 	 			}
+	5 C端用户忘记密码－发送验证码到手机
+	 请求方式：POST
+	 请求url：/user/send-resetcode-to-cell
 
-	5. c端用户忘记密码－重置密码
+	 请求参数：
+	 		login_account 				手机号
+
+	 返回参数：
+	 		{
+	 			errCode,			0返回正常
+ 				message,			错误信息
+	 		}
+
+
+	6. c端用户忘记密码－重置密码
 	 请求方式: POST
 	 请求url: /user/reset-csite-forgetpwd
 

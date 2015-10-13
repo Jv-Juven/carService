@@ -3,16 +3,44 @@ use Gregwar\Captcha\CaptchaBuilder;
 
 class UserController extends BaseController{
 
-	//生成固定长度	随机字符串
-	public function randNumber()
-	{
-		$possible_charactors = "abcdefghijklmnopqrstuvwxyz0123456789"; //产生随机数的字符串
-		$salt  =  "";   //验证码
-		while(strlen($salt) < 6)
+	//判断是否禁止发送
+	public static function isPhoneCodeSendLimit( $phone )	
+	{		
+		$arr = Cache::get( $phone );
+		// return $phone;
+		if( !isset($arr) )
 		{
-		 	 $salt .= substr($possible_charactors,rand(0,strlen($possible_charactors)-1),1);
+			$arr = array();
+			$arr['times'] = 1;//次数
+			$time = Carbon\Carbon::tomorrow()->timestamp;
+			$arr['time'] = $time;//时间
+			Cache::put( $phone, $arr, 1440 );
+			return array('errCode'=>0,'message'=>'手机验证码今天还有4次发送机会');
+		}else{
+			//超过一天另外计算
+			if( time()-$arr['time'] > 0  )
+			{
+				$arr = array();
+				$arr['times'] = 1;//次数
+				$time = Carbon\Carbon::tomorrow()->timestamp;
+				$arr['time'] = $time;//时间
+				Cache::put( $phone, $arr, 1440 );
+				return  array('errCode'=>0,'message'=>'手机验证码今天还有4次发送机会') ;
+			}else{
+				//判断次数
+				if( $arr['times'] < 5 )
+				{
+					$arr['times']++;
+					Cache::put($phone,$arr, 1440);
+					$left = 5-$arr['times'];
+					return array('errCode'=>0,'message'=>'手机验证码今天还有'.$left.'次发送机会') ;
+				}else{
+					return array('errCode'=>1,'message'=>'今天验证码发送次数已达上限');
+				}
+				
+			}
 		}
-		return $salt;
+
 	}
 
 	//发送手机验证码
@@ -22,7 +50,7 @@ class UserController extends BaseController{
 		$username = Config::get('domain.phone.username');
 		$password = Config::get('domain.phone.password');
 		
-		$text_number = $this->randNumber();
+		$text_number = rand(000000,999999);
 		$text = urlencode( iconv('UTF-8', 'GBK','车尚服务验证码:'.$text_number));
 		// dd($text);
 		Session::put('phone_code',$text_number);
@@ -83,7 +111,11 @@ class UserController extends BaseController{
 		if($number->getData()->errCode != "")
 			return Response::json(array('errCode'=>23, 'message'=>'发送太过频繁，请稍候再试，如不能发送，请及时与客户联系'));
 
-		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功'));
+		$message = $this->isPhoneCodeSendLimit( $login_account );
+		if($message['errCode'] != 0 )
+			return Response::json(array('errCode'=>24,'message'=>$message['message']));
+
+		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功,'.$message['message']));
 	}
 
 	//运营人员手机验证码－需要手机号
@@ -100,7 +132,12 @@ class UserController extends BaseController{
 		if($number->getData()->errCode != "")
 			return Response::json(array('errCode'=>23, 'message'=>'发送太过频繁，请稍候再试，如不能发送，请及时与客户联系'));
 
-		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功'));
+		$message = $this->isPhoneCodeSendLimit( $login_account );
+		if($message['errCode'] != 0 )
+			return Response::json(array('errCode'=>24,'message'=>$message['message']));
+
+
+		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功,'.$message['message']));
 	}
 
 	//c端用户修改密码－发送验证码到手机
@@ -119,8 +156,38 @@ class UserController extends BaseController{
 			return Response::json(array('errCode'=>23, 'message'=>'该用户不存在'));
 		}
 
-		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功'));
+		$message = $this->isPhoneCodeSendLimit( $login_account );
+		if($message['errCode'] != 0 )
+			return Response::json(array('errCode'=>24,'message'=>$message['message']));
+
+
+		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功,'.$message['message']));
 	}
+
+	//C端用户忘记密码-发送验证码到手机
+	public function sendResetCodeToCell()
+	{
+		$login_account 			= Input::get('login_account');
+		$phone_regex 	= Config::get('regex.telephone');
+		if(!preg_match($phone_regex, $login_account))
+			return Response::json(array('errCode'=>21,'message'=>'手机号码格式不正确'));
+		//验证用户是否注册
+		$user = User::where( 'login_account', $login_account )->first();
+		if( !isset($user) )
+			return Response::json(array('errCode'=>22,'message'=>'该用户未注册'));
+
+		//发送验证码
+		$number = $this->messageVerificationCode($login_account);
+		if($number->getData()->errCode != "")
+			return Response::json(array('errCode'=>23, 'message'=>'发送太过频繁，请稍候再试，如不能发送，请及时与客户联系'));
+
+		$message = $this->isPhoneCodeSendLimit( $login_account );
+		if($message['errCode'] != 0 )
+			return Response::json(array('errCode'=>24,'message'=>$message['message']));
+
+		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功,'.$message['message']));
+	}
+
 
 	//B端用户-显示企业信息/修改运营者信息/修改密码的获取验证码-不需要邮箱
 	public function sendCodeToEmail()
@@ -144,25 +211,6 @@ class UserController extends BaseController{
 		}
 
 		return Response::json(array('errCode'=>0, 'message'=>'验证码发送成功'));
-	}
-
-	//显示企业信息
-	public function dispalyComInfo()
-	{
-		//邮箱验证码验证
-		$reset_code = Input::get('email_code');
-		$user = Sentry::getUser();
-		$user = Sentry::findUserById( $user->user_id );
-
-		if( !$user->checkResetPasswordCode($reset_code) )
-			return Response::json(array('errCode'=>21, 'message'=>'邮箱验证码错误'));
-
-		$business_user = BusinessUser::find( $user->user_id );
-
-		return Response::json(array('errCode'=>0, 
-									'business_name'=>$business_user->business_name, 
-									'business_licence_no'=>$business_user->business_licence_no
-									));
 	}
 
 
@@ -190,6 +238,26 @@ class UserController extends BaseController{
 		return Response::json(array('errCode'=>0, 'message'=>'验证码发送成功'));
 	}
 
+
+	//显示企业信息
+	public function dispalyComInfo()
+	{
+		//邮箱验证码验证
+		$reset_code = Input::get('email_code');
+		$user = Sentry::getUser();
+		$user = Sentry::findUserById( $user->user_id );
+
+		if( !$user->checkResetPasswordCode($reset_code) )
+			return Response::json(array('errCode'=>21, 'message'=>'邮箱验证码错误'));
+
+		$business_user = BusinessUser::find( $user->user_id );
+
+		return Response::json(array('errCode'=>0, 
+									'business_name'=>$business_user->business_name, 
+									'business_licence_no'=>$business_user->business_licence_no
+									));
+	}
+	
 	//C端用户注册
 	public function cSiteRegister()
 	{
@@ -569,7 +637,7 @@ class UserController extends BaseController{
 				}
 				catch( Exception $e )
 				{
-					throw $e;
+					throw $e;	
 				}
 				$user->status = 22;
 				$user->save();

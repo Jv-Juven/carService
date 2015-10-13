@@ -32,6 +32,8 @@ Route::group(array('prefix'=>'user'), function(){
 	Route::post('login','UserController@login');
 	//b端用户－忘记密码－需要邮箱
 	Route::post('send-resetcode-to-email','UserController@sendResetCodeToEmail');
+	//C端用户－忘记密码－获取手机验证码
+	Route::post('send-resetcode-to-cell','UserController@sendResetCodeToCell');
 	//C端用户注册-获取手机验证码
 	Route::post('phone_code','UserController@getPhoneCode');
 	//C端用户注册－密码页
@@ -73,7 +75,7 @@ Route::group(array('prefix'=>'user'), function(){
 		//显示企业信息
 		Route::post('dispaly-com-info','UserController@dispalyComInfo');
 		//锁定页面
-		Route::get('lock', 'UserController@lock');
+		Route::get('lock', 'UserPageController@lock');
 		//审核不通过页面
 		Route::get('no-pass','UserPageController@noPass');
 		//打款验证码静态页面
