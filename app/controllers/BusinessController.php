@@ -400,7 +400,7 @@ class BusinessController extends BaseController{
 
         $search_result['data'] = json_decode( $search_result['data'], true );
 
-	$search_result['data']['body'] = json_decode( $search_result['data']['body'], true  );
+		$search_result['data']['body'] = json_decode( $search_result['data']['body'], true  );
 
         return [ 'data' => $search_result['data'], 'account' => $search_result['account'] ];
 
