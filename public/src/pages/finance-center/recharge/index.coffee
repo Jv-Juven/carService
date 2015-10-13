@@ -8,10 +8,10 @@ post_pay = ( money, channel ) ->
         money: money,
         channel: channel
     }, ( result ) ->
-        if msg['errCode'] is 0
-            window.open( msg['url'] )
+        if result['errCode'] is 0
+            window.open( result['url'] )
         else
-            alert msg['message']
+            alert result['message']
 
 $ -> 
     _wx_pay_btn = $ '#pay-wx'

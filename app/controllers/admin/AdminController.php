@@ -4,6 +4,15 @@ use Illuminate\Hashing\BcryptHasher;
 
 class AdminController extends BaseController {
 
+	public function getCount()
+	{
+		$startDate = Input::get("startDate");
+		$endDate = Input::get("endDate");
+		$appkey = Input::get("appkey");
+
+		return Response::json(array("errCode" => 0));
+	}
+
 	public function changeRefundStatus()
 	{
 		$indentId = Input::get("indentId");
