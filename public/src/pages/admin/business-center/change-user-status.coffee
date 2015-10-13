@@ -20,6 +20,10 @@ $ ()->
 		$("#status-name").html $elem.html()
 		$("#status-intro").html statusIntro[statusName]
 
+	$("#info-btn").click ()->
+		userId = $("#user-id").val()
+		window.location.href = "/admin/business-center/user-info?user_id=" + userId
+
 	$("#submit-btn").click ()->
 		userId = $("#user-id").val()
 

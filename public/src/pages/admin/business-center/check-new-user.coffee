@@ -10,5 +10,6 @@ $ ()->
 		$.post "/admin/set-remark-code", params, (res)->
 			if(res.errCode == 0) 
 				alert '修改成功'
+				window.location.href = "/admin/business-center/user-info?user_id=" + userId
 			else 
 				alert res.errMsg
