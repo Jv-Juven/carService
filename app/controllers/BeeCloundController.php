@@ -43,7 +43,7 @@ class BeeCloudController extends BaseController{
 		
 		Log::info( $msg );
 		Log::info( $msg['transactionId'] );
-		$info = OrderAuthInfo::find( $msg['transactionId'] );
+		$info = OrderAuthInfo::where('transactionId', $msg['transactionId'] )->first();
 		if( !isset( $info ))
 		{
 			Log::info('无此数据');
