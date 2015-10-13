@@ -62,6 +62,10 @@ class ZurbPresenter extends Illuminate\Pagination\Presenter {
                 $toPage     = $this->lastPage;
             }
 
+            if ( $fromPage < 1 ){
+                $fromPage = 1;
+            }
+
             $content = $this->getPageRange( $fromPage, $toPage );
         }
 
