@@ -16,7 +16,7 @@ class CreateOrderAuthinfosTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('transactionId')->nullable();//交易单号
-			$table->string('transactionFee')->nullable();//交易金额
+			$table->integer('transactionFee')->nullable();//交易金额
 			$table->timestamps();
 		});
 	}
