@@ -100,10 +100,10 @@ setUploadedPhoto = (name)->
 			#如果需要上传的地方多于两个，这里可以弄成配置文件
 			if name is "front"
 				showFileName($("#front_file"), file.name)
-				creditScanFront = url
+				creditScanFront = info.key
 			if name is "back"
 				showFileName($("#back_file"), file.name)
-				creditScanBack = url
+				creditScanBack = info.key
 
 			# console.log("方法里图片链接：" + name + url)
 			# console.log creditScanFront

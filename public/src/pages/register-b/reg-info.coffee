@@ -58,16 +58,17 @@ $ ()->
 				domain = up.getOption('domain')
 				url = domain + info.key
 
+
 				#这里可以改成配置文件
 				if name is "license"
 					showFileName($("#license_file"), file.name)
-					licenseScan = url
+					licenseScan = info.key
 				if name is "credit_front"
 					showFileName($("#credit_front_file"), file.name)
-					creditCardScan01 = url
+					creditCardScan01 = info.key
 				if name is "credit_back"
 					showFileName($("#credit_back_file"), file.name)
-					creditCardScan02 = url
+					creditCardScan02 = info.key
 
 		}
 
