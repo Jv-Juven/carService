@@ -211,6 +211,7 @@ module.exports = (grunt)->
                     'dist/css/pages/admin/business-center/user-info.css':['src/pages/admin/business-center/user-info.less']
                     'dist/css/pages/admin/business-center/user-list.css':['src/pages/admin/business-center/user-list.less']
                     'dist/css/pages/admin/business-center/search-user.css':['src/pages/admin/business-center/search-user.less']
+                    'dist/css/pages/admin/business-center/user-query-count.css':['src/pages/admin/business-center/user-query-count.less']
                     'dist/css/pages/admin/business-center/new-user-list.css':['src/pages/admin/business-center/new-user-list.less']
                     'dist/css/pages/admin/business-center/check-new-user.css':['src/pages/admin/business-center/check-new-user.less']
                     'dist/css/pages/admin/business-center/change-user-status.css':['src/pages/admin/business-center/change-user-status.less']

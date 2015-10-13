@@ -174,6 +174,9 @@ class AdminController extends BaseController {
 		if(strlen($remarkCode) != 6) 
 			return Response::json(array('errCode' => 1, 'errMsg' => "备注码必须为六位"));
 
+		if(!is_numeric($remarkCode))
+			return Response::json(array('errCode' => 1, 'errMsg' => "备注码必须为数字"));
+
 		$result = User::where("user_id", "=", $userId)->update(["remark_code" => $remarkCode, "status" => "21"]);
 	
 		if(!$result) 

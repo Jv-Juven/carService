@@ -329,6 +329,8 @@ Route::group(array('prefix' => 'admin'), function() {
 		Route::get('/user-list', 'AdminBusinessCenterPageController@userList');
 		// 企业用户搜索
 		Route::get('/search-user', 'AdminBusinessCenterPageController@searchUser');
+		// 查看企业用户查询次数
+		Route::get('/user-query-count', 'AdminBusinessCenterPageController@userQueryCount');
 		// 新用户列表
 		Route::get('/new-user-list', 'AdminBusinessCenterPageController@newUserList');
 		// 审核企业用户

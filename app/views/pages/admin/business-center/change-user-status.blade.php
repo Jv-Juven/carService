@@ -57,6 +57,8 @@
         </form>
 
         <button id="submit-btn" type="button" class="btn btn-primary">提交</button>
+        
+        <button id="info-btn" type="button" class="btn btn-success">查看用户信息</button>
     </div>
 @stop
 

@@ -5,15 +5,17 @@ navConfig = {
 		navIndexes: {
 			"new-user-list": 0,
 			"user-info": 0,
+			"check-new-user": 0,
 			"user-list": 1,
 			"search-user": 2,
-			"search-indent": 3,
-			"indent-list": 4,
-			"change-default-service-univalence": 5,
-			"change-default-query-univalence": 5,
-			"refund-application-list": 6,
-			"refund-indent-info": 6,
-			"refund-status": 6
+			"user-query-count": 3,
+			"search-indent": 4,
+			"indent-list": 5,
+			"change-default-service-univalence": 6,
+			"change-default-query-univalence": 6,
+			"refund-application-list": 7,
+			"refund-indent-info": 7,
+			"refund-status": 7
 		}
 	}
 	adminServiceCenter: {
