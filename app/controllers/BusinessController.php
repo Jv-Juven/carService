@@ -2,6 +2,7 @@
 
 use GuzzleHttp\Client as httpClient;
 use GuzzleHttp\Exception\ClientException as ClientException;
+use GuzzleHttp\Exception\ConnectException as ConnectException;
 
 class BusinessController extends BaseController{
 
@@ -169,9 +170,14 @@ class BusinessController extends BaseController{
 		catch( ClientException $e ){
 				
 			throw $e;
-			throw new Exception( "请求失败", 41 );
+			throw new Exception( "服务器出错", 41 );
 		}
-		// 查询出错
+		catch( ConnectException $e ){
+
+			throw $e;
+			throw new Exception("请求失败", 42);
+		} 
+		// 操作出错
 		catch( OperationException $e ){
 
 			throw $e;

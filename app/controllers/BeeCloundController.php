@@ -101,7 +101,7 @@ class BeeCloudController extends BaseController{
 						$cost_detail->save();
 						Log::info( $info->transactionFee );
 						Log::info( $msg['optional']['user_id'] );
-						$result =  BusinessController::recharge($info->transactionFee,$msg['optional']['user_id']);
+						$result =  BusinessController::recharge($info->transactionFee*100,$msg['optional']['user_id']);
 						if( !$result )
 							throw new Exception;
 			    	});

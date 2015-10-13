@@ -15,11 +15,11 @@ class NoticePageController extends BaseController{
 					  	->with([
 							'users_read_id' => function( $query ) use ( $user_id ){
 
-								if ( is_null( $user_id ) ){
+								$query->select( 'notice_id' );
+
+								if ( !is_null( $user_id ) ){
 									$query->where( 'user_id', $user_id );
 								}
-
-								$query->select( 'notice_id' );
 							}
 					 	])
 					 	->orderBy( 'created_at' )
@@ -48,6 +48,8 @@ class NoticePageController extends BaseController{
 
 			$notice['already_read'] = $notice->users_read_id->count() != 0;
 		});
+
+		//return Response::json( $notices );
 
 		return View::make( 'pages.message-center.message.message', [
 			'notices'		=> $notices,
