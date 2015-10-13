@@ -42,6 +42,7 @@ class BeeCloudController extends BaseController{
 		$msg 		= json_decode($jsonStr,true);
 		
 		Log::info( $msg );
+		Log::info( $msg['transactionId'] );
 		$info = OrderAuthInfo::find( $msg['transactionId'] );
 		if( !isset( $info ))
 		{
@@ -182,11 +183,11 @@ class BeeCloudController extends BaseController{
 		// $data["channel"] = $channel;
 		
 		$data["channel"] = "WX_NATIVE";
-		// $money = 1;
-		$money = Input::get('money');
+		$money = 1;
+		// $money = Input::get('money');
 		
 		$data["bill_no"] 	= CostDetail::get_unique_id();
-		$data["total_fee"] 	= (int)$money;//单位换算成分 
+		$data["total_fee"] 	= $money;//单位换算成分 $money*100
 		$data['title']		= '充值';
 		$data["optional"] 	= json_decode(json_encode(array("user_id"=>Sentry::getUser()->user_id),true),true);
 		
