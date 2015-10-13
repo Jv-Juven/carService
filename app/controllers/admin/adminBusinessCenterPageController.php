@@ -76,13 +76,14 @@ class AdminBusinessCenterPageController extends BaseController{
 	// 获取企业用户访问次数
 	public function userQueryCount()
 	{
-		$appkey = Input::get("appkey");
+		$uid = Input::get("uid");
 		$startDate = Input::get("start_date");
 		$endDate = Input::get("end_date");
 
-		return View::make('pages.admin.business-center.user-query-count', [
-			"appkey" => $appkey
-		]);
+		if(!isset($uid))
+			return View::make('pages.admin.business-center.user-query-count', ["uid" => $uid]);
+
+		return View::make('pages.admin.business-center.user-query-count', ["uid" => $uid]);
 	}
 
 	// 审核企业用户

@@ -26,9 +26,15 @@ class AdminController extends BaseController {
 	{
 		$startDate = Input::get("startDate");
 		$endDate = Input::get("endDate");
-		$appkey = Input::get("appkey");
+		$uid = Input::get("uid");
 
-		return Response::json(array("errCode" => 0));
+		try {
+			$data = BusinessController::count($uid, $startDate, $endDate);
+		} catch (Exception $e) {
+			return Response::json(array("errCode" => 1, "errMsg" => "[服务器错误]获取访问接口统计数据失败"));
+		}
+
+		return Response::json(array("errCode" => 0, "data" => $data));
 	}
 
 	public function changeRefundStatus()
