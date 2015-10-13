@@ -228,9 +228,11 @@ class SearchController extends BaseController{
                 Session::put( 'violations', $violations );
             }
         }
-        catch( \Exception $e ){
+        catch( OperationException $e ){
 
-            throw $e;
+            return Response::json( static::process_error( $e->getCode(), '查询失败' ) );
+        }
+        catch( \Exception $e ){
 
             return Response::json( static::process_error( $e->getCode(), $e->getMessage() ) );
         }
@@ -311,9 +313,11 @@ class SearchController extends BaseController{
                 throw new SearchException( '查询失败', 32 );
             }
         }
-        catch( \Exception $e ){
+        catch( OperationException $e ){
 
-            throw $e;
+            return Response::json( static::process_error( $e->getCode(), '查询失败' ) );
+        }
+        catch( \Exception $e ){
 
             return Response::json( static::process_error( $e->getCode(), $e->getMessage() ) );
         }
@@ -372,9 +376,11 @@ class SearchController extends BaseController{
                 throw new SearchException( '查询失败', 32 );
             }
         }
-        catch( \Exception $e ){
+        catch( OperationException $e ){
 
-            throw $e;
+            return Response::json( static::process_error( $e->getCode(), '查询失败' ) );
+        }
+        catch( \Exception $e ){
 
             return Response::json( static::process_error( $e->getCode(), $e->getMessage() ) );
         }
