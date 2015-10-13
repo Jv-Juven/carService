@@ -15,7 +15,7 @@ class UploadController extends \BaseController {
 	}
 
 	//传图片数据地址－后台逻辑用
-	public function downloadToken( $addr )
+	public static function downloadToken( $addr )
 	{
 		$accessKey = Config::get('qiniu.qiniu.accessKey');
 		$secretKey = Config::get('qiniu.qiniu.secretKey');

@@ -184,11 +184,9 @@ class BeeCloudController extends BaseController{
 		$data["channel"] = "WX_NATIVE";
 		// $money = 1;
 		$money = Input::get('money');
-		if( !is_int( $money ) )
-			return Response::json(array('errCode'=>21, 'message'=>'请输入正确的金额'));
 		
 		$data["bill_no"] 	= CostDetail::get_unique_id();
-		$data["total_fee"] 	= $money;//单位换算成分 
+		$data["total_fee"] 	= (int)$money;//单位换算成分 
 		$data['title']		= '充值';
 		$data["optional"] 	= json_decode(json_encode(array("user_id"=>Sentry::getUser()->user_id),true),true);
 		

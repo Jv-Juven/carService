@@ -7,7 +7,6 @@
 <body>
   <div>
   		<p>车尚验证码: {{$reset_code}}</p>
-
   </div>
 </body>
 </html>
