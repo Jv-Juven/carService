@@ -118,7 +118,7 @@ submit = ()->
 					tableBlank.after html05
 				#显示搜索框的内容
 				indentTablesWrapper.show()
-				pagination.show()
+				# pagination.show()
 
 
 #切换信息填写

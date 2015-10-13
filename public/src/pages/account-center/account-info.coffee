@@ -5,6 +5,7 @@ warn = require "./../../common/warn/warn.coffee"
 strMask = require "./../../common/strMask/str-mask.coffee"
 mask = require "./../../components//mask/mask.coffee"
 showFileName = require "./../../common/showUploadFileName/showUploadFileName.coffee"
+timing =require "./../../common/settimeout/settimeout.coffee"
 
 validate = new validate()
 warn = new warn()
@@ -127,21 +128,29 @@ show = {
 info = {
 
 	#获取邮箱验证码
-	getEmailCodes: ()->
+	getEmailCodes: (e)->
+		_this = $(e.currentTarget)
 		$.post "/user/update_operator_code", {}, (msg)->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
 			else
+				timing(_this, 60, ()->
+					_this.on "click", info.getEmailCodes
+				)
 				alert msg["message"]
 
 	#获取手机验证码
-	getPhoneCodes: ()->
+	getPhoneCodes: (e)->
+		_this = $(e.currentTarget)
 		$.get "/user/operational_phone_code", {
 				telephone: infoPhone.val()
 			}, (msg)->
 				if msg["errCode"] isnt 0
 					alert msg["message"]
 				else
+					timing(_this, 60, ()->
+						_this.on "click", info.getPhoneCodes
+					)
 					alert msg["message"]
 
 	#提交修改后的运营者信息
@@ -207,12 +216,16 @@ info = {
 psd = {
 
 	#获取邮箱验证码
-	getEmailCodes: ()->
+	getEmailCodes: (e)->
+		_this = $(e.currentTarget)
 		$.post "/user/send_code_to_email", {
 			}, (msg)->
 				if msg["errCode"] isnt 0
 					alert msg["message"]
 				else
+					timing(_this, 60, ()->
+						_this.on "click", psd.getEmailCodes
+					)
 					alert msg["message"]
 
 	#保存修改的密码

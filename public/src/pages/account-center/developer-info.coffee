@@ -1,4 +1,5 @@
 validate = require "./../../common/validate/validate.coffee"
+timing =require "./../../common/settimeout/settimeout.coffee"
 
 validate = new validate()
 
@@ -22,11 +23,15 @@ showBox = ()->
 	mask.fadeIn(100)
 
 #获取验证码
-getCodes = ()->
+getCodes = (e)->
+	_this = $(e.currentTarget)
 	$.post "/user/send_code_to_email", {}, (msg)->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
 		else
+			timing(_this, 60, ()->
+				_this.on "click", getCodes
+			)
 			alert msg["message"]
 
 #提交信息

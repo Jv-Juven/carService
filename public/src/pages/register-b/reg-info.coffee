@@ -3,6 +3,7 @@ validate = require "./../../common/validate/validate.coffee"
 warn = require "./../../common/warn/warn.coffee"
 mask = require "./../../components/mask/mask.coffee"
 showFileName = require "./../../common/showUploadFileName/showUploadFileName.coffee"
+timing =require "./../../common/settimeout/settimeout.coffee"
 
 validate = new validate()
 warn = new warn()
@@ -71,7 +72,8 @@ $ ()->
 		}
 
 	#获取手机短信验证码
-	getPhoneCode = ()->
+	getPhoneCode = (e)->
+		_this = $(e.currentTarget)
 		if !validate.mobile(phone.val())
 			regInfoTips.text "请输入手机号码"
 			return
@@ -81,6 +83,9 @@ $ ()->
 			if msg["errCode"] is 0
 				alert msg["message"]
 			else
+				timing(_this, 60, ()->
+					_this.on "click", getPhoneCode
+				)
 				alert msg["message"]
 
 	#“提交按钮”信息提交函数

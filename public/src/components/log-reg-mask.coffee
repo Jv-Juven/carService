@@ -1,6 +1,7 @@
 validate = require "./../common/validate/validate.coffee"
 warn = require "./../common/warn/warn.coffee"
 redirection = require "./../components/redirection/redirection.coffee"
+timing =require "./../common/settimeout/settimeout.coffee"
 
 validate = new validate()
 warn = new warn()
@@ -145,6 +146,8 @@ personalReg = ()->
 		regRePassword.focus()
 		return
 
+	regTips.val " "
+
 	$.post "/user/c_register", {
 		login_account: regPhone.val(),
 		password: regPassword.val(),
@@ -167,11 +170,15 @@ logMenuBtn.on "click",cutUserType
 personalRegBtn.on "click", personal
 
 #手机获取验证码
-getCodes.on "click", ()->
+getCodesFunc = (e)->
+
+	_this = $(e.currentTarget)
 
 	if !validate.mobile(regPhone.val())
 		regTips.val("*请正确填写手机号码")
 		return
+
+	regTips.val " "
 
 	$.post "/user/phone_code", {
 		login_account: regPhone.val()
@@ -179,7 +186,12 @@ getCodes.on "click", ()->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
 		else
+			timing(_this, 60, ()->
+				getCodes.on "click", getCodesFunc
+			)
 			alert msg["message"]
+
+getCodes.on "click", getCodesFunc
 
 #"登录"按钮绑定事件
 submitBtn.on "click", userLogin
@@ -243,6 +255,8 @@ resetPsd = ()->
 			renewPsd.focus()
 			return
 
+		warnTips.val " "
+
 		$.post "/user/reset-bsite-forgetpwd", {
 			login_account: emailInput.val(),
 			reset_code: emailCodes.val(),
@@ -273,6 +287,8 @@ resetPsd = ()->
 			renewPsd.focus()
 			return
 
+		warnTips.val " "
+
 		$.post "/user/reset-csite-forgetpwd", {
 			login_account: phoneInput.val(),
 			phone_code: phoneCodes.val(),
@@ -287,12 +303,17 @@ resetPsd = ()->
 
 
 #邮箱获取验证码
-emailCodesBtn.on "click", ()->
+getEmaiCodes = (e)->
+
+	_this = $(e.currentTarget)
+
 
 	if !validate.email(emailInput.val())
 		warnTips.val("*请正确填写邮箱")
 		emailInput.focus()
 		return
+
+	warnTips.val " "
 
 	$.post "/user/send-resetcode-to-email", {
 		login_account: emailInput.val()
@@ -300,15 +321,24 @@ emailCodesBtn.on "click", ()->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
 		else
+			timing(_this, 60, ()->
+				emailCodesBtn.on "click", getEmaiCodes
+			)
 			alert msg["message"]
+emailCodesBtn.on "click", getEmaiCodes
 
 #手机获取验证码
-phoneCodesBtn.on "click", ()->
+
+getPhoneCodes = (e)->
+
+	_this = $(e.currentTarget)
 
 	if !validate.mobile(phoneInput.val())
 		warnTips.val("*请正确填写手机号码")
 		phoneInput.focus()
 		return
+
+	warnTips.val " "
 
 	$.post "/user/phone_code", {
 		login_account: phoneInput.val()
@@ -316,8 +346,14 @@ phoneCodesBtn.on "click", ()->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
 		else
+			timing(_this, 60, ()->
+				phoneCodesBtn.on "click", getPhoneCodes
+			)
 			alert msg["message"]
 
+
+
+phoneCodesBtn.on "click", getPhoneCodes
 #修改密码
 saveBtn.on "click", resetPsd
 
