@@ -27,6 +27,10 @@ class AdminBusinessCenterPageController extends BaseController{
 		if(!count($user))
 			return View::make("errors.user-missing");
 
+		$user[0]->business_licence_scan_path = UploadController::downloadToken($user[0]->business_licence_scan_path);
+		$user[0]->id_card_front_scan_path = UploadController::downloadToken($user[0]->id_card_front_scan_path);
+		$user[0]->id_card_back_scan_path = UploadController::downloadToken($user[0]->id_card_back_scan_path);
+
 		return View::make('pages.admin.business-center.user-info', [
 			"user" => $user[0]
 		]);
