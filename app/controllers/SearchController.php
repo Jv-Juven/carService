@@ -144,8 +144,6 @@ class SearchController extends BaseController{
                         throw new SearchException( '查询失败', 32 );
                     }
 
-                    array_push( $result_to_keep, $value );
-
                     // 只显示未处理的违章信息
                     if ( $value['clbj'] != '1' ){
 
@@ -252,8 +250,6 @@ class SearchController extends BaseController{
             $return_message['account'] = $account;
         }
 
-        $return_message = [ 'errCode' => 0, 'violations' => $result_to_show ];
-
         if ( isset( $sign ) ){
             $return_message[ 'sign' ] = $sign;
         }
@@ -274,7 +270,7 @@ class SearchController extends BaseController{
         $params = Input::all();
 
         $rules = [
-            'identityId'        => 'required|id_card',
+            'identityID'        => 'required|id_card',
             'recordID'          => 'required'
         ];
 
@@ -284,7 +280,7 @@ class SearchController extends BaseController{
         ];
 
         $attributes = [
-            'identityId'        => '身份证号',
+            'identityID'        => '身份证号',
             'recordID'          => '档案号码'
         ];
 
@@ -299,7 +295,7 @@ class SearchController extends BaseController{
         try{
             $search_result = BusinessController::license(
                 TokenController::getAccessToken( Sentry::getUser() ),
-                $params['identityId'],
+                $params['identityID'],
                 $params['recordID']
             );
 
