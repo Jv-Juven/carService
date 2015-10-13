@@ -2,17 +2,29 @@
 
 class AdminServiceCenterPageController extends BaseController{
 
+	public function announcement()
+	{
+		$perPage = 15;
+		$announcements = Announcement::orderBy("created_at", "desc")->paginate($perPage);
+
+		return View::make('pages.admin.service-center.feedback', [
+			"totalCount" => $announcements->getTotal(),
+			"announcements" => $announcements,
+			"count" => $announcements->count()
+		]);
+	}
+
 	public function consult()
 	{
 		$type = Input::get("type", "all");
 		$perPage = 10;
 
 		if($type == "treated")
-			$feedbacks = Feedback::where("type", "=", "1")->where("status", "=", 1)->paginate($perPage);
+			$feedbacks = Feedback::where("type", "=", "1")->where("status", "=", 1)->with('user_info')->paginate($perPage);
 		else if($type == "untreated")
-			$feedbacks = Feedback::where("type", "=", "1")->where("status", "=", 0)->paginate($perPage);
+			$feedbacks = Feedback::where("type", "=", "1")->where("status", "=", 0)->with('user_info')->paginate($perPage);
 		else
-			$feedbacks = Feedback::where("type", "=", "1")->paginate($perPage);
+			$feedbacks = Feedback::where("type", "=", "1")->with('user_info')->paginate($perPage);
 
 		$totalCount = $feedbacks->getTotal();
 		$count = $feedbacks->count();
