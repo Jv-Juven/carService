@@ -42,16 +42,8 @@
 			</div>
 			<!-- 查询框 END -->
 
-			<div class="violation-info">
-				<div class="info-tr">
-					<div class="info-title">账户余额</div>
-					<div class="info-num">{{{ $account['balance'] }}}</div>
-				</div>
-				<div class="info-tr">
-					<div class="info-title">剩余查询次数</div>
-					<div class="info-num">{{{ (int)( $account['balance'] / $account['licenseUnit'] ) }}}</div>
-				</div>
-			</div>
+			@include("components.violation-info", [ 'account' => $account ])
+			
 			<div style="clear: both;"></div>
 			<div class="drive-results clearfix">
 				本年度，截止至当前时间，您累计已扣分<span class="stress">3分</span>！

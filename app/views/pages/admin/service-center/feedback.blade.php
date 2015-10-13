@@ -10,6 +10,8 @@
 @stop
 
 @section('service-center-content')
+    @include('components.admin.feedback-header')
+
 	<hr />
     <div class="service-center-content">
         <table class="table table-striped table-bordered table-hover">
@@ -24,7 +26,7 @@
             @foreach($feedbacks as $feedback)
         	<tr>
                 <td style="display:none;"><input type="hidden" class="feedback-id" value="{{{ $feedback->feedback_id }}}"></td>
-        		<td class="username">广州紫睿科技有限公司</td>
+        		<td class="username">{{{ $feedback->user_info->business_name }}}</td>
         		<td class="title">{{{ $feedback->title }}}</td>
         		<td class="content">{{{ $feedback->content }}}</td>
         		<td class="time">{{{ $feedback->created_at }}}</td>

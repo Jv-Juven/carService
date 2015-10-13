@@ -15,10 +15,18 @@ class Feedback extends Eloquent{
     ];
 
     /*
-     * 获取用户信息
+     * 获取所属用户
      */
     public function user(){
 
         return $this->belongsTo( 'User', 'user_id', 'user_id' );
+    }
+
+    /*
+     * 获取所属用户信息
+     */
+    public function user_info() { 
+        
+        return $this->belongsTo( 'BusinessUser', 'user_id', 'user_id' );
     }
 }

@@ -141,7 +141,7 @@ class SearchController extends BaseController{
                     // 过滤错误
                     if ( isset( $value[ 'tips' ] ) ){
 
-                        throw new SearchException( '查询失败', 32 );
+                        throw new OperationException( '查询失败', 32 );
                     }
 
                     // 只显示未处理的违章信息
@@ -159,7 +159,7 @@ class SearchController extends BaseController{
             }
             else{
 
-                throw new SearchException( '查询失败', 32 );
+                throw new OperationException( '查询失败', 32 );
             }
 
             // 违章信息存到session，以便下单
@@ -228,7 +228,11 @@ class SearchController extends BaseController{
         }
         catch( OperationException $e ){
 
-            return Response::json( static::process_error( $e->getCode(), '查询失败' ) );
+            $message = static::process_error( $e->getCode(), '查询失败' );
+
+            $message['account'] = $account;
+
+            return Response::json( $message );
         }
         catch( \Exception $e ){
 
@@ -306,12 +310,16 @@ class SearchController extends BaseController{
 
             if ( (int)$search_result['data']['returnCode'] != 1 ){
                 
-                throw new SearchException( '查询失败', 32 );
+                throw new OperationException( '查询失败', 32 );
             }
         }
         catch( OperationException $e ){
 
-            return Response::json( static::process_error( $e->getCode(), '查询失败' ) );
+            $message = static::process_error( $e->getCode(), '查询失败' );
+
+            $message['account'] = $account;
+
+            return Response::json( $message );       
         }
         catch( \Exception $e ){
 
@@ -369,12 +377,16 @@ class SearchController extends BaseController{
 
             if ( $search_result['data']['returnCode'] != 1 ){
 
-                throw new SearchException( '查询失败', 32 );
+                throw new OperationException( '查询失败', 32 );
             }
         }
         catch( OperationException $e ){
 
-            return Response::json( static::process_error( $e->getCode(), '查询失败' ) );
+            $message = static::process_error( $e->getCode(), '查询失败' );
+
+            $message['account'] = $account;
+
+            return Response::json( $message );  
         }
         catch( \Exception $e ){
 

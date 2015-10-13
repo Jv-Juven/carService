@@ -15,7 +15,7 @@ recordPlate = $(".records-plate")
 
 #提交事件
 submit = ()->
-	
+
 	carsType = carsInputs.find("select").eq(1).find("option:selected").val()
 
 	plate = carsInputs.find("select").eq(0).find("option:selected").text()
@@ -26,9 +26,7 @@ submit = ()->
 		licensePlate: licensePlate,
 		licenseType: carsType
 	}, (msg)->
-		if msg["errCode"] isnt 0
-			alert msg["message"]
-		else
+		if msg["errCode"] is 0
 			info.fillData(msg["account"]["balance"], msg["account"]["unit"])
 			result = _.template $("#cars_template").html()
 			result = result {
@@ -37,6 +35,11 @@ submit = ()->
 			recordPlate.text(licensePlate)
 			carsResulte.html(result)
 			carsRecords.show()
+		else if msg["errCode"] is 32
+			info.fillData(msg["account"]["balance"], msg["account"]["unit"])
+			alert msg["message"]
+		else
+			alert msg["message"]
 
 $ ()->
 	carsBtn.on "click", submit

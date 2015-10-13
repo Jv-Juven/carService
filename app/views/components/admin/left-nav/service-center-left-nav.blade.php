@@ -16,5 +16,18 @@
                 </li>
             </ul>
         </li>
+        <li role="presentation" class="disabled">
+            <a href="javascript:void(0);">系统公告</a>
+        </li>
+        <li role="presentation">
+            <ul class="nav nav-pills nav-stacked">
+                <li role="presentation">
+                    <a href="/admin/service-center/publish-notice" class="nav-item">发布公告</a>
+                </li>
+                <li role="presentation">
+                    <a href="/admin/service-center/notice-list" class="nav-item">公告列表</a>
+                </li>
+            </ul>
+        </li>
     </ul>
 </div>

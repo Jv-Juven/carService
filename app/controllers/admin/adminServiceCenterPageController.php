@@ -2,17 +2,34 @@
 
 class AdminServiceCenterPageController extends BaseController{
 
+	public function publishNotice()
+	{
+		return View::make('pages.admin.service-center.publish-notice');
+	}
+
+	public function noticeList()
+	{
+		$perPage = 15;
+		$notices = Notice::orderBy("created_at", "desc")->paginate($perPage);
+
+		return View::make('pages.admin.service-center.notice-list', [
+			"totalCount" => $notices->getTotal(),
+			"notices" => $notices,
+			"count" => $notices->count()
+		]);
+	}
+
 	public function consult()
 	{
 		$type = Input::get("type", "all");
 		$perPage = 10;
 
 		if($type == "treated")
-			$feedbacks = Feedback::where("type", "=", "1")->where("status", "=", 1)->paginate($perPage);
+			$feedbacks = Feedback::where("type", "=", "1")->where("status", "=", 1)->with('user_info')->paginate($perPage);
 		else if($type == "untreated")
-			$feedbacks = Feedback::where("type", "=", "1")->where("status", "=", 0)->paginate($perPage);
+			$feedbacks = Feedback::where("type", "=", "1")->where("status", "=", 0)->with('user_info')->paginate($perPage);
 		else
-			$feedbacks = Feedback::where("type", "=", "1")->paginate($perPage);
+			$feedbacks = Feedback::where("type", "=", "1")->with('user_info')->paginate($perPage);
 
 		$totalCount = $feedbacks->getTotal();
 		$count = $feedbacks->count();
@@ -32,11 +49,11 @@ class AdminServiceCenterPageController extends BaseController{
 		$perPage = 10;
 
 		if($type == "treated")
-			$feedbacks = Feedback::where("type", "=", "2")->where("status", "=", 1)->paginate($perPage);
+			$feedbacks = Feedback::where("type", "=", "2")->where("status", "=", 1)->with('user_info')->paginate($perPage);
 		else if($type == "untreated")
-			$feedbacks = Feedback::where("type", "=", "2")->where("status", "=", 0)->paginate($perPage);
+			$feedbacks = Feedback::where("type", "=", "2")->where("status", "=", 0)->with('user_info')->paginate($perPage);
 		else
-			$feedbacks = Feedback::where("type", "=", "2")->paginate($perPage);
+			$feedbacks = Feedback::where("type", "=", "2")->with('user_info')->paginate($perPage);
 
 		$totalCount = $feedbacks->getTotal();
 		$count = $feedbacks->count();
@@ -56,11 +73,11 @@ class AdminServiceCenterPageController extends BaseController{
 		$perPage = 10;
 
 		if($type == "treated")
-			$feedbacks = Feedback::where("type", "=", "3")->where("status", "=", 1)->paginate($perPage);
+			$feedbacks = Feedback::where("type", "=", "3")->where("status", "=", 1)->with('user_info')->paginate($perPage);
 		else if($type == "untreated")
-			$feedbacks = Feedback::where("type", "=", "3")->where("status", "=", 0)->paginate($perPage);
+			$feedbacks = Feedback::where("type", "=", "3")->where("status", "=", 0)->with('user_info')->paginate($perPage);
 		else
-			$feedbacks = Feedback::where("type", "=", "3")->paginate($perPage);
+			$feedbacks = Feedback::where("type", "=", "3")->with('user_info')->paginate($perPage);
 
 		$totalCount = $feedbacks->getTotal();
 		$count = $feedbacks->count();
