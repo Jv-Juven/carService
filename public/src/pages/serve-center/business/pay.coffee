@@ -20,7 +20,7 @@ payWechat = ()->
 #完成支付
 complete = ()->
 	$.get "/serve-center/order/order-trade-status", {
-			order_id: order_Id.val()
+			order_id: orderId.val()
 		}, (msg)->
 			if msg["errCode"] is 0
 				if msg["trade_status"] is 0
