@@ -119,7 +119,7 @@
 						</td>
 
 						<td>
-							<span{{{ $vinfo->rep_priciple_balance + $vinfo->rep_late_fee + $vinfo->rep_service_charge }}}</span>
+							<span>{{{ $vinfo->rep_priciple_balance + $vinfo->rep_late_fee + $vinfo->rep_service_charge }}}</span>
 						</td>
 					</tr>
 					@endforeach
@@ -128,7 +128,9 @@
 						<td colspan="2">
 							<span class="title">应付总额：</span>
 							<span class="money">￥{{{ $order->capital_sum + $order->service_charge_sum + $order->express_fee }}}元</span>
+							@if ( $order->express_fee != null )
 							<span class="express-fee">快递费：{{{ $order->express_fee }}}元</span>
+							@endif
 						</td>
 						<td class="indent-deal-opration" colspan="4">
 							<span class="deal-btn wait-pay">{{{ $order_status['trade_status'][ $order->trade_status ] }}}</span>
