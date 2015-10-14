@@ -151,6 +151,7 @@ module.exports = (grunt)->
                         'src/components/warn-mask.less',
                         'src/components/header.less',
                         'src/components/footer.less',
+                        'src/components/reg-header.less',
                         'src/components/admin/header.less'
                     ]
             adminComponents:

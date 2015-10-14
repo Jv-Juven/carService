@@ -189,7 +189,7 @@
 	<% for (var i = 0; i < array.length; i ++){ 
 		var rightTd = array[i]["traffic_violation_info"].length + 1;
 		var info = array[i]["traffic_violation_info"]; 
-		var total_sum = array[i]["capital_sum"] + parseInt(array[i]["express_fee"] + 0) + array[i]["service_charge_sum"]
+		var total_sum = parseInt(array[i]["capital_sum"]) + parseInt(array[i]["express_fee"] + 0) + parseInt(array[i]["service_charge_sum"])
 		var process_status = "",
 			trade_status = "";
 		if (array[i]["process_status"] == 0){
@@ -254,7 +254,6 @@
 				</td>
 				<td class="vio-behaviour">
 					<%- info[j]["rep_violation_behavior"] %>
-					<span>[1039]</span>
 				</td>
 				<td class="money">
 					<span>本金：<%- info[j]["rep_priciple_balance"] %></span>
