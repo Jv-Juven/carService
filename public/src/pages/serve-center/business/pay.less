@@ -1,4 +1,5 @@
 @import "./../../../common/common.less";
+@import "./../../../common/mask/mask.less";
 
 .content-container{
 	margin: 40px auto;
@@ -102,6 +103,37 @@
 				margin-left: 50px;
 				vertical-align: middle;
 				.a-color();
+			}
+		}
+	}
+}
+
+// 浮层框的基本设置
+.mask-bg, .mask-wrapper{
+	display: none;
+}
+.warn-box{
+	.warn-box(360px, 160px);
+	.warn-content{
+		.warn-content(126px);
+		.warn-msg{
+			.warn-msg();
+			text-align: left;
+			margin-top: 30px;
+			.content{
+				display: block;
+				width: 100%;
+				padding: 2px 0px;
+				text-align: center;
+			}
+			.btns{
+				width: 100%;
+				margin-top: 26px;
+				text-align: center;
+				.btn{
+					.inline-btn(74px, 31px);
+					margin: 0px 20px;
+				}
 			}
 		}
 	}
