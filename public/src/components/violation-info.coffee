@@ -11,9 +11,9 @@ info = {
 		times = balance / unit
 
 		infoBalance.text balance
-		infoTimes.text times
+		infoTimes.text parseInt(times)
 	fillTimes: (times)->
-		infoTimes.text times
+		infoTimes.text parseInt(times)
 }
 
 module.exports = info

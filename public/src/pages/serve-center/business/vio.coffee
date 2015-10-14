@@ -171,6 +171,8 @@ dealVio = ()->
 			if xhArr.length is 0
 				warn.alert "请选中要办理的违章记录！"
 				return
+			else if msg["errCode"] is 3
+				window.location.href = msg["url"]
 			else
 				$.post "/serve-center/agency/business/confirm_violation", {
 					sign: sign.val(),
@@ -181,7 +183,7 @@ dealVio = ()->
 					else
 						if !sign.val()
 							return
-						window.location.href = "/serve-center/agency/agency?sign=" + sign.val()
+						window.location.href = "/serve-center/agency/pages/agency?sign=" + sign.val()
 					
 
 
