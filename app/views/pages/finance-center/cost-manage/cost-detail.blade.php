@@ -26,59 +26,74 @@
         <div class="query-wrap">
             <form method="GET" action="" class="query-form clearfix">
                 <div class="query-item query-date">
-                    <span class="query-label">起止时间:</span>
-                    <input name="date_start" type="text" class="query-ipt-dt date-start" id="date-start"
-                        value="{{{ $previous_input['date_start'] }}}"
-                    >
-                    <span class="query-label">至</span>
-                    <input name="date_end" type="text" class="query-ipt-dt date-end" id="date-end"
-                        value="{{{ $previous_input['date_end'] }}}"
+                    <span class="query-label">请选择年月:</span>
+                    <input name="date" type="text" class="query-ipt-dt date-start" id="date"
+                        value="{{{ $previous_input['date'] }}}"
                     >
                 </div>
                 <div class="query-item query-type">
                     <span class="query-label">交易类型:</span>
                     <select name="cost_type" class="query-slt-ty">
-                        <option value="10">普通查询</option>
+                        @if ( $previous_input['cost_type'] == '10' )
+                        <option value="10" selected>普通充值</option>
                         <option value="20">查询</option>
-                        @foreach ( $cost_types as $key => $value )
-                            <option value="{{{ $key }}}"
-                            @if ( $previous_input['cost_type'] == $key )
-                                selected
-                            @endif >
-                            {{{ $value }}}
-                        </option>
-                        @endforeach
+                        @else
+                        <option value="10">普通充值</option>
+                        <option value="20" selected>查询</option>
+                        @endif
                     </select>
                 </div>
                 <input type="hidden" name="page" value="1">
                 <input class="query-sbm" type="submit" value="查询">
             </form>
         </div>
-        @if ( !empty( $paginator ) )
-        <div class="data-wrap">
-            <div class="data-section">
-                <table class="data-list">
-                    <tr class="data-item data-head">
-                        <th class="item-key">流水号</th>
-                        <th class="item-key">日期</th>
-                        <th class="item-key">备注</th>
-                        <th class="item-key">金额</th>
-                    </tr>
-                    @foreach( $paginator->getCollection() as $result )
-                        <tr class="data-item odd-item">
-                            <td class="item-key">{{{ $result['cost_id'] }}}</td>
-                            <td class="item-key">{{{ $result['created_at'] }}}</td>
-                            <td class="item-key">[{{{ $fee_types[ $result['fee_type_id'] ]['category'] }}}]{{{ $fee_types[ $result['fee_type_id'] ]['item'] }}}</td>
-                            <td class="item-key">{{{ $result['number'] }}}</td>
-                        </tr>
-                    @endforeach
-                </table>
+        @if ( !empty( $results ) )
+            
+            <div class="data-wrap">
+                <div class="data-section">
+                    <table class="data-list">
+                        @if( $previous_input['cost_type'] == '10' )
+                            <tr class="data-item data-head">
+                                <th class="item-key">流水号</th>
+                                <th class="item-key">日期</th>
+                                <th class="item-key">备注</th>
+                                <th class="item-key">金额</th>
+                            </tr>
+                            @foreach( $results as $result )
+                                <tr class="data-item odd-item">
+                                    <td class="item-key">{{{ $result['cost_id'] }}}</td>
+                                    <td class="item-key">{{{ $result['created_at'] }}}</td>
+                                    <td class="item-key">普通充值</td>
+                                    <td class="item-key">{{{ $result['number'] }}}</td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr class="data-item data-head">
+                                <th class="item-key">日期</th>
+                                <th class="item-key">备注</th>
+                                <th class="item-key">次数</th>
+                            </tr>
+                            @foreach( $results as $result )
+                                <tr class="data-item odd-item">
+                                    <td class="item-key">{{{ Carbon\Carbon::parse( $result['date'] )->toDateTimeString()  }}}</td>
+                                    <td class="item-key">
+                                        [消费]
+                                        @if ( $result['type'] == 'violation' )
+                                            违章查询
+                                        @elseif ( $result['type'] == 'license' )
+                                            驾驶证查询
+                                        @elseif ( $result['type'] == 'car' )
+                                            车辆查询
+                                        @endif
+                                    </td>
+                                    <td class="item-key">{{{ $result['value'] }}}</td
+                                    <td class="item-key"></td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    </table>
+                </div>
             </div>
-            @include('components.pagination', [
-                'paginator' => $paginator,
-                'params'    => $previous_input
-            ])
-        </div>
         @endif
     </div>
 </div>

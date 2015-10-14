@@ -445,7 +445,7 @@ if( Sentry::check() )
 					    "message": "获取车辆违章信息",
 					    "service_fee": 123,
 
-					    "user_type": 0 普通用户 1 企业用户
+					    "user_type": "0" 普通用户 "1" 企业用户
 					    
 					    // 普通用户返回剩余查询次数remain_search_count
 					    // 企业用户返回账户信息balance
@@ -532,8 +532,21 @@ if( Sentry::check() )
     		请求url: /serve-center/agency/business/confirm_violation
 
     		请求参数:
-    					car_plate_no 				车牌号码
+    					sign 						标识值
     					xh: [ '123', '234' ]		违章序号，数组形式
+    		返回参数:
+    					{
+    						errCode: 0,
+    						message: "ok"
+    					}
+
+    	4.2.2 取消办理违章
+
+    		请求方式：POST
+    		请求url: /serve-center/agency/business/cancel_violation
+
+    		请求参数:
+    					sign 						标识值
     		返回参数:
     					{
     						errCode: 0,
