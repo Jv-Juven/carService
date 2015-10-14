@@ -12,19 +12,22 @@
 	@show
 </head>
 <body>
+
+	<!-- 页头 START		 -->
+	@include("components.reg-header")
+	<!-- 页头 END		 -->
+
 	<div class="login-wrapper">
-		<!-- 页头 START		 -->
-		@include("components.reg-header")
-		<!-- 页头 END		 -->
 		<div class="login-body clearfix">
 		@section("body")
 		@show
 		</div>
-		<div class="login-footer">
-			<div class="footer-words">
-				<span>版权所有@广州车尚信息科技有限公司</span>|
-				<span>技术支持：广州紫睿科技有限公司</span>
-			</div>
+	</div>
+	
+	<div class="login-footer">
+		<div class="footer-words">
+			<span>版权所有@广州车尚信息科技有限公司</span>|
+			<span>技术支持：广州紫睿科技有限公司</span>
 		</div>
 	</div>
 	@section("js")

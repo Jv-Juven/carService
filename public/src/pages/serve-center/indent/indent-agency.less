@@ -9,11 +9,13 @@
 	width: @width;
 	.indent-inputs-wrapper{
 		width: @width;
-		height: 180px;
 	}
 	.input-table{
 		width: @width;
-		height: 100%;
+		height: auto;
+		tr{
+			height: 40px;
+		}
 		.indent-table-title{
 			width: 90px;
 			font-weight: bolder;
@@ -34,9 +36,6 @@
 			}
 			&>.input{
 				height: 26px;
-			}
-			.table-time{
-				max-width: 100px;
 			}
 			.plate-num{
 				text-align: left;
@@ -136,10 +135,10 @@
 					color: @tips-color;
 				}
 				.plate{
-					margin: 0px 60px 0px 30px;
+					margin: 0px 40px 0px 20px;
 				}
 				.date{
-					margin-right: 30px;
+					margin-right: 10px;
 				}
 			}
 			.indent-tr-content{
@@ -165,6 +164,10 @@
 					span{
 						text-align: left;
 					}
+				}
+				
+				.table-time{
+					max-width: 100px;
 				}
 			}
 			.indent-deal{

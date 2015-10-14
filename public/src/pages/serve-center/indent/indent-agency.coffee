@@ -77,8 +77,11 @@ submit = ()->
 		plateNo = ""
 		dateStartValue = ""
 		dateEndValue = ""
+	if plateNum.val().length is 0
+		plateNo = ""
 
 
+	#查询请求后端的数据
 	$.get "/serve-center/order/operation/search", {
 			order_id: indentNum.val(),
 			car_plate_no: plateNo,
@@ -128,8 +131,9 @@ submit = ()->
 					}
 					tableBlank.after html05
 				#显示搜索框的内容
-				indentTablesWrapper.show()
-				# pagination.show()
+				$(".indent-tables-wrapper").show()
+				#隐藏分页按钮
+				$(".paginate-wrap").hide()
 
 
 #切换信息填写
@@ -157,19 +161,25 @@ cancelDeal = (e)->
 		if	msg["errCode"] isnt 0
 			alert msg["message"]
 		else
-			_this.prev().html "订单关闭"
-			_this.next.hide()
-			_this.hide()
+			# _this.prev().html "订单关闭"
+			# _this.next().hide()
+			alert msg["message"]
+			location.reload()
 		
 #取消订单弹窗
-cancelMaskShow = ()->
+cancelMaskShow = (e)->
+	_this = $(e.currentTarget)
 	maskBg.fadeIn(100)
 	cancelMask.fadeIn(100)
+	sureBtn.attr("data-num", _this.attr("data-num"))
+
+
 
 #取消订单弹窗
 refundMaskShow = ()->
 	maskBg.fadeIn(100)
 	refundMask.fadeIn(100)
+
 #关闭“取消”订单弹窗
 refundMaskClose = ()->
 	maskBg.fadeOut(100)
