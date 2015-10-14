@@ -59,7 +59,7 @@ submit = ()->
 		else
 			if !msg["order_id"]
 				return
-			window.location.href = "/serve-center/agency/pay?order_id=" + msg["order_id"].val()
+			window.location.href = "/serve-center/agency/pay?order_id=" + msg["order_id"]
 
 cancelDeal = ()->
 	$.post "/serve-center/agency/business/cancel_violation", {
