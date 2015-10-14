@@ -195,7 +195,7 @@ $ ()->
 	#违章查询的“确定”按钮绑定事件
 	vioBtn.on "click", submit
 	#“违章办理”按钮事件绑定
-	dealBtn.on "click", dealVio
+	$(document).on "click", ".deal-btn a", dealVio
 	
 
 
