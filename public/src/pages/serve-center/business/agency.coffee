@@ -19,7 +19,7 @@ express_fee = $("#express_fee")
 agencyWarnTips = $(".agency-warn-tips")
 agencyBtn = $(".agency-btn a")
 
-agencyBtnCancel = $(".agency-btn-cancel")
+agencyBtnCancel = $(".agency-btn-cancel a")
 
 #sign字段
 sign = $("#sign")
