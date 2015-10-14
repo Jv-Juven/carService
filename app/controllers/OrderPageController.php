@@ -16,12 +16,35 @@ class OrderPageController extends BaseController{
     }
 
     public function fail()
-    {
-        return View::make('pages.serve-center.pay.fail');
+    {   
+        $order_id = Input::get('order_id');
+        $order = AgencyOrder::find( $order_id );
+        if( !isset($order) )
+            return Response::make( 'Invalid order' );
+
+        if ( $order->user_id != Sentry::getUser()->user_id )
+            return Response::make( 'Invalid order' );
+        
+        if( $order->trade_status == '2' || $order->trade_status == '3' )
+            return Response::make( 'Invalid order' );
+
+
+        return View::make('pages.serve-center.pay.fail')->with(array('order'=>$order));
     }
 
     public function success()
     {
-        return View::make('pages.serve-center.pay.success');
+        $order_id = Input::get('order_id');
+        $order = AgencyOrder::find( $order_id );
+        if( !isset($order) )
+            return Response::make( 'Invalid order' );
+
+        if ( $order->user_id != Sentry::getUser()->user_id )
+            return Response::make( 'Invalid order' );
+        
+        if( $order->trade_status == '2' || $order->trade_status == '3' )
+            return Response::make( 'Invalid order' );
+
+        return View::make('pages.serve-center.pay.success')->with(array('order'=>$order));
     }
 }
