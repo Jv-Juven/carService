@@ -20,7 +20,7 @@
 		4. 支付宝返回的total_fee（商品总价），subject（订单标题）
 		5. 微信返回的total_fee（商品总价
 */
-class BeeCloudController extends BaseController{
+class BeeCloundController extends BaseController{
 
 	public static function returnDataArray()
 	{
@@ -295,7 +295,7 @@ class BeeCloudController extends BaseController{
 
 
 	//退款
-	public function refund( $order_id, $channel = 'WX' )
+	public static function refund( $order_id, $channel = 'WX' )
 	{
 		$data = static::returnDataArray();
 		
