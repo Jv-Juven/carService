@@ -31,9 +31,6 @@
 							<input type="text" id="indent-number" placeholder="请输入发动机号码后6位"/>
 						</td>
 					</tr>
-					<tr class="indent-number"></tr>
-					<tr class="indent-number"></tr>
-					<tr class="indent-number"></tr>
 					<tr class="indent-details">
 						<td class="indent-table-title">车牌号码：</td>
 						<td class="indent-table-content indent-inputs">
@@ -45,31 +42,6 @@
 					<tr class="indent-details">
 						<td class="indent-table-title">业务状态：</td>
 						<td class="indent-table-content">
-							<!-- <select class="input select-plate plate-status indent-city">
-								<option value="">全部</option>
-								<option value="">广州市</option>
-								<option value="">深圳市</option>
-								<option value="">珠海市</option>
-								<option value="">汕头市</option>
-								<option value="">韶关市</option>
-								<option value="">佛山市</option>
-								<option value="">江门市</option>
-								<option value="">湛江市</option>
-								<option value="">茂名市</option>
-								<option value="">肇庆市</option>
-								<option value="">惠州市</option>
-								<option value="">梅州市</option>
-								<option value="">汕尾市</option>
-								<option value="">河源市</option>
-								<option value="">阳江市</option>
-								<option value="">清远市</option>
-								<option value="">东莞市</option>
-								<option value="">中山市</option>
-								<option value="">潮州市</option>
-								<option value="">揭阳市</option>
-								<option value="">云浮市</option>
-							</select> -->
-							
 							<select class="input select-plate plate-status indent-status">
 								<option value="">全部</option>
 								<option value="0">未受理</option>
