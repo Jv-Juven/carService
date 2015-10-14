@@ -183,7 +183,7 @@ refundMaskClose = ()->
 refund = (e)->
 	_this = $(e.currentTarget)
 	order_id = _this.attr "data-num"
-	$.post "/beeclound/request-refund", {
+	$.post "/beecloud/request-refund", {
 		order_id: order_id
 	}, (msg)->
 		if	msg["errCode"] is 0

@@ -4,7 +4,7 @@ _ali_pay_btn = null
 
 post_pay = ( money, channel ) ->
 
-    $.post '/beeclound/recharge', {
+    $.post '/beecloud/recharge', {
         money: money,
         channel: channel
     }, ( result ) ->
