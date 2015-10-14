@@ -47,7 +47,7 @@ class AgencyPageController extends BaseController{
             return Response::make( '参数错误' );
         }
 
-        return View::make( 'pages.serve-center.business.agency', [ 'agency_info' => $violation[ $sign ]['info'] ]);
+        return View::make( 'pages.serve-center.business.agency', [ 'agency_info' => $violations[ $sign ]['info'] ]);
     }
 
     public function pay(){
