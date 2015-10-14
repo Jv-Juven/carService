@@ -113,6 +113,15 @@ class OrderController extends BaseController{
         return Response::json(array('errCode'=>0,'message'=>'申请成功'));
     }
 
+    //订单状态
+    public static function orderTradeStatus( )
+    {
+        $order_id = Input::get('order_id');
+        $order = AgencyOrder::find($order_id);
+        if( !isset($order) )
+            return Response::json(array('errCode'=>21, 'message'=>'该订单不存在'));
+        return Response::json(array('errCode'=>0, 'trade_status'=>$order->trade_status));
+    }
     
 
 }
