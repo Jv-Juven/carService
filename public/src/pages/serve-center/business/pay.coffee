@@ -8,7 +8,7 @@ questionBtn = $(".question-btn")
 
 #微信支付
 payWechat = ()->
-	$.post "/beeclound/order-agency", {
+	$.post "/beecloud/order-agency", {
 		order_id: orderId.val()
 	}, (msg)->
 		if msg["errCode"] is 0

@@ -2,8 +2,8 @@
 
 /*
 支付逻辑：
-		客户端调用beeClound()方法，在 付款成功／退款成功后 
-		调起authClound()方法验证第三方（beeCloud）
+		客户端调用beeCloud()方法，在 付款成功／退款成功后 
+		调起authCloud()方法验证第三方（beeCloud）
 		传回来的订详情是否正确，如果正确即
 			1.如果是充值
 				调起充值接口BusinessController中的recharge()
@@ -20,7 +20,7 @@
 		4. 支付宝返回的total_fee（商品总价），subject（订单标题）
 		5. 微信返回的total_fee（商品总价
 */
-class BeeCloundController extends BaseController{
+class BeeCloudController extends BaseController{
 
 	public static function returnDataArray()
 	{
@@ -224,7 +224,7 @@ class BeeCloundController extends BaseController{
 		Session::put('qrcode',$qrcode);
 
 		return Response::json(array('errCode'=>0,'message'=>'ok',
-												'url'=>'/beeclound/qrcode'
+												'url'=>'/beecloud/qrcode'
 									));
 	}
 
@@ -279,7 +279,7 @@ class BeeCloundController extends BaseController{
 		Session::put('qrcode',$qrcode);
 
 		return Response::json(array('errCode'=>0,'message'=>'ok',
-											'url'=>'/beeclound/qrcode'
+											'url'=>'/beecloud/qrcode'
 								));
 	}
 
@@ -287,7 +287,7 @@ class BeeCloundController extends BaseController{
 	public function qrcode( )
 	{	
 		$qrcode = Session::get('qrcode');
-		return View::make('beeclound.pay')->with(array(
+		return View::make('beecloud.pay')->with(array(
 											'bill_no'=> $qrcode['bill_no'], 
 											'code_url'=>$qrcode['code_url']
 											));
