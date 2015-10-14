@@ -314,7 +314,7 @@ class BeeCloudController extends BaseController{
 
 		try
 		{
-			DB::transaction( function() use( $refund,$data["refund_no"] ) {
+			DB::transaction( function() use( $refund,$data ) {
 				$order_auth_info = new OrderAuthInfo;
 				$order_auth_info->transactionId =  $data["refund_no"];//交易单号
 				$order_auth_info->transactionFee = $data["refund_fee"];//费用
