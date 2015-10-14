@@ -98,7 +98,7 @@ submit = ()->
 		if msg["errCode"] is 0
 
 			#剩余次数和余额 START
-			if msg["user_type"] is 0
+			if msg["user_type"] is "0"
 				info.fillTimes msg["remain_serach_count"]
 			else
 				info.fillData(msg["account"]["balance"], msg["account"]["unit"])

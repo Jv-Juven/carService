@@ -19,9 +19,9 @@
 		@if( Sentry::check())
 		<li class="header-menu-item nav-item">
 			@if ( Sentry::getUser()->is_business_user() )
-			<a href="/finance-center/cost-manage/overview">商务中心</a>
+			<a href="/finance-center/cost-manage/overview">财务中心</a>
 			@else
-			<a href="/finance-center/cost-manage/refund-record">商务中心</a>
+			<a href="/finance-center/cost-manage/refund-record">财务中心</a>
 			@endif
 			<div class="item-underline"></div>
 		</li>
@@ -30,7 +30,7 @@
 			<div class="item-underline"></div>
 		</li>
 		<li class="header-menu-item nav-item">
-			@if(Sentry::getUser()->user_type == 1)
+			@if ( Sentry::getUser()->is_business_user() )
 			<a href="/account-center/account-info">账户设置</a>
 			@else
 			<a href="/account-center/account-info-c">账户设置</a>
