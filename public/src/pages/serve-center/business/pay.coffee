@@ -1,6 +1,6 @@
 payWechatBtn = $("#pay_wechat")
 payPaypalBtn = $("#pay_paypal")
-orderId =$("#order-id")
+orderId = $("#order-id")
 
 
 #微信支付
