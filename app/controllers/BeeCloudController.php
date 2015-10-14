@@ -191,8 +191,9 @@ class BeeCloudController extends BaseController{
 			if( (int)$money >= 50 && (int)$money<10000 )
 			{
 				$data["total_fee"] 	= $money*100;//单位换算成分 $money*100
+			}else{
+				return Response::json(array('errCode'=>21, 'message'=>'充值金额不正确'));
 			} 
-			return Response::json(array('errCode'=>21, 'message'=>'充值金额不正确'));
 		}else{
 			return Response::json(array('errCode'=>22, 'message'=>'充值金额不正确'));
 		}
