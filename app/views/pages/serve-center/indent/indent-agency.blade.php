@@ -163,7 +163,7 @@
 
 							@if ( $order->trade_status == '0' && $order->trade_status == '0' )
 							<a class="deal-btn cancel-deal" data-num="{{{ $order->order_id }}}" href="javascript:">取消订单</a>
-							<a class="deal-btn atonce-pay" href="javascript:">立即付款</a>
+							<a class="deal-btn atonce-pay immediately-pay" data-num="{{{ $order->order_id }}}" href="javascript:">立即付款</a>
 							@elseif( $order->trade_status == '1' && $order->trade_status == '1' )
 
 							<a class="deal-btn atonce-pay refund-btn" data-num="{{{ $order->order_id }}}" href="javascript:">申请退款</a>
@@ -307,7 +307,7 @@
 				<span class="deal-btn wait-pay"><%- trade_status %></span>
 				<% if (array[i]["process_status"] == 0 && array[i]["trade_status"] == 0){ %>
 					<a class="deal-btn cancel-deal" data-num="<%- array[i]['order_id'] %>" href="javascript:">取消订单</a>
-					<a class="deal-btn atonce-pay" href="javascript:">立即付款</a>
+					<a class="deal-btn atonce-pay immediately-pay" data-num="<%- array[i]['order_id'] %>" href="javascript:">立即付款</a>
 				<% } %>
 				<% if (array[i]["process_status"] == 1 && array[i]["trade_status"] == 1){ %>
 					<a class="deal-btn atonce-pay refund-btn" data-num="<%- array[i]['order_id'] %>" href="javascript:">申请退款</a>

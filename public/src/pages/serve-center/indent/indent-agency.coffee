@@ -45,6 +45,8 @@ pagination = $(".paginate-wrap")
 #退款“确定”按钮
 refundCloseBtn = $("#refund_btn")
 
+payBtn = $(".immediately-pay")
+
 #关闭弹窗
 closeMask = ()->
 	maskBg.fadeOut(100)
@@ -188,6 +190,15 @@ refund = (e)->
 
 
 
+#立即付款
+pay = (e)->
+	_this = $(e.currentTarget)
+	order_id = _this.attr "data-num"
+	window.location.href = "/serve-center/agency/pages/pay?order_id=" + order_id
+
+
+
+
 
 
 $ ()->
@@ -207,6 +218,8 @@ $ ()->
 	$(document).on "click", ".refund-btn", refund
 	#"申请退款"弹窗“确定”按钮
 	$(document).on "click", "#refund_btn", refundMaskClose
+	#"立即付款"按钮事件绑定
+	$(document).on "click", ".immediately-pay", pay
 
 
 
