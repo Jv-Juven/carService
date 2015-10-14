@@ -11,7 +11,8 @@ class Feedback extends Eloquent{
         'user_id',
         'type',
         'title',
-        'content'
+        'content',
+        'status'
     ];
 
     /*
