@@ -294,15 +294,15 @@ class BeeCloudController extends BaseController{
 
 
 	//退款
-	public static function refund( $refund_id, $channel = 'WX' )
+	public static function refund( $order_id, $channel = 'WX' )
 	{
 		$data = static::returnDataArray();
 		
-		$refund = RefundRecord::find( $refund_id );
+		$refund = RefundRecord::where('order_id', $order_id )->first();
 		if( !isset( $refund) )
 			return (array('errCode'=>21, 'message'=>'该订单不存在'));
 
-		$order = AgencyOrder::find( $refund->order_id );
+		$order = AgencyOrder::find( $order_id );
 		$data["bill_no"] = $order->order_id;
 		
 		$data["refund_no"] = date('Ymd',time()).time();
@@ -312,19 +312,29 @@ class BeeCloudController extends BaseController{
 		$data["channel"] = $channel;
 		$data["optional"] 	= json_decode(json_encode(array("refund_id"=>$refund_id),true),true);
 
-		$order_auth_info = new OrderAuthInfo;
-		$order_auth_info->transactionId =  $data["refund_no"];//交易单号
-		$order_auth_info->transactionFee = $data["refund_fee"];//费用
-		if( !$order_auth_info->save() )
-			return array('errCode'=>22, 'message'=>'数据库保存错误' );
+		try
+		{
+			DB::transaction( function() use( $refund,$data["refund_no"] ) {
+				$order_auth_info = new OrderAuthInfo;
+				$order_auth_info->transactionId =  $data["refund_no"];//交易单号
+				$order_auth_info->transactionFee = $data["refund_fee"];//费用
+				$order_auth_info->save();
+				
+				$refund->refund_no = $data["refund_no"];
+				$refund->save();
+			});
+		}catch( Exception $e )
+		{
+			return array( 'errCode'=> 21, 'message'=>$e->getMessage() );
+		}
 
 		try{
 				$result = BCRESTApi::refund($data);	
 				if ($result->result_code != 0 || $result->result_msg != "OK") 
-					return array('errCode'=>24, 'message'=>json_encode($result->err_detail));
+					return array('errCode'=>22, 'message'=>json_encode($result->err_detail));
 		}catch( Exception $e)
 		{
-			return array('errCode'=>24, 'message'=>$e->getMessage() );
+			return array('errCode'=>23, 'message'=>$e->getMessage() );
 		}
 
 		return array('errCode'=>0, 'message'=>'退款已提交');
