@@ -38,6 +38,8 @@
                 <div class="query-item query-type">
                     <span class="query-label">交易类型:</span>
                     <select name="cost_type" class="query-slt-ty">
+                        <option value="10">普通查询</option>
+                        <option value="20">查询</option>
                         @foreach ( $cost_types as $key => $value )
                             <option value="{{{ $key }}}"
                             @if ( $previous_input['cost_type'] == $key )
