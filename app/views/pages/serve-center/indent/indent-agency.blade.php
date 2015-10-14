@@ -103,7 +103,7 @@
 
 					@foreach ( $order->traffic_violation_info as $vinfo )
 					<tr class="indent-tr indent-tr-content">
-						<td>
+						<td class="table-time">
 							<span>{{{ $vinfo->rep_event_time }}}</span>
 						</td>
 						<td>

@@ -28,6 +28,10 @@ agencyForm = $(".agency-form")
 
 submit = ()->
 
+	name = $("#name")
+	phone = $("#phone")
+	address = $("#address")
+
 	if express.prop("checked")
 
 		if name.val().length is 0
@@ -53,10 +57,6 @@ submit = ()->
 	else
 		is_delivered = 0
 
-	
-	name = $("#name")
-	phone = $("#phone")
-	address = $("#address")
 
 	$.post "/serve-center/agency/business/submit_order", {
 		sign: sign.val(),
