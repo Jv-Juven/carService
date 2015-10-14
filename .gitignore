@@ -10,6 +10,7 @@ public/node_modules
 /app/config/qiniu.php
 /app/config/beeCloud.php
 /app/test_routes.php
+/app/views/test.blade.php
 /public/dist/
 composer.phar
 composer.lock

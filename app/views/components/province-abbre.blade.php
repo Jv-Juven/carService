@@ -24,7 +24,7 @@
 	<option value="23">吉</option>
 	<option value="24">闽</option>
 	<option value="25">贵</option>
-	<option value="26">粤</option>
+	<option value="26" selected="true">粤</option>
 	<option value="27">川</option>
 	<option value="28">青</option>
 	<option value="29">藏</option>

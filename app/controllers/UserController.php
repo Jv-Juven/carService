@@ -1,6 +1,6 @@
 <?php
 use Gregwar\Captcha\CaptchaBuilder;
-
+include_once'captcha/simple-php-captcha.php';
 class UserController extends BaseController{
 
 	//生成验证码(congcong网)
@@ -12,10 +12,20 @@ class UserController extends BaseController{
 		$_SESSION['phrase'] = $builder->getPhrase();
 		header("Cache-Control: no-cache, must-revalidate");
 		header('Content-Type: image/jpeg');
+		// return $_SESSION['phrase'];
 		$builder->output();
 		exit;
 	}
 	
+	public function captcha2()
+	{
+		session_start();
+		$_SESSION['phrase'] = simple_php_captcha();
+		$img = $_SESSION['phrase']['image_src'];
+		return View::make('test')->with($img);
+	}
+
+
 	//判断是否禁止发送
 	public static function isPhoneCodeSendLimit( $phone )	
 	{		
