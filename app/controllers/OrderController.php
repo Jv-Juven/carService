@@ -32,17 +32,17 @@ class OrderController extends BaseController{
                     }
 
                     // 没有选择开始日期，则从查询至一年前为止
-                    if ( Input::has( 'from' ) ){
-                        $query->where( 'req_event_time', '>=', Input::get( 'from' ) );
+                    if ( Input::has( 'start_date' ) ){
+                        $query->where( 'req_event_time', '>=', Input::get( 'start_date' ) );
                     }else{
                         $query->where( 'req_event_time', '>=', date( 'Y-m-d', strtotime( '-1 year' ) ) );
                     }
 
-                    if ( Input::has( 'to' ) ){
-                        $query->where( 'req_event_time', '<=', Input::get( 'to' ) );
+                    if ( Input::has( 'end_date' ) ){
+                        $query->where( 'req_event_time', '<=', Input::get( 'end_date' ) );
                     }
 
-                    $query->orderBy( 'req_event_time' );
+                    $query->orderBy( 'req_event_time', 'desc' );
                 }
             ])->paginate( 3 );
 
