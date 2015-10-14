@@ -46,7 +46,7 @@ submit = ()->
 
 	agencyWarnTips.text(" ")
 
-	$.post "/serve-center/agency/business/", {
+	$.post "/serve-center/agency/business/submit_order", {
 		sign: sign.val(),
 		is_delivered: express.prop("checked"),
 		recipient_name: name.val(),
