@@ -121,8 +121,8 @@
 				<div class="warn-msg">
 					<span class="content">请您在新打开的网上银行页面进行支付，支付完成前请不要关闭该窗口</span>
 					<div class="btns">
-						<a class="btn sure-btn" href="javascript:">完成支付</a>
-						<a class="btn cancel-btn" href="javascript:">支付遇到问题</a>
+						<a class="btn complete-btn" href="javascript:">完成支付</a>
+						<a class="btn question-btn" href="javascript:">支付遇到问题</a>
 					</div>
 				</div>
 			</div>

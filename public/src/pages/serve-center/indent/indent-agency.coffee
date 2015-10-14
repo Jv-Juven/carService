@@ -180,11 +180,11 @@ refund = (e)->
 	$.post "/beeclound/request-refund", {
 		order_id: order_id
 	}, (msg)->
-		if	msg["errCode"] isnt 0
-			alert msg["message"]
-		else
+		if	msg["errCode"] is 0
 			_this.prev().html "退款申请中"
 			_this.hide()
+		else
+			alert msg["message"]
 
 
 
