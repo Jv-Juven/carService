@@ -197,15 +197,15 @@ $ ()->
 	#提交”查询“订单按钮事件绑定
 	submitBtn.on "click", submit
 	#"取消订单"按钮弹窗事件绑定
-	cancelDealBtn.on "click", cancelMaskShow
+	$(document).on "click", ".cancel-deal", cancelMaskShow
 	#"取消订单"事件绑定
-	sureBtn.on "click", cancelDeal
+	$(document).on "click", ".sure-btn", cancelDeal
 	#"取消订单"弹窗中的“取消”按钮时间绑定
-	cancelBtn.on "click", closeMask
+	$(document).on "click", ".cancel-btn", closeMask
 	#”申请退款“按钮事件绑定
-	refundBtn.on "click", refund
+	$(document).on "click", ".refund-btn", refund
 	#"申请退款"弹窗“确定”按钮
-	refundCloseBtn.on "click", refundMaskClose
+	$(document).on "click", "#refund_btn", refundMaskClose
 
 
 

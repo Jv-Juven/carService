@@ -98,7 +98,7 @@ submit = ()->
 		if msg["errCode"] is 0
 
 			#剩余次数和余额 START
-			if msg["remain_serach_count"]
+			if msg["user_type"] is 0
 				info.fillTimes msg["remain_serach_count"]
 			else
 				info.fillData(msg["account"]["balance"], msg["account"]["unit"])
@@ -195,7 +195,7 @@ $ ()->
 	#违章查询的“确定”按钮绑定事件
 	vioBtn.on "click", submit
 	#“违章办理”按钮事件绑定
-	dealBtn.on "click", dealVio
+	$(document).on "click", ".deal-btn a", dealVio
 	
 
 

@@ -445,6 +445,8 @@ if( Sentry::check() )
 					    "message": "获取车辆违章信息",
 					    "service_fee": 123,
 
+					    "user_type": 0 普通用户 1 企业用户
+					    
 					    // 普通用户返回剩余查询次数remain_search_count
 					    // 企业用户返回账户信息balance
 					    "remain_search_count": 
