@@ -230,7 +230,7 @@ class BeeCloudController extends BaseController{
 	/* 微信支付－代办
 	 * parm：order_id
 	 */
-	public static function orderAgency()
+	public function orderAgency()
 	{
 		$data = static::returnDataArray();
 		
@@ -240,8 +240,8 @@ class BeeCloudController extends BaseController{
 		// $data["channel"] = $channel;
 
 		$data["channel"] = "WX_NATIVE";
-		$order_id = 'dbdd5617c95a48d75575926404';
-		// $order_id = Input::get('order_id');
+		// $order_id = 'dbdd5617c95a48d75575926404';
+		$order_id = Input::get('order_id');
 		if( !isset($order_id) )
 			return Response::json(array('errCode'=>21, 'message'=>'请输入订单id' ));
 
@@ -283,7 +283,7 @@ class BeeCloudController extends BaseController{
 	}
 
 	//支付页面
-	public static function qrcode( )
+	public function qrcode( )
 	{	
 		$qrcode = Session::get('qrcode');
 		return View::make('beeclound.pay')->with(array(
@@ -294,7 +294,7 @@ class BeeCloudController extends BaseController{
 
 
 	//退款
-	public static function refund( $order_id, $channel = 'WX' )
+	public function refund( $order_id, $channel = 'WX' )
 	{
 		$data = static::returnDataArray();
 		
