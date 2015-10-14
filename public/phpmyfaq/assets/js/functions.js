@@ -1,0 +1,392 @@
+/**
+ * Some JavaScript functions used in the admin backend
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/.
+ *
+ * @category  phpMyFAQ
+ * @package   JavaScript
+ * @author    Thorsten Rinne <thorsten@phpmyfaq.de>
+ * @author    Periklis Tsirakidis <tsirakidis@phpdevel.de>
+ * @author    Matteo Scaramuccia <matteo@scaramuccia.com>
+ * @author    Minoru TODA <todam@netjapan.co.jp>
+ * @author    Lars Tiedemann <php@larstiedemann.de>
+ * @copyright 2003-2015 phpMyFAQ Team
+ * @license   http://www.mozilla.org/MPL/2.0/ Mozilla Public License Version 2.0
+ * @link      http://www.phpmyfaq.de
+ * @since     2003-11-13
+ */
+
+/*global document: false, window: false, $: false, self: false */
+
+var addAttachment,
+    addEngine,
+    infoBox,
+    selectSelectAll,
+    selectUnselectAll,
+    formCheckAll,
+    formUncheckAll,
+    checkAll,
+    closeWindow,
+    addAttachmentLink,
+    showLongComment,
+    saveVoting;
+
+if (self === top) {
+    document.documentElement.style.display = 'block';
+} else {
+    top.location = self.location;
+}
+
+$(document).ready(function () {
+    "use strict";
+    /**
+     * Open a small popup to upload an attachment
+     *
+     * @param pic
+     * @param title
+     */
+    addAttachment = function addAttachment(pic, title) {
+        var popup = window.open(
+            pic,
+            title,
+            "width=550, height=130, toolbar=no, directories=no, status=no, scrollbars=no, resizable=yes, menubar=no"
+        );
+        popup.focus();
+    };
+
+    /**
+     * Checks all checkboxes
+     *
+     * @param checkBox
+     */
+    checkAll = function checkAll(checkBox) {
+        var v = checkBox.checked,
+            f = checkBox.form,
+            i = 0;
+        for (i = 0; i < f.elements.length; i += 1) {
+            if (f.elements[i].type === "checkbox") {
+                f.elements[i].checked = v;
+            }
+        }
+    };
+
+    /**
+     *
+     * @param uri
+     * @param name
+     * @param ext
+     * @param cat
+     */
+    addEngine = function addEngine(uri, name, ext, cat) {
+        if ((typeof window.sidebar === "object") && (typeof window.sidebar.addSearchEngine === "function")) {
+            window.sidebar.addSearchEngine(uri + "/" + name + ".src", uri + "/images/" + name + "." + ext, name, cat);
+        } else {
+            window.alert("Mozilla Firefox is needed to install the search plugin!");
+        }
+    };
+
+    /**
+     * selects all list options in the select with the given ID.
+     *
+     * @param select_id
+     * @return void
+     */
+    selectSelectAll = function selectSelectAll(select_id) {
+        var selectOptions = $("#" + select_id + " option"),
+            i = 0;
+        for (i = 0; i < selectOptions.length; i += 1) {
+            selectOptions[i].selected = true;
+        }
+    };
+
+    /**
+     * unselects all list options in the select with the given ID.
+     *
+     * @param select_id
+     * @return void
+     */
+    selectUnselectAll = function selectUnselectAll(select_id) {
+        var selectOptions = $("#" + select_id + " option"),
+            i = 0;
+        for (i = 0; i < selectOptions.length; i += 1) {
+            selectOptions[i].selected = false;
+        }
+    };
+
+    /**
+     * checks all checkboxes in form with the given ID.
+     *
+     * @param   form_id
+     * @return  void
+     */
+    formCheckAll = function formCheckAll(form_id) {
+        var inputElements = $("#" + form_id + " input"),
+            i,
+            ele;
+        for (i = 0; ele = inputElements[i]; i += 1) {
+            if (ele.type === "checkbox") {
+                ele.checked = true;
+            }
+        }
+    };
+
+    /**
+     * unchecks all checkboxes in form with the given ID.
+     *
+     * @param   form_id
+     * @return  void
+     */
+    formUncheckAll = function formUncheckAll(form_id) {
+        var inputElements = $("#" + form_id + ' input'),
+            i,
+            ele;
+        for (i = 0; ele = inputElements[i]; i += 1) {
+            if (ele.type === "checkbox") {
+                ele.checked = false;
+            }
+        }
+    };
+
+    /**
+     * Displays or hides the info boxes
+     *
+     * @return void
+     */
+    infoBox = function infoBox(infobox_id) {
+        var domId = $("#" + infobox_id);
+        if (domId.css("display") === "none") {
+            $(".faqTabContent").hide();
+            domId.show();
+        } else {
+            domId.hide();
+        }
+    };
+
+    /**
+     * Adds the link to the attachment in the main FAQ window
+     * @param attachmentId
+     * @param fileName
+     * @param recordId
+     * @param recordLang
+     */
+    addAttachmentLink = function addAttachmentLink(attachmentId, fileName, recordId, recordLang) {
+        window.opener.
+            $('.adminAttachments').
+            append(
+                '<li>' +
+                '<a href="../index.php?action=attachment&id=' + attachmentId + '">' + fileName + '</a>' +
+                '<a class="label label-important" href="?action=delatt&amp;record_id=' + recordId +
+                '&amp;id=' + attachmentId + '&amp;lang=' + recordLang + '">' +
+                '<i class="icon-trash icon-white"></i></a>' +
+                '</li>'
+            );
+        window.close();
+    };
+
+    /**
+     * Closes the current window
+     *
+     */
+    closeWindow = function closeWindow() {
+        window.close();
+    };
+
+    /**
+     * Show long comment
+     */
+    showLongComment = function showLongComment(id) {
+        $('.comment-more-' + id).removeClass('hide');
+        $('.comment-dots-' + id).addClass('hide');
+        $('.comment-show-more-' + id).addClass('hide');
+    };
+
+    /**
+     * Saves all content from the given form via Ajax
+     *
+     * @param action   Actions: savecomment, savefaq, savequestion,
+     *                          saveregistration, savevoting, sendcontact,
+     *                          sendtofriends
+     * @param formName Name of the current form
+     *
+     * @return void
+     */
+    window.saveFormValues = function saveFormValues(action, formName) {
+        var formValues = $('#formValues');
+
+        $('#loader').show();
+        $('#loader').fadeIn(400).html('<img src="assets/img/ajax-loader.gif" />Saving ...');
+
+        $.ajax({
+            type:     'post',
+            url:      'ajaxservice.php?action=' + action,
+            data:     formValues.serialize(),
+            dataType: 'json',
+            cache:    false,
+            success:  function (json) {
+                if (json.success === undefined) {
+                    $("#" + formName + 's').html(
+                        '<p class="alert alert-error">' +
+                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        json.error +
+                        '</p>'
+                    );
+                    $('#loader').hide();
+                } else {
+                    $("#" + formName + 's').html(
+                        '<p class="alert alert-success">' +
+                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        json.success +
+                        '</p>'
+                    );
+                    $("#" + formName + 's').fadeIn("slow");
+                    $('#loader').hide();
+                    $("#" + formName + 'Form').hide();
+                    $('#formValues')[0].reset();
+                    // @todo add reload of content
+                }
+            }
+        });
+
+        return false;
+    };
+
+    /**
+     * Auto-suggest function for instant response
+     *
+     * @return void
+     */
+    var autoSuggest = function autoSuggest() {
+        $('input#instantfield').keyup(function () {
+            var search   = $('#instantfield').val(),
+                language = $('#ajaxlanguage').val(),
+                category = $('#searchcategory').val();
+
+            if (search.length > 0) {
+                $.ajax({
+                    type:    "POST",
+                    url:     "ajaxresponse.php",
+                    data:    "search=" + search + "&ajaxlanguage=" + language + "&searchcategory=" + category,
+                    success: function (searchresults) {
+                        $("#instantresponse").empty();
+                        if (searchresults.length > 0) {
+                            $("#instantresponse").append(searchresults);
+                        }
+                    }
+                });
+            }
+        });
+
+        $('#instantform').submit(function () {
+            return false;
+        });
+    };
+
+    autoSuggest();
+
+    /**
+     * Saves the voting by Ajax
+     *
+     * @param type
+     * @param id
+     * @param value
+     * @param lang
+     */
+    saveVoting = function saveVoting(type, id, value, lang) {
+        $.ajax({
+            type:     'post',
+            url:      'ajaxservice.php?action=savevoting',
+            data:     'type=' + type + '&id=' + id + '&vote=' + value + '&lang=' + lang,
+            dataType: 'json',
+            cache:    false,
+            success:  function (json) {
+                if (json.success === undefined) {
+                    $('#votings').append(
+                        '<p class="alert alert-error">' +
+                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        json.error +
+                        '</p>'
+                    );
+                    $('#loader').hide();
+                } else {
+                    $('#votings').append(
+                        '<p class="alert alert-success">' +
+                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        json.success +
+                        '</p>');
+                    $('#rating').empty().append(json.rating);
+                    $('#votings').fadeIn("slow");
+                    $('#loader').hide();
+                }
+            }
+        });
+
+        return false;
+    };
+
+    /**
+     * Checks the content of a question by Ajax
+     *
+     */
+    window.checkQuestion = function checkQuestion() {
+        var formValues = $('#formValues');
+
+        $('#loader').show();
+        $('#loader').fadeIn(400).html('<img src="assets/img/ajax-loader.gif" />Saving ...');
+
+        $.ajax({
+            type:     'post',
+            url:      'ajaxservice.php?action=savequestion',
+            data:     formValues.serialize(),
+            dataType: 'json',
+            cache:    false,
+            success:  function (json) {
+                if (json.result === undefined && json.success === undefined) {
+                    $('#qerror').html(
+                        '<p class="alert alert-error">' +
+                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        json.error +
+                        '</p>'
+                    );
+                    $('#loader').hide();
+                } else if (json.success === undefined) {
+                    $('#qerror').empty();
+                    $('#questionForm').fadeOut('slow');
+                    $('#answerForm').html(json.result);
+                    $('#answerForm').fadeIn("slow");
+                    $('#loader').hide();
+                    $('#formValues').append('<input type="hidden" name="save" value="1" />');
+                    $('#captcha').val('');
+                } else {
+                    $('#answers').html(
+                        '<p class="alert alert-success">' +
+                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        json.success +
+                        '</p>'
+                    );
+                    $('#answers').fadeIn("slow");
+                    $('#answerForm').fadeOut('slow');
+                    $('#loader').hide();
+                    $('#formValues').hide();
+                }
+            }
+        });
+
+        return false;
+    };
+
+
+    $("#captcha-button").click(function() {
+        var action = $(this).data("action");
+        $.ajax({
+            url: 'index.php?action=' + action + '&gen=img&ck=' + new Date().getTime(),
+            success: function () {
+                var captcha = $("#captcha");
+                $("#captchaImage").attr('src', 'index.php?action=' + action + '&gen=img&ck=' + new Date().getTime());
+                captcha.val('');
+                captcha.focus();
+            }
+        });
+    });
+});
