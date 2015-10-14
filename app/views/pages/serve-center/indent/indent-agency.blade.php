@@ -95,7 +95,7 @@
 				<span class="indent-btn-tips">温馨提示：如果没有选择时间范围，默认查询1年以内的记录。</span>
 			</div>
 			<div class="indent-tables-wrapper">
-				@foreach( $paginator->getCollection() as $order )
+				
 				<table class="indent-list-table">
 
 					<tr class="table-head">
@@ -107,6 +107,7 @@
 						<th>处理状态</th>
 					</tr>
 					<tr class="table-blank"></tr>
+					@foreach( $paginator->getCollection() as $order )
 					<!-- 单位车辆信息表 未受理 START -->
 					<tr class="indent-tr info-head">
 						<td colspan="6">
@@ -146,7 +147,7 @@
 						</td>
 
 						<td>
-							<span>210</span>
+							<span{{{ $vinfo->rep_priciple_balance + $vinfo->rep_late_fee + $vinfo->rep_service_charge }}}</span>
 						</td>
 					</tr>
 					@endforeach
@@ -159,19 +160,19 @@
 						</td>
 						<td class="indent-deal-opration" colspan="4">
 							<span class="deal-btn wait-pay">{{{ $order_status['trade_status'][ $order->trade_status ] }}}</span>
-							@if ( $order->trade_status == '0' )
+							@if ( $order->process_status == '0' )
 							<a class="deal-btn cancel-deal" data-num="{{{ $order->order_id }}}" href="javascript:">取消订单</a>
 							<a class="deal-btn atonce-pay" href="javascript:">立即付款</a>
-							@elseif( $order->trade_status == '1' )
+							@elseif( $order->process_status == '1' )
 							<a class="deal-btn atonce-pay refund-btn" data-num="{{{ $order->order_id }}}" href="javascript:">申请退款</a>
 							@endif
 						</td>
 					</tr>
 					<tr class="indent-tr table-foot-blank"></tr>
-					
+					@endforeach
 					<!-- 单位车辆信息表 未受理 END -->
 				</table>
-				@endforeach
+				
 			</div>
 			@include('components.pagination', [ 'paginator' => $paginator ])
 		</div>
@@ -271,7 +272,7 @@
 
 		<% for(var j = 0; j < info.length; j ++ ){ %>
 			<tr class="indent-tr indent-tr-content">
-				<td>
+				<td class="table-time">
 					<span><%- info[j]["rep_event_time"] %></span>
 				</td>
 				<td>

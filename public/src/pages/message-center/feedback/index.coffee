@@ -1,14 +1,19 @@
 
 onFeedbackReturn = ( result ) ->
+
     if result.errCode
         alert result.message
     else
         window.location.href = '/message-center/feedback/success'
 
 $ ->
-    $('#fb-form').on 'submit', (event) ->
+
+    _fb_form = $('#fb-form')
+
+    _fb_form.on 'submit', (event) ->
+
         event.preventDefault()
 
-        _this = $(this)
+        $.post '/message-center/feedback/index', _fb_form.serialize(), onFeedbackReturn, 'json'
 
-        $.post _this.prop('action'), _this.serialize(), onFeedbackReturn, 'json'
+        return false

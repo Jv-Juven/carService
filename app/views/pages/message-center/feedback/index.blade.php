@@ -20,21 +20,21 @@
 
 @section('right-content')
 <div class="fb-wrap">
-    <form method="POST" action="" id="fb-form" class="fb-form" target="fb-form-result">
+    <form id="fb-form" class="fb-form">
         <div class="fb-item fb-types clearfix">
             <div class="fb-label">反馈类型:</div>
             <div class="rt-wrap">
                 <div class="types-wrap clearfix">
                     <label class="type-checkbox">
-                        <input name="type" type="radio" class="cbox-clk">
+                        <input name="type" type="radio" value="1" class="cbox-clk">
                         <span>资讯</span>
                     </label>
                     <label class="type-checkbox">
-                        <input name="type" type="radio" class="cbox-clk">
+                        <input name="type" type="radio" value="2" class="cbox-clk">
                         <span>建议</span>
                     </label>
                     <label class="type-checkbox">
-                        <input name="type" type="radio" class="cbox-clk">
+                        <input name="type" type="radio" value="3" class="cbox-clk">
                         <span>投诉</span>
                     </label>
                 </div>

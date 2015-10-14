@@ -150,6 +150,7 @@ module.exports = (grunt)->
                         'src/components/vio-process.less',
                         'src/components/warn-mask.less',
                         'src/components/header.less',
+                        'src/components/footer.less',
                         'src/components/admin/header.less'
                     ]
             adminComponents:

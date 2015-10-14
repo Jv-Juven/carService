@@ -109,7 +109,7 @@ class AgencyController extends BaseController{
             return Response::json([ 'errCode' => 2, 'message' => '请先确认' ]);
         }
 
-        if ( ( $is_delivered = Input::get( 'is_delivered' ) ) == true ){
+        if ( ( $is_delivered = (int)Input::get( 'is_delivered' ) ) ){
             $params = Input::all();
             $rules  = [
                 'recipient_name'    => 'required',

@@ -148,6 +148,7 @@ cutInfoInput = (e)->
 cancelDeal = (e)->
 	_this = $(e.currentTarget)
 	order_id = _this.attr "data-num"
+	console.log order_id
 	$.post "/serve-center/order/operation/cancel", {
 		order_id: order_id
 	}, (msg)->
