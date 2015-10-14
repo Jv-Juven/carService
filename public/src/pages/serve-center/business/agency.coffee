@@ -26,7 +26,16 @@ noNeed = $("#noneed")
 #快递单信息表
 agencyForm = $(".agency-form")
 
+
+capitalSum = parseInt($("#capital-sum").val())
+serviceFee = parseInt($("#service-fee").val())
+expressFee = parseInt($("#express-fee").val())
+
 submit = ()->
+
+	name = $("#name")
+	phone = $("#phone")
+	address = $("#address")
 
 	if express.prop("checked")
 
@@ -53,17 +62,13 @@ submit = ()->
 	else
 		is_delivered = 0
 
-	
-	name = $("#name")
-	phone = $("#phone")
-	address = $("#address")
 
 	$.post "/serve-center/agency/business/submit_order", {
 		sign: sign.val(),
 		is_delivered: is_delivered,
 		recipient_name: name.val(),
-		recipient_addr: phone.val(),
-		recipient_phone: address.val()
+		recipient_addr: address.val(),
+		recipient_phone: phone.val()
 	}, (msg)->
 
 		if msg["errCode"] isnt 0 
@@ -93,8 +98,10 @@ $ ()->
 	#快递单信息表的现实与隐藏
 	express.on "click", ()->
 		agencyForm.show()
+		sum.text(capitalSum + serviceFee + expressFee)
 	noNeed.on "click", ()->
 		agencyForm.hide()
+		sum.text(capitalSum + serviceFee)
 
 
 
