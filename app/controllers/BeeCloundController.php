@@ -331,7 +331,7 @@ class BeeCloudController extends BaseController{
 		try{
 				$result = BCRESTApi::refund($data);	
 				if ($result->result_code != 0 || $result->result_msg != "OK") 
-					return array('errCode'=>22, 'message'=>json_encode($result->err_detail));
+					return array('errCode'=>22, 'message'=>$result->err_detail);
 		}catch( Exception $e)
 		{
 			return array('errCode'=>23, 'message'=>$e->getMessage() );
