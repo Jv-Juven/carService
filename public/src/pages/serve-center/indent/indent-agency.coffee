@@ -147,6 +147,7 @@ cutInfoInput = (e)->
 		details.hide()
 		number.show()
 	else
+		indentNum.val("")
 		number.hide()
 		details.show()
 
