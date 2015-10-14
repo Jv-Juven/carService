@@ -51,7 +51,10 @@ class AdminController extends BaseController {
 						->join('agency_orders', 'agency_orders.order_id', '=', 'refund_records.order_id')
 						->update(["refund_records.status" => $status, "agency_orders.trade_status" => "3", "process_status" => "4"]);
 
-			// todo...
+			$resp = BeeCloundController::refund( $indentId );
+
+			if($resp["errCode"] != 0)
+				return Response::json(array("errCode" => 1, "errMsg" => $resp["message"]));
 
 			if($result == 0)
 				return Response::json(array("errCode" => 1, "errMsg" => "订单未找到，请检查订单号是否正确"));
@@ -101,7 +104,7 @@ class AdminController extends BaseController {
 		{
 			$indentId = Input::get("indentId");
 
-			$indents = AgencyOrder::where("order_id", "=", $indentId)->get();
+			$indents = AgencyOrder::where("order_id", "=", $indentId)->with("traffic_violation_info")->get();
 		}
 		else
 		{
@@ -117,7 +120,7 @@ class AdminController extends BaseController {
 
 			$indents = $query->with("traffic_violation_info")->get();
 		}
-		 
+		
 		return Response::json(array("errCode" => 0, "indents" => $indents));
 	}
 

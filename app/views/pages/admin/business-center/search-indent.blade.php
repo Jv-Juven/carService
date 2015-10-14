@@ -127,17 +127,18 @@
                     </td>
                     <td><%= indents[i].traffic_violation_info[j].rep_priciple_balance + indents[i].traffic_violation_info[j].rep_service_charge %></td>
                     <% if(j == 0) { %>
-                    <% if(indents[i].trade_status == "0") { %>
-                    <td rowspan="<%= indents[i].traffic_violation_info.length %>">等待付款</td>
-                    <% } else if (indents[i].traffic_violation_info[j].trade_status == "1") { %>
-                    <td rowspan="<%= indents[i].traffic_violation_info.length %>">已付款</td>
-                    <% } else if (indents[i].traffic_violation_info[j].trade_status == "2") { %>
-                    <td rowspan="<%= indents[i].traffic_violation_info.length %>">申请退款</td>
-                    <% } else if (indents[i].traffic_violation_info[j].trade_status == "3") { %>
-                    <td rowspan="<%= indents[i].traffic_violation_info.length %>">已退款</td>
-                    <% } else if (indents[i].traffic_violation_info[j].trade_status == "4") { %>
-                    <td rowspan="<%= indents[i].traffic_violation_info.length %>">退款失败</td>
-                    <% } %>
+                        <% console.log(indents[i].trade_status) %>
+                        <% if(indents[i].trade_status == "0") { %>
+                        <td rowspan="<%= indents[i].traffic_violation_info.length %>">等待付款</td>
+                        <% } else if (indents[i].trade_status == "1") { %>
+                        <td rowspan="<%= indents[i].traffic_violation_info.length %>">已付款</td>
+                        <% } else if (indents[i].trade_status == "2") { %>
+                        <td rowspan="<%= indents[i].traffic_violation_info.length %>">申请退款</td>
+                        <% } else if (indents[i].trade_status == "3") { %>
+                        <td rowspan="<%= indents[i].traffic_violation_info.length %>">已退款</td>
+                        <% } else if (indents[i].trade_status == "4") { %>
+                        <td rowspan="<%= indents[i].traffic_violation_info.length %>">退款失败</td>
+                        <% } %>
                     <% } %>
                 </tr>
                 <% } %>
