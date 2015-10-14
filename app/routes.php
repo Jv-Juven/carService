@@ -181,6 +181,9 @@ Route::group([ 'prefix' => 'serve-center' ], function(){
 			Route::get( 'order_violation', 'OrderPageController@violation' );
 		});
 
+		//订单状态
+		Route::get('order-trade-status','OrderController@orderTradeStatus');
+
 		// 操作订单接口
 		Route::group([ 'prefix' => 'operation' ], function(){
 			
