@@ -57,8 +57,8 @@ $ ()->
 
 			if(indents.length == 0)
 				return $resultContainer.html "您搜索的查询结果未找到任何数据"
-			console.log indents.length
-
+			console.log res
+			$resultContainer.html searchResultTemplate(res)
 
 	$("#search-by-info-btn").click (e)->
 		startDate = moment($startDatePicker.val(), "YYYY-MM-DD")
