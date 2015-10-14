@@ -86,6 +86,8 @@ class AgencyController extends BaseController{
             unset( $violations[ $sign ] );    
         }
 
+        Session::put( 'violations', $violations );
+
         return Response::json( $message );
     }
 
