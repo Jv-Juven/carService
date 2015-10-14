@@ -1,6 +1,6 @@
 <?php
 use Gregwar\Captcha\CaptchaBuilder;
-
+include_once'captcha/simple-php-captcha.php';
 class UserController extends BaseController{
 
 	//生成验证码(congcong网)
@@ -19,7 +19,10 @@ class UserController extends BaseController{
 	
 	public function captcha2()
 	{
-		
+		session_start();
+		$_SESSION['phrase'] = simple_php_captcha();
+		$img = $_SESSION['phrase']['image_src'];
+		return View::make('test')->with($img);
 	}
 
 

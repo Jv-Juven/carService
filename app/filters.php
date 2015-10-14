@@ -85,6 +85,14 @@ Route::filter('auth.user.isIn',function()
 	// }
 });
 
+Route::filter('home.auth', function()
+{
+	if ( Sentry::check() )
+	{
+		return Redirect::back();
+	}
+});
+
 
 Route::filter('auth.isRegister', function()
 {
