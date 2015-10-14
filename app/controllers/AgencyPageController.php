@@ -62,7 +62,7 @@ class AgencyPageController extends BaseController{
 
         return View::make( 'pages.serve-center.business.agency', [ 
             'sign'              => $sign, 
-            'agency_user_attr'  => $agency_user_attr
+            'agency_user_attr'  => $agency_user_attr,
             'agency_info'       => $violations[ $sign ]['info'] 
         ]);
     }
