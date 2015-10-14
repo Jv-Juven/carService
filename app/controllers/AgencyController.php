@@ -70,6 +70,25 @@ class AgencyController extends BaseController{
         return Response::json([ 'errCode' => 0, 'message' => 'ok', 'sign' => $sign ]);
     }
 
+    public function cancel_violation(){
+
+        $message = [ 'errCode' => 0, 'message' => 'ok' ];
+
+        if ( !Session::has( 'violations' ) ){
+            return Response::json( $message );
+        }
+
+        $violations = Session::get( 'violations' );
+
+        $sign = Input::get( 'sign' );
+
+        if ( array_key_exists( $sign, $violations ) ){
+            unset( $violations[ $sign ] );    
+        }
+
+        return Response::json( $message );
+    }
+
     public function submit_order(){
 
         if ( !Session::has( 'violations' ) ){
