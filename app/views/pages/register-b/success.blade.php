@@ -9,9 +9,6 @@
 <link rel="stylesheet" type="text/css" href="/dist/css/pages/register-b/success/success.css">
 @stop
 
-@section('js')
-@stop
-
 @section('body')
 
 @include("components.reg-process", array("num" => "4"))
