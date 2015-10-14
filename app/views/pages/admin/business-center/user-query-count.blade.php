@@ -15,9 +15,9 @@
         <h4>用户查询统计</h4>
         <hr />
         <form class="form-inline">
-	        <div class="form-group" id="appkey-wrapper">
-	            <label for="appkey">appkey：</label>
-	            <input type="text" id="appkey" class="form-control" value="{{{ $appkey }}}"/>
+	        <div class="form-group" id="uid-wrapper">
+	            <label for="uid">用户ID：</label>
+	            <input type="text" id="uid" class="form-control" value="{{{ $uid }}}"/>
 	        </div>
             <div class="form-group">
                 <label for="company-name">开始时间：</label>

@@ -83,12 +83,8 @@ Route::group(array('prefix'=>'user'), function(){
 		//填写打款验证码
 		Route::post('money_remark_code','UserController@moneyRemarkCode');
 
-		//获取appkey和secretkey
-		Route::get('app', 'UserController@app');
-		//获取token
-		Route::post('token', 'UserController@token');
-		//反馈
-		Route::post('feedback','FeedbackController@feedback');
+		//获取用户访问次数
+		Route::get('count','SearchController@count');
 	});
 });
 

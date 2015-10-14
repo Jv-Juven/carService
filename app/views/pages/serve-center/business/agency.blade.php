@@ -40,7 +40,8 @@
 							车牌号码：
 						</td>
 						<td class="details-content">
-							<span id="plate_num">粤X1234</span><span class="plate-col">蓝牌</span>
+							<span id="plate_num">{{{ $agency_info['car_plate_no'] }}}</span>
+							<span class="plate-col">{{{ Config::get( 'carType' )[ $agency_info[ 'car_type_no' ] ] }}}</span>
 						</td>
 					</tr>
 					<tr class="details-tr">
@@ -48,7 +49,7 @@
 							代理笔数：
 						</td>
 						<td class="details-content">
-							<span id="agency_count">2</span>笔
+							<span id="agency_count">{{{ $agency_info['count'] }}}</span>笔
 						</td>
 					</tr>
 					<tr class="details-tr">
@@ -56,7 +57,7 @@
 							交通违章本金：
 						</td>
 						<td class="details-content">
-							￥ 400.0 元
+							￥ {{{ $agency_info['total_fee'] }}} 元
 						</td>
 					</tr>
 					<tr class="details-tr">
@@ -64,7 +65,7 @@
 							服务费：
 						</td>
 						<td class="details-content">
-							￥ <span id="charge">20.0</span> 元
+							￥ <span id="charge">{{{ $agency_info['service_fee'] * $agency_info['count'] }}}</span> 元
 						</td>
 					</tr>
 					<tr class="details-tr">
@@ -87,7 +88,7 @@
 							票证快递费：
 						</td>
 						<td class="details-content">
-							￥ <span id="express_fee">0</span> 元
+							￥ <span id="express_fee">{{{ $agency_info['express_fee'] }}}</span> 元
 						</td>
 					</tr>
 					<tr class="details-tr">
@@ -95,11 +96,14 @@
 							费用总计：
 						</td>
 						<td class="details-content">
-							￥ <span id="sum">420.0</span> 元
+							￥ <span id="sum">{{{ $agency_info['service_fee'] * $agency_info['count'] + $agency_info['total_fee'] }}}</span> 元
 						</td>
 					</tr>
 					<tr class="details-blank"></tr>
-
+					<input type="hidden" id="count" value="{{{ $agency_info['count'] }}}">
+					<input type="hidden" id="capital-sum" value="{{{ $agency_info['total_fee'] }}}">
+					<input type="hidden" id="service-fee" value="{{{ $agency_info['service_fee'] }}}">
+					<input type="hidden" id="express-fee" value="{{{ $agency_info['express_fee'] }}}">
 				</table>
 			</div>
 			<div class="agency-form">
