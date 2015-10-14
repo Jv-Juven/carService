@@ -19,7 +19,7 @@ express_fee = $("#express_fee")
 agencyWarnTips = $(".agency-warn-tips")
 agencyBtn = $(".agency-btn a")
 
-agencyBtnCancel = $(".agency-btn-cancel")
+agencyBtnCancel = $(".agency-btn-cancel a")
 
 #sign字段
 sign = $("#sign")
@@ -46,7 +46,7 @@ submit = ()->
 
 	agencyWarnTips.text(" ")
 
-	$.post "/serve-center/agency/business/", {
+	$.post "/serve-center/agency/business/submit_order", {
 		sign: sign.val(),
 		is_delivered: express.prop("checked"),
 		recipient_name: name.val(),
