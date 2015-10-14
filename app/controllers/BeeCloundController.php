@@ -341,7 +341,7 @@ class BeeCloudController extends BaseController{
 	}	
 
 	//退款状态
-	public function refundStatus( $refund_no ,$channel = 'WX' )
+	public static function refundStatus( $refund_no ,$channel = 'WX' )
 	{
 		$data = static::returnDataArray();
 		
@@ -392,7 +392,7 @@ class BeeCloudController extends BaseController{
 		    return ['errCode'=>23, 'message'=>$e->getMessage()];
 		}
 
-		$results = $this->refundStatus($data["refund_no"], $channel);
+		$results = static::refundStatus($data["refund_no"], $channel);
 
 		return $results;
 
