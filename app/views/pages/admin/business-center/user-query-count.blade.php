@@ -48,6 +48,7 @@
     @parent
     <script type="text/javascript" src="/lib/js/lodash.min.js" charset="UTF-8"></script>
     <script type="text/javascript" src="/lib/js/moment.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/lib/js/highCharts/highcharts.js" charset="UTF-8"></script>
     <script type="text/javascript" src="/lib/js/bootstrap/bootstrap-datetimepicker.js" charset="UTF-8"></script>
     <script type="text/javascript" src="/lib/js/bootstrap/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
     <script type="text/javascript" src="/dist/js/pages/admin/user-query-count.js"></script>

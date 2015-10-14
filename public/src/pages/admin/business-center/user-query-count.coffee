@@ -1,4 +1,70 @@
 
+
+parseDataForHighCharts = (data)->
+	result = {
+		"violation": [],
+		"license": [],
+		"car": []
+	}
+	for i in [0 ... data.length]
+		name = data[i].type
+		date = new Date(data[i].date).getTime() + 3600 * 8 * 1000
+		item = [date, data[i].value]
+
+		result[name].push item
+
+	result['violation'].sort (a, b)->
+		if a[0] < b[0]
+			return -1;
+		else 
+			return 1;
+
+	results = [{
+		name: '违章查询',
+		data: result["violation"]
+	}, {
+		name: '驾驶证查询',
+		data: result["license"]
+	}, {
+		name: '机动车查询',
+		data: result["car"]
+	}]
+
+	return results;
+
+initHighCharts = (selector, data)->
+	series = parseDataForHighCharts data
+	console.log series
+	options = {
+		title:{
+			text: '用户查询次数统计'
+		},
+		xAxis: {
+			type: 'datetime',
+			dateTimeLabelFormats: {
+				day: '%e/%b',
+				week: '%e. %b',
+				month: '%b %y',
+				year: '%Y'
+			},
+			tickInterval: 86400000
+		},
+		yAxis: {
+			title: {
+				text: '查询次数'
+			},
+			min: 0
+		},
+		tooltip: {
+			formatter: ()->
+				return '<b>'+ this.series.name + '</b><br>' +
+					Highcharts.dateFormat('%Y-%b-%e', this.x) + ': ' + this.y + ' 次';
+		},
+		series: series
+	}
+
+	$(selector).highcharts options
+
 init = (uid)->
 	if(uid != "")
 		console.log "自动查询..."
@@ -46,7 +112,7 @@ $ ()->
 
 		$.get "/admin/get-count", params, (res)->
 			if(res.errCode == 0)
-				console.log res
+				initHighCharts "#search-result", res.data
 			else
 				alert res.errMsg
 

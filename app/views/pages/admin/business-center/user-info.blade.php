@@ -15,6 +15,10 @@
         <hr />
         <form class="form-inline">
             <div class="form-group">
+                <label for="company-name">用户ID：</label>
+                <span>{{{ $user->user_id }}}</span>
+            </div>
+            <div class="form-group">
                 <label for="company-name">登陆邮箱：</label>
                 <span>{{{ $user->login_account }}}</span>
             </div>

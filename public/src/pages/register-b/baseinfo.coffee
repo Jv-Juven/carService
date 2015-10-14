@@ -38,9 +38,9 @@ $ ()->
 			rePassword.next().fadeIn(100).end().focus()
 			return
 
-		if validateCodes.val().length is 0
-			validateCodes.next().fadeIn(100).end().focus()
-			return
+		# if validateCodes.val().length is 0
+		# 	validateCodes.next().fadeIn(100).end().focus()
+		# 	return
 
 		if !protocol.prop("checked")
 			# protocol.parent().next().fadeIn(100)
