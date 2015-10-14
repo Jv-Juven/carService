@@ -17,7 +17,9 @@ try{
 	
 }
 
-Route::get('/', 'HomeController@home');
+Route::group(array('before'=>'home.auth'), function(){
+	Route::get('/','HomeController@home');
+});
 
 Route::group(array('prefix'=>'user'), function(){
 	//B端用户邮箱注册页
