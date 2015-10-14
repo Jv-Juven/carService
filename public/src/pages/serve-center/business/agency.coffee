@@ -46,9 +46,14 @@ submit = ()->
 
 	agencyWarnTips.text(" ")
 
+	if express.prop("checked")
+		is_delivered = 1
+	else
+		is_delivered = 0
+
 	$.post "/serve-center/agency/business/submit_order", {
 		sign: sign.val(),
-		is_delivered: express.prop("checked"),
+		is_delivered: is_delivered,
 		recipient_name: name.val(),
 		recipient_addr: phone.val(),
 		recipient_phone: address.val()
