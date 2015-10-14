@@ -146,6 +146,8 @@ submit = ()->
 				if array02.length > 0
 					table02.show()
 					allCheck.bindEvent(table02.find(".tb-head input[type='checkbox']"), table02.find(".tb-tr input[type='checkbox']"))
+		else if msg["errCode"] is 3
+			window.location.href = "/serve-center/agency/pages/agency?sign=" + msg["sign"]
 		else if msg["errCode"] is 32
 			#剩余次数和余额 START
 			if msg["user_type"] is "0"
@@ -184,8 +186,6 @@ dealVio = ()->
 						if !sign.val()
 							return
 						window.location.href = "/serve-center/agency/pages/agency?sign=" + sign.val()
-					else if msg["errCode"] is 3
-						window.location.href = "/serve-center/agency/pages/agency?sign=" + msg["sign"]
 					else
 						alert msg["message"]
 						
