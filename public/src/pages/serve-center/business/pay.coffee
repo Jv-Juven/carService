@@ -23,9 +23,10 @@ complete = ()->
 			order_id: order_id.val()
 		}, (msg)->
 			if msg["errCode"] is 0
-				window.location.href = ""
-			else if msg["errCode"] is 1
-				window.location.href = ""
+				if msg["trade_status"] is 0
+					window.location.href = ""
+				else
+					window.location.href = ""
 			else
 				alert ["message"]
 

@@ -117,14 +117,14 @@ class CcobSeeder extends Command {
     {
         DB::transaction(function(){
             // $this->create_users();
-            $this->create_agency_orders();
-            $this->create_refund_records();
-            $this->create_fee_types();
-            $this->create_user_fee();
+            //$this->create_agency_orders();
+            //$this->create_refund_records();
+            //$this->create_fee_types();
+            //$this->create_user_fee();
             $this->create_cost_details();
-            $this->create_notices();
-            $this->create_user_read_notice();
-            $this->create_feedbacks();
+            //$this->create_notices();
+            //$this->create_user_read_notice();
+            //$this->create_feedbacks();
         });
     }
 
@@ -350,21 +350,17 @@ class CcobSeeder extends Command {
         
         echo 'Creating cost_details...';
 
-        $c_user_fee = FeeType::whereIn( 'user_type', ['0', '1'] )->get();
-        $b_user_fee = FeeType::where( 'user_type', '1' )->get();
+        $fee_type = FeeType::where( 'category', '10' )->first();
 
         $users = User::all();
 
         foreach ($users as $user ) {
             for ( $i = 0; $i < $total; ++$i ){
-                //$user           = $users[ rand( 0, $users->count() - 1 ) ];
-                $fee_type       = $user->user_type == '0' ? 
-                    $c_user_fee[rand( 0, $c_user_fee->count() - 1 )] : $b_user_fee[rand( 0, $b_user_fee->count() - 1 )];
                 
                 $cost_detail                = new CostDetail();
                 $cost_detail->user_id       = $user->user_id;
                 $cost_detail->fee_type_id   = $fee_type->id;
-                $cost_detail->number        = $fee_type->number;
+                $cost_detail->number        = rand( 50,100 );
                 $cost_detail->created_at    = $this->get_random_datetime();
                 $cost_detail->save();
             }
