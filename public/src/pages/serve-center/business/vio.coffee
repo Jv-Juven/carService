@@ -183,7 +183,7 @@ dealVio = ()->
 					if msg["errCode"] isnt 0
 						alert msg["message"]
 					else if msg["errCode"] is 3
-						window.location.href = msg["url"]
+						window.location.href = "/serve-center/agency/pages/agency?sign=" + msg["sign"]
 					else
 						if !sign.val()
 							return
