@@ -13,7 +13,7 @@
 <div class="pay-wrap">
     <div class="pay-body">
         @yield('flow')
-        @include('layouts.pay.info')
+        @include('layouts.pay.info', [ 'order' => $order ])
         <div class="notice">
             <img src="">
             <p>您的订单未能支付成功，请重新支付！错误代码:213</p>
