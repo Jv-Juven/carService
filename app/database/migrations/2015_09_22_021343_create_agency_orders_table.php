@@ -120,7 +120,7 @@ class CreateAgencyOrdersTable extends Migration {
 			 * 快递费
 			 * is_delivered
 			 */
-			$table->float('express_fee')->nullable();
+			$table->float('express_fee')->default(0);
 			
 			/*
 			 * 快递收件人姓名
