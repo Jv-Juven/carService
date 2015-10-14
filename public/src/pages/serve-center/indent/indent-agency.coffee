@@ -77,6 +77,8 @@ submit = ()->
 		plateNo = ""
 		dateStartValue = ""
 		dateEndValue = ""
+	if plateNum.val().length is 0
+		plateNo = ""
 
 
 	$.get "/serve-center/order/operation/search", {
@@ -129,7 +131,8 @@ submit = ()->
 					tableBlank.after html05
 				#显示搜索框的内容
 				indentTablesWrapper.show()
-				# pagination.show()
+				#隐藏分页按钮
+				pagination.hide()
 
 
 #切换信息填写
