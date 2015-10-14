@@ -42,7 +42,7 @@ submitMsg = ()->
 		return
 
 	$.post "/user/display_company_info", {
-		login_account: code
+		display_code: code
 	}, (msg)->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
