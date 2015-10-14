@@ -150,11 +150,19 @@
 			</div>
 			<!-- 提交按钮 START -->
 			<div class="tips-words agency-warn-tips"></div>
-			<div class="submit-btn agency-btn">
-				<a href="javascript:">提交订单</a>
-				<input id="sign" type="hidden" value=""/>
+			<div class="agency-btn-wrapper">
+				<div class="submit-btn agency-btn">
+					<a href="javascript:">提交订单</a>
+				</div>
+				<div class="submit-btn agency-btn-cancel">
+					<a href="javascript:">取消办理</a>
+				</div>
 			</div>
+			
 			<!-- 提交按钮 END -->
+
+			<input id="sign" type="hidden" value=""/>
+
 		</div>
 	</div>
 @stop

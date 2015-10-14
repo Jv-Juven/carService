@@ -1,13 +1,13 @@
 @extends("layouts.login-master")
 
 @section("title")
-审核不通过
+账号审核
 @stop
 
 @section("css")
 @parent
 <link rel="stylesheet" type="text/css" href="/dist/css/pages/register-b/email-active.css">
-<link rel="stylesheet" type="text/css" href="dist/css/pages/account-status/write-codes.css">
+<link rel="stylesheet" type="text/css" href="/dist/css/pages/account-status/write-codes.css">
 @stop
 
 @section("body")
@@ -23,7 +23,7 @@
 		</div>
 		<div class="tips-words warn-tips"></div>
 		<div class="submit-btn write-codes-submit-btn">
-			<a href="/">联系客服</a>
+			<a href="http://wpa.qq.com/msgrd?v=3&uin=961313288&site=qq&menu=yes">联系客服</a>
 		</div>
 
 </div>
