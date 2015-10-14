@@ -160,10 +160,10 @@
 						</td>
 						<td class="indent-deal-opration" colspan="4">
 							<span class="deal-btn wait-pay">{{{ $order_status['trade_status'][ $order->trade_status ] }}}</span>
-							@if ( $order->trade_status == '0' )
+							@if ( $order->process_status == '0' )
 							<a class="deal-btn cancel-deal" data-num="{{{ $order->order_id }}}" href="javascript:">取消订单</a>
 							<a class="deal-btn atonce-pay" href="javascript:">立即付款</a>
-							@elseif( $order->trade_status == '1' )
+							@elseif( $order->process_status == '1' )
 							<a class="deal-btn atonce-pay refund-btn" data-num="{{{ $order->order_id }}}" href="javascript:">申请退款</a>
 							@endif
 						</td>
