@@ -95,8 +95,12 @@ $ ()->
 		bank = $(".bank option:selected")
 		position = $(".position option:selected")
 
-		if companyName.val().length is 0 or publicAcc.val().length is 0 or rePublicAcc.val().length is 0 or name.val().length is 0 or creditCard.val().length is 0 or !licensePreg.test(licenseCode.val())
+		if companyName.val().length is 0 or publicAcc.val().length is 0 or rePublicAcc.val().length is 0 or name.val().length is 0 or creditCard.val().length is 0 
 			regInfoTips.text("*请确保信息填写完整")
+			return
+
+		if !licensePreg.test(licenseCode.val())
+			regInfoTips.text("*营业执照注册号为15位或18位")
 			return
 
 		if licenseScan is ""

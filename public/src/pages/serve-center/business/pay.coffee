@@ -4,7 +4,7 @@ orderId =$("#order-id")
 
 
 #微信支付
-payWechat = (  )->
+payWechat = ()->
 	$.post "/beeclound/order-agency", {
 		order_id: orderId
 	}, (msg)->
