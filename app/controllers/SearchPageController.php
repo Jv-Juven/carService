@@ -43,9 +43,11 @@ class SearchPageController extends BaseController{
             return View::make( '404' );
         }
 
-        return View::make( 'pages.serve-center.data.drive', [
-            'account' => BusinessController::accountInfo( $user->user_id )
-        ]);
+        $account = BusinessController::accountInfo( $user->user_id );
+
+        $account['unit'] = $account['licenseUnit'];
+
+        return View::make( 'pages.serve-center.data.drive', [ 'account' => $account ]);
     }
 
     public function car(){
