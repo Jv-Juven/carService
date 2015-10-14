@@ -81,6 +81,7 @@ submit = ()->
 		plateNo = ""
 
 
+	#查询请求后端的数据
 	$.get "/serve-center/order/operation/search", {
 			order_id: indentNum.val(),
 			car_plate_no: plateNo,
@@ -130,9 +131,9 @@ submit = ()->
 					}
 					tableBlank.after html05
 				#显示搜索框的内容
-				indentTablesWrapper.show()
+				$(".indent-tables-wrapper").show()
 				#隐藏分页按钮
-				pagination.hide()
+				$(".paginate-wrap").hide()
 
 
 #切换信息填写
