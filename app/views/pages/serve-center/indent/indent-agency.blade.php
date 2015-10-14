@@ -190,7 +190,7 @@
 				<div class="warn-msg">
 					<span class="content">确定取消订单？</span>
 					<div class="btns">
-						<a class="btn sure-btn" href="javascript:">确定</a>
+						<a class="btn sure-btn" data-num="" href="javascript:">确定</a>
 						<a class="btn cancel-btn" href="javascript:">取消</a>
 					</div>
 				</div>
