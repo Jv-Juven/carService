@@ -10,9 +10,9 @@ redirection = (msg)->
 	else if msg["errCode"] is 11
 		window.location.href = "/user/info_register"
 	else if msg["errCode"] is 20
-		window.location.href = "/user/write-code"
+		window.location.href = "/user/no-pass-words"
 	else if msg["errCode"] is 21
-		window.location.href = "/user/pending"
+		window.location.href = "/user/write-code"
 	else if msg["errCode"] is 30
 		window.location.href = "/user/lock"
 	else

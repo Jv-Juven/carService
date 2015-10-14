@@ -66,4 +66,9 @@ class UserPageController extends BaseController{
 		return View::make('pages.account-status.write-codes');
 	}
 
+	public function noPassword()
+	{
+		return View::make('pages.account-status.no-pass-words');
+	}
+
 }

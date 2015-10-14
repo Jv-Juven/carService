@@ -84,7 +84,8 @@ Route::group(array('prefix'=>'user'), function(){
 		Route::get('write-code','UserPageController@writeCode');
 		//填写打款验证码
 		Route::post('money_remark_code','UserController@moneyRemarkCode');
-
+		//您的帐号正在审核中，请耐心等候
+		Route::get('no-pass-words','UserPageController@noPassword');
 		//获取用户访问次数
 		Route::get('count','SearchController@count');
 	});
@@ -162,6 +163,9 @@ Route::group([ 'prefix' => 'serve-center' ], function(){
 
 			// 确认办理违章
 			Route::post( 'confirm_violation', 'AgencyController@confirm_violation' );
+
+			// 取消办理违章
+			Route::post( 'cancel_violation', 'AgencyController@cancel_violation' );
 
 			// 提交订单
 			Route::post( 'submit_order', 'AgencyController@submit_order' );

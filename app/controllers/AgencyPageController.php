@@ -47,16 +47,28 @@ class AgencyPageController extends BaseController{
             return Response::make( '参数错误' );
         }
 
-        return View::make( 'pages.serve-center.business.agency', [ 'agency_info' => $violation[ $sign ]['info'] ]);
+        $user = Sentry::getUser();
+
+        $agency_user_attr = '';
+
+        if ( $user->is_common_user() ){
+
+            $agency_user_attr = $user->login_account;
+        }
+        else if ( $user->is_business_user() ){
+
+            $agency_user_attr = BusinessUser::find( $user->user_id )->business_name;
+        }
+
+        return View::make( 'pages.serve-center.business.agency', [ 
+            'sign'              => $sign, 
+            'agency_user_attr'  => $agency_user_attr,
+            'agency_info'       => $violations[ $sign ]['info'] 
+        ]);
     }
 
     public function pay(){
-/*
-        if ( Session::has( 'order_info' ) ){
 
-            return View::make( 'pages.serve-center.business.pay', Session::get( 'order_info' ) );
-        }
-*/
         $agency_order = AgencyOrder::find( Input::get( 'order_id' ) );
 
         if ( !isset( $agency_order ) ){

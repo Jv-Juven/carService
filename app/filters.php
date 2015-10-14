@@ -76,9 +76,9 @@ Route::filter('auth.user.isIn',function()
 	// 		case 11:
 	// 			return View::make('pages.register-b.reg-info');//信息登记
 	// 		case 20:
-	// 			return View::make('pages.register-b.success');//信息审核中
+	// 			return View::make('pages.register-b.success');//您的帐号正在审核中，请耐心等候！
 	// 		case 21:
-	// 			return View::make('pages.register-b.success');//等待用户校验激活
+	// 			return View::make('pages.account-status.write-codes');//填写打款备注码页面
 	// 		case 30:
 	// 			return View::make('errors.lock');//帐号锁定页面
 	// 	}
@@ -98,9 +98,9 @@ Route::filter('home.auth', function()
 				case 11:
 					return View::make('pages.register-b.reg-info');//信息登记
 				case 20:
-					return View::make('pages.register-b.success');//信息审核中
+					return View::make('pages.account-status.no-pass-words');//您的帐号正在审核中，请耐心等候！
 				case 21:
-					return View::make('pages.register-b.success');//等待用户校验激活
+					return View::make('pages.account-status.write-codes');//填写打款备注码页面
 				case 30:
 					return View::make('errors.lock');//帐号锁定页面
 			}

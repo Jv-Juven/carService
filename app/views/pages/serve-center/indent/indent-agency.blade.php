@@ -95,17 +95,8 @@
 				<span class="indent-btn-tips">温馨提示：如果没有选择时间范围，默认查询1年以内的记录。</span>
 			</div>
 			<div class="indent-tables-wrapper">
+				
 				<table class="indent-list-table">
-					<tr class="table-head">
-						<th>违章时间</th>
-						<th>违章地点</th>
-						<th>违章行为</th>
-						<th>细项/元</th>
-						<th>总额/元</th>
-						<th>处理状态</th>
-					</tr>
-					<tr class="table-blank"></tr>
-					<!-- 单位车辆信息表 未受理 START -->
 
 					<tr class="table-head">
 						<th>违章时间</th>
@@ -116,14 +107,15 @@
 						<th>处理状态</th>
 					</tr>
 					<tr class="table-blank"></tr>
+					@foreach( $paginator->getCollection() as $order )
 					<!-- 单位车辆信息表 未受理 START -->
 					<tr class="indent-tr info-head">
 						<td colspan="6">
-							<span class="plate">粤X12345</span>
+							<span class="plate">{{{ $order->car_plate_no }}}</span>
 							下单时间：
-							<span class="date">2015-09-11</span>
+							<span class="date">{{{ $order->created_at }}}</span>
 							订单编号：
-							<span>12345677654321</span>
+							<span>{{{ $order->order_id }}}</span>
 						</td>
 					</tr>
 					<tr class="indent-tr table-line" id="deal_status01">
@@ -132,55 +124,57 @@
 						<td></td>
 						<td></td>
 						<td></td>
-						<td class="last-td" rowspan="3"><!-- 接受该项的信息条目数+1（即：总条目数是2，填3） -->
-							未受理
+						<td class="last-td" rowspan="{{{ $order->agency_no + 1 }}}"><!-- 接受该项的信息条目数+1（即：总条目数是2，填3） -->
+							{{{ $order_status['process_status'][ $order->process_status ] }}}
 						</td>
 					</tr>
 
+					@foreach ( $order->traffic_violation_info as $vinfo )
 					<tr class="indent-tr indent-tr-content">
 						<td>
-							<span>2015-08-15</span>
-							<span>11:52:00</span>
+							<span>{{{ $vinfo->rep_event_time }}}</span>
 						</td>
 						<td>
-							<span>[广东省广州市]</span>
-							<span>广州大学城贝岗街</span>
-							<span>[电子眼未处理未交款]</span>
+							<span>{{{ $vinfo->rep_event_addr }}}</span>
 						</td>
 						<td class="vio-behaviour">
-							机动车违反规定停放、临时停车，妨碍其他车辆、行人通行的
-							<span>[1039]</span>
+							<span>{{{ $vinfo->rep_violation_behavior }}}</span>
 						</td>
 						<td class="money">
-							<span>本金：200.0</span>
-							<span>滞纳金：0</span>
-							<span>服务费：20.0</span>
+							<span>本金：{{{ $vinfo->rep_priciple_balance }}}</span>
+							<span>滞纳金：{{{ $vinfo->rep_late_fee }}}</span>
+							<span>服务费：{{{ $vinfo->rep_service_charge }}}</span>
 						</td>
 
 						<td>
-							<span>210</span>
+							<span{{{ $vinfo->rep_priciple_balance + $vinfo->rep_late_fee + $vinfo->rep_service_charge }}}</span>
 						</td>
 					</tr>
-					
+					@endforeach
+
 					<tr class="indent-tr indent-deal">
 						<td colspan="2">
 							<span class="title">应付总额：</span>
-							<span class="money">￥435.0元</span>
-							<span class="express-fee">快递费：15.0元</span>
+							<span class="money">￥{{{ $order->capital_sum + $order->service_charge_sum + $order->express_fee }}}元</span>
+							<span class="express-fee">快递费：{{{ $order->express_fee }}}元</span>
 						</td>
 						<td class="indent-deal-opration" colspan="4">
-							<span class="deal-btn wait-pay">等待付款</span>
-							<a class="deal-btn cancel-deal" href="javascript:">取消订单</a>
+							<span class="deal-btn wait-pay">{{{ $order_status['trade_status'][ $order->trade_status ] }}}</span>
+							@if ( $order->trade_status == '0' )
+							<a class="deal-btn cancel-deal" data-num="{{{ $order->order_id }}}" href="javascript:">取消订单</a>
 							<a class="deal-btn atonce-pay" href="javascript:">立即付款</a>
-							<a class="deal-btn atonce-pay" href="javascript:">申请退款</a>
+							@elseif( $order->trade_status == '1' )
+							<a class="deal-btn atonce-pay refund-btn" data-num="{{{ $order->order_id }}}" href="javascript:">申请退款</a>
+							@endif
 						</td>
 					</tr>
 					<tr class="indent-tr table-foot-blank"></tr>
-					
+					@endforeach
 					<!-- 单位车辆信息表 未受理 END -->
 				</table>
+				
 			</div>
-			@include('components.pagination')
+			@include('components.pagination', [ 'paginator' => $paginator ])
 		</div>
 	</div>
 	<div class="mask-bg"></div>
@@ -278,7 +272,7 @@
 
 		<% for(var j = 0; j < info.length; j ++ ){ %>
 			<tr class="indent-tr indent-tr-content">
-				<td>
+				<td class="table-time">
 					<span><%- info[j]["rep_event_time"] %></span>
 				</td>
 				<td>
