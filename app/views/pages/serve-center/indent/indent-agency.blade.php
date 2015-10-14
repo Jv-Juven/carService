@@ -193,7 +193,7 @@
 		var process_status = "",
 			trade_status = "";
 		if (array[i]["process_status"] == 0){
-			process_status = "未处理";
+			process_status = "未受理";
 		}
 		else if (array[i]["process_status"] == 1){
 			process_status = "已受理";
