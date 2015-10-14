@@ -161,9 +161,10 @@ cancelDeal = (e)->
 		if	msg["errCode"] isnt 0
 			alert msg["message"]
 		else
-			_this.prev().html "订单关闭"
-			_this.next().hide()
-			_this.hide()
+			# _this.prev().html "订单关闭"
+			# _this.next().hide()
+			alert msg["message"]
+			location.reload()
 		
 #取消订单弹窗
 cancelMaskShow = (e)->
@@ -178,6 +179,7 @@ cancelMaskShow = (e)->
 refundMaskShow = ()->
 	maskBg.fadeIn(100)
 	refundMask.fadeIn(100)
+
 #关闭“取消”订单弹窗
 refundMaskClose = ()->
 	maskBg.fadeOut(100)
