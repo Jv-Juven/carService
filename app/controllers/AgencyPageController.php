@@ -68,12 +68,7 @@ class AgencyPageController extends BaseController{
     }
 
     public function pay(){
-/*
-        if ( Session::has( 'order_info' ) ){
 
-            return View::make( 'pages.serve-center.business.pay', Session::get( 'order_info' ) );
-        }
-*/
         $agency_order = AgencyOrder::find( Input::get( 'order_id' ) );
 
         if ( !isset( $agency_order ) ){

@@ -146,7 +146,7 @@
 						</td>
 
 						<td>
-							<span>210</span>
+							<span{{{ $vinfo->rep_priciple_balance + $vinfo->rep_late_fee + $vinfo->rep_service_charge }}}</span>
 						</td>
 					</tr>
 					@endforeach
