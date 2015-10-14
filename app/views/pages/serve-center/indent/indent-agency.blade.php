@@ -271,7 +271,7 @@
 
 		<% for(var j = 0; j < info.length; j ++ ){ %>
 			<tr class="indent-tr indent-tr-content">
-				<td>
+				<td class="table-time">
 					<span><%- info[j]["rep_event_time"] %></span>
 				</td>
 				<td>
