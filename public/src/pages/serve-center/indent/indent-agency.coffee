@@ -161,7 +161,7 @@ cancelDeal = (e)->
 			alert msg["message"]
 		else
 			_this.prev().html "订单关闭"
-			_this.next.hide()
+			_this.next().hide()
 			_this.hide()
 		
 #取消订单弹窗
