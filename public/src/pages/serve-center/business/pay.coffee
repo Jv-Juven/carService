@@ -1,7 +1,7 @@
 payWechatBtn = $("#pay_wechat")
 payPaypalBtn = $("#pay_paypal")
 orderId = $("#order-id")
-payMask = $(".pay-mask")
+payMask = $(".pay-mask, .mask-bg")
 completeBtn = $(".complete-btn")
 questionBtn = $(".question-btn")
 
