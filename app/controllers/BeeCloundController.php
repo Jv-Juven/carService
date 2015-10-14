@@ -188,12 +188,13 @@ class BeeCloudController extends BaseController{
 		$money = Input::get('money');
 		if( preg_match('/^\d*$/', $money) )
 		{
-			if( (int)$money > 50 && (int)$money<10000 )
+			if( (int)$money >= 50 && (int)$money<10000 )
 			{
 				$data["total_fee"] 	= $money*100;//单位换算成分 $money*100
 			} 
-		}else{
 			return Response::json(array('errCode'=>21, 'message'=>'充值金额不正确'));
+		}else{
+			return Response::json(array('errCode'=>22, 'message'=>'充值金额不正确'));
 		}
 		$data["bill_no"] 	= CostDetail::get_unique_id();
 		$data['title']		= '充值';
@@ -203,7 +204,7 @@ class BeeCloudController extends BaseController{
 		$order_auth_info->transactionId =  $data["bill_no"];//交易单号
 		$order_auth_info->transactionFee = $data["total_fee"];//费用
 		if( !$order_auth_info->save() )
-			return Response::json(array('errCode'=>22, 'message'=>'数据库保存错误' ));
+			return Response::json(array('errCode'=>23, 'message'=>'数据库保存错误' ));
 
 		Cache::put($data["bill_no"],$data,120);
 	    
@@ -211,11 +212,11 @@ class BeeCloudController extends BaseController{
 		{
 			$result = BCRESTApi::bill($data);
 		    if ($result->result_code != 0) {
-		        return  Response::json(array('errCode'=>23,'message'=>$result)) ;
+		        return  Response::json(array('errCode'=>24,'message'=>$result)) ;
 		    }
 		    $code_url = $result->code_url;//生成支付链接
 		}catch (Exception $e) {
-		    return  Response::json(array('errCode'=>24,'message'=>$e->getMessage())) ;
+		    return  Response::json(array('errCode'=>25,'message'=>$e->getMessage())) ;
 		}
 		$qrcode = array();
 		$qrcode['bill_no'] = $data['bill_no'];

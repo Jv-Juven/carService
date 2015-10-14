@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'smtp.163.com',
+	'host'=>'smtp.exmail.qq.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,8 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' =>'hulinalex@163.com' , 'name' =>'车尚车服务' ),
-
+	'from' => array('address' =>'noreply@gzcheshang.com' , 'name' =>'车尚车服务' ),
 	/*
 	|--------------------------------------------------------------------------
 	| E-Mail Encryption Protocol
@@ -80,7 +79,7 @@ return array(
 	|
 	*/
 
-	'username' => 'hulinalex@163.com',
+	'username' => 'noreply@gzcheshang.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +92,8 @@ return array(
 	|
 	*/
 
-	'password' => 'oxnstayxkornfjej',
+	// 'password' => 'oxnstayxkornfjej',
+	'password' => 'D18318579104yh',
 
 	/*
 	|--------------------------------------------------------------------------

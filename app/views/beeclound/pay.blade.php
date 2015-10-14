@@ -35,7 +35,7 @@
             <div align="center" id="qrcode" >
             </div>
             <div align="center">
-                <p>订单号：<?php echo $bill_no; ?></p>
+                <p>交易流水号：<?php echo $bill_no; ?></p>
             </div>
             </body>
             <p>请使用微信扫一扫完成支付</p>
