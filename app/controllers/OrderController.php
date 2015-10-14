@@ -1,55 +1,75 @@
 <?php
 
+use Carbon\Carbon as Carbon;
+
 class OrderController extends BaseController{
 
     public function search(){
 
-        if ( Input::has( 'order_id' ) ){
+	$order_id = Input::get( 'order_id'  );
+        if ( !empty( $order_id ) ){
 
-            $agency_order = [ AgencyOrder::with( 'traffic_violation_info' )
-                                       ->find( Input::get( 'order_id' ) ) ];
+            $agency_orders = [ AgencyOrder::with( 'traffic_violation_info' )
+                                       ->find( $order_id ) ];
         }else{
 
             $query = AgencyOrder::select( '*' );
 
-            if ( Input::has( 'car_plate_no' ) ){
-                $query->where( 'car_plate_no', Input::get( 'car_plate_no' ) );
+            $car_plate_no = Input::get( 'car_plate_no' );    
+            if ( !empty( $car_plate_no ) ){
+                $query->where( 'car_plate_no', $car_plate_no );
             }
 
-            if ( Input::has( 'car_type_no' ) ){
-                $query->where( 'car_type_no', Input::get( 'car_type_no' ) );
+            $process_status = Input::get('process_status');
+            if ( $process_status !='' || $process_status != null ){
+		$query->where( 'process_status', $process_status );  //  (string)$process_status );
             }
 
-            if ( Input::has( 'process_status' ) ){
-                $query->where( 'process_status', Input::get( 'process_status' ) );
+
+	    $start_date = Input::get( 'start_date' );
+            if ( !empty( $start_date ) ){
+                $query->where( 'created_at', '>=', Carbon::parse( $start_date )->toDateTimeString()  );
+            }else{
+                $query->where( 'created_at', '>=', Carbon::now()->subYear()->toDateTimeString() );
             }
 
-            $paginator = $query->with([
+            $end_date = Input::get( 'end_date' );
+            if ( !empty( $end_date ) ){
+		if ( $end_date == $start_date  ){
+		    $date_string = Carbon::parse( $start_date )->addDay()->toDateTimeString();
+		}else{
+		    $date_string = Carbon::parse( $end_date )->toDateTimeString();
+		}
+                $query->where( 'created_at', '<=', $date_string );
+            }
+
+            $agency_orders = $query->with( 'traffic_violation_info' )->orderBy( 'created_at', 'desc' )->get();
+	//$query->get();
+
+//	return Response::make( DB::getQueryLog()  );
+/*
+            $agency_orders = $query->with([
                 'traffic_violation_info' => function( $query ){
 
-                    if ( Input::has( 'city' ) ){
-                        $query->where( 'req_event_city', Input::get( 'city' ) );
-                    }
-
                     // 没有选择开始日期，则从查询至一年前为止
-                    if ( Input::has( 'start_date' ) ){
-                        $query->where( 'req_event_time', '>=', Input::get( 'start_date' ) );
+                    $start_date = Input::get( 'start_date' );
+                    if ( !empty( $start_date ) ){
+                        $query->where( 'rep_event_time', '>=', $start_date );
                     }else{
-                        $query->where( 'req_event_time', '>=', date( 'Y-m-d', strtotime( '-1 year' ) ) );
+                        $query->where( 'rep_event_time', '>=', date( 'Y-m-d', strtotime( '-1 year' ) ) );
                     }
 
-                    if ( Input::has( 'end_date' ) ){
-                        $query->where( 'req_event_time', '<=', Input::get( 'end_date' ) );
+		    $end_date = Input::get( 'end_date' );
+                    if ( $end_date ){
+                        $query->where( 'rep_event_time', '<=', $end_date );
                     }
 
-                    $query->orderBy( 'req_event_time', 'desc' );
+                    $query->orderBy( 'rep_event_time', 'desc' );
                 }
-            ])->paginate( 3 );
-
-            $agency_order = $paginator->getCollection();
+            ])->get();*/
         }
 
-        return Response::json([ 'errCode' => 0, 'orders' => $agency_order ]); 
+        return Response::json([ 'errCode' => 0, 'orders' => $agency_orders ]); 
     }
 
     public function cancel(){
