@@ -95,7 +95,7 @@
 				<span class="indent-btn-tips">温馨提示：如果没有选择时间范围，默认查询1年以内的记录。</span>
 			</div>
 			<div class="indent-tables-wrapper">
-				@foreach( $paginator->getCollection() as $order )
+				
 				<table class="indent-list-table">
 
 					<tr class="table-head">
@@ -107,6 +107,7 @@
 						<th>处理状态</th>
 					</tr>
 					<tr class="table-blank"></tr>
+					@foreach( $paginator->getCollection() as $order )
 					<!-- 单位车辆信息表 未受理 START -->
 					<tr class="indent-tr info-head">
 						<td colspan="6">
@@ -168,10 +169,10 @@
 						</td>
 					</tr>
 					<tr class="indent-tr table-foot-blank"></tr>
-					
+					@endforeach
 					<!-- 单位车辆信息表 未受理 END -->
 				</table>
-				@endforeach
+				
 			</div>
 			@include('components.pagination', [ 'paginator' => $paginator ])
 		</div>
