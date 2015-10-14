@@ -29,10 +29,10 @@
 					</tr>
 					<tr class="details-tr">
 						<td class="details-title">
-							代办机构：
+							委托人：
 						</td>
 						<td  class="details-content">
-							[公司名]联系人姓名
+							{{{ $agency_user_attr }}}
 						</td>
 					</tr>
 					<tr class="details-tr">
@@ -111,7 +111,7 @@
 				<table class="form-table" border="0" cellspacing="0" cellpadding="0">
 					<tr class="agency-table-head">
 						<td colspan="2">
-							以下信息很重要,请准确填写
+							若需快递回单，以下信息很重要, 请准确填写
 						</td>
 					</tr>
 					<tr class="table-blank"></tr>
@@ -161,7 +161,7 @@
 			
 			<!-- 提交按钮 END -->
 
-			<input id="sign" type="hidden" value=""/>
+			<input id="sign" type="hidden" value="{{{ $sign }}}"/>
 
 		</div>
 	</div>

@@ -164,6 +164,9 @@ Route::group([ 'prefix' => 'serve-center' ], function(){
 			// 确认办理违章
 			Route::post( 'confirm_violation', 'AgencyController@confirm_violation' );
 
+			// 取消办理违章
+			Route::post( 'cancel_violation', 'AgencyController@cancel_violation' );
+
 			// 提交订单
 			Route::post( 'submit_order', 'AgencyController@submit_order' );
 		});
