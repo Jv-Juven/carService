@@ -3,6 +3,12 @@ use Gregwar\Captcha\CaptchaBuilder;
 
 class UserController extends BaseController{
 
+	// public function captcha()
+	// {	
+	// 	return  HTML::image(Captcha::img(), 'Captcha image');
+	// }
+
+
 	//生成验证码(congcong网)
 	public function captcha()
 	{	
@@ -12,10 +18,11 @@ class UserController extends BaseController{
 		$_SESSION['phrase'] = $builder->getPhrase();
 		header("Cache-Control: no-cache, must-revalidate");
 		header('Content-Type: image/jpeg');
+		// return $_SESSION['phrase'];
 		$builder->output();
 		exit;
 	}
-	
+
 	//判断是否禁止发送
 	public static function isPhoneCodeSendLimit( $phone )	
 	{		
@@ -338,9 +345,9 @@ class UserController extends BaseController{
 	public function bSiteRegister()
 	{
 		Session_start();
-		$captcha = Input::get('captcha');
-		if( $captcha != $_SESSION['phrase'])
-			return Response::json(array('errCode'=>8, 'message'=> '验证码不正确'));
+		// $captcha = Input::get('captcha');
+		// if( $captcha != $_SESSION['phrase'])
+		// 	return Response::json(array('errCode'=>8, 'message'=> '验证码不正确'));
 		
 		$data = array(
 			'login_account' => Input::get('login_account'),//邮箱

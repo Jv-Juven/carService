@@ -42,7 +42,7 @@
 			</div>
 			<!-- 查询框 END -->
 
-			@include("components.violation-info", [ 'account' => $account ])
+			@include("components.violation-info", [ 'account', $account ])
 			
 			<div style="clear: both;"></div>
 			<div class="drive-results clearfix">

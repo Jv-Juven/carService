@@ -38,11 +38,11 @@
 						</i>
 					</li>
 					@else
-					<li class="">
+					<li class="blank-li">
 						<a class="blank-a nav-item">
 						</a>
 					</li>
-					<li>
+					<li class="blank-li">
 						<a class="blank-a nav-item">
 						</a>
 					</li>

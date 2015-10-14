@@ -39,7 +39,7 @@
 						<span class="warn-tips">请再次输入密码</span>
 					</td>
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td class="input-title">验证码：</td>
 					<td class="input validate-input">
 						<input id="validate_codes" type="text" placeholder=""/>
@@ -50,7 +50,7 @@
 							换一换
 						</a>
 					</td>
-				</tr>
+				</tr> -->
 			</table>
 		</div>
 		<div class="info-protocol">

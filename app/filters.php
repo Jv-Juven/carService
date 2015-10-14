@@ -51,10 +51,10 @@ Route::filter('auth.admin', function()
 Route::filter('auth.user.isIn',function()
 {
 	Session_start();
-	//$user = User::where('user_type',1)->first();
+	// $user = User::where('user_type',1)->first();
 	// $user = User::find('yhxx5617c959d6ee4142025859');//服务器
-	// $user = User::find('yhxx5619f0abb12a0394156728');//本地
-	//Sentry::login($user,false);	
+	// $user = User::find('yhxx561b9668de14c743766231');//本地
+	// Sentry::login($user,false);	
 	// Sentry::logout();
 	if(!Sentry::check())
 	{
@@ -83,6 +83,30 @@ Route::filter('auth.user.isIn',function()
 	// 			return View::make('errors.lock');//帐号锁定页面
 	// 	}
 	// }
+});
+
+Route::filter('home.auth', function()
+{
+	if ( Sentry::check() )
+	{	
+		$status = Sentry::getUser()->status;
+		if( $status != 22 )
+		{
+			switch ( $status ) {
+				case 10:
+					return View::make('pages.register-b.email-active');//邮箱激活页面
+				case 11:
+					return View::make('pages.register-b.reg-info');//信息登记
+				case 20:
+					return View::make('pages.register-b.success');//信息审核中
+				case 21:
+					return View::make('pages.register-b.success');//等待用户校验激活
+				case 30:
+					return View::make('errors.lock');//帐号锁定页面
+			}
+		}
+		return Redirect::to('serve-center/search/pages/violation');
+	}
 });
 
 

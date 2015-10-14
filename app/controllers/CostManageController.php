@@ -37,7 +37,7 @@ class CostManageController extends BaseController{
         $params = Input::all();
 
         // 参数非空，且指定查询的消费类型，且指定的消费类型有效
-        if ( !empty( $params ) && Input::has( 'cost_type' ) && FeeType::is_category_exists( Input::get( 'cost_type' ) ) ){
+        if ( !empty( $params ) && $params['cost_type'] == '10' ){
 
             // 默认第一页
             if ( !Input::has( 'page' ) ){
@@ -46,7 +46,7 @@ class CostManageController extends BaseController{
 
             // 先查询费用类型
             $fee_types = FeeType::select( 'id', 'category', 'item' )
-                                ->where( 'category', Input::get( 'cost_type' ) )
+                                ->where( 'category', $params['cost_type'] )
                                 ->get();
 
             // id列表

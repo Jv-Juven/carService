@@ -1,10 +1,10 @@
-<div class="header">
+<div class="header reg-header">
 	<div class="logo">
 		<a href="/">
 			<ul class="logo-wrapper">
 				<li>
 					<span class="bg-block">
-						<img src="/images/common/logo.png">
+						<img id="login_header_logo" src="/images/common/logo.png">
 					</span>
 				</li>
 			</ul>

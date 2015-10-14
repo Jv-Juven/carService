@@ -114,7 +114,7 @@ userLogin = ()->
 			return
 
 		$.post "/user/login", {
-			email: logPhone.find(".input input").val(),
+			login_account: logPhone.find(".input input").val(),
 			password: password.val()
 		}, (msg)->
 			#用户登录之后的页面重定向

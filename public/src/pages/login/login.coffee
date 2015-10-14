@@ -81,7 +81,6 @@ $ ()->
 	selectPic = (e)->
 		_this = $(e.currentTarget)
 		_index = _this.index()
-		console.log _index
 
 		img01 = _this.find(".case-img .nocol-cover")
 		img02 = _this.find(".case-img .col-cover")
@@ -97,7 +96,6 @@ $ ()->
 
 
 	#点击“驾驶证查询”和“车辆查询”的提示信息
-	console.log $(".click-no-jump").text()
 	$(".click-no-jump").on "click", ()->
 		alert "当前，该功能只面向企业用户开放。企业用户请先登录，在服务中心中进行操作。"
 

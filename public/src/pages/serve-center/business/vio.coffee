@@ -98,7 +98,7 @@ submit = ()->
 		if msg["errCode"] is 0
 
 			#剩余次数和余额 START
-			if msg["remain_serach_count"]
+			if msg["user_type"] is "0"
 				info.fillTimes msg["remain_serach_count"]
 			else
 				info.fillData(msg["account"]["balance"], msg["account"]["unit"])
@@ -147,7 +147,11 @@ submit = ()->
 					table02.show()
 					allCheck.bindEvent(table02.find(".tb-head input[type='checkbox']"), table02.find(".tb-tr input[type='checkbox']"))
 		else if msg["errCode"] is 32
-			info.fillData(msg["account"]["balance"], msg["account"]["unit"])
+			#剩余次数和余额 START
+			if msg["user_type"] is "0"
+				info.fillTimes msg["remain_serach_count"]
+			else
+				info.fillData(msg["account"]["balance"], msg["account"]["unit"])
 			alert msg["message"]
 		else
 			alert msg["message"]
@@ -176,13 +180,15 @@ dealVio = ()->
 					sign: sign.val(),
 					xh: xhArr
 				}, (msg)->
-					if msg["errCode"] isnt 0
-						alert msg["message"]
-					else
+					if msg["errCode"] is 0
 						if !sign.val()
 							return
-						window.location.href = "/serve-center/agency/agency?sign=" + sign.val()
-					
+						window.location.href = "/serve-center/agency/pages/agency?sign=" + sign.val()
+					else if msg["errCode"] is 3
+						window.location.href = "/serve-center/agency/pages/agency?sign=" + msg["sign"]
+					else
+						alert msg["message"]
+						
 
 
 
@@ -195,7 +201,7 @@ $ ()->
 	#违章查询的“确定”按钮绑定事件
 	vioBtn.on "click", submit
 	#“违章办理”按钮事件绑定
-	dealBtn.on "click", dealVio
+	$(document).on "click", ".deal-btn a", dealVio
 	
 
 
