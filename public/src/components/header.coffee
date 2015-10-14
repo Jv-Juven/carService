@@ -18,4 +18,4 @@ $ ()->
 	#"登录"框显示
 	logBtn.on "click", mask.showLoginMask
 	#"个人用户"注册弹窗
-	cRegBtn.on "click", showPersReg
+	cRegBtn.on "click", mask.showPersReg
