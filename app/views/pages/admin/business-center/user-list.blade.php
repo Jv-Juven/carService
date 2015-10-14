@@ -44,12 +44,22 @@
         	</tr>
             @foreach($users as $user)
         	<tr>
-        		<td class="username">{{{ $user->business_info->business_name }}}</td>
-        		<td class="license-code">{{{ $user->business_info->business_licence_no }}}</td>
+        		<td class="username">
+                    @if(isset($user->business_info))
+                    {{{ $user->business_info->business_name }}}
+                    @endif
+                </td>
+        		<td class="license-code">
+                    @if(isset($user->business_info))
+                    {{{ $user->business_info->business_licence_no }}}
+                    @endif
+                </td>
         		<td class="bank-account">
+                    @if(isset($user->business_info))
                     {{{ $user->business_info->bank_account }}} <br/>
                     {{{ $user->business_info->deposit_bank }}} <br/>
                     {{{ $user->business_info->bank_outlets }}}
+                    @endif
                 </td>
 
                 <td>2015/9/21 11:12:21</td>
