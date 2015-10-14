@@ -1034,7 +1034,7 @@ class UserController extends BaseController{
 	{
 		$display_code = Input::get('display_code');
 
-		$user = Sentry::getUser();
+		$user = Sentry::findUserById(Sentry::getUser()->user_id);
 		if ($user->checkResetPasswordCode($display_code))
 		{
 			$business_user 		 = BusinessUser::find($user->user_id);
