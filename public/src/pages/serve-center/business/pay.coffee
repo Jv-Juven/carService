@@ -1,12 +1,12 @@
 payWechatBtn = $("#pay_wechat")
 payPaypalBtn = $("#pay_paypal")
-orderId =$("#order-id")
+orderId = $("#order-id")
 
 
 #微信支付
-payWechat = (  )->
+payWechat = ()->
 	$.post "/beeclound/order-agency", {
-		order_id: orderId
+		order_id: orderId.val()
 	}, (msg)->
 		if msg["errCode"] is 0
 			window.open( msg['url'] )
