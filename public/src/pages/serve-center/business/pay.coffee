@@ -23,9 +23,9 @@ complete = ()->
 			order_id: orderId.val()
 		}, (msg)->
 			if msg["errCode"] is 0
-				if msg["trade_status"] is 0
+				if msg["trade_status"] is "0"
 					window.location.href = "/serve-center/order/fail"
-				else if msg["errCode"] is 1
+				else if msg["errCode"] is "1"
 					window.location.href = "/serve-center/order/success"
 				else
 					return
