@@ -414,8 +414,8 @@ Route::group(array('prefix'=>'qiniu','before'=>'auth.isRegister'),function(){
 	Route::get('front-download-token','UploadController@downloadTokenOfFront');
 });
 
-//beeclound接口
-Route::group(array('prefix'=>'beeclound','before'=>'auth.user.isIn'), function(){
+//beecloud接口
+Route::group(array('prefix'=>'beecloud','before'=>'auth.user.isIn'), function(){
 	//微信充值
 	Route::post('recharge','BeeCloudController@recharge');
 	//微信代办
@@ -431,7 +431,7 @@ Route::group(array('prefix'=>'beeclound','before'=>'auth.user.isIn'), function()
 	Route::get('refund-status','BeeCloudController@getRefundStatus');
 });
 	//验证
-	Route::post('beeclound','BeeCloudController@authBeeCloud');
+	Route::post('beecloud','BeeCloudController@authBeeCloud');
 
 
 

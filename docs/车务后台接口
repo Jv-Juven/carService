@@ -673,7 +673,7 @@ if( Sentry::check() )
 支付模块
 	1.充值
 		请求方式：POST
-		请求url：/beeclound/recharge
+		请求url：/beecloud/recharge
 
 		请求参数：
 				money 			充值金额(单位：元)
@@ -688,7 +688,7 @@ if( Sentry::check() )
 
 	2.代办
 		请求方式：POST
-		请求url：/beeclound/order-agency
+		请求url：/beecloud/order-agency
 
 		请求参数：
 				order_id 			订单id
@@ -704,7 +704,7 @@ if( Sentry::check() )
 
 	3.调取微信二维码支付页面
 		请求方式：GET
-		请求url：	/beeclound/qrcode
+		请求url：	/beecloud/qrcode
 
 		请求参数：
 
@@ -713,7 +713,7 @@ if( Sentry::check() )
 
 	4.申请退款
 		请求方式：POST
-		请求url：/beeclound/request-refund
+		请求url：/beecloud/request-refund
 
 		请求参数：
 				order_id 			订单id
