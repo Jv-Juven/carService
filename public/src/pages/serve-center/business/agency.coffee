@@ -62,8 +62,8 @@ submit = ()->
 		sign: sign.val(),
 		is_delivered: is_delivered,
 		recipient_name: name.val(),
-		recipient_addr: phone.val(),
-		recipient_phone: address.val()
+		recipient_addr: address.val(),
+		recipient_phone: phone.val()
 	}, (msg)->
 
 		if msg["errCode"] isnt 0 
