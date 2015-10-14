@@ -295,7 +295,7 @@ class BeeCloudController extends BaseController{
 
 
 	//退款
-	public function refund( $order_id, $channel = 'WX' )
+	public static function refund( $order_id, $channel = 'WX' )
 	{
 		$data = static::returnDataArray();
 		

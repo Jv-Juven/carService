@@ -754,4 +754,18 @@ if( Sentry::check() )
 				 	 finish, 	// boolean		退款是否完成 
 				 	 result		// boolean		退款是否成功 
 				}
+	7. 订单状态
+	 请求方式：GET
+	 请求url：/serve-center/order/order-trade-status
+
+	 请求参数：
+	 		 order_id
+
+	 返回参数：
+	 		{
+		 		errCode,			0返回正常
+		 		message, 			错误信息
+		 		trade_status		交易状态（ errCode为0时返回此字段 ）
+			 		
+	 		}
 

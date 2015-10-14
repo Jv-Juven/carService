@@ -9,8 +9,6 @@ class FeedbackController extends BaseController{
 
 	public function add_feedback(){
 
-		return Response::json( Input::all() );
-
 		$type 		= Input::get('type');
 		$title 		= Input::get('title');
 		$content 	= Input::get('content');
@@ -31,12 +29,12 @@ class FeedbackController extends BaseController{
 			return Response::json(array('errCode'=>3,'message'=>'请输入内容'));
 		}
 			
-		$feedback 			= new Feedback();
+		$feedback 			= new Feedback;
 		$feedback->user_id 	= Sentry::getUser()->user_id;
 		$feedback->type 	= $type;
 		$feedback->title 	= $title;
 		$feedback->content 	= $content;
-		$feedback->status 	= false;
+		$feedback->status 	= 0;
 		
 		if ( !$feedback->save() )
 			return Response::json(array('errCode'=>4,'message'=>'保存失败'));
