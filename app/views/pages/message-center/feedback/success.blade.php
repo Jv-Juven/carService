@@ -25,9 +25,6 @@
     <p class="ss-msg">
         您的反馈信息已成功提交，我们会尽快与你联系，您的支持是我们最大的动力！
     </p>
-    <p class="ss-notice">
-        将在<span class="count-down">5秒</span>内跳转
-    </p>
-    <button class="ss-cfm">确定</button>
+    <button class="ss-cfm"><a href="/message-center/feedback/index">确定</a></button>
 </div>
 @stop
