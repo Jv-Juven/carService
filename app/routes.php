@@ -225,10 +225,10 @@ Route::group([ 'prefix' => 'message-center' ], function(){
 	Route::group([ 'prefix' => 'feedback', 'before' => 'auth.user.isIn' ], function(){
 
 		// 反馈页面
-		Route::get( '/index', 'FeedbackController@index' );
+		Route::get( 'index', 'FeedbackController@index' );
 
 		// 添加反馈
-		Route::post( '/index', 'FeedbackController@add_feedback' );
+		Route::post( 'index', 'FeedbackController@add_feedback' );
 
 		// 反馈成功
 		Route::get( 'success', 'FeedbackController@feedback_success' );
