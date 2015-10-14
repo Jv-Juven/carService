@@ -26,6 +26,11 @@ noNeed = $("#noneed")
 #快递单信息表
 agencyForm = $(".agency-form")
 
+
+capitalSum = parseInt($("#capital-sum").val())
+serviceFee = parseInt($("#service-fee").val())
+expressFee = parseInt($("#express-fee").val())
+
 submit = ()->
 
 	name = $("#name")
@@ -93,8 +98,10 @@ $ ()->
 	#快递单信息表的现实与隐藏
 	express.on "click", ()->
 		agencyForm.show()
+		sum.text(capitalSum + serviceFee + expressFee)
 	noNeed.on "click", ()->
 		agencyForm.hide()
+		sum.text(capitalSum + serviceFee)
 
 
 
