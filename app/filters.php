@@ -88,8 +88,24 @@ Route::filter('auth.user.isIn',function()
 Route::filter('home.auth', function()
 {
 	if ( Sentry::check() )
-	{
-		return Redirect::back();
+	{	
+		$status = Sentry::getUser()->status;
+		if( $status != 22 )
+		{
+			switch ( $status ) {
+				case 10:
+					return View::make('pages.register-b.email-active');//邮箱激活页面
+				case 11:
+					return View::make('pages.register-b.reg-info');//信息登记
+				case 20:
+					return View::make('pages.register-b.success');//信息审核中
+				case 21:
+					return View::make('pages.register-b.success');//等待用户校验激活
+				case 30:
+					return View::make('errors.lock');//帐号锁定页面
+			}
+		}
+		return Redirect::to('serve-center/search/pages/violation');
 	}
 });
 
