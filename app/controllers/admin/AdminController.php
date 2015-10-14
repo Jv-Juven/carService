@@ -51,7 +51,7 @@ class AdminController extends BaseController {
 						->join('agency_orders', 'agency_orders.order_id', '=', 'refund_records.order_id')
 						->update(["refund_records.status" => $status, "agency_orders.trade_status" => "3", "process_status" => "4"]);
 
-			$resp = BeeCloundController::refund( $indentId );
+			$resp = BeeCloudController::refund( $indentId );
 
 			if($resp["errCode"] != 0)
 				return Response::json(array("errCode" => 1, "errMsg" => $resp["message"]));
