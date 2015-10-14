@@ -310,7 +310,7 @@ class BeeCloudController extends BaseController{
 		$data["refund_fee"] = (int)(($order->capital_sum+$order->service_charge_sum+$order->express_fee)*100);
 		
 		$data["channel"] = $channel;
-		$data["optional"] 	= json_decode(json_encode(array("refund_id"=>$refund_id),true),true);
+		$data["optional"] 	= json_decode(json_encode(array("refund_id"=>$refund->$refund_id),true),true);
 
 		try
 		{
