@@ -13,6 +13,12 @@ parseDataForHighCharts = (data)->
 
 		result[name].push item
 
+	result['violation'].sort (a, b)->
+		if a[0] < b[0]
+			return -1;
+		else 
+			return 1;
+
 	results = [{
 		name: '违章查询',
 		data: result["violation"]
