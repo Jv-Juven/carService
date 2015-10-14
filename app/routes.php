@@ -183,6 +183,10 @@ Route::group([ 'prefix' => 'serve-center' ], function(){
 
 		//订单状态
 		Route::get('order-trade-status','OrderController@orderTradeStatus');
+		//订单支付失败
+		Route::get('success','OrderPageController@success');
+		//订单支付成功
+		Route::	get('fail','OrderPageController@fail');
 
 		// 操作订单接口
 		Route::group([ 'prefix' => 'operation' ], function(){

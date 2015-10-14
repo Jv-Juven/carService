@@ -14,4 +14,14 @@ class OrderPageController extends BaseController{
             'order_status'  => Config::get( 'order_status' )
         ]);
     }
+
+    public function fail()
+    {
+        return View::make('pages.serve-center.pay.fail');
+    }
+
+    public function success()
+    {
+        return View::make('pages.serve-center.pay.success');
+    }
 }
