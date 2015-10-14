@@ -17,7 +17,7 @@ class HomeController extends BaseController {
 
 	public function home(){
 
-		$notices = Notice::select( 'id', 'title' )->orderBy( 'created_at', 'asc' )->limit( 2 )->get();
+		$notices = Notice::select( 'id', 'title' )->orderBy( 'created_at', 'desc' )->limit( 2 )->get();
 
 		if ( Sentry::check() ){
 			$message_url = '/message-center/message/all';
