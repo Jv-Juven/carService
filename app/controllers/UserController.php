@@ -12,10 +12,17 @@ class UserController extends BaseController{
 		$_SESSION['phrase'] = $builder->getPhrase();
 		header("Cache-Control: no-cache, must-revalidate");
 		header('Content-Type: image/jpeg');
+		// return $_SESSION['phrase'];
 		$builder->output();
 		exit;
 	}
 	
+	public function captcha2()
+	{
+		
+	}
+
+
 	//判断是否禁止发送
 	public static function isPhoneCodeSendLimit( $phone )	
 	{		
