@@ -1,7 +1,13 @@
 <?php
 use Gregwar\Captcha\CaptchaBuilder;
-include_once'captcha/simple-php-captcha.php';
+
 class UserController extends BaseController{
+
+	// public function captcha()
+	// {	
+	// 	return  HTML::image(Captcha::img(), 'Captcha image');
+	// }
+
 
 	//生成验证码(congcong网)
 	public function captcha()
@@ -16,15 +22,6 @@ class UserController extends BaseController{
 		$builder->output();
 		exit;
 	}
-	
-	public function captcha2()
-	{
-		session_start();
-		$_SESSION['phrase'] = simple_php_captcha();
-		$img = $_SESSION['phrase']['image_src'];
-		return View::make('test')->with($img);
-	}
-
 
 	//判断是否禁止发送
 	public static function isPhoneCodeSendLimit( $phone )	
@@ -348,9 +345,9 @@ class UserController extends BaseController{
 	public function bSiteRegister()
 	{
 		Session_start();
-		$captcha = Input::get('captcha');
-		if( $captcha != $_SESSION['phrase'])
-			return Response::json(array('errCode'=>8, 'message'=> '验证码不正确'));
+		// $captcha = Input::get('captcha');
+		// if( $captcha != $_SESSION['phrase'])
+		// 	return Response::json(array('errCode'=>8, 'message'=> '验证码不正确'));
 		
 		$data = array(
 			'login_account' => Input::get('login_account'),//邮箱
