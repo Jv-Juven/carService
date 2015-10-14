@@ -31,9 +31,6 @@
 							<input type="text" id="indent-number" placeholder="请输入发动机号码后6位"/>
 						</td>
 					</tr>
-					<tr class="indent-number"></tr>
-					<tr class="indent-number"></tr>
-					<tr class="indent-number"></tr>
 					<tr class="indent-details">
 						<td class="indent-table-title">车牌号码：</td>
 						<td class="indent-table-content indent-inputs">
@@ -45,31 +42,6 @@
 					<tr class="indent-details">
 						<td class="indent-table-title">业务状态：</td>
 						<td class="indent-table-content">
-							<!-- <select class="input select-plate plate-status indent-city">
-								<option value="">全部</option>
-								<option value="">广州市</option>
-								<option value="">深圳市</option>
-								<option value="">珠海市</option>
-								<option value="">汕头市</option>
-								<option value="">韶关市</option>
-								<option value="">佛山市</option>
-								<option value="">江门市</option>
-								<option value="">湛江市</option>
-								<option value="">茂名市</option>
-								<option value="">肇庆市</option>
-								<option value="">惠州市</option>
-								<option value="">梅州市</option>
-								<option value="">汕尾市</option>
-								<option value="">河源市</option>
-								<option value="">阳江市</option>
-								<option value="">清远市</option>
-								<option value="">东莞市</option>
-								<option value="">中山市</option>
-								<option value="">潮州市</option>
-								<option value="">揭阳市</option>
-								<option value="">云浮市</option>
-							</select> -->
-							
 							<select class="input select-plate plate-status indent-status">
 								<option value="">全部</option>
 								<option value="0">未受理</option>
@@ -190,7 +162,7 @@
 				<div class="warn-msg">
 					<span class="content">确定取消订单？</span>
 					<div class="btns">
-						<a class="btn sure-btn" href="javascript:">确定</a>
+						<a class="btn sure-btn" data-num="" href="javascript:">确定</a>
 						<a class="btn cancel-btn" href="javascript:">取消</a>
 					</div>
 				</div>
@@ -217,11 +189,11 @@
 	<% for (var i = 0; i < array.length; i ++){ 
 		var rightTd = array[i]["traffic_violation_info"].length + 1;
 		var info = array[i]["traffic_violation_info"]; 
-		var total_sum = array[i]["capital_sum"] + parseInt(array[i]["express_fee"] + 0) + array[i]["service_charge_sum"]
+		var total_sum = parseInt(array[i]["capital_sum"]) + parseInt(array[i]["express_fee"] + 0) + parseInt(array[i]["service_charge_sum"])
 		var process_status = "",
 			trade_status = "";
 		if (array[i]["process_status"] == 0){
-			process_status = "未处理";
+			process_status = "未受理";
 		}
 		else if (array[i]["process_status"] == 1){
 			process_status = "已受理";
@@ -282,7 +254,6 @@
 				</td>
 				<td class="vio-behaviour">
 					<%- info[j]["rep_violation_behavior"] %>
-					<span>[1039]</span>
 				</td>
 				<td class="money">
 					<span>本金：<%- info[j]["rep_priciple_balance"] %></span>

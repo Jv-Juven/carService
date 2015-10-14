@@ -4,9 +4,6 @@ warn = require "./../../../common/warn/warn.coffee"
 validate = new validate()
 warn = new warn()
 
-name = $("#name")
-phone = $("#phone")
-address = $("#address")
 engineNumber = $("#engine_number")
 
 agency_count = $("#agency_count")
@@ -23,6 +20,11 @@ agencyBtnCancel = $(".agency-btn-cancel a")
 
 #sign字段
 sign = $("#sign")
+
+noNeed = $("#noneed")
+
+#快递单信息表
+agencyForm = $(".agency-form")
 
 submit = ()->
 
@@ -50,6 +52,11 @@ submit = ()->
 		is_delivered = 1
 	else
 		is_delivered = 0
+
+	
+	name = $("#name")
+	phone = $("#phone")
+	address = $("#address")
 
 	$.post "/serve-center/agency/business/submit_order", {
 		sign: sign.val(),
@@ -82,6 +89,14 @@ $ ()->
 	agencyBtn.on "click", submit
 
 	agencyBtnCancel.on "click", cancelDeal
+
+	#快递单信息表的现实与隐藏
+	express.on "click", ()->
+		agencyForm.show()
+	noNeed.on "click", ()->
+		agencyForm.hide()
+
+
 
 
 

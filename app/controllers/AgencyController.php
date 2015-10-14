@@ -109,7 +109,9 @@ class AgencyController extends BaseController{
             return Response::json([ 'errCode' => 2, 'message' => '请先确认' ]);
         }
 
-        if ( ( $is_delivered = (int)Input::get( 'is_delivered' ) ) ){
+        $is_delivered = (int)Input::get( 'is_delivered' );
+
+        if ( $is_delivered == 1 ){
             $params = Input::all();
             $rules  = [
                 'recipient_name'    => 'required',
@@ -153,7 +155,7 @@ class AgencyController extends BaseController{
             $agency_order->trade_status         = 0;
             $agency_order->process_status       = 0;
 
-            if ( $is_delivered ){
+            if ( $is_delivered == 1 ){
                 $agency_order->is_delivered     = true;
                 $agency_order->express_fee      = $violation['info']['express_fee'];
                 $agency_order->recipient_name   = $params['recipient_name'];

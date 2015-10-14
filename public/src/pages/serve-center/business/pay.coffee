@@ -20,13 +20,13 @@ payWechat = ()->
 #完成支付
 complete = ()->
 	$.get "/serve-center/order/order-trade-status", {
-			order_id: order_Id.val()
+			order_id: orderId.val()
 		}, (msg)->
 			if msg["errCode"] is 0
-				if msg["trade_status"] is 0
-					window.location.href = "/serve-center/order/fail"
-				else if msg["errCode"] is 1
-					window.location.href = "/serve-center/order/success"
+				if msg["trade_status"] is "0"
+					window.location.href = "/serve-center/order/fail?order_id=" + orderId.val()
+				else if msg["errCode"] is "1"
+					window.location.href = "/serve-center/order/success?order_id=" + orderId.val()
 				else
 					return
 			else
