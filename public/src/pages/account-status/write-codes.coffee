@@ -3,7 +3,7 @@ warnTips = $(".warn-tips")
 submitBtn = $(".write-codes-submit-btn")
 
 submit = ()->
-	if !/[\d]6/.test(codesInput.val())
+	if !/[\d]{6}/.test(codesInput.val())
 		warnTips.text "*请填写6位的打款备注码"
 		return
 	warnTips.text " "
