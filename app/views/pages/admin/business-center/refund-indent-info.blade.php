@@ -35,7 +35,7 @@
                 <span>{{{ $indent->express_fee }}} 元</span>
             </div>
             <div class="form-group">
-                <label>订单状态：</label>
+                <label>处理状态：</label>
                 @if($indent->process_status == 0)
                 <span>未受理</span>
                 @elseif($indent->process_status == 1)
@@ -46,6 +46,18 @@
                 <span>已完成</span>
                 @else
                 <span>已关闭</span>
+                @endif
+            </div>
+            <div class="form-group">
+                <label>交易状态：</label>
+                @if($indent->trade_status == 0)
+                <span>等待付款</span>
+                @elseif($indent->trade_status == 1)
+                <span>已付款</span>
+                @elseif($indent->trade_status == 2)
+                <span>申请退款</span>
+                @else
+                <span>已退款</span>
                 @endif
             </div>
         </form>
