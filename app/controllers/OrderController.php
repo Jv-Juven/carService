@@ -92,10 +92,12 @@ class OrderController extends BaseController{
         if( count($refund_record) != 0 )
             return Response::json(array('errCode'=>22, 'message'=>'申请已提交'));
 
+        if( $order->trade_status != 1 || $order->process_status != 1 )
+            return Response::json(array('errCode'=>23,'message'=>'该订单不可申请退款'));
+
         try{
             DB::transaction( function() use( $order ) {
                 $order->trade_status = 2;
-                $order->process_status = 0;
                 $order->save();
 
                 $refund_record = new RefundRecord;
@@ -105,7 +107,7 @@ class OrderController extends BaseController{
             });
         }catch( Exception $e)
         {
-            return Response::json(array('errCode'=>23, 'message'=>'退款申请失败，请重新申请' ));
+            return Response::json(array('errCode'=>24, 'message'=>'退款申请失败，请重新申请' ));
         }
 
         return Response::json(array('errCode'=>0,'message'=>'申请成功'));
