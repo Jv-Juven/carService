@@ -115,7 +115,7 @@ class BeeCloudController extends BaseController{
 			    return 'success';
 		    }else{
 		    	$order = AgencyOrder::find( $info->transactionId );
-		    	if( $data['channel'] == 'WX_NATIVE' )
+		    	if( $msg['channelType'] == 'WX' )
 		    	{	
 		    		$order->pay_trade_no = $message_detail['transaction_id'];//交易流水号	
 		    		$order->pay_platform = 0;//支付平台
