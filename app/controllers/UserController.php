@@ -71,7 +71,7 @@ class UserController extends BaseController{
 		$password = Config::get('domain.phone.password');
 		
 		$text_number = rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9);
-		$text = urlencode( iconv('UTF-8', 'GBK','［广州车尚］ '.$text_number.'。工作人员不会向您索要，请勿向任何人泄漏。'));
+		$text = urlencode( iconv('UTF-8', 'GBK',$text_number.'。工作人员不会向您索要，请勿向任何人泄漏。'));
 		// dd($text);
 		Session::put('phone_code',$text_number);
 		
@@ -202,7 +202,7 @@ class UserController extends BaseController{
 		    //发送邮件
 			Mail::send('emails/resetcode',array('reset_code' => $reset_code),function($message) use ($user)
 			{
-				$message->to($user->login_account,'')->subject('车尚车务系统!');
+				$message->to($user->login_account,'')->subject('车尚提醒您：请验证您的邮箱');
 			});
 		}
 		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
@@ -227,7 +227,7 @@ class UserController extends BaseController{
 		    //发送邮件
 			Mail::send('emails/resetcode',array('reset_code' => $reset_code),function($message) use ($user)
 			{
-				$message->to($user->login_account,'')->subject('车尚车务系统!');
+				$message->to($user->login_account,'')->subject('车尚提醒您：请验证您的邮箱');
 			});
 		}
 		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
@@ -372,7 +372,7 @@ class UserController extends BaseController{
 			//发送邮件
 			Mail::send('emails/token',array('token' => $token),function($message) use ($data)
 			{
-				$message->to($data['login_account'],'')->subject('车尚车务系统!');
+				$message->to($data['login_account'],'')->subject('车尚提醒您：请验证您的邮箱');
 			});
 			
 			try
@@ -701,7 +701,7 @@ class UserController extends BaseController{
 		//发送邮件
 		Mail::send('emails/token',array('token' => $token),function($message) use ($login_account)
 		{
-			$message->to($login_account,'')->subject('车尚车务系统!');
+			$message->to($login_account,'')->subject('车尚提醒您：请验证您的邮箱');
 		});
 		$user = User::where('login_account',$login_account)->first();
 		//储存数据

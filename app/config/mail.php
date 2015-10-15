@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' =>'noreply@gzcheshang.com' , 'name' =>'车尚车服务' ),
+	'from' => array('address' =>'noreply@gzcheshang.com' , 'name' =>'广州车尚' ),
 	/*
 	|--------------------------------------------------------------------------
 	| E-Mail Encryption Protocol
