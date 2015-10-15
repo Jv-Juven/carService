@@ -111,7 +111,7 @@ Route::group([ 'prefix' => 'serve-center' ], function(){
 		Route::group([ 'prefix' => 'pages' ], function(){
 
 			// 违章查询页面
-			Route::get( 'violation', [ 'before' => 'vio.filter', 'users' => 'SearchPageController@violation' ] );
+			Route::get( 'violation', [ 'before' => 'vio.filter', 'uses' => 'SearchPageController@violation' ] );
 
 			Route::group([ 'before' => 'auth.user.isIn' ], function(){
 				
