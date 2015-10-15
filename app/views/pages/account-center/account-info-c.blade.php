@@ -39,7 +39,7 @@
 				<div class="warn-msg">
 					<div class="msg-line">
 						<span class="msg-title">
-							手机证码：
+							手机验证码：
 						</span>
 						<input class="msg-input psd-phone-code" type="text" placeholder="请查看手机获取验证码"/>
 						<a href="javascript:" class="msg-btn psd-get-phone-codes">获取验证码</a>
