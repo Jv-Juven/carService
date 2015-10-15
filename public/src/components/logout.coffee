@@ -8,7 +8,7 @@ logout = ()->
 			console.log msg["errCode"]
 			window.location.href = "/"
 		else
-			alert msg["errCode"]
+			alert msg["message"]
 	.error (xhr, errorText, errorType)->
 		alert "提交失败，请重试"
 
