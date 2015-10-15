@@ -88,8 +88,10 @@
                     <td colspan="6">
                         <input type="hidden" class="indent-id" value="{{{$indent->order_id}}}" />
                         <span>订单金额：{{ $indent->capital_sum + $indent->service_charge_sum }} 元</span>
+                        @if(isset($indent->express_fee))
                         <span style="margin-left:20px;">票证快递费：{{{ $indent->express_fee }}} 元</span>
                         <a href="/admin/business-center/express-ticket-info?indent_id={{{ $indent->order_id }}}" style="margin-left:50px" target="_blank">查看凭证快递信息</a>
+                        @endif
                         @if($indent->process_status == "1")
                         @if($indent->trade_status == "2")
                         <a href="/admin/business-center/approve-refund-application?indent_id={{{ $indent->order_id }}}" target="_blank">
