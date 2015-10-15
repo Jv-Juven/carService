@@ -25,12 +25,12 @@ class UserPageController extends BaseController{
 	{
 		$token = Input::get('token');
 		$user = Cache::get($token);
-
+		Cache::pull($token);
 		// 验证不通过，过期重新填写，回到邮箱注册页
 		if(!isset($user))
 		{
 			//登录后发邮件去邮箱验证邮箱
-			return View::make('pages.register-b.email-active');
+			return View::make('errors.re-send');
 		}
 
 		//将状态信息改成未填写登记信息

@@ -987,8 +987,8 @@ class UserController extends BaseController{
 			$business_licence_no = $business_user->business_licence_no;
 			return Response::json(array('errCode'=>0,
 										'message'=>'显示开发者信息',
-										'app_key' => $business_name,
-										'app_secret' => $business_licence_no));
+										'app_key' => $app_key,
+										'app_secret' => $app_secret));
 		}else{
 			return Response::json(array('errCode'=>21, 'message'=>'验证码不正确'));
 		}

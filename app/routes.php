@@ -44,6 +44,8 @@ Route::group(array('prefix'=>'user'), function(){
 	Route::post('reset-bsite-forgetpwd','UserController@resetForgetPassword');
 	//c端用户忘记密码－重置密码
 	Route::post('reset-csite-forgetpwd','UserController@resetCForgetPassword');
+	//登出
+	Route::post('logout','UserController@logout');
 
 	Route::group(array('before'=>'auth.user.isIn'),function(){
 		//B端用户注册-信息登记
@@ -58,8 +60,6 @@ Route::group(array('prefix'=>'user'), function(){
 		Route::get('operational_phone_code','UserController@operationalPhoneCode');
 		//B端用户－修改运营者信息－保存
 		Route::post('save_operator_info','UserController@saveOperatorInfo');
-		//登出
-		Route::post('logout','UserController@logout');
 		//审核中
 		Route::get('pending','UserPageController@pending');
 		//信息登记静态页面
