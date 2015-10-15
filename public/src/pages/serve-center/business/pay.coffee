@@ -17,6 +17,9 @@ payWechat = ()->
 		else
 			alert msg["message"]
 
+payPaypal = ()->
+	alert "暂不支持支付宝支付"
+
 #完成支付
 complete = ()->
 	$.get "/serve-center/order/order-trade-status", {
@@ -41,6 +44,8 @@ question = ()->
 $ ()->
 	#“微信支付”按钮事件绑定
 	payWechatBtn.on "click", payWechat
+	#"支付宝支付"按钮事件绑定
+	payPaypalBtn.on "click", payPaypal
 	#"完成支付"按钮事件绑定
 	completeBtn.on "click", complete
 	#“支付遇到问题”按钮事件绑定
