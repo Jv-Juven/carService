@@ -7,6 +7,7 @@
 @stop
 
 @section('js')
+@parent
 @stop
 
 @section('body')

@@ -34,6 +34,7 @@ getCodes = (e)->
 			)
 			alert "发送验证码成功"
 
+
 #提交信息
 submitMsg = ()->
 	code = codesInput.val()
@@ -50,6 +51,8 @@ submitMsg = ()->
 			alert "提交信息成功"
 			companyName.text(msg["app_key"])
 			license.text(msg["app_secret"])
+			$(".warn-close").trigger "click"
+
 
 
 

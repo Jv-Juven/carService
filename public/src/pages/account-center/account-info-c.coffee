@@ -96,7 +96,7 @@ psd = {
 				if msg["errCode"] isnt 0
 					alert msg["message"]
 				else
-					warn.alert "保存成功"
+					alert "保存成功"
 					location.reload()
 
 
