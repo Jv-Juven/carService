@@ -990,8 +990,8 @@ class UserController extends BaseController{
 		if ($user->checkResetPasswordCode($display_code))
 		{
 			$business_user 		 = BusinessUser::find($user->user_id);
-			$business_name 		 = $business_user->business_name;
-			$business_licence_no = $business_user->business_licence_no;
+			$app_key 		 = $business_user->app_key;
+			$app_secret = $business_user->app_secret;
 			return Response::json(array('errCode'=>0,
 										'message'=>'显示开发者信息',
 										'app_key' => $app_key,
