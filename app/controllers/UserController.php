@@ -153,22 +153,13 @@ class UserController extends BaseController{
 	public function  sendResetCodeToPhone()
 	{
 		$login_account = Sentry::getUser()->login_account;
-		// $login_account = Input::get('login_account');
-		try{
-			$user = Sentry::login($login_account,fasle);
-			Sentry::logout();
-			//发送验证码
-			$number = $this->messageVerificationCode($login_account);
-			if($number->getData()->errCode != "")
-				return Response::json(array('errCode'=>22, 'message'=>'发送太过频繁，请稍候再试，如不能发送，请及时与客户联系'));
-		}catch(Exception $e){
-			return Response::json(array('errCode'=>23, 'message'=>'该用户不存在'));
-		}
+		$number = $this->messageVerificationCode($login_account);
+		if($number->getData()->errCode != "")
+			return Response::json(array('errCode'=>22, 'message'=>'发送太过频繁，请稍候再试，如不能发送，请及时与客户联系'));
 
 		$message = $this->isPhoneCodeSendLimit( $login_account );
 		if($message['errCode'] != 0 )
 			return Response::json(array('errCode'=>24,'message'=>$message['message']));
-
 
 		return Response::json(array('errCode'=>0,'message'=>'验证码发送成功,'.$message['message']));
 	}
@@ -768,7 +759,7 @@ class UserController extends BaseController{
 			}
 		}
 		//重置密码
-		$user = Sentry::findUserById($login_account);
+		$user = Sentry::findUserById(Sentry::getUser()->user_id);
 		$resetCode = $user->getResetPasswordCode();
 		if(!$user->attemptResetPassword($resetCode, $data['password']))
 			return Response::json(array('errCode' => 25,'message' => '重置密码失败!'));
