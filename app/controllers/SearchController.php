@@ -230,17 +230,19 @@ class SearchController extends BaseController{
         }
         catch( OperationException $e ){
 
-            $return_message = static::process_error( $e->getCode(), '查询失败' );
+            $return_message = static::process_error( $e->getCode(), $e->getMessage() );
+
+            $return_message['user_type'] = $current_user->user_type;
 
             // 普通用户返回剩余查询次数
-            if ( $current_user->is_common_user() ){
+            if ( $current_user->is_common_user() && $e->getCode() < 50 ){
 
                 static::increase_search_count( $current_user->user_id );
 
                 $return_message['remain_search_count'] =  static::get_search_count_remain( $current_user->user_id );
             }
             // 企业用户返回账户信息
-            else if ( $current_user->is_business_user() ){
+            else if ( $current_user->is_business_user() && isset( $account ) ){
 
                 $return_message['account'] = $account;
             }

@@ -159,12 +159,12 @@ class BusinessController extends BaseController{
 
 				if ( $response_content['errMsg'] == 9 ){
 
-					$response_content['errCode'] = 31;
+					$response_content['errCode'] = 51;
 					$error_message = '参数错误';
 				}
 				else if ( $response_content['errMsg'] == 10 ){
 
-					$response_content['errCode'] = 32;
+					$response_content['errCode'] = 52;
 					$error_message = '账户余额不足';
 				}
 				else{
@@ -177,7 +177,7 @@ class BusinessController extends BaseController{
 
 			// $error_message = '操作失败';
 
-			throw new OperationException( $error_message, $response_content['errCode'] );
+			throw new OperationException( $error_message, $response_content['errCode'] + 52 );
 		}
 		catch( ClientException $e ){
 				
@@ -187,7 +187,7 @@ class BusinessController extends BaseController{
 		catch( ConnectException $e ){
 
 			//throw $e;
-			throw new Exception("请求失败", 42);
+			throw new Exception( "请求失败", 42 );
 		} 
 		// 操作出错
 		catch( OperationException $e ){
