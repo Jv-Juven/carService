@@ -154,6 +154,8 @@ class BusinessController extends BaseController{
 				}	
 			}
 
+			$error_message = '操作失败';
+
 			// 若服务器提供错误信息，则返回相应消息，否则统一返回'操作失败'
 			if ( array_key_exists( 'errMsg', $response_content ) ){
 
@@ -165,27 +167,17 @@ class BusinessController extends BaseController{
 					
 					$error_message = '账户余额不足';
 				}
-				else{
-
-					$error_message = $response_content[ 'errMsg' ];
-				}
-			}
-			else{
-				$error_message = '操作失败';
 			}
 
-			// $error_message = '操作失败';
 
 			throw new OperationException( $error_message, $response_content['errCode'] + 500 );
 		}
 		catch( ClientException $e ){
-				
-			//throw $e;
+
 			throw new Exception( "服务器出错", 41 );
 		}
 		catch( ConnectException $e ){
 
-			//throw $e;
 			throw new Exception( "请求失败", 42 );
 		} 
 		// 操作出错
@@ -196,7 +188,6 @@ class BusinessController extends BaseController{
 		// 其他错误
 		catch( Exception $e ){
 
-			//throw $e;
 			throw new Exception( '服务器出错', 41 );
 		}
 
