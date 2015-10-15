@@ -74,8 +74,6 @@ Route::group(array('prefix'=>'user'), function(){
 		Route::post('send_code_to_email','UserController@sendCodeToEmail');
 		//b端用户修改密码－重置密码
 		Route::post('reset_bsite_pwd', 'UserController@resetBusinessSitePassword');
-		//显示企业信息
-		Route::post('dispaly-com-info','UserController@dispalyComInfo');
 		//锁定页面
 		Route::get('lock', 'UserPageController@lock');
 		//审核不通过页面

@@ -71,7 +71,7 @@ class UserController extends BaseController{
 		$password = Config::get('domain.phone.password');
 		
 		$text_number = rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9);
-		$text = urlencode( iconv('UTF-8', 'GBK','车尚服务验证码:'.$text_number));
+		$text = urlencode( iconv('UTF-8', 'GBK','［广州车尚］ '.$text_number.'。工作人员不会向您索要，请勿向任何人泄漏。'));
 		// dd($text);
 		Session::put('phone_code',$text_number);
 		
@@ -247,25 +247,6 @@ class UserController extends BaseController{
 		return Response::json(array('errCode'=>0, 'message'=>'验证码发送成功'));
 	}
 
-
-	//显示企业信息
-	public function dispalyComInfo()
-	{
-		//邮箱验证码验证
-		$reset_code = Input::get('email_code');
-		$user = Sentry::getUser();
-		$user = Sentry::findUserById( $user->user_id );
-
-		if( !$user->checkResetPasswordCode($reset_code) )
-			return Response::json(array('errCode'=>21, 'message'=>'邮箱验证码错误'));
-
-		$business_user = BusinessUser::find( $user->user_id );
-
-		return Response::json(array('errCode'=>0, 
-									'business_name'=>$business_user->business_name, 
-									'business_licence_no'=>$business_user->business_licence_no
-									));
-	}
 	
 	//C端用户注册
 	public function cSiteRegister()
@@ -1002,33 +983,6 @@ class UserController extends BaseController{
 		}
 	}
 
-
-
-	//获取每个user_id 对应的 appkey和secretkey
-	public function app()
-	{
-		$user_id = Sentry::getUser()->user_id;
-		//构建获取appkey的链接
-		$url = Config::get('domain.server').'/app?uid='.$user_id;
-		$data = json_decode( CurlController::get($url),true );
-		// dd($data);
-		
-		if($data['errCode'] != 0 )
-		{	
-			Log::info($data);
-			return parent::errMessage($data['errCode']);
-		}
-
-		//向用户表中存入appkey
-		$business_user = BusinessUser::find(Sentry::getUser()->user_id);
-		$business_user->app_key = $data['app']['appkey'];
-		$business_user->app_secret = $data['app']['secretkey'];
-		if(!$business_user->save())
-			return Response::json(array('errCode'=>11, 'message'=>'获取appkey失败，请重新获取'));
-		
-		return Response::json(array('errCode'=>0, 'message'=>'appkey获取成功'));	
-	}
-
 	//显示企业注册信息
 	public function displayCompanyRegisterInfo()
 	{
@@ -1040,9 +994,13 @@ class UserController extends BaseController{
 			$business_user 		 = BusinessUser::find($user->user_id);
 			$business_name 		 = $business_user->business_name;
 			$business_licence_no = $business_user->business_licence_no;
-			return Response::json(array('errCode'=>0,'business_name' => $business_name,'business_licence_no' => $business_licence_no));
+			return Response::json(array('errCode'=>0,
+										'message'=>'显示开发者信息',
+										'app_key' => $business_name,
+										'app_secret' => $business_licence_no));
 		}else{
 			return Response::json(array('errCode'=>21, 'message'=>'验证码不正确'));
 		}
 	}
+
 }

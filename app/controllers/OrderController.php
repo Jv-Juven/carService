@@ -35,38 +35,10 @@ class OrderController extends BaseController{
 
             $end_date = Input::get( 'end_date' );
             if ( !empty( $end_date ) ){
-		if ( $end_date == $start_date  ){
-		    $date_string = Carbon::parse( $start_date )->addDay()->toDateTimeString();
-		}else{
-		    $date_string = Carbon::parse( $end_date )->toDateTimeString();
-		}
-                $query->where( 'created_at', '<=', $date_string );
+                $query->where( 'created_at', '<=', Carbon::parse( $end_date )->addDay()->toDateTimeString() );
             }
 
             $agency_orders = $query->with( 'traffic_violation_info' )->orderBy( 'created_at', 'desc' )->get();
-	//$query->get();
-
-//	return Response::make( DB::getQueryLog()  );
-/*
-            $agency_orders = $query->with([
-                'traffic_violation_info' => function( $query ){
-
-                    // 没有选择开始日期，则从查询至一年前为止
-                    $start_date = Input::get( 'start_date' );
-                    if ( !empty( $start_date ) ){
-                        $query->where( 'rep_event_time', '>=', $start_date );
-                    }else{
-                        $query->where( 'rep_event_time', '>=', date( 'Y-m-d', strtotime( '-1 year' ) ) );
-                    }
-
-		    $end_date = Input::get( 'end_date' );
-                    if ( $end_date ){
-                        $query->where( 'rep_event_time', '<=', $end_date );
-                    }
-
-                    $query->orderBy( 'rep_event_time', 'desc' );
-                }
-            ])->get();*/
         }
 
         return Response::json([ 'errCode' => 0, 'orders' => $agency_orders ]); 
