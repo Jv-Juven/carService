@@ -155,6 +155,8 @@ submit = ()->
 			else
 				info.fillData(msg["account"]["balance"], msg["account"]["unit"])
 			alert msg["message"]
+		else if msg["errCode"] > 50
+			alert "提示失败"
 		else
 			alert msg["message"]
 
