@@ -192,10 +192,10 @@ class BeeCloudController extends BaseController{
 			{
 				$data["total_fee"] 	= $money*100;//单位换算成分 $money*100
 			}else{
-				return Response::json(array('errCode'=>21, 'message'=>'充值金额不正确'));
+				return Response::json(array('errCode'=>21, 'message'=>'单次充值金额不低于50元，且为整数'));
 			} 
 		}else{
-			return Response::json(array('errCode'=>22, 'message'=>'充值金额不正确'));
+			return Response::json(array('errCode'=>22, 'message'=>'单次充值金额不低于50元，且为整数'));
 		}
 		$data["bill_no"] 	= CostDetail::get_unique_id();
 		$data['title']		= '充值';
