@@ -28,6 +28,15 @@
                             <img src="/images/components/nav_arrow.png">
                         </i>
                     </li>
+                    @else
+                    <li class="blank-li">
+                        <a class="blank-a nav-item">
+                        </a>
+                    </li>
+                    <li class="blank-li">
+                        <a class="blank-a nav-item">
+                        </a>
+                    </li>
                     @endif
                     <li>
                         <a class="nav-item" href="/finance-center/cost-manage/refund-record">

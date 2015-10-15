@@ -40,7 +40,7 @@
 				</div>
 			</li>
 			<li class="header-btns btns-last">
-				<a href="http://faq.gzcheshang.com">
+				<a target="_blank" href="http://faq.gzcheshang.com">
 					帮助中心
 				</a>
 			</li>

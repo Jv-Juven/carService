@@ -6,14 +6,16 @@ class OrderController extends BaseController{
 
     public function search(){
 
-	$order_id = Input::get( 'order_id'  );
+	    $order_id = Input::get( 'order_id'  );
+        
         if ( !empty( $order_id ) ){
 
             $agency_orders = [ AgencyOrder::with( 'traffic_violation_info' )
-                                       ->find( $order_id ) ];
+                                          ->where( 'user_id', Sentry::getUser()->user_id )
+                                          ->find( $order_id ) ];
         }else{
 
-            $query = AgencyOrder::select( '*' );
+            $query = AgencyOrder::where( 'user_id', Sentry::getUser()->user_id );
 
             $car_plate_no = Input::get( 'car_plate_no' );    
             if ( !empty( $car_plate_no ) ){
@@ -22,11 +24,11 @@ class OrderController extends BaseController{
 
             $process_status = Input::get('process_status');
             if ( $process_status !='' || $process_status != null ){
-		$query->where( 'process_status', $process_status );  //  (string)$process_status );
+		        $query->where( 'process_status', $process_status ); 
             }
 
 
-	    $start_date = Input::get( 'start_date' );
+	        $start_date = Input::get( 'start_date' );
             if ( !empty( $start_date ) ){
                 $query->where( 'created_at', '>=', Carbon::parse( $start_date )->toDateTimeString()  );
             }else{

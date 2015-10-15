@@ -28,7 +28,7 @@
 							</a>
 						</li>
 						<li class="login-help">
-							<a href="http://faq.gzcheshang.com">
+							<a target="_blank" href="http://faq.gzcheshang.com">
 								使用帮助
 							</a>
 						</li>
