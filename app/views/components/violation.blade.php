@@ -84,7 +84,7 @@
 					
 				</table>
 				<div class="vio-submit-btn">
-					<a href="javascript:">联系客服</a>
+					<a href="http://wpa.qq.com/msgrd?v=3&uin=961313288&site=qq&menu=yes">联系客服</a>
 				</div>
 			</div>
 		</div>
