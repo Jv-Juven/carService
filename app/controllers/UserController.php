@@ -676,7 +676,7 @@ class UserController extends BaseController{
 	            return Response::json($message);
             }
         }catch (\Exception $e){
-            return Response::json(array('errCode'=>1,'message'=>'账户或密码错误'.$e->getMessage()));
+            return Response::json(array('errCode'=>1,'message'=>'账户或密码错误'));
         }
 	}
 
@@ -779,12 +779,18 @@ class UserController extends BaseController{
 
 		//验证手机
 		$login_account 	= Input::get('login_account');
-		try{
-			$user = Sentry::login($login_account);
-			Sentry::logout();
-		}catch(Exception $e){
+		
+		//验证手机
+		$login_account 	= Input::get('login_account');
+		$user = User::where('login_account',$login_account)->get();
+		if( count($user) == 0)
 			return Response::json(array('errCode'=>22,'message'=>'手机号码不正确，请重新输入'));
-		}
+	#	try{
+	#		$user = Sentry::login($login_account);
+	#		Sentry::logout();
+	#	}catch(Exception $e){
+	#		return Response::json(array('errCode'=>22,'message'=>'手机号码不正确，请重新输入'));
+	#	}
 
 		$data = array(
 			'password' 	   => Input::get('password'),
@@ -822,7 +828,7 @@ class UserController extends BaseController{
 			}
 		}
 		//重置密码
-		$user = Sentry::findUserById($login_account);
+		$user = Sentry::findUserById($user[0]->user_id);
 		$resetCode = $user->getResetPasswordCode();
 		if(!$user->attemptResetPassword($resetCode, $data['password']))
 			return Response::json(array('errCode' => 25,'message' => '重置密码失败!'));
