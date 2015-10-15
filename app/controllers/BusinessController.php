@@ -157,17 +157,16 @@ class BusinessController extends BaseController{
 			// 若服务器提供错误信息，则返回相应消息，否则统一返回'操作失败'
 			if ( array_key_exists( 'errMsg', $response_content ) ){
 
-				if ( $response_content['errMsg'] == 9 ){
+				if ( $response_content['errCode'] == 9 ){
 
-					$response_content['errCode'] = 51;
 					$error_message = '参数错误';
 				}
-				else if ( $response_content['errMsg'] == 10 ){
-
-					$response_content['errCode'] = 52;
+				else if ( $response_content['errCode'] == 10 ){
+					
 					$error_message = '账户余额不足';
 				}
 				else{
+
 					$error_message = $response_content[ 'errMsg' ];
 				}
 			}
@@ -177,7 +176,7 @@ class BusinessController extends BaseController{
 
 			// $error_message = '操作失败';
 
-			throw new OperationException( $error_message, $response_content['errCode'] + 52 );
+			throw new OperationException( $error_message, $response_content['errCode'] + 500 );
 		}
 		catch( ClientException $e ){
 				
