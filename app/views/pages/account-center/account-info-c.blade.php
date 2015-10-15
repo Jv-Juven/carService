@@ -41,7 +41,7 @@
 						<span class="msg-title">
 							手机证码：
 						</span>
-						<input class="msg-input psd-phone-code" type="text" placeholder="请前往注册邮箱获取验证码"/>
+						<input class="msg-input psd-phone-code" type="text" placeholder="请查看手机获取验证码"/>
 						<a href="javascript:" class="msg-btn psd-get-phone-codes">获取验证码</a>
 					</div>
 					<!-- <div class="msg-line">
