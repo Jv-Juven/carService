@@ -759,7 +759,7 @@ class UserController extends BaseController{
 			}
 		}
 		//重置密码
-		$user = Sentry::findUserById($login_account);
+		$user = Sentry::findUserById(Sentry::getUser()->user_id);
 		$resetCode = $user->getResetPasswordCode();
 		if(!$user->attemptResetPassword($resetCode, $data['password']))
 			return Response::json(array('errCode' => 25,'message' => '重置密码失败!'));
