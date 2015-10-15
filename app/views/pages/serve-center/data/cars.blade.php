@@ -34,7 +34,7 @@
 
 					<div class="input-wrapper input-btn cars-btn">
 						查询
-					</div> p
+					</div>
 				</div>
 			</div>
 			<!-- 查询框 END -->
