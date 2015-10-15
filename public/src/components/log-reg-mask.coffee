@@ -62,6 +62,8 @@ warnTips = $(".find-psd-tips input")
 # 忘记密码框 END
 ###
 
+protocol = $("#protocol")
+
 
 #显示“个人注册”框
 showPersReg = ()->
@@ -90,6 +92,8 @@ cutUserType =  (e)->
 
 #企业和个人用户登录
 userLogin = ()->
+
+	inputTips.text " "
 
 	if userType is 0
 		if !validate.email(logEmail.find(".input input").val())
@@ -129,6 +133,8 @@ personal = ()->
 
 #个人注册按钮
 personalReg = ()->
+
+
 	
 	if !validate.mobile(regPhone.val())
 		regTips.val("*请正确填写手机号码")
@@ -145,6 +151,9 @@ personalReg = ()->
 	if regRePassword.val().length < 6
 		regTips.val("*请再次输入密码")
 		regRePassword.focus()
+		return
+	if !protocol.prop("checked")
+		regTips.val("*请勾选《车尚数据查询平台用户注册协议》")
 		return
 
 	regTips.val " "
@@ -199,6 +208,10 @@ submitBtn.on "click", userLogin
 
 #"注册"按钮绑定事件
 regBtn.on "click", personalReg
+#勾选协议
+# protocol.on "click", ()->
+# 	if protocol.prop("checked")
+# 		regTips.val " "
 
 #登录"取消"按钮绑定事件
 cancelBtn.on "click", closeMask

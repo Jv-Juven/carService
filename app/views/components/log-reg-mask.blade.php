@@ -83,6 +83,13 @@
 					</span>
 					<input class="msg-input reg-repassword" type="password" placeholder="请再次输入密码"/>
 				</div>
+				<div class="info-protocol">
+					<label for="protocol">
+						<input type="checkbox" checked="true" id="protocol" name="protocal" value="1" />
+						我同意并遵守<a target="_blank" href="http://faq.gzcheshang.com/index.php?action=artikel&cat=3&id=8&artlang=zh">《车尚数据查询平台用户注册协议》</a>
+					</label>
+					<!-- <span class="warn-tips">请勾选《平台协议》</span> -->
+				</div>
 				<div class="msg-line warn-tips">
 					<span class="msg-title"></span>
 					<input class="" type="text" placeholder="" value="" readonly="true" />
