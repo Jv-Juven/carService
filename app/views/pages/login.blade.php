@@ -28,7 +28,7 @@
 							</a>
 						</li>
 						<li class="login-help">
-							<a href="faq.gzcheshang.com">
+							<a href="http://faq.gzcheshang.com">
 								使用帮助
 							</a>
 						</li>
