@@ -334,7 +334,9 @@ class SearchController extends BaseController{
 
             $message = static::process_error( $e->getCode(), '查询失败' );
 
-            $message['account'] = $account;
+            if ( $e->getCode() < 50 & isset( $account ) ){
+                $message['account'] = $account;
+            }
 
             return Response::json( $message );       
         }
@@ -401,7 +403,9 @@ class SearchController extends BaseController{
 
             $message = static::process_error( $e->getCode(), '查询失败' );
 
-            $message['account'] = $account;
+            if ( $e->getCode() < 50 & isset( $account ) ){
+                $message['account'] = $account;
+            }
 
             return Response::json( $message );  
         }
