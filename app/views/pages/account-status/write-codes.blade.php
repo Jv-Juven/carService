@@ -1,8 +1,5 @@
 @extends("layouts.login-master")
 
-@section("title")
-填写打款验证码
-@stop
 
 @section("css")
 @parent

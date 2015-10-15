@@ -1,9 +1,5 @@
 @extends("layouts.submaster")
 
-@section("title")
-驾驶证查询
-@stop
-
 @section("css")
 	@parent
 	<link rel="stylesheet" type="text/css" href="/dist/css/pages/serve-center/business/violation.css">

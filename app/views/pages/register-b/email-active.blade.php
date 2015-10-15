@@ -1,8 +1,5 @@
 @extends("layouts.login-master")
 
-@section("title")
-基本信息|注册
-@stop
 
 @section("css")
 @parent

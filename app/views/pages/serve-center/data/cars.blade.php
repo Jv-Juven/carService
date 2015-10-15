@@ -1,8 +1,5 @@
 @extends("layouts.submaster")
 
-@section("title")
-驾驶证查询
-@stop
 
 @section("css")
 	@parent
@@ -29,7 +26,7 @@
 						</div>
 					</div>
 					<div class="input-wrapper">
-						<div class="input-title">档案编号：</div>
+						<div class="input-title">发动机号：</div>
 						<div class="inputs">
 							<input class="input fullwidth record-id" type="text" placeholder="请输入发动机号码后六位"/>
 						</div>
@@ -37,7 +34,7 @@
 
 					<div class="input-wrapper input-btn cars-btn">
 						查询
-					</div>
+					</div> p
 				</div>
 			</div>
 			<!-- 查询框 END -->

@@ -1,8 +1,5 @@
 @extends('layouts.submaster')
 
-@section('title')
-    费用管理 -- 费用明细
-@stop
 
 @section('css')
 @parent

@@ -1,9 +1,6 @@
 
 @extends('layouts.submaster')
 
-@section('title')
-    充值
-@stop
 
 @section('css')
 @parent

@@ -1,9 +1,5 @@
 @extends("layouts.login-master")
 
-@section("title")
-基本信息|注册
-@stop
-
 @section("css")
 @parent
 <link rel="stylesheet" type="text/css" href="/dist/css/pages/register-b/reg-info.css">

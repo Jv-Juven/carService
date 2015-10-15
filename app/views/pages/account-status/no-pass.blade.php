@@ -1,8 +1,5 @@
 @extends("layouts.login-master")
 
-@section("title")
-账号审核
-@stop
 
 @section("css")
 @parent

@@ -1,8 +1,5 @@
 @extends("layouts.login-master")
 
-@section("title")
-基本信息|注册
-@stop
 
 @section("css")
 @parent
@@ -56,7 +53,7 @@
 		<div class="info-protocol">
 			<label for="protocol">
 				<input type="checkbox" checked="true" id="protocol" name="protocal" value="1" />
-				我同意并遵守<a target="_blank" href="/">《平台协议》</a>
+				我同意并遵守<a target="_blank" href="http://faq.gzcheshang.com/index.php?action=artikel&cat=3&id=8&artlang=zh">《平台协议》</a>
 			</label>
 			<!-- <span class="warn-tips">请勾选《平台协议》</span> -->
 		</div>

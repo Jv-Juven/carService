@@ -1,9 +1,5 @@
 @extends("layouts.submaster")
 
-@section("title")
-支付成功
-@stop
-
 @section("css")
 	@parent
 	<link rel="stylesheet" type="text/css" href="/dist/css/pages/serve-center/business/success.css">

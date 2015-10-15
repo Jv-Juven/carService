@@ -99,7 +99,7 @@ submit = ()->
 
 			#剩余次数和余额 START
 			if msg["user_type"] is "0"
-				info.fillTimes msg["remain_serach_count"]
+				info.fillTimes msg["remain_search_count"]
 			else
 				info.fillData(msg["account"]["balance"], msg["account"]["unit"])
 			#剩余次数和余额 END
@@ -151,7 +151,7 @@ submit = ()->
 		else if msg["errCode"] is 32
 			#剩余次数和余额 START
 			if msg["user_type"] is "0"
-				info.fillTimes msg["remain_serach_count"]
+				info.fillTimes msg["remain_search_count"]
 			else
 				info.fillData(msg["account"]["balance"], msg["account"]["unit"])
 			alert msg["message"]

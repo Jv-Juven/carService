@@ -156,7 +156,20 @@ class BusinessController extends BaseController{
 
 			// 若服务器提供错误信息，则返回相应消息，否则统一返回'操作失败'
 			if ( array_key_exists( 'errMsg', $response_content ) ){
-				$error_message = $response_content[ 'errMsg' ];
+
+				if ( $response_content['errMsg'] == 9 ){
+
+					$response_content['errCode'] = 31;
+					$error_message = '参数错误';
+				}
+				else if ( $response_content['errMsg'] == 10 ){
+
+					$response_content['errCode'] = 32;
+					$error_message = '账户余额不足';
+				}
+				else{
+					$error_message = $response_content[ 'errMsg' ];
+				}
 			}
 			else{
 				$error_message = '操作失败';
@@ -168,12 +181,12 @@ class BusinessController extends BaseController{
 		}
 		catch( ClientException $e ){
 				
-			throw $e;
+			//throw $e;
 			throw new Exception( "服务器出错", 41 );
 		}
 		catch( ConnectException $e ){
 
-			throw $e;
+			//throw $e;
 			throw new Exception("请求失败", 42);
 		} 
 		// 操作出错
@@ -184,8 +197,8 @@ class BusinessController extends BaseController{
 		// 其他错误
 		catch( Exception $e ){
 
-			throw $e;
-			throw new Exception( '服务器出错', 51 );
+			//throw $e;
+			throw new Exception( '服务器出错', 41 );
 		}
 
 		// Return null in case the server has been fucked

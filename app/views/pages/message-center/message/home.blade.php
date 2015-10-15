@@ -1,8 +1,5 @@
 @extends('layouts.master')
 
-@section('title')
-    系统公告
-@stop
 
 @section('css')
 @parent
