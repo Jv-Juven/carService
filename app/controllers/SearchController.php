@@ -235,7 +235,7 @@ class SearchController extends BaseController{
             $return_message['user_type'] = $current_user->user_type;
 
             // 普通用户返回剩余查询次数
-            if ( $current_user->is_common_user() ){
+            if ( $current_user->is_common_user() && $e->getCode() < 50 ){
 
                 static::increase_search_count( $current_user->user_id );
 
