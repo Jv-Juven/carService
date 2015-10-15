@@ -9,7 +9,7 @@ logout = ()->
 			window.location.href = "/"
 		else
 			alert msg["errCode"]
-	.error(xhr, errorText, errorType)->
+	.error (xhr, errorText, errorType)->
 		alert "提交失败，请重试"
 
 logoutBtn.on "click", logout
