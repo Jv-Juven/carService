@@ -24,8 +24,8 @@ class UserPageController extends BaseController{
 	public function isEmailActive()
 	{
 		$token = Input::get('token');
-		$user = Cache::pull($token);
-		// 验证不通过，过期重新填写，回到邮箱注册页
+		$user = Cache::get($token);
+		
 		if(!isset($user))
 		{
 			//登录后发邮件去邮箱验证邮箱
