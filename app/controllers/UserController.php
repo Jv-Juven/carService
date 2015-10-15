@@ -686,6 +686,7 @@ class UserController extends BaseController{
 		if(!Sentry::check())
 			return Response::json(array('errCode'=>1, 'message'=>'用户未登录！'));
 		Sentry::logout();
+		Session::forget('violations');
 		// Session::forget('user_id');
 		return Response::json(array('errCode'=>0, 'message'=>'退出成功！'));
 	}
