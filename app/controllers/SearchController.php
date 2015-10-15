@@ -332,7 +332,7 @@ class SearchController extends BaseController{
         }
         catch( OperationException $e ){
 
-            $message = static::process_error( $e->getCode(), '查询失败' );
+            $message = static::process_error( $e->getCode(), $e->getMessage() );
 
             if ( $e->getCode() < 50 & isset( $account ) ){
                 $message['account'] = $account;
@@ -401,7 +401,7 @@ class SearchController extends BaseController{
         }
         catch( OperationException $e ){
 
-            $message = static::process_error( $e->getCode(), '查询失败' );
+            $message = static::process_error( $e->getCode(), $e->getMessage() );
 
             if ( $e->getCode() < 50 & isset( $account ) ){
                 $message['account'] = $account;
