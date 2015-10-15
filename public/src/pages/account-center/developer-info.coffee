@@ -32,7 +32,7 @@ getCodes = (e)->
 			timing(_this, 60, ()->
 				_this.on "click", getCodes
 			)
-			alert msg["message"]
+			alert "发送验证码成功"
 
 #提交信息
 submitMsg = ()->
@@ -47,9 +47,9 @@ submitMsg = ()->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
 		else
-			alert msg["message"]
-			companyName.text(msg["business_name"])
-			license.text(msg["business_licence_no"])
+			alert "提交信息成功"
+			companyName.text(msg["app_key"])
+			license.text(msg["app_secret"])
 
 
 

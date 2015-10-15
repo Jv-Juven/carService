@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html, charset=utf8"/>
 	<title>
-		登录
+		车尚 ｜ 实时精准的数据查询平台－交通违章－驾驶证－机动车
 	</title>
 	<link rel="stylesheet" type="text/css" href="/dist/css/common.css">
 	<link rel="stylesheet" type="text/css" href="/dist/css/components.css">
@@ -28,7 +28,7 @@
 							</a>
 						</li>
 						<li class="login-help">
-							<a href="/">
+							<a href="faq.gzcheshang.com">
 								使用帮助
 							</a>
 						</li>

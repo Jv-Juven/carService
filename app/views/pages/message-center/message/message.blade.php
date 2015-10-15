@@ -1,8 +1,5 @@
 @extends('layouts.submaster')
 
-@section('title')
-    全部消息
-@stop
 
 @section('css')
 @parent

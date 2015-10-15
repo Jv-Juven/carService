@@ -1,8 +1,5 @@
 @extends("layouts.submaster")
 
-@section("title")
-开发者信息
-@stop
 
 @section("css")
 	@parent

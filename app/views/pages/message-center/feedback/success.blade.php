@@ -1,9 +1,5 @@
 @extends('layouts.submaster')
 
-@section('title')
-    信息反馈
-@stop
-
 @section('css')
 @parent
 <link rel="stylesheet" type="text/css" href="/dist/css/pages/message-center/feedback/success.css">

@@ -1,7 +1,7 @@
 @extends("layouts.submaster")
 
 @section("title")
-开发者信息
+
 @stop
 
 @section("css")
@@ -22,12 +22,12 @@
 				注册信息
 			</div>
 			<div class="developer-tr">
-				<div class="tr tr-title">企业名称：</div>
+				<div class="tr tr-title">APP KEY：</div>
 				<div class="tr tr-content company-name">*****************************</div>
 			</div>
 
 			<div class="developer-tr">
-				<div class="tr tr-title">营业执照注册号：</div>
+				<div class="tr tr-title">APP SECRET：</div>
 				<div class="tr tr-content reg-license">****************************************</div>
 			</div>
 			<div class="submit-btn">

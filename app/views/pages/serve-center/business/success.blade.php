@@ -1,8 +1,5 @@
 @extends("layouts.submaster")
 
-@section("title")
-支付成功
-@stop
 
 @section("css")
 	@parent

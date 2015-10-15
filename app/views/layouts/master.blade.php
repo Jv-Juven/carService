@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<title>
-		@yield("title", "车尚车服务系统")
+		@yield("title", "车尚 ｜ 实时精准的数据查询平台－交通违章－驾驶证－机动车")
 	</title>
 	@section("css")
 	<link rel="stylesheet" type="text/css" href="/dist/css/common.css">

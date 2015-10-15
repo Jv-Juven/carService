@@ -72,6 +72,33 @@ $ ()->
 	#更换验证码图片
 	changeCaptcha.on "click", getCaptcha
 
+	#失去焦点时验证数据格式是否正确
+	email.on "blur", ()->
+		if !validate.email email.val()
+			email.next().fadeIn(100).end()
+			return
+		email.next().hide()
+
+	password.on "blur", ()->
+		if !validate.password password.val()
+			password.next().fadeIn(100).end()
+			return
+		password.next().hide()
+
+	rePassword.on "blur", ()->
+		if rePassword.val().length is 0
+			rePassword.next().fadeIn(100).end()
+			return
+		rePassword.next().hide()
+
+
+
+		
+
+		
+
+		
+
 
 
 

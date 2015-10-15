@@ -1,8 +1,6 @@
 @extends("layouts.submaster")
 
-@section("title")
-违章查询
-@stop
+
 
 @section("css")
 	@parent
