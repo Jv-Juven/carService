@@ -3,6 +3,7 @@ placeholder = require "./../../common/placeholder/placeholder.coffee"
 
 if $.browser.msie
 	if $.browser.version < 10
+		alert $.browser.msie 
 		inputs = [
 			[$(".login-content #account_num"), "邮箱"],
 			[$(".login-content #password"), "密码"]
