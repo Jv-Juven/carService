@@ -23,6 +23,7 @@
             <span class="label">账户余额:</span>
             <span class="balance">{{{ $account_info['balance'] }}}</span>
         </p>
+        <br/>
         <p>
             <span class="desc">账户余额仅可以抵扣数据查询费用；单次充值金额不低于50元，且为整数。</span>
         </p>
