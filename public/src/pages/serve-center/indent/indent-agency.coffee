@@ -252,6 +252,7 @@ $ ()->
 	if $(".indent-tr").length is 0
 		$(".indent-tables-wrapper").hide()
 		noResulte.show()
+		$(".paginate-wrap").hide()
 
 
 
