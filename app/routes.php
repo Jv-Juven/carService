@@ -41,7 +41,7 @@ Route::group(array('prefix'=>'user'), function(){
 	//C端用户注册－密码页
 	Route::post('c_register','UserController@cSiteRegister');
 	//b端用户忘记密码密码－重置密码
-	Route::post('reset-bsite-forgetpwd','UserController@resetForgetPassword');
+	Route::post('reset-bsite-forgetpwd','UserController@resetBForgetPassword');
 	//c端用户忘记密码－重置密码
 	Route::post('reset-csite-forgetpwd','UserController@resetCForgetPassword');
 	//登出
