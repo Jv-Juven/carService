@@ -24,6 +24,8 @@ placeholder = (ele, text, color)->
 	if placeholderText isnt ""
 		text = placeholderText
 
+	alert text
+	
 	ele.val text
 
 

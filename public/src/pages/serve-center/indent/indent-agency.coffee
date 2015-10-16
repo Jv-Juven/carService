@@ -47,6 +47,8 @@ refundCloseBtn = $("#refund_btn")
 
 payBtn = $(".immediately-pay")
 
+noResulte = $(".indent-no-resulte")
+
 #关闭弹窗
 closeMask = ()->
 	maskBg.fadeOut(100)
@@ -67,6 +69,9 @@ init_datepicker = ()->
 
 #”查询“订单
 submit = ()->
+
+	$(".indent-tables-wrapper").hide()
+	noResulte.hide()
 
 	plateNo = plate.find("option:selected").text() + plateNum.val()
 	dateStartValue = dateStart.val()
@@ -92,6 +97,9 @@ submit = ()->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
 			else
+				if msg["orders"].length is 0
+					noResulte.show()
+					return
 				# array01 = _.filter msg["orders"], "process_status", "0"
 				# array02 = _.filter msg["orders"], "process_status", "1"
 				# array03 = _.filter msg["orders"], "process_status", "2"
@@ -234,6 +242,11 @@ $ ()->
 	$(document).on "click", "#refund_btn", refundMaskClose
 	#"立即付款"按钮事件绑定
 	$(document).on "click", ".immediately-pay", pay
+
+	#当订单记录为空的时候，隐藏表格
+	if !$(".indent-tr")
+		$(".indent-tables-wrapper").hide()
+		noResulte.show()
 
 
 
