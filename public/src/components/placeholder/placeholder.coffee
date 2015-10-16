@@ -53,11 +53,11 @@ inputs = [
 	[".change-email .re-new-password", "请再次输入密码"],
 ]
 
-
-if $.browser.msie
-	if $.browser.version < 10
-		$.each inputs, (i, value)->
-			# console.log value
-			placeholder.apply null, value
+$ ()->
+	if $.browser.msie
+		if $.browser.version < 10
+			$.each inputs, (i, value)->
+				# console.log value
+				placeholder.apply null, value
 
 
