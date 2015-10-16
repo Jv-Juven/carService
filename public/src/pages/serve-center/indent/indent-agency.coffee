@@ -249,7 +249,7 @@ $ ()->
 	$(document).on "click", ".immediately-pay", pay
 
 	#当订单记录为空的时候，隐藏表格
-	if $(".indent-tr") is 0
+	if $(".indent-tr").length is 0
 		$(".indent-tables-wrapper").hide()
 		noResulte.show()
 
