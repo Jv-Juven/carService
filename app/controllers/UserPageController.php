@@ -24,7 +24,7 @@ class UserPageController extends BaseController{
 	public function isEmailActive()
 	{
 		$token = Input::get('token');
-		$user = Cache::get($token);
+		$user = Cache::pull($token);
 		
 		if(!isset($user))
 		{
