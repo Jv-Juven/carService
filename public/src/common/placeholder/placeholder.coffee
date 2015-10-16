@@ -32,9 +32,9 @@ placeholder = (ele, text, color)->
 	ele.val text
 	ele.css "color", color
 	if type is "password"
-		ele[0].type = "text"
+		ele.attr("type", "text")
 
-	#判断用户输入内容的长度
+	#判断用户输入内容的长短
 	ele.on "change input", ()->
 		if ele.val().length > 0
 			tag = 1
@@ -46,14 +46,14 @@ placeholder = (ele, text, color)->
 		if tag is 1
 			return
 		if type is "password"
-			ele[0].type = "password"
+			ele.attr("type", "password")
 		ele.val ""
 		ele.css("color", oldColor)
 	ele.on "blur", ()->
 		if tag is 1
 			return
 		if type is "password"
-			ele[0].type = "text"
+			ele.attr("type", "text")
 		ele.val text
 		ele.css("color", color)
 
