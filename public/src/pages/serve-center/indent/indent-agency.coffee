@@ -70,8 +70,9 @@ init_datepicker = ()->
 #”查询“订单
 submit = ()->
 
-	$(".indent-tables-wrapper").hide()
-	noResulte.hide()
+	#显示与隐藏初始化，隐藏分页按钮
+	$(".paginate-wrap").hide()
+
 
 	plateNo = plate.find("option:selected").text() + plateNum.val()
 	dateStartValue = dateStart.val()
@@ -97,6 +98,11 @@ submit = ()->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
 			else
+
+				#显示与隐藏初始化
+				$(".indent-tables-wrapper").hide()
+				noResulte.hide()
+
 				if msg["orders"].length is 0
 					noResulte.show()
 					return
@@ -143,8 +149,7 @@ submit = ()->
 					
 				#显示搜索框的内容
 				$(".indent-tables-wrapper").show()
-				#隐藏分页按钮
-				$(".paginate-wrap").hide()
+				
 
 
 #切换信息填写
@@ -244,7 +249,7 @@ $ ()->
 	$(document).on "click", ".immediately-pay", pay
 
 	#当订单记录为空的时候，隐藏表格
-	if !$(".indent-tr")
+	if $(".indent-tr") is 0
 		$(".indent-tables-wrapper").hide()
 		noResulte.show()
 
