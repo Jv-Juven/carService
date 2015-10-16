@@ -72,7 +72,11 @@ class AgencyPageController extends BaseController{
         $agency_order = AgencyOrder::find( Input::get( 'order_id' ) );
 
         if ( !isset( $agency_order ) ){
-            return Response::make( '无效order_id' );
+            return Response::make( '无效参数' );
+        }
+
+        if ( $agency_order->trade_status != '0' ){
+            return Response::make( '该订单已付款' );
         }
 
         return View::make( 'pages.serve-center.business.pay', [ 'order' => $agency_order ]);
