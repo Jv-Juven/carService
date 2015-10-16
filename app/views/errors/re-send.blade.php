@@ -14,6 +14,22 @@
 <body>
 
 	<!-- 页头 START		 -->
+	<div class="header-wrapper">
+		<div class="header reg-header">
+			<div class="logo">
+				<a href="/">
+					<ul class="logo-wrapper">
+						<li>
+							<span class="bg-block">
+								<img id="login_header_logo" src="/images/common/logo.png">
+							</span>
+						</li>
+					</ul>
+				</a>
+			</div>
+		</div>
+	</div>
+
 	<!-- 页头 END		 -->
 
 	<div class="login-wrapper">
