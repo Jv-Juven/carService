@@ -769,3 +769,17 @@ if( Sentry::check() )
 			 		
 	 		}
 
+	8. 重新填写信息
+	请求方式：post
+	请求url：/user/re-write-info
+
+	请求参数：
+
+	返回参数：
+			{
+				errCode,			0返回正常
+		 		message, 			错误信息
+			}
+
+
+

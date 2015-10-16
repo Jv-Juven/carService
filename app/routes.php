@@ -86,6 +86,8 @@ Route::group(array('prefix'=>'user'), function(){
 		Route::get('no-pass-words','UserPageController@noPassword');
 		//获取用户访问次数
 		Route::get('count','SearchController@count');
+		//重新填写信息
+		Route::post('re-write-info','UserController@reWriteInfo');
 	});
 });
 

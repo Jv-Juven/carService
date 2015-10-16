@@ -1001,4 +1001,13 @@ class UserController extends BaseController{
 		}
 	}
 
+	//重新填写
+	public function reWriteInfo()
+	{
+		$user = Sentry::getUser();
+		if( !$user->delete() )
+			return Response::json( array( 'errCode'=>21, 'message'=>'重新填写请求失败，'));
+		return Response::json( array('errCode'=>0, 'message'=>'请求成功' ));
+	}
+
 }
