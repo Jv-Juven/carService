@@ -47,6 +47,8 @@ refundCloseBtn = $("#refund_btn")
 
 payBtn = $(".immediately-pay")
 
+noResulte = $(".indent-no-resulte")
+
 #关闭弹窗
 closeMask = ()->
 	maskBg.fadeOut(100)
@@ -67,6 +69,10 @@ init_datepicker = ()->
 
 #”查询“订单
 submit = ()->
+
+	#显示与隐藏初始化，隐藏分页按钮
+	$(".paginate-wrap").hide()
+
 
 	plateNo = plate.find("option:selected").text() + plateNum.val()
 	dateStartValue = dateStart.val()
@@ -92,6 +98,14 @@ submit = ()->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
 			else
+
+				#显示与隐藏初始化
+				$(".indent-tables-wrapper").hide()
+				noResulte.hide()
+
+				if msg["orders"].length is 0
+					noResulte.show()
+					return
 				# array01 = _.filter msg["orders"], "process_status", "0"
 				# array02 = _.filter msg["orders"], "process_status", "1"
 				# array03 = _.filter msg["orders"], "process_status", "2"
@@ -135,8 +149,7 @@ submit = ()->
 					
 				#显示搜索框的内容
 				$(".indent-tables-wrapper").show()
-				#隐藏分页按钮
-				$(".paginate-wrap").hide()
+				
 
 
 #切换信息填写
@@ -234,6 +247,12 @@ $ ()->
 	$(document).on "click", "#refund_btn", refundMaskClose
 	#"立即付款"按钮事件绑定
 	$(document).on "click", ".immediately-pay", pay
+
+	#当订单记录为空的时候，隐藏表格
+	if $(".indent-tr").length is 0
+		$(".indent-tables-wrapper").hide()
+		noResulte.show()
+		$(".paginate-wrap").hide()
 
 
 
