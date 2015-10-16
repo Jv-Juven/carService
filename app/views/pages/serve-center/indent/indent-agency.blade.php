@@ -22,6 +22,9 @@
 							<a class="btn" href="javascript:">按订单信息查询</a>
 						</td>
 					</tr>
+					<tr>
+						<td></td>
+					</tr>
 					<tr class="indent-number">
 						<td class="indent-table-title">订单编号：</td>
 						<td class="indent-table-content">
@@ -65,7 +68,6 @@
 			</div>
 			<div class="indent-no-resulte">当前还没有管理订单</div>
 			<div class="indent-tables-wrapper">
-				
 				
 				<table class="indent-list-table">
 
