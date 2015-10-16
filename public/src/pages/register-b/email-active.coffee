@@ -10,9 +10,9 @@ resend = ()->
 			alert "邮件发送成功"
 #返回重新填写
 back = ()->
-	$.post "/user/logout", {}, (msg)->
-		if (msg["errCode"] is 0)|| (msg["errCode"] is 10)
-			window.location.href = "/user/b_register"
+	$.post "/user/re-write-info", {}, (msg)->
+		if (msg["errCode"] is 0) or (msg["errCode"] is 10)
+			window.location.href = "/user/b_register" 
 		else
 			alert msg["errCode"]
 
