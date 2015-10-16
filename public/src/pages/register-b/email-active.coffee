@@ -12,7 +12,7 @@ resend = ()->
 back = ()->
 	$.post "/user/re-write-info", {}, (msg)->
 		if (msg["errCode"] is 0) or (msg["errCode"] is 10)
-			window.location.href = "/user/b_register" 
+			window.location.href = "/user/b_register?v=" + Math.random()
 		else
 			alert msg["errCode"]
 
