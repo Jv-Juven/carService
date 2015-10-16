@@ -41,7 +41,7 @@
 						<span class="msg-title">
 							手机验证码：
 						</span>
-						<input class="msg-input psd-phone-code" type="text" placeholder="请查看手机获取验证码"/>
+						<input class="msg-input psd-phone-code" id="account_info_c_phone_codes" type="text" placeholder="请查看手机获取验证码"/>
 						<a href="javascript:" class="msg-btn psd-get-phone-codes">获取验证码</a>
 					</div>
 					<!-- <div class="msg-line">
@@ -54,13 +54,13 @@
 						<span class="msg-title">
 							密码：
 						</span>
-						<input class="msg-input psd-password" type="password" placeholder="字母、数字或者英文符号，最短6位，区分大小写"/>
+						<input class="msg-input psd-password" id="account_info_c_password" type="password" placeholder="字母、数字或者英文符号，最短6位，区分大小写"/>
 					</div>
 					<div class="msg-line">
 						<span class="msg-title">
 							确认密码：
 						</span>
-						<input class="msg-input psd-repassword" type="password" placeholder="请再次输入密码"/>
+						<input class="msg-input psd-repassword" id="account_info_c_repassword" type="password" placeholder="请再次输入密码"/>
 					</div>
 				</div>
 				<div class="tips-words psd-tips"></div>

@@ -32,7 +32,7 @@
 						<td class="indent-table-title">车牌号码：</td>
 						<td class="indent-table-content indent-inputs">
 							@include("components.province-abbre")
-							<input class="input plate-num" type="text" placeholder="车牌号码后六位"/>
+							<input class="input plate-num" id="indent_agency_plate_num" type="text" placeholder="车牌号码后六位"/>
 							<!-- @include("components.select-types") -->
 						</td>
 					</tr>
