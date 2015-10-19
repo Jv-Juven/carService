@@ -206,8 +206,8 @@ $ ()->
 	#“违章办理”按钮事件绑定
 	$(document).on "click", ".deal-btn a", dealVio
 	#点击多选按钮计算费用总计
-	$(document).on "click", ".vio-records-table01 td .checkbox", ()->
-		_this = $(this)
+	$(document).on "click", ".vio-records-table01 td .checkbox", (e)->
+		_this = $(e.currentTarget)
 		total_principal = $(".vio-select-resulte .total-principal")
 		total_late_fee = $(".vio-select-resulte .total-late-fee")
 		total_service_fee = $(".vio-select-resulte .total-service-fee")
@@ -225,6 +225,9 @@ $ ()->
 			total_service_fee.text(parseInt(total_service_fee.text()) - service_fee)
 			
 		total_sum.text(parseInt(total_principal.text()) + parseInt(total_late_fee.text()) + parseInt(total_service_fee.text()))
+	#全选按钮点击
+	$(document).on "click", ".vio-records-table01 th .checkbox", ()->
+		$(".vio-records-table01 td .checkbox").trigger("click")
 	
 
 
