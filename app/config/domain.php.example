@@ -2,6 +2,6 @@
 
 return array(
     'server'        => 'http://127.0.0.1:8888',
-    'app_key'       => 'csak3fb28e90715a11e590186bed1a05432e',
-    'app_secret'    => 'cssk533c7f7a38014afeb42aa30a1eb4ba9b',
+    'app_key'       => '',
+    'app_secret'    => '',
 );
