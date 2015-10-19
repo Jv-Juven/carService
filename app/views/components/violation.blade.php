@@ -139,7 +139,7 @@
 				<span class="serve-money"><%- service_fee %></span>
 			</td>
 			<tb>
-				<span class="total-sum"><%- tatol_sum %></span>
+				<span class="total-sum"><%- total_sum %></span>
 			</td>
 		</tr>
 	<% } %>
