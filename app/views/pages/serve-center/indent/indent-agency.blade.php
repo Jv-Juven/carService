@@ -248,7 +248,9 @@
 			</td>
 		</tr>
 
-		<% for(var j = 0; j < info.length; j ++ ){ %>
+		<% for(var j = 0; j < info.length; j ++ ){ 
+			var rep_total_fee = parseInt(info[j]["rep_priciple_balance"] + "0") + parseInt(info[j]["rep_late_fee"] + "0") + parseInt(info[j]["rep_service_charge"] + "0")
+		%>
 			<tr class="indent-tr indent-tr-content">
 				<td class="table-time">
 					<span><%- info[j]["rep_event_time"] %></span>
@@ -266,7 +268,7 @@
 				</td>
 
 				<td>
-					<span><%- info[j]["rep_total_fee"] %></span>
+					<span><%- rep_total_fee %></span>
 				</td>
 			</tr>
 		<% } %>
