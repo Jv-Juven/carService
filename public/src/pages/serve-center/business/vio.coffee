@@ -205,6 +205,26 @@ $ ()->
 	vioBtn.on "click", submit
 	#“违章办理”按钮事件绑定
 	$(document).on "click", ".deal-btn a", dealVio
+	#点击多选按钮计算费用总计
+	$(".vio-records-table01 td .checkbox").on "click", ()->
+		_this = $(this)
+		total_principal = $(".vio-select-resulte .total-principal")
+		total_late_fee = $(".vio-select-resulte .total-late-fee")
+		total_service_fee = $(".vio-select-resulte .total-service-fee")
+		principal = parseInt _this.parent().parent().find(".principal").text()
+		late_fee = parseInt _this.parent().parent().find(".late-fee").text()
+		service_fee = parseInt _this.parent().parent().find(".serve-money").text()
+		total_sum = $(".vio-select-resulte .total-money")
+		if _this.prop("checked")
+			total_principal.text(total_principal.text() + principal)
+			total_late_fee.text(total_late_fee.text() + late_fee)
+			total_service_fee.text(total_service_fee.text() + service_fee)
+		else
+			total_principal.text(total_principal.text() - principal)
+			total_late_fee.text(total_late_fee.text() - late_fee)
+			total_service_fee.text(total_service_fee.text() - service_fee)
+			
+		total_sum.text(total_principal.text() + total_late_fee.text() + total_service_fee.text())
 	
 
 
