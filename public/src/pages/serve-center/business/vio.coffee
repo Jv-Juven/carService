@@ -253,10 +253,15 @@ $ ()->
 			service_fee.each ()->
 				total_service_fee_all += parseInt $(this).text()
 
+
+			total_principal.text total_principal_all
+			total_late_fee.text total_late_fee_all
+			total_service_fee.text total_service_fee_all
+
 			total_sum.text(total_principal_all + total_late_fee_all + total_service_fee_all)
 
 		else
-			
+
 			total_principal.text("0")
 			total_late_fee.text("0")
 			total_service_fee.text("0")
