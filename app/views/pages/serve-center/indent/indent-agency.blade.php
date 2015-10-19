@@ -66,7 +66,7 @@
 				<a class="inline-btn indent-submit" href="javascript:">查询</a>
 				<span class="indent-btn-tips">温馨提示：如果没有选择时间范围，默认查询1年以内的记录。</span>
 			</div>
-			<div class="indent-no-resulte">当前还没有管理订单</div>
+			<div class="indent-no-resulte">当前还没有管理订单!</div>
 			<div class="indent-tables-wrapper">
 				
 				<table class="indent-list-table">
