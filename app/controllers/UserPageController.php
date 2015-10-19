@@ -27,27 +27,14 @@ class UserPageController extends BaseController{
 		$user = Cache::get($token);
 		
 		if(!isset($user))
-		{
 			//登录后发邮件去邮箱验证邮箱
 			return View::make('errors.re-send');
-		}
+
 		$status = User::find( $user->user_id )->status;
-		// switch ( $status ) {
-		// 		case 11:
-		// 			return View::make('pages.register-b.reg-info');//信息登记
-		// 		case 20:
-		// 			return View::make('pages.account-status.no-pass-words');//您的帐号正在审核中，请耐心等候！
-		// 		case 21:
-		// 			return View::make('pages.account-status.write-codes');//填写打款备注码页面
-		// 		case 22:
-		// 			return View::make('pages.serve-center.data.violation');
-		// 		case 30:
-		// 			return View::make('errors.lock');//帐号锁定页面
-		// }
+		//点击一次成功后不能再次使用
 		if( $status != 10)
-		{
 			return View::make('errors.re-send');
-		}
+
 		if( Sentry::check() )
 		{
 			//将状态信息改成未填写登记信息
