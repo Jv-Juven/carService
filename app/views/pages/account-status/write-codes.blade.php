@@ -16,12 +16,13 @@
 			<input type="text" class="write-codes-input" placeholder="请输入打款备注码" />
 		</div>
 		<div class="write-codes-tips">
-			请于贵公司/单位的财务沟通，获得打款验证码
+			请与贵公司/单位的财务沟通，获得打款验证码
 		</div>
 		<div class="tips-words warn-tips"></div>
 		<div class="submit-btn write-codes-submit-btn">
 			<a href="javascript:">提交验证</a>
 		</div>
+	</div>
 
 </div>
 

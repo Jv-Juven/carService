@@ -28,7 +28,7 @@
 					<tr class="indent-number">
 						<td class="indent-table-title">订单编号：</td>
 						<td class="indent-table-content">
-							<input type="text" id="indent-number" placeholder="请输入发动机号码后6位"/>
+							<input type="text" id="indent-number" placeholder="请输入订单的编号"/>
 						</td>
 					</tr>
 					<tr class="indent-details">
@@ -248,7 +248,9 @@
 			</td>
 		</tr>
 
-		<% for(var j = 0; j < info.length; j ++ ){ %>
+		<% for(var j = 0; j < info.length; j ++ ){ 
+			var rep_total_fee = parseInt(info[j]["rep_priciple_balance"] + "0") + parseInt(info[j]["rep_late_fee"] + "0") + parseInt(info[j]["rep_service_charge"] + "0")
+		%>
 			<tr class="indent-tr indent-tr-content">
 				<td class="table-time">
 					<span><%- info[j]["rep_event_time"] %></span>
@@ -266,7 +268,7 @@
 				</td>
 
 				<td>
-					<span><%- info[j]["rep_total_fee"] %></span>
+					<span><%- rep_total_fee %></span>
 				</td>
 			</tr>
 		<% } %>
