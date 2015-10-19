@@ -68,6 +68,9 @@ loadSubmit = ()->
 #“确定”按钮事件，显示违章查询结果
 submit = ()->
 
+	#表格显示初始化
+	$(".vio-records-table").hide()
+
 	if !validate.engineNum(plateNum.val()) || (plateNum.val().length isnt 6)
 		vioTips.text "*请正确填写车牌号码后六位"
 		plateNum.val("").focus()

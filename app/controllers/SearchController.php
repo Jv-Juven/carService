@@ -147,7 +147,7 @@ class SearchController extends BaseController{
                     }
 
                     // 只显示未交款或未处理的的违章信息
-                    if ( $value['clbj'] == '0' || $value['jkbj'] == '0'  ){
+                    if ( !( $value['clbj'] == '1' && $value['jkbj'] == '1' ) ){
 
                         array_push( $result_to_show, $value );
 

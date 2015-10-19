@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	<title>
 		@yield("title", "车尚 ｜ 实时精准的数据查询平台－交通违章－驾驶证－机动车")
 	</title>

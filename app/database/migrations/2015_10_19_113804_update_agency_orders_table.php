@@ -28,10 +28,9 @@ class UpdateAgencyOrdersTable extends Migration {
 	 */
 	public function down(){
 
-		Schema::table('agency_orders', function(Blueprint $table){
+		Schema::table('agency_orders', function( $table ){
 
 			$table->dropColumn( 'car_frame_no' );
 		});
 	}
-
 }

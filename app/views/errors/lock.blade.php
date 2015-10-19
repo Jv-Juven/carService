@@ -20,7 +20,8 @@
 		</div>
 		<div class="tips-words warn-tips"></div>
 		<div class="submit-btn write-codes-submit-btn">
-			<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=3151392485&site=qq&menu=yes">联系客服</a>
+			<!-- <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=3151392485&site=qq&menu=yes">联系客服</a> -->
+			@include("components.contact-us-a")
 		</div>
 	</div>
 

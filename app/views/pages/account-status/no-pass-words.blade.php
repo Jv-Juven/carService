@@ -17,7 +17,7 @@
 			您的帐号正在审核中，请耐心等候！
 		</div>
 		<div class="no-pass-words-tips">
-			如有疑问，请发送到邮箱 <span class="no-pass-email">service@gzcheshang.com</span>
+			如有疑问，请发送到邮箱 <a href="mailto:service@gzcheshang.com" class="no-pass-email">service@gzcheshang.com</a>
 		</div>
 	</div>
 </div>

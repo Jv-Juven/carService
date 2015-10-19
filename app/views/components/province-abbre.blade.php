@@ -1,4 +1,4 @@
-<select class="input select-plate">
+<select class="input select-plate select-province">
 	<option value="01">京</option>
 	<option value="02">津</option>
 	<option value="03">沪</option>
