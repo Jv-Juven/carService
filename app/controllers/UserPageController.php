@@ -24,13 +24,17 @@ class UserPageController extends BaseController{
 	public function isEmailActive()
 	{
 		$token = Input::get('token');
-		$user = Cache::pull($token);
+		$user = Cache::get($token);
 		
 		if(!isset($user))
-		{
 			//登录后发邮件去邮箱验证邮箱
 			return View::make('errors.re-send');
-		}
+
+		$status = User::find( $user->user_id )->status;
+		//点击一次成功后不能再次使用
+		if( $status != 10)
+			return View::make('errors.re-send');
+
 		if( Sentry::check() )
 		{
 			//将状态信息改成未填写登记信息

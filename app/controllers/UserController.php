@@ -394,7 +394,7 @@ class UserController extends BaseController{
 			$user = User::where('login_account',$user->login_account)->first();
 			Sentry::login($user,false);
 			
-			Cache::put($token,$user,30);
+			Cache::put($token,$user,1440);
 			// var_dump($user->user_id);
 			
 			return Response::json(array('errCode'=>0, 'message'=>'验证码发送成功!'));
@@ -666,9 +666,9 @@ class UserController extends BaseController{
 						case 11:
 							return Response::json(array('errCode'=>11,'message'=>'11-ok'));//信息登记
 						case 20:
-							return Response::json(array('errCode'=>20,'message'=>'20-ok'));//打款备注码页面
+							return Response::json(array('errCode'=>20,'message'=>'20-ok'));//您的帐号正在审核中，请耐心等候！
 						case 21:
-							return Response::json(array('errCode'=>21,'message'=>'21-ok'));//等待用户校验激活
+							return Response::json(array('errCode'=>21,'message'=>'21-ok'));//打款备注码页面
 						case 30:
 							return Response::json(array('errCode'=>30,'message'=>'30-ok'));//帐号锁定页面
 					}

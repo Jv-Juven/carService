@@ -15,9 +15,9 @@
         <h4>用户查询统计</h4>
         <hr />
         <form class="form-inline">
-	        <div class="form-group" id="uid-wrapper">
-	            <label for="uid">用户ID：</label>
-	            <input type="text" id="uid" class="form-control" value="{{{ $uid }}}"/>
+	        <div class="form-group" id="name-wrapper">
+	            <label for="name">企业名称：</label>
+	            <input type="text" id="name" class="form-control" value="{{{ $name }}}"/>
 	        </div>
             <div class="form-group">
                 <label for="company-name">开始时间：</label>
