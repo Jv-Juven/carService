@@ -26,10 +26,16 @@ class AdminController extends BaseController {
 	{
 		$startDate = Input::get("startDate");
 		$endDate = Input::get("endDate");
-		$uid = Input::get("uid");
+		$name = Input::get("name");
+
+		$user = BusinessUser::where("business_name", "=", $name)->first();
+
+		if(!isset($user)) 
+			return Response::json(array("errCode" => 1, "errMsg" => "[数据库错误]找不到该用户"));
+
 
 		try {
-			$data = BusinessController::count($uid, $startDate, $endDate);
+			$data = BusinessController::count($user->user_id, $startDate, $endDate);
 		} catch (Exception $e) {
 			return Response::json(array("errCode" => 1, "errMsg" => "[服务器错误]获取访问接口统计数据失败"));
 		}

@@ -65,11 +65,11 @@ initHighCharts = (selector, data)->
 
 	$(selector).highcharts options
 
-init = (uid)->
-	if(uid != "")
+init = (name)->
+	if(name != "")
 		console.log "自动查询..."
 		params =	
-			uid: uid
+			name: name
 			startDate: moment().startOf('month').format("x")
 			endDate: Number(moment().startOf('month').format("x")) + 86400 * 30 * 1000
 
@@ -83,9 +83,9 @@ $startDatePicker = $("#start-date-picker");
 $endDatePicker = $("#end-date-picker");
 
 $ ()->
-	uid = $("#uid").val()
+	name = $("#name").val()
 
-	init(uid)
+	init(name)
 
 	$('.form-date').datetimepicker({
 		language:  'fr',
@@ -100,7 +100,7 @@ $ ()->
 
 	$("#search-btn").click (e)->
 		params = 
-			uid: $("#uid").val()
+			name: $("#name").val()
 
 		startDateStr = $startDatePicker.val()
 		if startDateStr != ""
