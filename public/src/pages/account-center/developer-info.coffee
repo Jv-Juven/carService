@@ -48,7 +48,6 @@ submitMsg = ()->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
 		else
-			alert "提交信息成功"
 			companyName.text(msg["app_key"])
 			license.text(msg["app_secret"])
 			$(".warn-close").trigger "click"

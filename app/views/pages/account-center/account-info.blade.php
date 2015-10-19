@@ -68,7 +68,7 @@
 		</div>
 	</div>
 	<div class="mask-bg"></div>		
-	<div class="mask-wrapper change-password" style="display: none;">
+	<div class="mask-wrapper change-password" id="account_info_mask" style="display: none;">
 		<div class="warn-box">
 			<div class="warn-title">
 				修改密码

@@ -85,9 +85,10 @@
 					float: left;
 					width: auto;
 					&>input{
-						padding-left: 10px;
 						width: 300px;
-						height: 36px;
+						height: 14px;
+						line-height: 14px;
+						padding: 11px 0px 11px 10px;
 						border: 1px solid @border-col;
 						font-size: 14px;
 					}
@@ -163,11 +164,12 @@
 					}
 					.msg-input{
 						width: 300px;
-						height: @line-height;
+						height: 14px;
+						line-height: 14px;
 						.inline-block();
 						margin: 0px 10px;
 						border: 1px solid @border-col;
-						padding-left: 10px;
+						padding: 11px 0px 11px 10px;
 					}
 					.msg-btn{
 						.inline-btn();
@@ -176,6 +178,19 @@
 					.reg-validate{
 						width: 157px;
 					}
+
+				}
+				.info-protocol{
+					width: 100%;
+					height: 20px;
+					margin: 10px auto 0px;
+					text-align: center;
+					label{
+						cursor: pointer;
+					}
+					a{
+						.a-color(@blue);
+					}
 				}
 				.login-msg-tips{
 					width: 530px;
@@ -183,12 +198,22 @@
 					color: rgb(100, 100, 100);
 				}
 				.warn-tips{
+					margin-top: 10px;
+					height: 24px;
+					.msg-title{
+						height: 10px;
+						float: left;
+					}
 					input{
+						float: left;
+						display: inline-block;
+						height: 14px;
 						color: red;
 						font-size: 12px;
 						border: 0px;
 						padding-left: 14px;
 						width: 300px;
+						text-align: center;
 					}
 
 				}
@@ -246,11 +271,12 @@
 					}
 					.msg-input{
 						width: 300px;
-						height: @line-height;
+						height: 14px;
+						line-height: 14px;
 						.inline-block();
 						margin: 0px 10px;
 						border: 1px solid @border-col;
-						padding-left: 10px;
+						padding: 11px 0px 11px 10px;
 					}
 					.msg-btn{
 						.inline-btn(120px);

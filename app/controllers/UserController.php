@@ -676,7 +676,7 @@ class UserController extends BaseController{
 	            return Response::json($message);
             }
         }catch (\Exception $e){
-            return Response::json(array('errCode'=>1,'message'=>'账户或密码错误'.$e->getMessage()));
+            return Response::json(array('errCode'=>1,'message'=>'账户或密码错误'));
         }
 	}
 
@@ -686,6 +686,7 @@ class UserController extends BaseController{
 		if(!Sentry::check())
 			return Response::json(array('errCode'=>1, 'message'=>'用户未登录！'));
 		Sentry::logout();
+		Session::forget('violations');
 		// Session::forget('user_id');
 		return Response::json(array('errCode'=>0, 'message'=>'退出成功！'));
 	}
@@ -778,12 +779,18 @@ class UserController extends BaseController{
 
 		//验证手机
 		$login_account 	= Input::get('login_account');
-		try{
-			$user = Sentry::login($login_account);
-			Sentry::logout();
-		}catch(Exception $e){
+		
+		//验证手机
+		$login_account 	= Input::get('login_account');
+		$user = User::where('login_account',$login_account)->get();
+		if( count($user) == 0)
 			return Response::json(array('errCode'=>22,'message'=>'手机号码不正确，请重新输入'));
-		}
+	#	try{
+	#		$user = Sentry::login($login_account);
+	#		Sentry::logout();
+	#	}catch(Exception $e){
+	#		return Response::json(array('errCode'=>22,'message'=>'手机号码不正确，请重新输入'));
+	#	}
 
 		$data = array(
 			'password' 	   => Input::get('password'),
@@ -821,7 +828,7 @@ class UserController extends BaseController{
 			}
 		}
 		//重置密码
-		$user = Sentry::findUserById($login_account);
+		$user = Sentry::findUserById($user[0]->user_id);
 		$resetCode = $user->getResetPasswordCode();
 		if(!$user->attemptResetPassword($resetCode, $data['password']))
 			return Response::json(array('errCode' => 25,'message' => '重置密码失败!'));
@@ -983,15 +990,24 @@ class UserController extends BaseController{
 		if ($user->checkResetPasswordCode($display_code))
 		{
 			$business_user 		 = BusinessUser::find($user->user_id);
-			$business_name 		 = $business_user->business_name;
-			$business_licence_no = $business_user->business_licence_no;
+			$app_key 		 = $business_user->app_key;
+			$app_secret = $business_user->app_secret;
 			return Response::json(array('errCode'=>0,
 										'message'=>'显示开发者信息',
-										'app_key' => $business_name,
-										'app_secret' => $business_licence_no));
+										'app_key' => $app_key,
+										'app_secret' => $app_secret));
 		}else{
 			return Response::json(array('errCode'=>21, 'message'=>'验证码不正确'));
 		}
+	}
+
+	//重新填写
+	public function reWriteInfo()
+	{
+		$user = Sentry::getUser();
+		if( !$user->delete() )
+			return Response::json( array( 'errCode'=>21, 'message'=>'重新填写请求失败，'));
+		return Response::json( array('errCode'=>0, 'message'=>'请求成功' ));
 	}
 
 }

@@ -47,6 +47,8 @@ refundCloseBtn = $("#refund_btn")
 
 payBtn = $(".immediately-pay")
 
+noResulte = $(".indent-no-resulte")
+
 #关闭弹窗
 closeMask = ()->
 	maskBg.fadeOut(100)
@@ -67,6 +69,10 @@ init_datepicker = ()->
 
 #”查询“订单
 submit = ()->
+
+	#显示与隐藏初始化，隐藏分页按钮
+	$(".paginate-wrap").hide()
+
 
 	plateNo = plate.find("option:selected").text() + plateNum.val()
 	dateStartValue = dateStart.val()
@@ -92,11 +98,21 @@ submit = ()->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
 			else
-				array01 = _.filter msg["orders"], "process_status", "0"
-				array02 = _.filter msg["orders"], "process_status", "1"
-				array03 = _.filter msg["orders"], "process_status", "2"
-				array04 = _.filter msg["orders"], "process_status", "3"
-				array05 = _.filter msg["orders"], "process_status", "4"
+
+				#显示与隐藏初始化
+				$(".indent-tables-wrapper").hide()
+				noResulte.hide()
+
+				if msg["orders"].length is 0
+					noResulte.show()
+					return
+				# array01 = _.filter msg["orders"], "process_status", "0"
+				# array02 = _.filter msg["orders"], "process_status", "1"
+				# array03 = _.filter msg["orders"], "process_status", "2"
+				# array04 = _.filter msg["orders"], "process_status", "3"
+				# array05 = _.filter msg["orders"], "process_status", "4"
+
+				array01 = msg["orders"]
 
 				$(".indent-tr").remove()
 
@@ -106,34 +122,34 @@ submit = ()->
 						"array": array01
 					}
 					tableBlank.after html01
-				if array02.length isnt 0
-					html02 = _.template(template)
-					html02 = html02 {
-						"array": array02
-					}
-					tableBlank.after html02
-				if array03.length isnt 0
-					html03 = _.template(template)
-					html03 = html03 {
-						"array": array03
-					}
-					tableBlank.after html03
-				if array04.length isnt 0
-					html04 = _.template(template)
-					html04 = html04 {
-						"array": array04
-					}
-					tableBlank.after html04
-				if array05.length isnt 0
-					html05 = _.template(template)
-					html05 = html05 {
-						"array": array05
-					}
-					tableBlank.after html05
+				# if array02.length isnt 0
+				# 	html02 = _.template(template)
+				# 	html02 = html02 {
+				# 		"array": array02
+				# 	}
+				# 	tableBlank.after html02
+				# if array03.length isnt 0
+				# 	html03 = _.template(template)
+				# 	html03 = html03 {
+				# 		"array": array03
+				# 	}
+				# 	tableBlank.after html03
+				# if array04.length isnt 0
+				# 	html04 = _.template(template)
+				# 	html04 = html04 {
+				# 		"array": array04
+				# 	}
+				# 	tableBlank.after html04
+				# if array05.length isnt 0
+				# 	html05 = _.template(template)
+				# 	html05 = html05 {
+				# 		"array": array05
+				# 	}
+				# 	tableBlank.after html05
+					
 				#显示搜索框的内容
 				$(".indent-tables-wrapper").show()
-				#隐藏分页按钮
-				$(".paginate-wrap").hide()
+				
 
 
 #切换信息填写
@@ -231,6 +247,12 @@ $ ()->
 	$(document).on "click", "#refund_btn", refundMaskClose
 	#"立即付款"按钮事件绑定
 	$(document).on "click", ".immediately-pay", pay
+
+	#当订单记录为空的时候，隐藏表格
+	if $(".indent-tr").length is 0
+		$(".indent-tables-wrapper").hide()
+		noResulte.show()
+		$(".paginate-wrap").hide()
 
 
 

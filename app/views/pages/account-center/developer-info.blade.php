@@ -50,7 +50,7 @@
 						<span class="msg-title">
 							邮箱验证码：
 						</span>
-						<input class="msg-input codes-input" type="text" placeholder="请前往注册邮箱获取验证码"/>
+						<input class="msg-input codes-input" id="developer_get_codes" type="text" placeholder="请前往注册邮箱获取验证码"/>
 						<a href="javascript:" class="msg-btn get-codes-btn">获取验证码</a>
 					</div>
 				</div>

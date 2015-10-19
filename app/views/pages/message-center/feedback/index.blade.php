@@ -52,7 +52,7 @@
         <div class="fb-btns">
             <div class="btns-wrap">
                 <input type="reset" value="重置" class="fb-reset">
-                <input type="submit" vlaue="提交" class="fb-submit">
+                <input type="submit" value="提交" class="fb-submit">
             </div>
         </div>
     </form>

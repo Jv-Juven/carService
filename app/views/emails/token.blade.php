@@ -7,7 +7,7 @@
 <body>
   <div>
   		<p>亲：</p>
-  		<p>您好，感谢您注册广州车尚信息科技有限公司车务服务平台，您可以
+  		<p>您好，感谢您注册广州车尚信息科技有限公司数据查询平台，您可以
   		<a href="http://www.gzcheshang.com/user/b_site_active?token={{$token}}">点击验证邮箱。</a>
   		</p>
 

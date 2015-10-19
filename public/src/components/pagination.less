@@ -4,6 +4,7 @@
 
 @paginate-font-size: 11px;
 @paginate-line-height: 25px;
+
 .paginate-wrap{
     margin: 14px auto;
     max-width: 320px;
@@ -11,6 +12,7 @@
     font-size: @paginate-font-size;
     line-height: @paginate-line-height;
     text-align: center;
+    display: table;
 }
 
 .page-list{
@@ -44,6 +46,7 @@
 
 .ipt-rd-wrap{
     float: left;
+    margin-left: 20px;
     input{
         width: 30px;
         float: left;
@@ -53,7 +56,6 @@
         line-height: @paginate-line-height;
     }
     .ipt-page{
-        margin-left: 20px;
         border: solid @color-grey 1px;
         &:focus{
             outline: none;

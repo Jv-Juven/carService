@@ -15,13 +15,13 @@
 				<div class="input-line log-phone">
 					<div class="input-title">手机号码：</div>
 					<div class="input">
-						<input type="text" placeholder="请输入手机号码"/>
+						<input id="phone" type="text" placeholder="请输入手机号码"/>
 					</div>
 				</div>
 				<div class="input-line log-email">
 					<div class="input-title">邮箱：</div>
 					<div class="input">
-						<input type="text" placeholder="请输入邮箱"/>
+						<input id="email" type="text" placeholder="请输入邮箱"/>
 					</div>
 				</div>
 				<div class="input-line">
@@ -66,7 +66,7 @@
 					<span class="msg-title">
 						验证码：
 					</span>
-					<input class="msg-input reg-validate" type="text" placeholder=""/>
+					<input class="msg-input reg-validate" type="text" placeholder="请输入短信验证码"/>
 					<a href="javascript:" class="msg-btn get-validate-codes">获取验证码</a>
 				</div>
 
@@ -82,6 +82,13 @@
 						确认密码：
 					</span>
 					<input class="msg-input reg-repassword" type="password" placeholder="请再次输入密码"/>
+				</div>
+				<div class="info-protocol">
+					<label for="protocol">
+						<input type="checkbox" checked="true" id="protocol" name="protocal" value="1" />
+						我同意并遵守<a target="_blank" href="http://faq.gzcheshang.com/index.php?action=artikel&cat=3&id=8&artlang=zh">《车尚数据查询平台用户注册协议》</a>
+					</label>
+					<!-- <span class="warn-tips">请勾选《平台协议》</span> -->
 				</div>
 				<div class="msg-line warn-tips">
 					<span class="msg-title"></span>

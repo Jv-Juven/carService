@@ -21,14 +21,14 @@
 						<div class="input-title">车牌号码：</div>
 						<div class="inputs cars-inputs">
 							@include("components.province-abbre")
-							<input class="input plate-num" type="text" placeholder="车牌号码后六位"/>
+							<input class="input plate-num" id="cars_plate_num" type="text" placeholder="车牌号码后六位"/>
 							@include("components.select-types")
 						</div>
 					</div>
 					<div class="input-wrapper">
 						<div class="input-title">发动机号：</div>
 						<div class="inputs">
-							<input class="input fullwidth record-id" type="text" placeholder="请输入发动机号码后六位"/>
+							<input class="input fullwidth record-id" id="cars_engint_num" type="text" placeholder="请输入发动机号码后六位"/>
 						</div>
 					</div>
 

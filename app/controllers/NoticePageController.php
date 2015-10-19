@@ -22,7 +22,7 @@ class NoticePageController extends BaseController{
 								}
 							}
 					 	])
-					 	->orderBy( 'created_at' )
+					 	->orderBy( 'created_at', 'desc' )
 					 	->paginate( static::$default_per_page );
 	}
 
@@ -49,8 +49,6 @@ class NoticePageController extends BaseController{
 			$notice['already_read'] = $notice->users_read_id->count() != 0;
 		});
 
-		//return Response::json( $notices );
-
 		return View::make( 'pages.message-center.message.message', [
 			'notices'		=> $notices,
 			'paginator'		=> $paginator
@@ -68,15 +66,11 @@ class NoticePageController extends BaseController{
 						 			 ->where( 'user_read_notice.user_id', '=', Sentry::getUser()->user_id );
 						 	})
 						 	->whereNull( 'user_read_notice.notice_id' )
-						 	->orderBy( 'created_at' )
+						 	->orderBy( 'created_at', 'desc' )
 						 	->paginate( static::$default_per_page );
 
 		$notices = $paginator->getCollection();
-/*
-		$notices->each(function( $notice ){
-			$notice['already_read'] = false;
-		});
-*/
+
 		return View::make( 'pages.message-center.message.message', [
 			'notices'		=> $notices,
 			'paginator'		=> $paginator
@@ -93,15 +87,11 @@ class NoticePageController extends BaseController{
 						 		$join->on( 'notices.id', '=', 'user_read_notice.notice_id' );
 						 	})
 						 	->where( 'user_read_notice.user_id', Sentry::getUser()->user_id )
-						 	->orderBy( 'created_at' )
+						 	->orderBy( 'created_at', 'desc' )
 						 	->paginate( static::$default_per_page );
 
 		$notices = $paginator->getCollection();
-/*
-		$notices->each(function( $notice ){
-			$notice['already_read'] = true;
-		});
-*/
+
 		return View::make( 'pages.message-center.message.message', [
 			'notices'		=> $notices,
 			'paginator'		=> $paginator

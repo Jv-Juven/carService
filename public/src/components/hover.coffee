@@ -9,12 +9,12 @@ hover = (headerItems)->
 		if $(this).hasClass("active")
 			tag = 1
 			return
-		$(this).addClass "active"
+		$(this).addClass "hover"
 	headerItems.on "mouseleave", ()->
 		if tag is 1
 			tag = 0
 			return
-		$(this).removeClass "active"
+		$(this).removeClass "hover"
 
 hover(headerItems)
 hover(leftItems)

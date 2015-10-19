@@ -7,7 +7,7 @@
 	position: relative;
 	width: 100%;
 	height: auto;
-	padding-bottom: 100px;
+	padding-bottom: @footer-height;
 	&>div{
 		width: 100%;
 	}
@@ -119,8 +119,9 @@
 					height: 46px;
 					border: 1px solid rgb(235, 235, 235);
 					&>input{
-						height: 100%;
-						padding-left: 10px;
+						height: 16px;
+						line-height: 16px;
+						padding: 14px 0px 14px 10px;
 						border: 0px;
 						width: @content-width - 20px;
 						margin: 0px auto;
@@ -173,7 +174,6 @@
 			border: 1px solid rgb(230, 230, 230);
 			line-height: 40px;
 			margin-top: 30px;
-			margin-bottom: 15px;
 			padding-left: 20px;
 			padding-right: 90px;
 			position: relative;
@@ -248,7 +248,7 @@
 			}	
 		}
 		.login-cases{
-			padding: 40px 0px 0px;
+			padding: 0px;
 			.cases-wrapper{
 				width: 100%;
 				.case{
@@ -302,7 +302,7 @@
 			height: auto;
 			font-size: 26px;
 			line-height: 26px;
-			padding: 35px 0px 24px;
+			padding: 60px 0px;
 			i{
 				font-size: 22px;
 				display: inline-block;
@@ -325,16 +325,16 @@
 .login-footer{
 	position: absolute;
 	bottom: 0px;
-	height: 100px;
+	height: @footer-height;
 	color: rgb(150, 150, 150);
-	background: rgb(240, 240, 240);
+	background: rgb(255, 255, 255);
 	overflow: hidden;
 	width: 100%;
 	.footer-words{
 		line-height: 20px;
 		font-size: 12px;
 		text-align: center;
-		margin-top: 40px;
+		margin-top: @footer-words-margin-top;
 		span{
 			padding: 0px 20px;
 		}

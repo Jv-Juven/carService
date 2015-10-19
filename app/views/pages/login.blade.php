@@ -28,7 +28,7 @@
 							</a>
 						</li>
 						<li class="login-help">
-							<a href="http://faq.gzcheshang.com">
+							<a target="_blank" href="http://faq.gzcheshang.com">
 								使用帮助
 							</a>
 						</li>
@@ -166,6 +166,7 @@
 	<!-- 浮层 END -->
 
 	<script type="text/javascript" src="/lib/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/lib/js/browser.js"></script>
 	<script type="text/javascript" src="/dist/js/components.js"></script>
 	<script type="text/javascript" src="/dist/js/pages/login/login.js"></script>
 </body>
