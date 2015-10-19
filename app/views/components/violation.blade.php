@@ -132,13 +132,13 @@
 			<td>
 				<span class="principal"><%- array[i]["fkje"] %></span>
 			</td>
-			<tb>
+			<td>
 				<span class="late-fee">0</span>
 			</td>
 			<td>
 				<span class="serve-money"><%- service_fee %></span>
 			</td>
-			<tb>
+			<td>
 				<span class="total-sum"><%- total_sum %></span>
 			</td>
 		</tr>
