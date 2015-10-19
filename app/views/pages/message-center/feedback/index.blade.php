@@ -16,7 +16,7 @@
 @stop
 
 @section('right-content')
-<div class="fb-wrap">
+<div class="contain-wrap">
     <form id="fb-form" class="fb-form">
         <div class="fb-item fb-types clearfix">
             <div class="fb-label">反馈类型:</div>
