@@ -92,7 +92,7 @@ Route::group(array('prefix'=>'user'), function(){
 });
 
 //账户中心
-Route::group(array('prefix'=>'account-center'),function(){
+Route::group(array('prefix'=>'account-center','before' => 'auth.user.isIn'),function(){
 	//帐号信息
 	Route::get('account-info','AccountPageController@accountInfo');
 	//开发者中心
