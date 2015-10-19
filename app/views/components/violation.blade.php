@@ -112,7 +112,7 @@
 				<input class="checkbox" type="checkbox" data-xh="<%- array[i]['xh'] %>" />
 			</td>
 			<td>
-				<span class="number"><%- number ></span>
+				<span class="number"><%- number %></span>
 			</td>
 			<td>
 				<span class="date"><%- array[i]["wfsj"] %></span>
@@ -139,7 +139,7 @@
 				<span class="serve-money"><%- service_fee %></span>
 			</td>
 			<tb>
-				<span class="total-sum"><%- tatol_sum ></span>
+				<span class="total-sum"><%- tatol_sum %></span>
 			</td>
 		</tr>
 	<% } %>
