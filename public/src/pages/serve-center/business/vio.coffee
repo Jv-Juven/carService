@@ -211,10 +211,10 @@ $ ()->
 		total_principal = $(".vio-select-resulte .total-principal")
 		total_late_fee = $(".vio-select-resulte .total-late-fee")
 		total_service_fee = $(".vio-select-resulte .total-service-fee")
+		total_sum = $(".vio-select-resulte .total-money")
 		principal = parseInt _this.parent().parent().find(".principal").text()
 		late_fee = parseInt _this.parent().parent().find(".late-fee").text()
 		service_fee = parseInt _this.parent().parent().find(".serve-money").text()
-		total_sum = $(".vio-select-resulte .total-money")
 		if _this.prop("checked")
 			total_principal.text(parseInt(total_principal.text()) + principal)
 			total_late_fee.text(parseInt(total_late_fee.text()) + late_fee)
@@ -226,8 +226,42 @@ $ ()->
 			
 		total_sum.text(parseInt(total_principal.text()) + parseInt(total_late_fee.text()) + parseInt(total_service_fee.text()))
 	#全选按钮点击
-	$(document).on "click", ".vio-records-table01 th .vio-select-all", ()->
-		$(".vio-records-table01 td .checkbox").trigger("click")
+	$(document).on "click", ".vio-records-table01 th .vio-select-all", (e)->
+		_this = $(e.currentTarget)
+		total_principal_all = 0
+		total_late_fee_all = 0
+		total_service_fee_all = 0
+		total_sum_all = 0
+
+		total_principal = $(".vio-select-resulte .total-principal")
+		total_late_fee = $(".vio-select-resulte .total-late-fee")
+		total_service_fee = $(".vio-select-resulte .total-service-fee")
+		total_sum = $(".vio-select-resulte .total-money")
+
+		principal = $(".vio-records-table01 td").find(".principal")
+		late_fee = $(".vio-records-table01 td").find(".late-fee")
+		service_fee = $(".vio-records-table01 td").find(".serve-money")
+
+		if _this.prop("checked")
+
+			principal.each ()->
+				total_principal_all += parseInt $(this).text()
+
+			late_fee.each ()->
+				total_late_fee_all += parseInt $(this).text()
+
+			service_fee.each ()->
+				total_service_fee_all += parseInt $(this).text()
+
+			total_sum.text(total_principal_all + total_late_fee_all + total_service_fee_all)
+
+		else
+			
+			total_principal.text("0")
+			total_late_fee.text("0")
+			total_service_fee.text("0")
+			
+			total_sum.text("0")
 	
 
 
