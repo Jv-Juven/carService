@@ -226,7 +226,7 @@ $ ()->
 			
 		total_sum.text(parseInt(total_principal.text()) + parseInt(total_late_fee.text()) + parseInt(total_service_fee.text()))
 	#全选按钮点击
-	$(document).on "click", ".vio-records-table01 th .checkbox", ()->
+	$(document).on "click", ".vio-records-table01 th .vio-select-all", ()->
 		$(".vio-records-table01 td .checkbox").trigger("click")
 	
 
