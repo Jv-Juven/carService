@@ -9,7 +9,8 @@
   		<p>亲：</p>
   		<p>您好，感谢您注册广州车尚信息科技有限公司数据查询平台，您可以
   		<a href="http://www.gzcheshang.com/user/b_site_active?token={{$token}}">点击验证邮箱。</a>
-  		</p>
+  		（该链接在24小时内有效，24小时后需要重新注册）
+      </p>
 
   		</br>
 
