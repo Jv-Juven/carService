@@ -283,6 +283,14 @@ Route::get('test',function(){
 // 后台管理-页面
 Route::group(array('prefix' => 'admin'), function() {
 
+	Route::get('/', function() {
+		if(Auth::check()) {
+			return Redirect::to("/admin/business-center/new-user-list");
+		} else {
+			return Redirect::to("/admin/login");
+		}
+	});
+
 	Route::get('/login', 'AdminAccountPageController@login');
 
 	// 客服中心

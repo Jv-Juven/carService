@@ -15,13 +15,13 @@
 				<div class="input-line log-phone">
 					<div class="input-title">手机号码：</div>
 					<div class="input">
-						<input type="text" placeholder="请输入手机号码"/>
+						<input id="phone" type="text" placeholder="请输入手机号码"/>
 					</div>
 				</div>
 				<div class="input-line log-email">
 					<div class="input-title">邮箱：</div>
 					<div class="input">
-						<input type="text" placeholder="请输入邮箱"/>
+						<input id="email" type="text" placeholder="请输入邮箱"/>
 					</div>
 				</div>
 				<div class="input-line">

@@ -22,6 +22,9 @@
 							<a class="btn" href="javascript:">按订单信息查询</a>
 						</td>
 					</tr>
+					<tr>
+						<td></td>
+					</tr>
 					<tr class="indent-number">
 						<td class="indent-table-title">订单编号：</td>
 						<td class="indent-table-content">
@@ -32,7 +35,7 @@
 						<td class="indent-table-title">车牌号码：</td>
 						<td class="indent-table-content indent-inputs">
 							@include("components.province-abbre")
-							<input class="input plate-num" type="text" placeholder="车牌号码后六位"/>
+							<input class="input plate-num" id="indent_agency_plate_num" type="text" placeholder="车牌号码后六位"/>
 							<!-- @include("components.select-types") -->
 						</td>
 					</tr>
@@ -63,6 +66,7 @@
 				<a class="inline-btn indent-submit" href="javascript:">查询</a>
 				<span class="indent-btn-tips">温馨提示：如果没有选择时间范围，默认查询1年以内的记录。</span>
 			</div>
+			<div class="indent-no-resulte">当前还没有管理订单</div>
 			<div class="indent-tables-wrapper">
 				
 				<table class="indent-list-table">
@@ -145,6 +149,7 @@
 					@endforeach
 					<!-- 单位车辆信息表 未受理 END -->
 				</table>
+				
 				
 			</div>
 			@include('components.pagination', [ 'paginator' => $paginator ])

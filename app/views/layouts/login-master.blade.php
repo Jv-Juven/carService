@@ -32,6 +32,7 @@
 	</div>
 	@section("js")
 		<script type="text/javascript" src="/lib/js/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="/lib/js/browser.js"></script>
 		<script type="text/javascript" src="/dist/js/components.js"></script>
 	@show
 </body>

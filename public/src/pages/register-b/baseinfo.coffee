@@ -22,7 +22,9 @@ $ ()->
 	# 点击”注册“按钮事件
 	# 验证输入的信息的合法性
 	###
-	submit = ()->
+	submit = (e)->
+
+		_this = $(e.currentTarget)
 
 		warnTips.hide()
 
@@ -46,6 +48,8 @@ $ ()->
 			# protocol.parent().next().fadeIn(100)
 			return
 
+		_this.off()
+
 		$.post "/user/b_register", {
 			login_account: email.val(),
 			password: password.val(),
@@ -54,9 +58,11 @@ $ ()->
 		}, (msg)->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
+				_this.on "click", submit
 			else
 				alert "邮箱注册成功"
 				window.location.href = "/user/b_active"
+				_this.on "click", submit
 
 	#获取验证码
 	getCaptcha = ()->
