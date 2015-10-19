@@ -18,8 +18,8 @@
 @stop
 
 @section('right-content')
-<div class="cost-wrap">
-    <div class="cost-body">
+<div class="contain-wrap">
+    <div class="contain-body">
         <div class="query-wrap">
             <form method="GET" action="" class="query-form clearfix">
                 <div class="query-item query-date">

@@ -1,3 +1,5 @@
+
+@if ( $paginator->count() != 0 )
 <div class="paginate-wrap clearfix">
     <div class="clk-rd-wrap">
         <ul class="page-list clearfix">
@@ -18,3 +20,4 @@
         </form>
     </div>
 </div>
+@endif

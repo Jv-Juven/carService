@@ -1,5 +1,5 @@
-<div class="msg-wrap">
-    <div class="msg-body">
+<div class="contain-wrap">
+    <div class="contain-body">
         <h3 class="msg-tag">平台公告</h3>
         <div class="data-wrap">
             <div class="data-section">
