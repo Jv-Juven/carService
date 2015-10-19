@@ -38,7 +38,7 @@
 				
 				<div class="content-container">
 					<div class="email-tips write-codes-inputs no-pass-title">
-						该链接已失效
+						你访问的页面已失效，请重新注册
 					</div>
 				</div>
 		</div>
