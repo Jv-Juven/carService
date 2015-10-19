@@ -50,16 +50,24 @@
 								全选
 							</label>
 						</th>
+						<th>序号</th>
 						<th>违章时间</th>
 						<th>[违章城市]违章地点</th>
 						<th>违章行为</th>
 						<th>扣分分值</th>
 						<th>本金</th>
-						<!-- <th>滞纳金</th> -->
+						<th>滞纳金</th>
 						<th>服务费</th>
+						<th>罚款总额</th>
 					</tr>
 					
 				</table>
+				<div class="vio-select-resulte">
+					总本金： <span class="total-principal">0</span>	
+					总滞纳金： <span class="total-late-fee">0</span>	
+					总服务费： <span class="total-service-fee">0</span>	
+					合计总金额： <span class="total-money">0</span>	
+				</div>
 				<div class="vio-submit-btn deal-btn">
 					<a href="javascript:">办理违章</a>
 				</div>
@@ -73,13 +81,15 @@
 								全选
 							</label>
 						</th>
+						<th>序号</th>
 						<th>违章时间</th>
 						<th>[违章城市]违章地点</th>
 						<th>违章行为</th>
 						<th>扣分分值</th>
 						<th>本金</th>
-						<!-- <th>滞纳金</th> -->
+						<th>滞纳金</th>
 						<th>服务费</th>
+						<th>罚款总额</th>
 					</tr>
 					
 				</table>
@@ -93,10 +103,16 @@
 @include("components.warn-mask")
 
 <script type="text/template" id="vio_template">
-	<% for (var i = 0; i < array.length; i++){ %>
+	<% for (var i = 0; i < array.length; i++){ 
+		var total_sum = parseInt(array[i]["fkje"] + "0") + parseInt(array[i][""] + "0") + parseInt(service_fee);
+		var number = i + 1;
+	%>
 		<tr class="tb-tr">
 			<td>
 				<input class="checkbox" type="checkbox" data-xh="<%- array[i]['xh'] %>" />
+			</td>
+			<td>
+				<span class="number"><%- number ></span>
 			</td>
 			<td>
 				<span class="date"><%- array[i]["wfsj"] %></span>
@@ -116,8 +132,14 @@
 			<td>
 				<span class="principal"><%- array[i]["fkje"] %></span>
 			</td>
+			<tb>
+				<span class="late-fee">0</span>
+			</td>
 			<td>
 				<span class="serve-money"><%- service_fee %></span>
+			</td>
+			<tb>
+				<span class="total-sum"><%- tatol_sum ></span>
 			</td>
 		</tr>
 	<% } %>
