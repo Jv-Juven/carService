@@ -216,15 +216,15 @@ $ ()->
 		service_fee = parseInt _this.parent().parent().find(".serve-money").text()
 		total_sum = $(".vio-select-resulte .total-money")
 		if _this.prop("checked")
-			total_principal.text(total_principal.text() + principal)
-			total_late_fee.text(total_late_fee.text() + late_fee)
-			total_service_fee.text(total_service_fee.text() + service_fee)
+			total_principal.text(parseInt(total_principal.text()) + principal)
+			total_late_fee.text(parseInt(total_late_fee.text()) + late_fee)
+			total_service_fee.text(parseInt(total_service_fee.text()) + service_fee)
 		else
-			total_principal.text(total_principal.text() - principal)
-			total_late_fee.text(total_late_fee.text() - late_fee)
-			total_service_fee.text(total_service_fee.text() - service_fee)
+			total_principal.text(parseInt(total_principal.text()) - principal)
+			total_late_fee.text(parseInt(total_late_fee.text()) - late_fee)
+			total_service_fee.text(parseInt(total_service_fee.text()) - service_fee)
 			
-		total_sum.text(total_principal.text() + total_late_fee.text() + total_service_fee.text())
+		total_sum.text(parseInt(total_principal.text()) + parseInt(total_late_fee.text()) + parseInt(total_service_fee.text()))
 	
 
 
