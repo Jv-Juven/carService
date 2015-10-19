@@ -21,19 +21,20 @@
 				height: @search-h;
 				display: inline-block;
 				.violation-wrapper{
-					@wrapper-width: 340px;
+					@wrapper-width: 400px;
 					width: @wrapper-width;
 					margin: 0px auto;
 					height: auto;
 					padding-top: 5px;
 					.input-wrapper{
+						@input-title-width: 140px;
 						width: 100%;
 						height: 30px;
 						line-height: 30px;
 						margin-top: 15px;
 						.input-title{
 							display: inline-block;
-							width: 100px;
+							width: @input-title-width;
 							height: 30px;
 							text-align: right;
 							font-size: 16px;
@@ -42,7 +43,7 @@
 							float: right;
 							display: inline-block;
 							height: 100%;
-							width: @wrapper-width - 100px;
+							width: @wrapper-width - @input-title-width;
 							vertical-align: text-bottom;
 							line-height: 30px;
 							&>select{
@@ -82,7 +83,7 @@
 						}
 					}
 					.input-btn{
-						margin-top: 0px;
+						margin: 0px auto;
 						border-radius: 6px;
 						background: @blue;
 						line-height: 30px;
@@ -91,6 +92,7 @@
 						color: white;
 						padding: 3px 0px;
 						font-size: 18px;
+						width: 200px;
 					}
 					.violation-btn{
 						margin-top: 30px;
@@ -115,7 +117,7 @@
 					}
 					.info-title{
 						height: 100%;
-						width: 120px;
+						width: 160px;
 						display: inline-block;
 						text-align: right;
 						letter-spacing: 1px;
@@ -124,7 +126,7 @@
 					.info-num{
 						letter-spacing: 2px;
 						height: 100%;
-						width: 130px;
+						width: 200px;
 						display: inline-block;
 						float: right;
 						text-align: left;
