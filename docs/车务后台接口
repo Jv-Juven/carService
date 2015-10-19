@@ -406,7 +406,8 @@ if( Sentry::check() )
 			请求url: /serve-center/search/api/violation
 
 			请求参数:
-					engineCode			发动机号后六位 		
+					engineCode			发动机号后六位
+					frameCode			车架号码后六位 		
 					licensePlate		车牌号码 				
 					licenseType			车辆类型 				
 										01	大型汽车

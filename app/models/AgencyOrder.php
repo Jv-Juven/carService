@@ -13,19 +13,20 @@ class AgencyOrder extends BaseModel{
         'pay_time',
         'pay_trade_no',
         'car_plate_no',
+        'car_frame_no',
+        'car_engine_no',
+        'car_type_no',
         'agency_no',
         'capital_sum',
         'late_fee_sum',
         'service_charge_sum',
-        'is_delivered',
         'trade_status',
         'process_status',
+        'is_delivered',
         'express_fee',
         'recipient_name',
         'recipient_addr',
-        'recipient_phone',
-        'car_engine_no',
-        'car_type_no'
+        'recipient_phone'
     ];
 
     /*
