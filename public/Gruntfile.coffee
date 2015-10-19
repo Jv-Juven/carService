@@ -184,6 +184,7 @@ module.exports = (grunt)->
 
                     #accountc-status
                     'dist/css/pages/account-status/write-codes.css': ['src/pages/account-status/write-codes.less']
+                    'dist/css/pages/account-status/no-pass-words.css': ['src/pages/account-status/no-pass-words.less']
                     # 'dist/css/pages/account-status/account-info.css': ['src/pages/account-status/account-info.less']
 
                     # message-center

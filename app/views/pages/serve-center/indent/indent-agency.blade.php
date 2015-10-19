@@ -28,7 +28,7 @@
 					<tr class="indent-number">
 						<td class="indent-table-title">订单编号：</td>
 						<td class="indent-table-content">
-							<input type="text" id="indent-number" placeholder="请输入发动机号码后6位"/>
+							<input type="text" id="indent-number" placeholder="请输入订单的编号"/>
 						</td>
 					</tr>
 					<tr class="indent-details">

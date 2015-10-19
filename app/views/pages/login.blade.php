@@ -48,9 +48,11 @@
 						</div>
 						<div class="input email-input">
 							<input id="account_num" type="text" placeholder="邮箱"/>
+							<img class="login-icon login-account" src="/images/login/login_icon.png">
 						</div>
 						<div class="input psd-input">
 							<input id="password" type="password" placeholder="密码"/>
+							<img class="login-icon login-password" src="/images/login/password_icon.png">
 						</div>
 						<div class="login-content-tips clearfix">
 							<!-- <span class="tips01"><a href="/">立即注册</a></span> -->

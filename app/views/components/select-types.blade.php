@@ -1,6 +1,6 @@
 <select class="input select-color">
 	<option value="01">大型汽车</option>
-	<option value="02">小型汽车</option>
+	<option value="02" selected="true">小型汽车</option>
 	<option value="03">使馆汽车</option>
 	<option value="04">领馆汽车</option>
 	<option value="05">境外汽车</option>
