@@ -75,6 +75,11 @@ $ ()->
 	#获取手机短信验证码
 	getPhoneCode = (e)->
 		_this = $(e.currentTarget)
+
+		btnText = _this.text()
+		#解除按钮事件
+		_this.addClass("btn-disabled").text("发送中").off()
+
 		if !validate.mobile(phone.val())
 			regInfoTips.text "请输入手机号码"
 			return
@@ -83,9 +88,11 @@ $ ()->
 		}, (msg)->
 			if msg["errCode"] is 0
 				alert msg["message"]
+				_this.removeClass("btn-disabled").text(btnText).on("click", getPhoneCode)
 			else
 				timing(_this, 60, ()->
 					_this.on "click", getPhoneCode
+				, btnText
 				)
 				alert msg["message"]
 

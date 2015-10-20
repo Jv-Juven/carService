@@ -130,26 +130,40 @@ info = {
 	#获取邮箱验证码
 	getEmailCodes: (e)->
 		_this = $(e.currentTarget)
+
+		btnText = _this.text()
+		#解除按钮事件
+		_this.addClass("btn-disabled").text("发送中").off()
+
 		$.post "/user/update_operator_code", {}, (msg)->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
+				_this.removeClass("btn-disabled").text(btnText).on("click", info.getEmailCodes)
 			else
 				timing(_this, 60, ()->
 					_this.on "click", info.getEmailCodes
+				, btnText
 				)
 				alert msg["message"]
 
 	#获取手机验证码
 	getPhoneCodes: (e)->
 		_this = $(e.currentTarget)
+
+		btnText = _this.text()
+		#解除按钮事件
+		_this.addClass("btn-disabled").text("发送中").off()
+
 		$.get "/user/operational_phone_code", {
 				telephone: infoPhone.val()
 			}, (msg)->
 				if msg["errCode"] isnt 0
 					alert msg["message"]
+					_this.removeClass("btn-disabled").text(btnText).on("click", info.getPhoneCodes)
 				else
 					timing(_this, 60, ()->
 						_this.on "click", info.getPhoneCodes
+					, btnText
 					)
 					alert msg["message"]
 
@@ -218,13 +232,20 @@ psd = {
 	#获取邮箱验证码
 	getEmailCodes: (e)->
 		_this = $(e.currentTarget)
+
+		btnText = _this.text()
+		#解除按钮事件
+		_this.addClass("btn-disabled").text("发送中").off()
+
 		$.post "/user/send_code_to_email", {
 			}, (msg)->
 				if msg["errCode"] isnt 0
 					alert msg["message"]
+					_this.removeClass("btn-disabled").text(btnText).on("click", psd.getEmailCodes)
 				else
 					timing(_this, 60, ()->
 						_this.on "click", psd.getEmailCodes
+					, btnText
 					)
 					alert msg["message"]
 

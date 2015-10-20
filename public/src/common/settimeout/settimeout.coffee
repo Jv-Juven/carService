@@ -4,12 +4,14 @@
 # count为计时数
 ###
 
-settimeout = (ele, count, callback)->
+settimeout = (ele, count, callback, btnText)->
 	
 	#计时开始执行的函数
 	ele.addClass("btn-disabled").off()
-
-	oldText = ele.text()
+	if !(btnText.length > 0)
+		oldText = ele.text()
+	else
+		oldText = btnText
 
 	start = count
 	ele.text(start + "后重发")
@@ -18,8 +20,8 @@ settimeout = (ele, count, callback)->
 			clearTimeout timeout
 			#计时完成后执行的回调函数
 			ele.removeClass("btn-disabled")
-			callback()
 			ele.text oldText
+			callback()
 			return
 		start -= 1
 		ele.text(start + "秒后重发")

@@ -25,12 +25,19 @@ showBox = ()->
 #获取验证码
 getCodes = (e)->
 	_this = $(e.currentTarget)
+
+	btnText = _this.text()
+	#解除按钮事件
+	_this.addClass("btn-disabled").text("发送中").off()
+
 	$.post "/user/send_code_to_email", {}, (msg)->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
+			_this.removeClass("btn-disabled").text(btnText).on("click", getCodes)
 		else
 			timing(_this, 60, ()->
 				_this.on "click", getCodes
+			, btnText
 			)
 			alert "发送验证码成功"
 
