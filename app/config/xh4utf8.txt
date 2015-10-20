@@ -1,4 +1,4 @@
-p_code,province,c_code,city,a_code,area
+﻿p_code,province,c_code,city,a_code,area
 11,北京市,1101,北京市,110101,东城区
 11,北京市,1101,北京市,110102,西城区
 11,北京市,1101,北京市,110103,朝阳区
