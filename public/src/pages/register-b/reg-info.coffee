@@ -88,6 +88,7 @@ $ ()->
 		}, (msg)->
 			if msg["errCode"] is 0
 				alert msg["message"]
+				_this.removeClass("btn-disabled").text(btnText).on("click", getPhoneCode)
 			else
 				timing(_this, 60, ()->
 					_this.on "click", getPhoneCode

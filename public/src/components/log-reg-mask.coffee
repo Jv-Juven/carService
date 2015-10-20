@@ -197,6 +197,7 @@ getCodesFunc = (e)->
 	}, (msg)->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
+			_this.removeClass("btn-disabled").text(btnText).on("click", getCodesFunc)
 		else
 			timing(_this, 60, ()->
 				_this.on "click", getCodesFunc
@@ -340,6 +341,7 @@ getEmaiCodes = (e)->
 	}, (msg)->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
+			_this.removeClass("btn-disabled").text(btnText).on("click", getEmaiCodes)
 		else
 			timing(_this, 60, ()->
 				emailCodesBtn.on "click", getEmaiCodes
@@ -369,6 +371,7 @@ getPhoneCodes = (e)->
 	}, (msg)->
 		if msg["errCode"] isnt 0
 			alert msg["message"]
+			_this.removeClass("btn-disabled").text(btnText).on("click", getPhoneCodes)
 		else
 			timing(_this, 60, ()->
 				phoneCodesBtn.on "click", getPhoneCodes

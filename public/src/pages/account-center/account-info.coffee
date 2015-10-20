@@ -138,6 +138,7 @@ info = {
 		$.post "/user/update_operator_code", {}, (msg)->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
+				_this.removeClass("btn-disabled").text(btnText).on("click", info.getEmailCodes)
 			else
 				timing(_this, 60, ()->
 					_this.on "click", info.getEmailCodes
@@ -158,6 +159,7 @@ info = {
 			}, (msg)->
 				if msg["errCode"] isnt 0
 					alert msg["message"]
+					_this.removeClass("btn-disabled").text(btnText).on("click", info.getPhoneCodes)
 				else
 					timing(_this, 60, ()->
 						_this.on "click", info.getPhoneCodes
@@ -239,6 +241,7 @@ psd = {
 			}, (msg)->
 				if msg["errCode"] isnt 0
 					alert msg["message"]
+					_this.removeClass("btn-disabled").text(btnText).on("click", psd.getEmailCodes)
 				else
 					timing(_this, 60, ()->
 						_this.on "click", psd.getEmailCodes

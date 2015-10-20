@@ -67,6 +67,7 @@ psd = {
 		$.post "/user/send_code_to_phone", {}, (msg)->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
+				_this.removeClass("btn-disabled").text(btnText).on("click", psd.getPhoneCodes)
 			else
 				timing(_this, 60, ()->
 					_this.on "click", psd.getPhoneCodes
