@@ -19,7 +19,7 @@ tableBlank = $(".table-blank")
 tabs01 = $(".inputs-container-tabs01")
 tabs02 = $(".inputs-container-tabs02")
 
-submitBtn = $(".indent-btn .indent-submit")
+submitBtn = $(".indent-submit")
 
 template = $("#indent_template").html()
 
