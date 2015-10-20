@@ -416,4 +416,34 @@ class SearchController extends BaseController{
 
         return Response::json([ 'errCode' => 0, 'car' => $search_result['data']['body'][0], 'account' => $account ]);
     }
+
+    public static function xh( $xh )
+    {   
+        if( strlen( $xh ) != 6 )
+            return array('errCode'=>21, 'message'=>'传6位序号');
+        //6位
+        $area = IllegalCityInfoIndex::where('a_code',$xh)->first();
+        if( isset( $area ) )
+        {
+            $addr = $area->province.' '.$area->city.' '.$area->area;
+            return array('errCode'=>0, 'message'=>'ok','addr'=>$addr);
+        }
+        
+        //4位
+        $city = IllegalCityInfoIndex::where('c_code',mb_substr($xh,0,4) )->first();
+        if( isset( $city ) )
+        {
+            $addr = $city->province.' '.$city->city;
+            return array('errCode'=>0, 'message'=>'ok','addr'=>$addr);
+        }
+        
+        //2位
+        $province = IllegalCityInfoIndex::where('p_code',mb_substr($xh,0,2) )->first();
+        if( isset( $province ) )
+        {
+            return array('errCode'=>0, 'message'=>'ok','addr'=>$province->province);
+        }
+
+        return array('errCode'=>0, 'message'=>'ok','addr'=>'');
+    }
 }
