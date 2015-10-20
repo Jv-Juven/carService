@@ -10,63 +10,23 @@
 	.indent-inputs-wrapper{
 		width: @width;
 	}
-	.input-table{
-		width: @width;
-		height: auto;
-		tr{
-			height: 40px;
-		}
-		.indent-table-title{
-			width: 90px;
-			font-size: 16px;
-			font-weight: bolder;
-			text-align: left;
-		}
-		.indent-table-content{
-			padding-left: 0px;
-			#indent-number{
-				width: 245px;
-				height: 14px;
-				line-height: 14px;
-				padding: 10px 0px 10px 10px;
-			}
-			&>select{
-				display: inline-block;
-				width: auto;
-				font-size: 16px;
-				border: 1px solid #aaa;	
-				height: 26px;							
-			}
-			&>.input{
-				
-			}
-			&>input{
-				font-size: 14px;
-				height: 14px;
-				line-height: 14px;
-				padding: 6px 0px 6px 5px;
-			}
-			.plate-num{
-				text-align: left;
-				width: 112px;
-				border: 1px solid @border-col;
-				margin: 0px 16px;
-				padding-left: 10px;
-			}
-			.plate-status{
-				margin: 0px 20px 0px 0px;
-			}
-		}
-		.indent-date{
-			letter-spacing: 2px;
-			.input{
-				margin: 0px;
-				width: 170px;
-				display: inline-block;
-			}
-		}
+	.inline-btn{
+		.inline-btn(280px, 34px);
+		border-radius: 8px;
+		font-size: 16px;
+		letter-spacing: 2px;
+		float: left;
+	}
 
-		.btns-wrapper{
+	// 输入框集合 tab   START
+	.inputs-container{
+		@line-height: 40px;
+		width: 100%;
+		height: auto;
+
+		.indent-menu-btns{
+			width: 100%;
+			height: 50px;
 			text-align: center;
 			.btn{
 				margin: 0px 20px 10px;
@@ -79,22 +39,90 @@
 				color: rgb(255, 255, 255);
 			}
 		}
+		.inputs-container-tabs{
+			width: 100%;
+			height: auto;
+			margin-top: 30px;
+			.inputs-line-wrapper{
+				width: 100%;
+				height: auto;
+				height: @line-height;
+			}
+			.indent-table-title{
+				font-size: 16px;
+				font-weight: bolder;
+				width: 100px;
+				height: @line-height;
+				line-height: @line-height;
+				display: inline-block;
+				float: left;
+			}
+			.indent-table-content{
+				width: auto;
+				height: @line-height;
+				line-height: @line-height;
+				float: left;
+				&>select{
+					display: inline-block;
+					width: auto;
+					font-size: 16px;
+					border: 1px solid #aaa;	
+					height: 26px;							
+				}
+				&>input{
+					font-size: 14px;
+					height: 14px;
+					line-height: 14px;
+					margin-top: 2px;
+					padding: 8px 0px 8px 5px;
+				}
+				.plate-num{
+					text-align: left;
+					width: 112px;
+					border: 1px solid @border-col;
+					margin: 0px 16px;
+					padding-left: 10px;
+				}
+			}
+		}
+		.inputs-container-tabs01{
+			display: block;
+			.indent-table-title{
 
-		.indent-details{
+			}
+			.indent-table-content{
+				.indent-input{
+					width: 260px;
+					float: left;
+				}
+				.inline-btn{
+					margin-left: 30px;
+					.inline-btn(180px, 34px);
+					margin-top: 2px;
+				}
+			}
+		}
+		.inputs-container-tabs02{
 			display: none;
+			.indent-date{
+				letter-spacing: 2px;
+				.input{
+					margin: 0px !important;
+					width: 170px;
+					display: inline-block;
+				}
+			}
 		}
 	}
+	// 输入框集合 tab   END
+
 	.indent-btn{
 		@btn-height: 40px;
 		width: @width;
 		height: @btn-height;
 		margin: 10px auto;
 		.inline-btn{
-			.inline-btn(280px, @btn-height);
-			border-radius: 8px;
-			font-size: 16px;
-			letter-spacing: 2px;
-			float: left;
+			
 		}
 		.indent-btn-tips{
 			display: inline-block;
