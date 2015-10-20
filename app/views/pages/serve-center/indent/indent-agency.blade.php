@@ -15,33 +15,34 @@
 	<div class="content-box">
 		<div class="content-container">
 			<div class="indent-inputs-wrapper">
-				<table class="input-table">
-					<tr>
-						<td colspan="2" class="btns-wrapper">
-							<a class="btn active" href="javascript:">按订单编号查询</a>
-							<a class="btn" href="javascript:">按订单信息查询</a>
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-					</tr>
-					<tr class="indent-number">
-						<td class="indent-table-title">订单编号：</td>
-						<td class="indent-table-content">
+
+				<div class="input-table">
+					<div class="input-table-tr btns-wrapper">
+						<a class="btn active" href="javascript:">按订单编号查询</a>
+						<a class="btn" href="javascript:">按订单信息查询</a>
+					</div>
+
+					<!-- 按订单编号查询 START -->
+					<div class="input-table-tr indent-number">
+						<div class="indent-table-title">订单编号：</div>
+						<div class="indent-table-content">
 							<input type="text" id="indent-number" placeholder="请输入订单的编号"/>
-						</td>
-					</tr>
-					<tr class="indent-details">
-						<td class="indent-table-title">车牌号码：</td>
-						<td class="indent-table-content indent-inputs">
+							<a class="inline-btn indent-submit" href="javascript:">查询</a>
+						</div>
+					</div>
+					<!-- 按订单编号查询 END -->
+
+					<!-- 按订单信息查询 START -->
+					<div class="input-table-tr indent-details">
+						<div class="indent-table-title">车牌号码：</div>
+						<div class="indent-table-content indent-inputs">
 							@include("components.province-abbre")
 							<input class="input plate-num" id="indent_agency_plate_num" type="text" placeholder="车牌号码后六位"/>
-							<!-- @include("components.select-types") -->
-						</td>
-					</tr>
-					<tr class="indent-details">
-						<td class="indent-table-title">业务状态：</td>
-						<td class="indent-table-content">
+						</div>
+					</div>
+					<div class="input-table-tr indent-details">
+						<div class="indent-table-title">业务状态：</div>
+						<div class="indent-table-content">
 							<select class="input select-plate plate-status indent-status">
 								<option value="">全部</option>
 								<option value="0">未受理</option>
@@ -50,19 +51,22 @@
 								<option value="3">订单完成</option>
 								<option value="4">订单关闭</option>
 							</select>
-						</td>
-					</tr>
-					<tr class="indent-details">
-						<td class="indent-table-title">下单时间：</td>
-						<td class="indent-table-content indent-date">
+						</div>
+					</div>
+					<div class="input-table-tr indent-details">
+						<div class="indent-table-title">下单时间：</div>
+						<div class="indent-table-content indent-date">
 							<input class="input plate-num" type="text" id="indent_date_start" placeholder=""/>
 							至
 							<input class="input plate-num" type="text" id="indent_date_end" placeholder=""/>
-						</td>
-					</tr>
-				</table>
+						</div>
+					</div>
+					<!-- 按订单信息查询 END -->
+
+				</div>
+
 			</div>
-			<div class="indent-btn">
+			<div class="indent-btn indent-details">
 				<a class="inline-btn indent-submit" href="javascript:">查询</a>
 				<span class="indent-btn-tips">温馨提示：如果没有选择时间范围，默认查询1年以内的记录。</span>
 			</div>
