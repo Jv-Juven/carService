@@ -133,7 +133,7 @@
 				<span class="principal"><%- array[i]["fkje"] %></span>
 			</td>
 			<td>
-				<span class="late-fee"><%- array[i]["xh"] ></span>
+				<span class="late-fee"><%- array[i]["xh"] %></span>
 			</td>
 			<td>
 				<span class="serve-money"><%- service_fee %></span>
