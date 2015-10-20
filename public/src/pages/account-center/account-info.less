@@ -133,13 +133,23 @@
 	margin-top: 20px;
 	width: 580px;
 	height: 360px;
+	.info-table02-tr{
+		@line-height: 34px;
+		width: 100%;
+		// height: @line-height;
+		line-height: @line-height;
+		margin-top: 10px;
+		float: left;
+	}
 	.tr-title{
-		width: 200px;
+		width: 130px;
 		text-align: right;
 		color: rgb(50, 50, 50);
 		font-weight: bolder;
+		float: left;
 	}
 	.tr-content{
+		float: left;
 		width: 430px;
 		padding-left: 10px;
 		&>.text-input{
@@ -159,6 +169,7 @@
 	}
 	.email-input{}
 	.tr-tips{
+		float: left;
 		width: 130px;
 		.get-code-btn{
 			.inline-block();
