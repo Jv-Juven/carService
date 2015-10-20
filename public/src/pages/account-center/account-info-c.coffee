@@ -59,12 +59,18 @@ psd = {
 	#获取手机验证码
 	getPhoneCodes: (e)->
 		_this = $(e.currentTarget)
+
+		btnText = _this.text()
+		#解除按钮事件
+		_this.addClass("btn-disabled").text("发送中").off()
+
 		$.post "/user/send_code_to_phone", {}, (msg)->
 			if msg["errCode"] isnt 0
 				alert msg["message"]
 			else
 				timing(_this, 60, ()->
 					_this.on "click", psd.getPhoneCodes
+				, btnText
 				)
 				alert msg["message"]
 

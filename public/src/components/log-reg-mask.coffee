@@ -33,7 +33,6 @@ fotgetPsd = $(".forget-tips")
 ###
 # 忘记密码框 START
 ###
-
 resetClose = $(".mask-reset-psd .warn-close")
 
 changeEmail = $(".change-email")
@@ -57,7 +56,6 @@ saveBtn = $(".log-reg-save-btn")
 cancelBtn =$(".cancel-btn")
 
 warnTips = $(".find-psd-tips input")
-
 ###
 # 忘记密码框 END
 ###
@@ -184,6 +182,10 @@ getCodesFunc = (e)->
 
 	_this = $(e.currentTarget)
 
+	btnText = _this.text()
+	#解除按钮事件
+	_this.addClass("btn-disabled").text("发送中").off()
+
 	if !validate.mobile(regPhone.val())
 		regTips.val("*请正确填写手机号码")
 		return
@@ -197,7 +199,8 @@ getCodesFunc = (e)->
 			alert msg["message"]
 		else
 			timing(_this, 60, ()->
-				getCodes.on "click", getCodesFunc
+				_this.on "click", getCodesFunc
+			, btnText
 			)
 			alert msg["message"]
 
@@ -321,6 +324,9 @@ getEmaiCodes = (e)->
 
 	_this = $(e.currentTarget)
 
+	btnText = _this.text()
+	#解除按钮事件
+	_this.addClass("btn-disabled").text("发送中").off()
 
 	if !validate.email(emailInput.val())
 		warnTips.val("*请正确填写邮箱")
@@ -337,6 +343,7 @@ getEmaiCodes = (e)->
 		else
 			timing(_this, 60, ()->
 				emailCodesBtn.on "click", getEmaiCodes
+			, btnText
 			)
 			alert msg["message"]
 emailCodesBtn.on "click", getEmaiCodes
@@ -345,6 +352,10 @@ emailCodesBtn.on "click", getEmaiCodes
 getPhoneCodes = (e)->
 
 	_this = $(e.currentTarget)
+
+	btnText = _this.text()
+	#解除按钮事件
+	_this.addClass("btn-disabled").text("发送中").off()
 
 	if !validate.mobile(phoneInput.val())
 		warnTips.val("*请正确填写手机号码")
@@ -361,6 +372,7 @@ getPhoneCodes = (e)->
 		else
 			timing(_this, 60, ()->
 				phoneCodesBtn.on "click", getPhoneCodes
+			, btnText
 			)
 			alert msg["message"]
 
