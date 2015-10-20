@@ -8,8 +8,11 @@ warn = new warn()
 allCheck = new allCheck()
 
 recordsPlate = $(".records-plate")
+recordsEngine = $(".records-engine")
+recordsFrame = $(".records-frame")
 plateNum = $("#vio_plate_num")
 engineNum = $("#engine_num")
+frameNum = $("#frame_num")
 plateNumberSelect = $(".plate-number-container").find("select")
 
 vioBtn = $(".vio-btn")
@@ -56,6 +59,8 @@ loadSubmit = ()->
 	plateNum.val(dataArray[2])
 	#发动机号码
 	engineNum.val(dataArray[0])
+	#车架号后六位号码
+	frameNum.val(dataArray[4])
 	#车辆类型填充
 	plateNumberSelect.eq(1).find("option").each (index, item)->
 		item = $(item)
@@ -81,6 +86,11 @@ submit = ()->
 		engineNum.val("").focus()
 		return
 
+	if !validate.engineNum(frameNum.val()) || (frameNum.val().length isnt 6)
+		vioTips.text "*请正确填写车架号后六位"
+		frameNum.val("").focus()
+		return
+
 	placeName = plateNumberSelect.eq(0).find("option:selected").text()
 	carType = plateNumberSelect.eq(1).find("option:selected").val()
 	
@@ -88,11 +98,11 @@ submit = ()->
 
 	licensePlate = placeName + plateNum.val()
 
-	window.name = engineNum.val() + "&&&" + placeName + "&&&" + plateNum.val() + "&&&" + carType
+	window.name = engineNum.val() + "&&&" + placeName + "&&&" + plateNum.val() + "&&&" + carType + "&&&" + frameNum.val()
 
 	$.get "/serve-center/search/api/violation", {
-
 			engineCode: engineNum.val(),
+			frameCode: frameNum.val(),
 			licensePlate: licensePlate,
 			licenseType: carType
 
@@ -138,6 +148,8 @@ submit = ()->
 
 			#修改标题头
 			recordsPlate.text(licensePlate)
+			recordsEngine.text(engineNum.val())
+			recordsFrame.text(frameNum.val())
 			recordsTotal.text(msg["violations"].length)
 
 			noResulte.hide()
@@ -205,6 +217,68 @@ $ ()->
 	vioBtn.on "click", submit
 	#“违章办理”按钮事件绑定
 	$(document).on "click", ".deal-btn a", dealVio
+	#点击多选按钮计算费用总计
+	$(document).on "click", ".vio-records-table01 td .checkbox", (e)->
+		_this = $(e.currentTarget)
+		total_principal = $(".vio-select-resulte .total-principal")
+		total_late_fee = $(".vio-select-resulte .total-late-fee")
+		total_service_fee = $(".vio-select-resulte .total-service-fee")
+		total_sum = $(".vio-select-resulte .total-money")
+		principal = parseInt _this.parent().parent().find(".principal").text()
+		late_fee = parseInt _this.parent().parent().find(".late-fee").text() or 0
+		service_fee = parseInt _this.parent().parent().find(".serve-money").text()
+		if _this.prop("checked")
+			total_principal.text(parseInt(total_principal.text()) + principal)
+			total_late_fee.text(parseInt(total_late_fee.text()) + late_fee)
+			total_service_fee.text(parseInt(total_service_fee.text()) + service_fee)
+		else
+			total_principal.text(parseInt(total_principal.text()) - principal)
+			total_late_fee.text(parseInt(total_late_fee.text()) - late_fee)
+			total_service_fee.text(parseInt(total_service_fee.text()) - service_fee)
+			
+		total_sum.text(parseInt(total_principal.text()) + parseInt(total_late_fee.text()) + parseInt(total_service_fee.text()))
+	#全选按钮点击
+	$(document).on "click", ".vio-records-table01 th .vio-select-all", (e)->
+		_this = $(e.currentTarget)
+		total_principal_all = 0
+		total_late_fee_all = 0
+		total_service_fee_all = 0
+		total_sum_all = 0
+
+		total_principal = $(".vio-select-resulte .total-principal")
+		total_late_fee = $(".vio-select-resulte .total-late-fee")
+		total_service_fee = $(".vio-select-resulte .total-service-fee")
+		total_sum = $(".vio-select-resulte .total-money")
+
+		principal = $(".vio-records-table01 td").find(".principal")
+		late_fee = $(".vio-records-table01 td").find(".late-fee")
+		service_fee = $(".vio-records-table01 td").find(".serve-money")
+
+		if _this.prop("checked")
+
+			principal.each ()->
+				total_principal_all += parseInt $(this).text()
+
+			late_fee.each ()->
+				total_late_fee_all += parseInt $(this).text() or 0
+
+			service_fee.each ()->
+				total_service_fee_all += parseInt $(this).text()
+
+
+			total_principal.text total_principal_all
+			total_late_fee.text total_late_fee_all
+			total_service_fee.text total_service_fee_all
+
+			total_sum.text(total_principal_all + total_late_fee_all + total_service_fee_all)
+
+		else
+
+			total_principal.text("0")
+			total_late_fee.text("0")
+			total_service_fee.text("0")
+			
+			total_sum.text("0")
 	
 
 

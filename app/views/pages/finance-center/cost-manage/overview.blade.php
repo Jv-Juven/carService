@@ -15,7 +15,7 @@
 @stop
 
 @section('right-content')
-<div class="overview-wrap">
+<div class="contain-wrap">
     <div class="overview-body">
         <div class="info-wrap">
             <div class="account-info">

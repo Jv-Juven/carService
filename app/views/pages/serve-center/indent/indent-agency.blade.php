@@ -14,61 +14,84 @@
 @section("right-content")
 	<div class="content-box">
 		<div class="content-container">
+			<!-- 头部输入框  START -->
 			<div class="indent-inputs-wrapper">
-				<table class="input-table">
-					<tr>
-						<td colspan="2" class="btns-wrapper">
-							<a class="btn active" href="javascript:">按订单编号查询</a>
-							<a class="btn" href="javascript:">按订单信息查询</a>
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-					</tr>
-					<tr class="indent-number">
-						<td class="indent-table-title">订单编号：</td>
-						<td class="indent-table-content">
-							<input type="text" id="indent-number" placeholder="请输入订单的编号"/>
-						</td>
-					</tr>
-					<tr class="indent-details">
-						<td class="indent-table-title">车牌号码：</td>
-						<td class="indent-table-content indent-inputs">
-							@include("components.province-abbre")
-							<input class="input plate-num" id="indent_agency_plate_num" type="text" placeholder="车牌号码后六位"/>
-							<!-- @include("components.select-types") -->
-						</td>
-					</tr>
-					<tr class="indent-details">
-						<td class="indent-table-title">业务状态：</td>
-						<td class="indent-table-content">
-							<select class="input select-plate plate-status indent-status">
-								<option value="">全部</option>
-								<option value="0">未受理</option>
-								<option value="1">已受理</option>
-								<option value="2">已受理办理中</option>
-								<option value="3">订单完成</option>
-								<option value="4">订单关闭</option>
-							</select>
-						</td>
-					</tr>
-					<tr class="indent-details">
-						<td class="indent-table-title">下单时间：</td>
-						<td class="indent-table-content indent-date">
-							<input class="input plate-num" type="text" id="indent_date_start" placeholder=""/>
-							至
-							<input class="input plate-num" type="text" id="indent_date_end" placeholder=""/>
-						</td>
-					</tr>
-				</table>
+
+				<div class="inputs-container">
+					<div class="indent-menu-btns">
+						<a class="btn active" href="javascript:">按订单编号查询</a>
+						<a class="btn" href="javascript:">按订单信息查询</a>
+					</div>
+					<!-- tab01 START -->
+					<div class="inputs-container-tabs inputs-container-tabs01">
+
+						<div class="inputs-line-wrapper">
+							<div class="indent-table-title">
+								订单编号：
+							</div>
+							<div class="indent-table-content">
+								<input class="indent-input" id="indent-number" type="text" placeholder="请输入订单的编号"/>
+								<a class="inline-btn indent-submit" href="javascript:">查询</a>
+							</div>
+						</div>
+
+						<div class="inputs-line-wrapper indent-btn">
+							<span class="indent-btn-tips">温馨提示：如果没有选择时间范围，默认查询1年以内的记录。</span>
+						</div>
+
+					</div>
+					<!-- tab01 END -->
+
+					<!-- tab02 START -->
+					<div class="inputs-container-tabs inputs-container-tabs02">
+						<div class="inputs-line-wrapper">
+							<div class="indent-table-title">
+								车牌号码：
+							</div>
+							<div class="indent-table-content">
+								@include("components.province-abbre")
+								<input class="input plate-num" id="indent_agency_plate_num" type="text" placeholder="车牌号码后六位"/>
+							</div>
+						</div>
+						<div class="inputs-line-wrapper">
+							<div class="inputs-line-wrapper">
+								<div class="indent-table-title">
+									业务状态：
+								</div>
+								<div class="indent-table-content">
+									<select class="input select-plate plate-status indent-status">
+										<option value="">全部</option>
+										<option value="0">未受理</option>
+										<option value="1">已受理</option>
+										<option value="2">已受理办理中</option>
+										<option value="3">订单完成</option>
+										<option value="4">订单关闭</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="inputs-line-wrapper">
+							<div class="indent-table-title">
+								下单时间：
+							</div>
+							<div class="indent-table-content indent-date">
+								<input class="input plate-num" type="text" id="indent_date_start" placeholder=""/>
+								至
+								<input class="input plate-num" type="text" id="indent_date_end" placeholder=""/>
+							</div>
+						</div>
+						<div class="inputs-line-wrapper indent-btn">
+							<a class="inline-btn indent-submit" href="javascript:">查询</a>
+							<span class="indent-btn-tips">温馨提示：如果没有选择时间范围，默认查询1年以内的记录。</span>
+						</div>
+					</div>
+					<!-- tab02 END -->
+				</div>
 			</div>
-			<div class="indent-btn">
-				<a class="inline-btn indent-submit" href="javascript:">查询</a>
-				<span class="indent-btn-tips">温馨提示：如果没有选择时间范围，默认查询1年以内的记录。</span>
-			</div>
-			<div class="indent-no-resulte">当前还没有管理订单</div>
+			<!-- 头部输入框  END -->
+			<div class="indent-no-resulte">当前还没有管理订单!</div>
 			<div class="indent-tables-wrapper">
-				
+								
 				<table class="indent-list-table">
 
 					<tr class="table-head">
@@ -149,7 +172,6 @@
 					@endforeach
 					<!-- 单位车辆信息表 未受理 END -->
 				</table>
-				
 				
 			</div>
 			@include('components.pagination', [ 'paginator' => $paginator ])

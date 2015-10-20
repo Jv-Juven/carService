@@ -1,7 +1,6 @@
 <div class="left-nav" id="account-center-left-nav">
 	<div class="nav">
 		<ul class="nav-first">
-			@if(Sentry::getUser()->user_type == 1)
 			<li class="li">
 				<a href="javascript:">
 					<i class="nav-icon">
@@ -11,7 +10,11 @@
 				</a>
 				<ul class="nav-sec">
 					<li>
+						@if(Sentry::getUser()->user_type == 1)
 						<a class="nav-item" href="/account-center/account-info">
+						@else
+						<a class="nav-item" href="/account-center/account-info-c">
+						@endif
 							<i>•</i>
 							账号信息
 						</a>
@@ -21,7 +24,7 @@
 					</li>
 				</ul>
 			</li>
-			@endif
+			@if(Sentry::getUser()->user_type == 1)
 			<li class="li">
 				<a href="javascript:">
 					<i class="nav-icon">
@@ -31,11 +34,7 @@
 				</a>
 				<ul class="nav-sec">
 					<li>
-						@if(Sentry::getUser()->user_type == 1)
 						<a class="nav-item" href="/account-center/developer-info">
-						@else
-						<a class="nav-item" href="/account-center/account-info-c">
-						@endif
 							<i>•</i>
 							开发者信息
 						</a>
@@ -45,6 +44,7 @@
 					</li>
 				</ul>
 			</li>
+			@endif
 		</ul>
 	</div>
 </div>

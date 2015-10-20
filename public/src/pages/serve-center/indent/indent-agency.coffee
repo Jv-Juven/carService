@@ -1,9 +1,7 @@
 
 indentNum = $("#indent-number")
-indentInputs = $(".indent-inputs")
-plate = indentInputs.find("select").eq(0)
-plateNum = $(".plate-num")
-carType = indentInputs.find("select").eq(1)
+plate = $(".inputs-container-tabs02").find("select").eq(0)
+plateNum = $("#indent_agency_plate_num")
 
 #违章城市
 city = $(".indent-city")
@@ -14,14 +12,14 @@ dateStart = $("#indent_date_start")
 dateEnd = $("#indent_date_end")
 
 
-btns = $(".btns-wrapper .btn")
+btns = $(".indent-menu-btns .btn")
 
 tableBlank = $(".table-blank")
 
-number = $(".indent-number")
-details = $(".indent-details")
+tabs01 = $(".inputs-container-tabs01")
+tabs02 = $(".inputs-container-tabs02")
 
-submitBtn = $(".indent-btn .indent-submit")
+submitBtn = $(".indent-submit")
 
 template = $("#indent_template").html()
 
@@ -49,6 +47,9 @@ payBtn = $(".immediately-pay")
 
 noResulte = $(".indent-no-resulte")
 
+#查询类型的标志
+queryType = 0
+
 #关闭弹窗
 closeMask = ()->
 	maskBg.fadeOut(100)
@@ -73,25 +74,26 @@ submit = ()->
 	#显示与隐藏初始化，隐藏分页按钮
 	$(".paginate-wrap").hide()
 
-
+	order_id = indentNum.val()
 	plateNo = plate.find("option:selected").text() + plateNum.val()
+	process_status = status.find("option:selected").val()
 	dateStartValue = dateStart.val()
 	dateEndValue = dateEnd.val()
 
-	# console.log(indentNum + "\n" + plate + plateNum + "\n" + status + "\n" + dateStart.val() + "\n")
-	if indentNum.val().length isnt 0
+	#根据查询类型的不同传入不同的值
+	if queryType is 0
 		plateNo = ""
 		dateStartValue = ""
 		dateEndValue = ""
-	if plateNum.val().length is 0
+	else
 		plateNo = ""
 
 
 	#查询请求后端的数据
 	$.get "/serve-center/order/operation/search", {
-			order_id: indentNum.val(),
+			order_id: order_id,
 			car_plate_no: plateNo,
-			process_status: status.find("option:selected").val(),
+			process_status: process_status,
 			start_date: dateStartValue,
 			end_date: dateEndValue
 		}, (msg)->
@@ -106,12 +108,7 @@ submit = ()->
 				if msg["orders"].length is 0
 					noResulte.show()
 					return
-				# array01 = _.filter msg["orders"], "process_status", "0"
-				# array02 = _.filter msg["orders"], "process_status", "1"
-				# array03 = _.filter msg["orders"], "process_status", "2"
-				# array04 = _.filter msg["orders"], "process_status", "3"
-				# array05 = _.filter msg["orders"], "process_status", "4"
-
+				
 				array01 = msg["orders"]
 
 				$(".indent-tr").remove()
@@ -122,30 +119,6 @@ submit = ()->
 						"array": array01
 					}
 					tableBlank.after html01
-				# if array02.length isnt 0
-				# 	html02 = _.template(template)
-				# 	html02 = html02 {
-				# 		"array": array02
-				# 	}
-				# 	tableBlank.after html02
-				# if array03.length isnt 0
-				# 	html03 = _.template(template)
-				# 	html03 = html03 {
-				# 		"array": array03
-				# 	}
-				# 	tableBlank.after html03
-				# if array04.length isnt 0
-				# 	html04 = _.template(template)
-				# 	html04 = html04 {
-				# 		"array": array04
-				# 	}
-				# 	tableBlank.after html04
-				# if array05.length isnt 0
-				# 	html05 = _.template(template)
-				# 	html05 = html05 {
-				# 		"array": array05
-				# 	}
-				# 	tableBlank.after html05
 					
 				#显示搜索框的内容
 				$(".indent-tables-wrapper").show()
@@ -160,12 +133,14 @@ cutInfoInput = (e)->
 	_this.addClass("active").siblings().removeClass("active")
 	_index = _this.index()
 	if _index is 0
-		details.hide()
-		number.show()
+		queryType = 0
+		tabs02.hide()
+		tabs01.show()
 	else
+		queryType = 1
 		indentNum.val("")
-		number.hide()
-		details.show()
+		tabs01.hide()
+		tabs02.show()
 
 #取消订单
 cancelDeal = (e)->

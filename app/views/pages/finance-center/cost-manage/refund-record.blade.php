@@ -15,8 +15,8 @@
 @stop
 
 @section('right-content')
-<div class="refund-wrap">
-    <div class="data-wrap">
+<div class="contain-wrap">
+    <div class="contain-body">
         <div class="data-section">
             <table class="data-list">
                 <tr class="data-item data-head">

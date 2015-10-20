@@ -2,7 +2,7 @@
 
 class NoticePageController extends BaseController{
 
-	protected static $default_per_page = 7;
+	protected static $default_per_page = 10;
 
 	/**
 	 * 获取公告分页后结果

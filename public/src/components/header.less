@@ -61,7 +61,7 @@
 				display: none;
 			}
 		}
-		.active, .hover{
+		.active{
 			color: white;
 			background: @blue;
 			a{
@@ -69,6 +69,12 @@
 			}
 			.item-underline{
 				display: block;
+			}
+		}
+		.hover{
+			color: @blue;
+			a{
+				.a-color(@blue);
 			}
 		}
 	}
