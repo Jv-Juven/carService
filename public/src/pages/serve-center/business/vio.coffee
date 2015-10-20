@@ -161,6 +161,8 @@ submit = ()->
 				if array02.length > 0
 					table02.show()
 					allCheck.bindEvent(table02.find(".tb-head input[type='checkbox']"), table02.find(".tb-tr input[type='checkbox']"))
+		else if msg["errCode"] is 10
+			$("#header_logbtn").trigger("click")			
 		else if msg["errCode"] is 3
 			window.location.href = "/serve-center/agency/pages/agency?sign=" + msg["sign"]
 		else if msg["errCode"] is 32
