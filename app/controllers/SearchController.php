@@ -425,7 +425,7 @@ class SearchController extends BaseController{
         $area = IllegalCityInfoIndex::where('a_code',$xh)->first();
         if( isset( $area ) )
         {
-            $addr = $area->province.' '.$area->city.' '.$area->area;
+            $addr = $area->province.$area->city.$area->area;
             return array('errCode'=>0, 'message'=>'ok','addr'=>$addr);
         }
         
@@ -433,11 +433,11 @@ class SearchController extends BaseController{
         $city = IllegalCityInfoIndex::where('c_code',mb_substr($xh,0,4) )->first();
         if( isset( $city ) )
         {
-            $addr = $city->province.' '.$city->city;
+            $addr = $city->province.$city->city;
             return array('errCode'=>0, 'message'=>'ok','addr'=>$addr);
         }
         
-        //2位
+        //2位    
         $province = IllegalCityInfoIndex::where('p_code',mb_substr($xh,0,2) )->first();
         if( isset( $province ) )
         {
