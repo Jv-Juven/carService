@@ -14,31 +14,31 @@
 
 	<div class="content-container">
 		<div class="info-table">
-			<table>
-				<tr>
-					<td class="input-title">邮箱：</td>
-					<td class="input">
+			<div class="table">
+				<div class="info-table-tr">
+					<div class="input-title">邮箱：</div>
+					<div class="input">
 						<input id="email" type="text" placeholder="作为登录账号，请填写未被申请注册的邮箱账号"/>
 						<span class="warn-tips">请输入正确的邮箱</span>
-					</td>
-				</tr>
-				<tr>
-					<td class="input-title">密码：</td>
-					<td class="input">
+					</div>
+				</div>
+				<div class="info-table-tr">
+					<div class="input-title">密码：</div>
+					<div class="input">
 						<input id="password" type="password" placeholder="字母、数字或英文符号，最短6位，区分大小写"/>
 						<span class="warn-tips">密码由至少6个字符组成</span>
-					</td>
-				</tr>
-				<tr>
-					<td class="input-title">确认密码：</td>
-					<td class="input">
+					</div>
+				</div>
+				<div class="info-table-tr">
+					<div class="input-title">确认密码：</div>
+					<div class="input">
 						<input id="re_password" type="password" placeholder="请再次输入密码"/>
 						<span class="warn-tips">请再次输入密码</span>
-					</td>
-				</tr>
-				<!-- <tr>
-					<td class="input-title">验证码：</td>
-					<td class="input validate-input">
+					</div>
+				</div>
+				<!-- <div class="info-table-tr">
+					<div class="input-title">验证码：</div>
+					<div class="input validate-input">
 						<input id="validate_codes" type="text" placeholder=""/>
 						<div class="validate-img">
 							<img src="/images/login/logo.png">
@@ -46,9 +46,9 @@
 						<a class="change-captcha" href="javascript:">
 							换一换
 						</a>
-					</td>
-				</tr> -->
-			</table>
+					</div>
+				</div> -->
+			</div>
 		</div>
 		<div class="info-protocol">
 			<label for="protocol">
