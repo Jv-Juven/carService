@@ -54,9 +54,10 @@
 						<th>违章时间</th>
 						<th>[违章城市]违章地点</th>
 						<th>违章行为</th>
+						<th>违法序号</th>
 						<th>扣分分值</th>
 						<th>本金</th>
-						<th>违法序号</th>
+						<th>滞纳金</th>
 						<th>服务费</th>
 						<th>罚款总额</th>
 					</tr>
@@ -85,9 +86,10 @@
 						<th>违章时间</th>
 						<th>[违章城市]违章地点</th>
 						<th>违章行为</th>
+						<th>违法序号</th>
 						<th>扣分分值</th>
 						<th>本金</th>
-						<th>违法序号</th>
+						<th>滞纳金</th>
 						<th>服务费</th>
 						<th>罚款总额</th>
 					</tr>
@@ -104,7 +106,7 @@
 
 <script type="text/template" id="vio_template">
 	<% for (var i = 0; i < array.length; i++){ 
-		var total_sum = parseInt(array[i]["fkje"]) + parseInt(service_fee);
+		var total_sum = parseInt(array[i]["fkje"]) + parseInt(array[i][""] + "0") + parseInt(service_fee);
 		var number = i + 1;
 	%>
 		<tr class="tb-tr">
@@ -127,13 +129,16 @@
 				<span class="num">[<%- array[i]["wfxw"] %>]</span>
 			</td>
 			<td>
+				<span class="xh"><%- array[i]["xh"] %></span>
+			</td>
+			<td>
 				<span class="scores"><%- array[i]["wfjfs"] %></span>
 			</td>
 			<td>
 				<span class="principal"><%- array[i]["fkje"] %></span>
 			</td>
 			<td>
-				<span class="late-fee"><%- array[i]["xh"] %></span>
+				<span class="late-fee"></span>
 			</td>
 			<td>
 				<span class="serve-money"><%- service_fee %></span>
