@@ -45,7 +45,7 @@
 		<div class="violation-records clearfix vio-records">
 			<input id="sign" type="hidden" value=""/>
 			<div class="vio-records-title">
-				车牌号码为<span class="records-plate">XXXXXX</span>的车辆共有<span class="records-total">3</span>笔违章记录
+				车牌号码为<span class="records-plate">XXXXXX</span>（发动机号码<span class="records-engine"></span> | 车架号<span class="records-frame"></span>）的车辆共有<span class="records-total">3</span>笔违章记录
 			</div>
 			<div class="vio-records-table vio-records-table01">
 				<table>

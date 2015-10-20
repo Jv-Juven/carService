@@ -8,8 +8,11 @@ warn = new warn()
 allCheck = new allCheck()
 
 recordsPlate = $(".records-plate")
+recordsEngine = $(".records-engine")
+recordsFrame = $(".records-frame")
 plateNum = $("#vio_plate_num")
 engineNum = $("#engine_num")
+frameNum = $("#frame_num")
 plateNumberSelect = $(".plate-number-container").find("select")
 
 vioBtn = $(".vio-btn")
@@ -56,6 +59,8 @@ loadSubmit = ()->
 	plateNum.val(dataArray[2])
 	#发动机号码
 	engineNum.val(dataArray[0])
+	#车架号后六位号码
+	frameNum.val(dataArray[3])
 	#车辆类型填充
 	plateNumberSelect.eq(1).find("option").each (index, item)->
 		item = $(item)
@@ -81,6 +86,11 @@ submit = ()->
 		engineNum.val("").focus()
 		return
 
+	if !validate.engineNum(frameNum.val()) || (frameNum.val().length isnt 6)
+		vioTips.text "*请正确填写车架号后六位"
+		frameNum.val("").focus()
+		return
+
 	placeName = plateNumberSelect.eq(0).find("option:selected").text()
 	carType = plateNumberSelect.eq(1).find("option:selected").val()
 	
@@ -88,11 +98,11 @@ submit = ()->
 
 	licensePlate = placeName + plateNum.val()
 
-	window.name = engineNum.val() + "&&&" + placeName + "&&&" + plateNum.val() + "&&&" + carType
+	window.name = engineNum.val() + "&&&" + placeName + "&&&" + plateNum.val() + "&&&" + carType + "&&&" + frameNum.val()
 
 	$.get "/serve-center/search/api/violation", {
-
 			engineCode: engineNum.val(),
+			frameCode: frameNum.val(),
 			licensePlate: licensePlate,
 			licenseType: carType
 
@@ -138,6 +148,8 @@ submit = ()->
 
 			#修改标题头
 			recordsPlate.text(licensePlate)
+			recordsEngine.text(engineNum.val())
+			recordsFrame.text(frameNum.val())
 			recordsTotal.text(msg["violations"].length)
 
 			noResulte.hide()
