@@ -213,7 +213,7 @@ $ ()->
 		total_service_fee = $(".vio-select-resulte .total-service-fee")
 		total_sum = $(".vio-select-resulte .total-money")
 		principal = parseInt _this.parent().parent().find(".principal").text()
-		late_fee = parseInt _this.parent().parent().find(".late-fee").text()
+		late_fee = parseInt _this.parent().parent().find(".late-fee").text() or 0
 		service_fee = parseInt _this.parent().parent().find(".serve-money").text()
 		if _this.prop("checked")
 			total_principal.text(parseInt(total_principal.text()) + principal)
@@ -239,7 +239,7 @@ $ ()->
 		total_sum = $(".vio-select-resulte .total-money")
 
 		principal = $(".vio-records-table01 td").find(".principal")
-		late_fee = $(".vio-records-table01 td").find(".late-fee")
+		late_fee = $(".vio-records-table01 td").find(".late-fee") or 0
 		service_fee = $(".vio-records-table01 td").find(".serve-money")
 
 		if _this.prop("checked")
