@@ -150,6 +150,7 @@ class AgencyController extends BaseController{
             $agency_order->car_type_no          = $violation['info']['car_type_no'];
             $agency_order->car_plate_no         = $violation['info']['car_plate_no'];
             $agency_order->car_engine_no        = $violation['info']['car_engine_no'];
+            $agency_order->car_frame_no         = $violation['info']['car_frame_no'];
             $agency_order->service_charge_sum   = $violation['info']['service_fee'] * $violation['info']['count'];
             $agency_order->late_fee_sum         = 0.00;
             $agency_order->trade_status         = 0;
@@ -172,7 +173,9 @@ class AgencyController extends BaseController{
                 $violation_info->req_car_plate_no       = $violation_result['hphm'];   //车牌号码
                 $violation_info->req_car_engine_no      = $violation_result['fdjh'];   //发动机号后六位
                 $violation_info->car_type_no            = $violation_result['hpzl'];   //号牌种类
+                $violation_info->rep_sequence_num       = $violation_result['xh'];
                 $violation_info->rep_event_time         = $violation_result['wfsj'];   //违法时间
+                $violation_info->rep_event_city         = $violation_result['wfcs'];   //违法城市
                 $violation_info->rep_event_addr         = $violation_result['wfdz'];   //违法地址
                 $violation_info->rep_violation_behavior = $violation_result['wfxwzt']; //违法行为
                 $violation_info->rep_point_no           = $violation_result['wfjfs'];  //违法记分数

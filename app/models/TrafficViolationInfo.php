@@ -13,6 +13,7 @@ class TrafficViolationInfo extends BaseModel{
         'req_car_engine_no',
         'car_type_no',
         'req_car_frame_no',
+        'rep_sequence_num',
         'rep_event_time',
         'rep_event_city',
         'rep_event_addr',
