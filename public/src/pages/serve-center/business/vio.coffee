@@ -60,7 +60,7 @@ loadSubmit = ()->
 	#发动机号码
 	engineNum.val(dataArray[0])
 	#车架号后六位号码
-	frameNum.val(dataArray[3])
+	frameNum.val(dataArray[4])
 	#车辆类型填充
 	plateNumberSelect.eq(1).find("option").each (index, item)->
 		item = $(item)
