@@ -132,10 +132,14 @@
 							<span>{{{ $vinfo->rep_event_time }}}</span>
 						</td>
 						<td>
+							<span>{{{ $vinfo->rep_event_city }}}</span>
 							<span>{{{ $vinfo->rep_event_addr }}}</span>
 						</td>
 						<td class="vio-behaviour">
 							<span>{{{ $vinfo->rep_violation_behavior }}}</span>
+						</td>
+						<td class="vio-sequence-number">
+							{{{ $vinfo->rep_sequence_num }}}
 						</td>
 						<td class="money">
 							<span>本金：{{{ $vinfo->rep_priciple_balance }}}</span>
