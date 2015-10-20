@@ -104,7 +104,7 @@
 
 <script type="text/template" id="vio_template">
 	<% for (var i = 0; i < array.length; i++){ 
-		var total_sum = parseInt(array[i]["fkje"] + "0") + parseInt(service_fee);
+		var total_sum = parseInt(array[i]["fkje"]) + parseInt(service_fee);
 		var number = i + 1;
 	%>
 		<tr class="tb-tr">
