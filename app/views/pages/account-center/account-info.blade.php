@@ -18,6 +18,7 @@
 			<div class="title">
 				注册信息登记
 			</div>
+
 			@if( Sentry::check())
 			<div class="developer-tr">
 				<div class="tr tr-title">企业名称：</div>
@@ -65,6 +66,7 @@
 				<a class="change-psd" href="javascript:">修改密码</a>
 			</div>
 			@endif
+			
 		</div>
 	</div>
 	<div class="mask-bg"></div>		
@@ -118,71 +120,71 @@
 			</div>
 			<div class="warn-content">
 				<div class="warn-msg">
-					<table class="info-table02">
-						<tr>
-							<td class="tr-title">邮箱验证码：</td>
-							<td class="tr-content content">
+					<div class="info-table02">
+						<div class="info-table02-tr">
+							<div class="tr-title">邮箱验证码：</div>
+							<div class="tr-content content">
 								<input class="text-input short-input info-email-code" type="text" placeholder="请前往注册邮箱获取验证码" />
-							</td>
-							<td class="tr-tips">
+							</div>
+							<div class="tr-tips">
 								<a class="get-code-btn get-email-codes" href="javascript:">获取验证码</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="tr-title">运营者身份证姓名：</td>
-							<td class="tr-content" colspan="2">
+							</div>
+						</div>
+						<div class="info-table02-tr">
+							<div class="tr-title">运营者身份证姓名：</div>
+							<div class="tr-content" colspan="2">
 								<input class="text-input long-input info-name" type="text" placeholder="请填写运营者的姓名，如果名字包含分隔号“•”,请勿忽略" />
-							</td>
-						</tr>
-						<tr>
-							<td class="tr-title">运营者身份证号码：</td>
-							<td class="tr-content" colspan="2">
+							</div>
+						</div>
+						<div class="info-table02-tr">
+							<div class="tr-title">运营者身份证号码：</div>
+							<div class="tr-content" colspan="2">
 								<input class="text-input long-input info-credit-num" type="text" placeholder="请填写运营者的身份证号码" />
-							</td>
-						</tr>
-						<tr>
-							<td class="tr-title">身份证正面扫描件：</td>
-							<td class="tr-content content" id="front_wrapper">
+							</div>
+						</div>
+						<div class="info-table02-tr">
+							<div class="tr-title">身份证正面扫描件：</div>
+							<div class="tr-content content" id="front_wrapper">
 								<input type="file" id="front_file" />
-							</td>
-							<td class="tr-tips">
+							</div>
+							<div class="tr-tips">
 								<span class="example">
 									<span class="example-text">示例</span>
 									<img src="/images/register-b/id_card01.png">
 								</span>
-							</td>
-						</tr>
-						<tr>
-							<td class="tr-title">身份证反面扫描件：</td>
-							<td class="tr-content content" id="back_wrapper">
+							</div>
+						</div>
+						<div class="info-table02-tr">
+							<div class="tr-title">身份证反面扫描件：</div>
+							<div class="tr-content content" id="back_wrapper">
 								<input type="file" id="back_file" />
-							</td>
-							<td class="tr-tips">
+							</div>
+							<div class="tr-tips">
 								<span class="example">
 									<span class="example-text">示例</span>
 									<img src="/images/register-b/id_card02.png">
 								</span>
-							</td>
-						</tr>
-						<tr>
-							<td class="tr-title">运营者手机号码：</td>
-							<td class="tr-content content">
+							</div>
+						</div>
+						<div class="info-table02-tr">
+							<div class="tr-title">运营者手机号码：</div>
+							<div class="tr-content content">
 								<input class="text-input short-input info-phone" type="text" placeholder="请输入您的手机号码" />
-							</td>
-							<td class="tr-tips">
+							</div>
+							<div class="tr-tips">
 								<a class="get-code-btn get-phone-codes" href="javascript:">获取验证码</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="tr-title">短信验证码：</td>
-							<td class="tr-content content">
+							</div>
+						</div>
+						<div class="info-table02-tr">
+							<div class="tr-title">短信验证码：</div>
+							<div class="tr-content content">
 								<input class="text-input short-input info-phone-code" type="text" placeholder="请输入手机短信收到的6位验证码" />
-							</td>
-							<td class="tr-tips">
+							</div>
+							<div class="tr-tips">
 								<a class="get-code-btn question-link" href="javascript:">无法收验证码？</a>
-							</td>
-						</tr>
-					</table>
+							</div>
+						</div>
+					</div>
 					<div class="tips-words account-tips"></div>
 					<div class="account-btns">
 						<a class="account-btn info-save-btn" href="javascript:">保存</a>

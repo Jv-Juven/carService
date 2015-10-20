@@ -21,58 +21,58 @@
 		</div>
 		<div class="reg-baseinfo01">
 			<span class="title">主体信息登记</span>
-			<table class="info-table01">
-				<tr>
-					<td class="tr-title">企业名称：</td>
-					<td class="tr-content">
+			<div class="info-table01">
+				<div class="info-table01-tr">
+					<div class="tr-title">企业名称：</div>
+					<div class="tr-content">
 						<input type="text" id="company_name" placeholder="需与营业执照上的名称完全一致，信息审核成功后，企业名称不可修改" />
-					</td>
-				</tr>
-				<tr>
-					<td class="tr-title">营业执照注册号：</td>
-					<td class="tr-content">
+					</div>
+				</div>
+				<div class="info-table01-tr">
+					<div class="tr-title">营业执照注册号：</div>
+					<div class="tr-content">
 						<input type="text" id="company_codes" placeholder="请输入15位营业执照注册号或18位的统一社会信用代码" />
-					</td>
-				</tr>
-				<tr>
-					<td class="tr-title">营业执照扫描件：</td>
-					<td class="tr-content" id="license_wrapper">
+					</div>
+				</div>
+				<div class="info-table01-tr">
+					<div class="tr-title">营业执照扫描件：</div>
+					<div class="tr-content" id="license_wrapper">
 						<input type="file" id="license_file" />
 						<span class="tr-tips">请上传营业执照扫描件</span>
-					</td>
-				</tr>
-				<tr class="last-tr">
-					<td class="tr-title">
+					</div>
+				</div>
+				<div class="info-table01-tr last-tr">
+					<div class="tr-title">
 						<span>对公账户：</span>
-					</td>
-					<td class="tr-content">
+					</div>
+					<div class="tr-content">
 						<div>
-							<table>
-								<tr>
-									<th colspan="3">注册成功后我们将给此对公账户打款1分钱。请尽早贵公司的财务沟通获得打款备注码。 <a href="/" class="check-details">查看详情</a></th>
-								</tr>
-								<tr>
-									<td class="cont-title">户名：</td>
-									<td class="cont-content">
+							<div class="child-table">
+								<div class="info-table01-tr info-table01-th">
+									<div>注册成功后我们将给此对公账户打款1分钱。请尽早贵公司的财务沟通获得打款备注码。 <a href="/" class="check-details">查看详情</a></div>
+								</div>
+								<div class="info-table01-tr">
+									<div class="cont-title">户名：</div>
+									<div class="cont-content">
 										<input class="readonly" type="text" id="company_name02" placeholder="" readonly="true" />
-									</td>
-								</tr>
-								<tr>
-									<td class="cont-title">对公帐名：</td>
-									<td class="cont-content">
+									</div>
+								</div>
+								<div class="info-table01-tr">
+									<div class="cont-title">对公帐名：</div>
+									<div class="cont-content">
 										<input type="text" id="public_account" placeholder="请务必正确填写企业对公账户号码"/>
-									</td>
-								</tr>
-								<tr>
-									<td class="cont-title">确认对公帐名：</td>
-									<td class="cont-content">
+									</div>
+								</div>
+								<div class="info-table01-tr">
+									<div class="cont-title">确认对公帐名：</div>
+									<div class="cont-content">
 										<input type="text" id="re_public_acc" placeholder="请再次输入企业对公账户号码"/>
-									</td>
-									<td class="cont-tips">请务必填写正确，填错造成打款验证失败，会导致账号冻结。</td>
-								</tr>
-								<tr>
-									<td class="cont-title">开户银行：</td>
-									<td class="cont-content">
+									</div>
+									<div class="cont-tips">请务必填写正确，填错造成打款验证失败，会导致账号冻结。</div>
+								</div>
+								<div class="info-table01-tr">
+									<div class="cont-title">开户银行：</div>
+									<div class="cont-content">
 										<select class="bank">
 											<option value="">中国工商银行</option>
 											<option value="">中国农业银行</option>
@@ -108,11 +108,11 @@
 											<option value="">渤海银行</option>
 											<option value="">广州市农商行</option>
 										</select>
-									</td>
-								</tr>
-								<tr>
-									<td class="cont-title">开户地点：</td>
-									<td class="cont-content">
+									</div>
+								</div>
+								<div class="info-table01-tr">
+									<div class="cont-title">开户地点：</div>
+									<div class="cont-content">
 										<select class="position">
 											<option value="01">北京市</option>
 											<option value="02">安徽省</option>
@@ -146,74 +146,74 @@
 											<option value="30">四川省</option>
 											<option value="31">内蒙古自治区</option>
 										</select>
-									</td>
-								</tr>
-								<tr class="tr-blank"></tr>
-							</table>
+									</div>
+								</div>
+								<div class="tr-blank"></div>
+							</div>
 						</div>
-					</td>
-				</tr>
+					</div>
+				</div>
 				
-			</table>
+			</div>
 		</div>
 		<div class="reg-baseinfo02">
 			<span class="title">主体信息登记</span>
-			<table class="info-table02">
-				<tr>
-					<td class="tr-title">运营者身份证姓名：</td>
-					<td class="tr-content" colspan="2">
+			<div class="info-table02">
+				<div class="info-table02-tr">
+					<div class="tr-title">运营者身份证姓名：</div>
+					<div class="tr-content">
 						<input id="name" class="text-input long-input" type="text" placeholder="请填写运营者的姓名，如果名字包含分隔号“•”,请勿忽略" />
-					</td>
-				</tr>
-				<tr>
-					<td class="tr-title">运营者身份证号码：</td>
-					<td class="tr-content" colspan="2">
+					</div>
+				</div>
+				<div class="info-table02-tr">
+					<div class="tr-title">运营者身份证号码：</div>
+					<div class="tr-content">
 						<input id="id_card" class="text-input long-input" type="text" placeholder="请填写运营者的身份证号码" />
-					</td>
-				</tr>
-				<tr>
-					<td class="tr-title">身份证正面扫描件：</td>
-					<td class="tr-content content" id="credit_front_wrapper">
+					</div>
+				</div>
+				<div class="info-table02-tr">
+					<div class="tr-title">身份证正面扫描件：</div>
+					<div class="tr-content content" id="credit_front_wrapper">
 						<input type="file" id="credit_front_file" />
-					</td>
-					<td class="tr-tips">
+					</div>
+					<div class="tr-tips">
 						<span class="example">
 							<span class="example-text">示例</span>
 							<img src="/images/register-b/id_card01.png">
 						</span>
-					</td>
-				</tr>
-				<tr>
-					<td class="tr-title">身份证反面扫描件：</td>
-					<td class="tr-content content" id="credit_back_wrapper">
+					</div>
+				</div>
+				<div class="info-table02-tr">
+					<div class="tr-title">身份证反面扫描件：</div>
+					<div class="tr-content content" id="credit_back_wrapper">
 						<input type="file" id="credit_back_file" />
-					</td>
-					<td class="tr-tips">
+					</div>
+					<div class="tr-tips">
 						<span class="example">
 							<span class="example-text">示例</span>
 							<img src="/images/register-b/id_card02.png">
 						</span>
-					</td>
-				</tr>
-				<tr>
-					<td class="tr-title">运营者手机号码：</td>
-					<td class="tr-content content">
+					</div>
+				</div>
+				<div class="info-table02-tr">
+					<div class="tr-title">运营者手机号码：</div>
+					<div class="tr-content content">
 						<input id="phone" class="text-input short-input" type="text" placeholder="请输入您的手机号码" />
-					</td>
-					<td class="tr-tips">
+					</div>
+					<div class="tr-tips">
 						<a class="get-code-btn reg-info-get-code" href="javascript:">获取验证码</a>
-					</td>
-				</tr>
-				<tr>
-					<td class="tr-title">短信验证码：</td>
-					<td class="tr-content content">
+					</div>
+				</div>
+				<div class="info-table02-tr">
+					<div class="tr-title">短信验证码：</div>
+					<div class="tr-content content">
 						<input id="validate_codes" class="text-input short-input" type="text" placeholder="请输入手机短信收到的6位验证码" />
-					</td>
-					<td class="tr-tips">
+					</div>
+					<div class="tr-tips">
 						<a class="get-code-btn question-link" href="javascript:">无法收验证码？</a>
-					</td>
-				</tr>
-			</table>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="reg-info-tips"></div>
 		<div class="submit-btn reg-info-btn">

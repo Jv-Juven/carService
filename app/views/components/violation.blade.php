@@ -126,6 +126,7 @@
 				<span class="date"><%- array[i]["wfsj"] %></span>
 			</td>
 			<td>
+				<span><%- array[i]["rep_event_city"] %></span>
 				<span class="block"><%- array[i]["wfdz"] %></span>
 			</td>
 			<td>

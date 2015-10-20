@@ -98,6 +98,7 @@
 						<th>违章时间</th>
 						<th>违章地点</th>
 						<th>违章行为</th>
+						<th>违章序号</th>
 						<th>细项/元</th>
 						<th>总额/元</th>
 						<th>处理状态</th>
@@ -278,10 +279,14 @@
 					<span><%- info[j]["rep_event_time"] %></span>
 				</td>
 				<td>
+					<span><%- info[j]["rep_event_city"] %></span>
 					<span><%- info[j]["rep_event_addr"] %></span>
 				</td>
 				<td class="vio-behaviour">
 					<%- info[j]["rep_violation_behavior"] %>
+				</td>
+				<td class="vio-sequence-number">
+					<%- info[j]["rep_sequence_num"] %>
 				</td>
 				<td class="money">
 					<span>本金：<%- info[j]["rep_priciple_balance"] %></span>
