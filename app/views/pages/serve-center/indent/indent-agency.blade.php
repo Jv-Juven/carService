@@ -25,10 +25,13 @@
 					<!-- 按订单编号查询 START -->
 					<div class="input-table-tr indent-number">
 						<div class="indent-table-title">订单编号：</div>
-						<div class="indent-table-content">
+						<div class="indent-btn indent-table-content">
 							<input type="text" id="indent-number" placeholder="请输入订单的编号"/>
 							<a class="inline-btn indent-submit" href="javascript:">查询</a>
 						</div>
+					</div>
+					<div class="indent-btn indent-number">
+						<span class="indent-btn-tips">温馨提示：如果没有选择时间范围，默认查询1年以内的记录。</span>
 					</div>
 					<!-- 按订单编号查询 END -->
 
