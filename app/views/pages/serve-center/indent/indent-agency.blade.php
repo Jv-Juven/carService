@@ -155,7 +155,7 @@
 					@endforeach
 
 					<tr class="indent-tr indent-deal">
-						<td colspan="2">
+						<td colspan="3">
 							<span class="title">应付总额：</span>
 							<span class="money">￥{{{ $order->capital_sum + $order->service_charge_sum + $order->express_fee }}}元</span>
 							@if ( $order->express_fee != null )
@@ -306,7 +306,7 @@
 			</tr>
 		<% } %>
 		<tr class="indent-tr indent-deal">
-			<td colspan="2">
+			<td colspan="3">
 				<span class="title">应付总额：</span>
 				<span class="money">￥<%- total_sum %>元</span>
 				<% if (array[i]["express_fee"] !== null){ %>
