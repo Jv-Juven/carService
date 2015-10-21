@@ -49,6 +49,7 @@
             cursor: pointer;
             margin-left: 50px;
             border-radius: 5px;
+            font-size: 14px;
             background-color: @color-blue;
         }
     }
@@ -75,7 +76,6 @@
         float: left;
         margin-right: 15px;
         width: @btn-width;
-
         input{
             display: none;
         }
@@ -85,6 +85,10 @@
             line-height: @btn-height - 2 * @border-width;
             display: inline-block;
             border: solid @border-color @border-width;
+            &:hover{
+                border-color: @color-blue;
+                color: @color-blue;
+            }
         }
         input:checked + span{
             height: @btn-height;
