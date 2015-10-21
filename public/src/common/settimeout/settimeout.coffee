@@ -2,6 +2,8 @@
 # 计时器
 # ele为计时数字容器
 # count为计时数
+# callback为计时完成之后执行的参数
+# btnText为计时结束后显示的文本
 ###
 
 settimeout = (ele, count, callback, btnText)->

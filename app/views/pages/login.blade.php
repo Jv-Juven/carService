@@ -15,7 +15,7 @@
 		<!-- 页头部分 START -->
 		<div class="login-header">
 			<div class="header-content">
-				<img class="logo" src="/images/login/logo.png">
+				<img class="logo" src="/images/login/logo.png" alt=" ">
 				<div class="header-items">
 					<ul>
 						<li class="blue-text login-btn">

@@ -90,7 +90,7 @@
 						</th>
 						<th>序号</th>
 						<th>违章时间</th>
-						<th>[违章城市]违章地点</th>
+						<th class="position">[违章城市]违章地点</th>
 						<th>违章行为</th>
 						<th>违法序号</th>
 						<th>扣分分值</th>
@@ -126,7 +126,7 @@
 				<span class="date"><%- array[i]["wfsj"] %></span>
 			</td>
 			<td>
-				<span><%- array[i]["rep_event_city"] %></span>
+				<span>[<%- array[i]["wfcs"] %>]</span>
 				<span class="block"><%- array[i]["wfdz"] %></span>
 			</td>
 			<td>
