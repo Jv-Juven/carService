@@ -94,6 +94,7 @@ class SearchController extends BaseController{
 
         $rules = [
             'engineCode'        => 'required|size:6',
+            'frameCode'         => 'required|size:6',
             'licensePlate'      => 'required|size:7',
             'licenseType'       => 'required|size:2'
         ];
@@ -104,7 +105,8 @@ class SearchController extends BaseController{
         ];
 
         $attributes = [
-            'engineCode'        => '发动机号',
+            'engineCode'        => '发动机号后六位',
+            'frameCode'         => '车架号码',
             'licensePlate'      => '车牌号码',
             'licenseType'       => '车辆类型'
         ];
@@ -154,6 +156,8 @@ class SearchController extends BaseController{
                         // 未处理且违法记分为0的，则可以处理
                         if ( $value['wfjfs'] == '0' ){
 
+                            $value['wfcs'] = static::convert_xh( substr( $value['xh'], 0, 6 ) );
+
                             array_push( $result_to_keep, $value );
                         }
                     }
@@ -185,6 +189,7 @@ class SearchController extends BaseController{
                     'car_type_no'       => $params['licenseType'],
                     'car_plate_no'      => $params['licensePlate'],
                     'car_engine_no'     => $params['engineCode'],
+                    'car_frame_no'      => $params['frameCode']
                 ];
 
                 // 以此方式计算一次查询的sign
@@ -417,33 +422,34 @@ class SearchController extends BaseController{
         return Response::json([ 'errCode' => 0, 'car' => $search_result['data']['body'][0], 'account' => $account ]);
     }
 
-    public static function xh( $xh )
-    {   
-        if( strlen( $xh ) != 6 )
-            return array('errCode'=>21, 'message'=>'传6位序号');
+    public static function convert_xh( $xh ){
+
+        if ( strlen( $xh ) != 6 ){
+
+            throw new Exception("Error Processing Request", 1);
+        }
+
         //6位
         $area = IllegalCityInfoIndex::where('a_code',$xh)->first();
-        if( isset( $area ) )
-        {
-            $addr = $area->province.$area->city.$area->area;
-            return array('errCode'=>0, 'message'=>'ok','addr'=>$addr);
+        if( isset( $area ) ){
+
+            return $area->province.$area->city.$area->area;
         }
         
         //4位
         $city = IllegalCityInfoIndex::where('c_code',mb_substr($xh,0,4) )->first();
-        if( isset( $city ) )
-        {
-            $addr = $city->province.$city->city;
-            return array('errCode'=>0, 'message'=>'ok','addr'=>$addr);
+        if( isset( $city ) ){
+
+            return $city->province.$city->city;
         }
         
         //2位    
         $province = IllegalCityInfoIndex::where('p_code',mb_substr($xh,0,2) )->first();
-        if( isset( $province ) )
-        {
-            return array('errCode'=>0, 'message'=>'ok','addr'=>$province->province);
+        if( isset( $province ) ){
+
+            return $province->province;
         }
 
-        return array('errCode'=>0, 'message'=>'ok','addr'=>'');
+        return '';
     }
 }

@@ -605,7 +605,9 @@ if( Sentry::check() )
 
 									'traffic_violation_info': [						违章信息列表
 										{
+											'rep_sequence_num': 						违章序号
 											'rep_event_time': '2015-08-22 17:22:22'		违章时间
+											'rep_event_city': 							违章城市
 											'rep_event_addr': ''						违章地点
 											'rep_violation_behavior': ''				违章行为
 											'rep_priciple_balance': 123.12				本金
