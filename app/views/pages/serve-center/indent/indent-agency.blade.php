@@ -121,6 +121,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
+						<td></td>
 						<td class="last-td" rowspan="{{{ $order->agency_no + 1 }}}"><!-- 接受该项的信息条目数+1（即：总条目数是2，填3） -->
 							{{{ $order_status['process_status'][ $order->process_status ] }}}
 						</td>
