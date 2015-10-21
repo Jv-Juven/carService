@@ -256,7 +256,7 @@
 		}
 		%>
 		<tr class="indent-tr info-head">
-			<td colspan="6">
+			<td colspan="7">
 				<span class="plate"><%- array[i]["car_plate_no"] %></span>
 				下单时间：
 				<span class="date"><%- array[i]["created_at"] %></span>
@@ -265,6 +265,7 @@
 			</td>
 		</tr>
 		<tr class="indent-tr table-line">
+			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>
