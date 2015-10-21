@@ -60,8 +60,8 @@ $ ()->
 				alert msg["message"]
 				_this.on "click", submit
 			else
-				alert "邮箱注册成功"
 				window.location.href = "/user/b_active"
+				alert "邮箱注册成功"
 				_this.on "click", submit
 
 	#获取验证码

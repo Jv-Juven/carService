@@ -19,7 +19,7 @@
 				注册信息
 			</div>
 			<div class="developer-tr">
-				<div class="tr tr-title">手机号码：</div>
+				<div class="tr tr-title tr-title-c">手机号码：</div>
 													@if( Sentry::check())
 				<div class="tr tr-content" id="phone_num">{{ Sentry::getUser()->login_account}}</div>
 													@endif

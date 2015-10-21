@@ -121,6 +121,11 @@ $ ()->
 	caseIcon.on "click mouseenter", selectPic
 	caseIcon.eq(0).trigger "click"
 
+	#当用户按下回车键
+	$(document).on "keydown", (e)->
+		if e.keyCode is 13
+			loginBtn.trigger "click"
+
 
 
 
