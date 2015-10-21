@@ -217,8 +217,13 @@ $ ()->
 	loadSubmit()
 	#违章查询的“确定”按钮绑定事件
 	vioBtn.on "click", submit
+	#当用户按下回车键
+	$(document).on "keydown", (e)->
+		if e.keyCode is 13
+			vioBtn.trigger "click"
 	#“违章办理”按钮事件绑定
 	$(document).on "click", ".deal-btn a", dealVio
+
 	#点击多选按钮计算费用总计
 	$(document).on "click", ".vio-records-table01 td .checkbox", (e)->
 		_this = $(e.currentTarget)
