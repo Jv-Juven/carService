@@ -18,15 +18,15 @@
 					</div>
 				</div>
 				<div class="input-wrapper">
-					<div class="input-title">发动机号码：</div>
-					<div class="inputs">
-						<input class="input fullwidth" id="engine_num" type="text" placeholder="请输入发动机号码后六位"/>
-					</div>
-				</div>
-				<div class="input-wrapper">
 					<div class="input-title">车架号：</div>
 					<div class="inputs">
 						<input class="input fullwidth" id="frame_num" type="text" placeholder="请输入车架号后六位"/>
+					</div>
+				</div>
+				<div class="input-wrapper">
+					<div class="input-title">发动机号码：</div>
+					<div class="inputs">
+						<input class="input fullwidth" id="engine_num" type="text" placeholder="请输入发动机号码后六位"/>
 					</div>
 				</div>
 				<div class="tips-words vio-warn-tips"></div>
