@@ -44,3 +44,7 @@ submit = ()->
 
 $ ()->
 	driveBtn.on "click", submit
+	#当用户按下回车键
+	$(document).on "keydown", (e)->
+		if e.keyCode is 13
+			driveBtn.trigger "click"
