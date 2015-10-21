@@ -151,12 +151,13 @@ class SearchController extends BaseController{
                     // 只显示未交款或未处理的的违章信息
                     if ( !( $value['clbj'] == '1' && $value['jkbj'] == '1' ) ){
 
+                        // 根据序号前六位查找违章城市
+                        $value['wfcs'] = static::convert_xh( substr( $value['xh'], 0, 6 ) );
+
                         array_push( $result_to_show, $value );
 
                         // 未处理且违法记分为0的，则可以处理
                         if ( $value['wfjfs'] == '0' ){
-
-                            $value['wfcs'] = static::convert_xh( substr( $value['xh'], 0, 6 ) );
 
                             array_push( $result_to_keep, $value );
                         }
