@@ -208,14 +208,14 @@ class SearchController extends BaseController{
                 // 判断是否存在该次查询的数据
                 if ( array_key_exists( $sign, $violations ) ){
 
-                        // 判断状态码
+                    // 判断状态码
                     if ( $violations[ $sign ][ 'info' ][ 'status' ] == AgencyController::$AGENCY_STATUS_CONFIRMED ){
                         return Response::json([ 'errCode' => 3, 'message' => '您已确认办理该车辆违章信息，请到提交订单页面确认或取消后再查询', 'sign' => $sign ]);
                     }
 
                     $service_fee = array_get( $violations, $sign.'.info.service_fee' );
                          
-                        // 过滤已经存在的违章信息
+                    // 过滤已经存在的违章信息
                     $violations[ $sign ][ 'results' ] = array_replace (  $violations[ $sign ][ 'results' ], $result_to_keep );
                 }
                 // 不存在直接存储到Session
