@@ -58,7 +58,7 @@
 			<!-- <span class="warn-tips">请勾选《平台协议》</span> -->
 		</div>
 		<div class="submin-btn">
-			<a class="btn" href="javascirpt:">
+			<a class="btn" href="javascript:">
 				<!-- <div class="btn">
 					<span>注册</span>
 				</div> -->
