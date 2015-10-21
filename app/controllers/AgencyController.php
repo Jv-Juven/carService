@@ -177,7 +177,7 @@ class AgencyController extends BaseController{
                 $violation_info->rep_event_time         = $violation_result['wfsj'];   //违法时间
                 $violation_info->rep_event_city         = $violation_result['wfcs'];   //违法城市
                 $violation_info->rep_event_addr         = $violation_result['wfdz'];   //违法地址
-                $violation_info->rep_violation_behavior = $violation_result['wfxwzt']; //违法行为
+                $violation_info->rep_violation_behavior = $violation_result['wfxwzt'] . '[' . $violation_result['wfxw'] . ']'; //违法行为
                 $violation_info->rep_point_no           = $violation_result['wfjfs'];  //违法记分数
                 $violation_info->rep_priciple_balance   = $violation_result['fkje'];   //罚款金额
                 $violation_info->rep_service_charge     = $violation['info']['service_fee'];
