@@ -18,6 +18,27 @@
 		float: left;
 	}
 
+
+
+	.indent-btn{
+		@btn-height: 40px;
+		width: @width;
+		height: @btn-height;
+		margin: 10px auto;
+		.inline-btn{
+			
+		}
+		.indent-btn-tips{
+			display: inline-block;
+			width: auto;
+			float: left;
+			padding-left: 20px;
+			height: @btn-height;
+			line-height: @btn-height;
+			color: rgb(150, 150, 150);
+		}
+	}
+
 	// 输入框集合 tab   START
 	.inputs-container{
 		@line-height: 40px;
@@ -101,6 +122,9 @@
 					margin-top: 2px;
 				}
 			}
+			.indent-btn-tips{
+				padding-left: 0px;
+			}
 		}
 		.inputs-container-tabs02{
 			display: none;
@@ -116,24 +140,6 @@
 	}
 	// 输入框集合 tab   END
 
-	.indent-btn{
-		@btn-height: 40px;
-		width: @width;
-		height: @btn-height;
-		margin: 10px auto;
-		.inline-btn{
-			
-		}
-		.indent-btn-tips{
-			display: inline-block;
-			width: auto;
-			float: left;
-			padding-left: 20px;
-			height: @btn-height;
-			line-height: @btn-height;
-			color: rgb(150, 150, 150);
-		}
-	}
 	.indent-no-resulte{
 		width: 100%;
 		height: 80px;
