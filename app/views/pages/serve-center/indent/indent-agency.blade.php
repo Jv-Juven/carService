@@ -107,7 +107,7 @@
 					@foreach( $paginator->getCollection() as $order )
 					<!-- 单位车辆信息表 未受理 START -->
 					<tr class="indent-tr info-head">
-						<td colspan="6">
+						<td colspan="7">
 							<span class="plate">{{{ $order->car_plate_no }}}</span>
 							下单时间：
 							<span class="date">{{{ $order->created_at }}}</span>
